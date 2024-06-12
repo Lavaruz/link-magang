@@ -1,0 +1,311 @@
+<%- include('./layouts/header'); -%>
+
+<main class="bg-body shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] lg:w-[620px] h-screen max-h-screen m-auto overflow-y-scroll relative">
+    <p class="font-second font-bold text-2xl text-center text-second py-6 m-auto shadow-md">LINK MAGANG</p>
+    
+    <hr>
+    
+    <!-- LINK DONASI, WARNING, TOTAL USER, TOTAL POST -->
+    <div class="px-4 lg:px-10 pt-10">
+        <div class="col-span-1 p-4 bg-white shadow-md gap-4 rounded-lg flex items-center justify-center">
+            <img width="60px" src="/img/qr.png" alt="">
+            <p>atau</p>
+            <a href="https://saweria.co/linkmagang" target="_blank" class="flex items-center gap-2 bg-second text-white text-sm font-bold px-4 py-1.5 rounded-lg">Link Donasi <span class="material-symbols-outlined">
+                payments
+                </span></a>
+        </div>
+        <p class="text-sm text-red-500 mt-4 font-semibold">NB: Website ini tidak menarik biaya sama sekali, kalian bisa berbaik hati dengan cara melakukan donasi, agar website ini tetap hidup dan semangat upload.</p>
+        <div class="grid grid-cols-2 gap-4 mt-4">
+            <div class="p-4 bg-white shadow-md rounded-lg">
+                <p class="text-lg font-bold text-second">User Mendaftar</p>
+                <p id="user-count" class="text-lg font-bold">0</p>
+            </div>
+            <div class="p-4 bg-white shadow-md rounded-lg">
+                <p class="text-lg font-bold text-second">Jumlah Postingan</p>
+                <p id="post-count" class="text-lg font-bold">0</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- MAIN CONTENT, CARDS, SEARCHBAR -->
+    <div class="px-4 lg:px-10 pt-14 pb-20">
+
+        <!-- SAERCH BAR -->
+        <div class="flex gap-4 items-center items-center">
+            <div class="relative w-full">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+                <input type="search" id="search-bar" class="disabled:opacity-70 block w-full py-2.5 px-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-gray-200 focus:border-gray-200" placeholder="Cari Pekerjaan, Nama Perusahaan..." required />
+            </div>
+            <button type="button" id="button-setting" class="disabled:opacity-70 text-second rounded-lg">
+                <span class="material-symbols-outlined">
+                    settings
+                </span>
+            </button>
+        </div>
+
+        <!-- CARDS -->
+        <div id="cards" class="grid gap-4 mt-4">
+            
+        </div>
+
+        <!-- BUTTON APABILA USER BELUM LOGIN HANYA MENAMPILKAN X JPOSTINGAN -->
+        <div id="login" class="flex items-center justify-center w-full flex-col mt-8">
+            <p class="text-sm font-semibold">Login untuk melihat lebih banyak posting</p>
+            <button class="text-sm font-bold text-white bg-second px-10 py-2.5 rounded-lg mt-2">Login</button>
+        </div>
+    </div>
+
+    <!-- BUTTON FOOTER BAWAH, HOME, USER LOGIN -->
+    <div class="lg:sticky fixed bottom-0 flex justify-around divide-x divide-second/60 left-0 right-0 bg-body rounded-t-2xl shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] py-4 lg:py-3">
+        <a href="/" class="material-symbols-outlined text-[30px] cursor-pointer text-black/60 w-full text-center">
+            home
+        </a>
+        <a href="/create" class="material-symbols-outlined text-[30px] cursor-pointer text-black/60 w-full text-center">
+            add_circle
+        </a>
+        <button id="button-login" class="material-symbols-outlined text-[30px] cursor-pointer text-black/60 w-full text-center">
+            person
+        </button>
+    </div> 
+
+    <!-- LAYER APABILA LOGIN DIPENCET -->
+    <div id="layer-login" class="hidden sticky h-screen bottom-0 right-0 left-0 top-0 bg-black/50">
+        <div id="layer-login-panel" class="hidden w-full text-center flex flex-col items-center bg-white absolute bottom-0 py-8 px-6 lg:px-[15%] rounded-t-2xl">
+            <p class="text-lg font-bold mb-2">Bergabung dengan Link Magang</p>
+            <p class="text-sm text-black/70 text-center">Dengan bergabung kamu dapat melihat lebih banyak post yang telah dipajang setiap harinya</p>
+            <a href="/api/google" class="hover:bg-gray-200 hover:shadow-sm duration-300 my-4 flex gap-4 items-center py-2.5 w-full rounded-full border border-gray-200 justify-center"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="23" height="23" viewBox="0 0 48 48">
+                <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                </svg> Login dengan Google</a>
+            <p class="text-xs mt-2">Dengan melanjutkan, anda menyetujui <a href="" class="text-second">Terms and Conditions</a> kami</p>
+        </div>
+    </div>
+
+    <!-- LAYER APABILA TOMBOL SETTING DIPENCET -->
+    <div id="layer-setting" class="hidden sticky h-screen bottom-0 right-0 left-0 top-0 bg-black/50">
+        <div id="layer-setting-panel" class="hidden w-full text-center flex flex-col bg-white absolute bottom-0 py-8 px-6 lg:px-[15%] rounded-t-2xl">
+            <p class="text-lg font-bold mb-1">Filter Postingan</p>
+            <p class="text-sm text-black/70 text-center">Filter postingan yang ditampilkan berdasarkan:</p>
+            <div class="mt-6">
+                <div class="">
+                    <p class="mt-4 font-bold text-sm text-left">Waktu di posting:</p>
+                    <div class="flex items-center gap-4 mt-2">
+                        <div class="flex items-center gap-1">
+                            <input type="radio" name="post_date" id="DESC" checked>
+                            <label for="DESC" class="text-sm">Postingan Terbaru</label>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <input type="radio" name="post_date" id="ASC">
+                            <label for="ASC" class="text-sm">Postingan Terlama</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-10">
+                    <p class="mt-4 font-bold text-sm text-left">Platform:</p>
+                    <div class="grid grid-cols-3 items-center gap-4 mt-2">
+                        <div class="flex items-center gap-1">
+                            <input type="checkbox" name="platform" value="glints" id="glints" checked>
+                            <label for="glints" class="text-sm">Glints</label>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <input type="checkbox" name="platform" value="indeed" id="indeed" checked>
+                            <label for="indeed" class="text-sm">Indeed</label>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <input type="checkbox" name="platform" value="jobstreet" id="jobstreer" checked>
+                            <label for="jobstreer" class="text-sm">Jobstreet</label>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <input type="checkbox" name="platform" value="kalibrr" id="kalibrr" checked>
+                            <label for="kalibrr" class="text-sm">Kalibrr</label>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <input type="checkbox" name="platform" value="linkedin" id="linkedin" checked>
+                            <label for="linkedin" class="text-sm">Linkedin</label>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <input type="checkbox" name="platform" value="other" id="other" checked>
+                            <label for="other" class="text-sm">Other</label>
+                        </div>
+                    </div>
+                </div>
+                <button id="button-apply-filter" class="py-2 px-8 rounded-lg bg-second text-white font-bold text-sm mt-14">Terapkan Filter</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<%- include('./layouts/footer'); -%>
+
+<script>
+
+    $("#button-login, #login").click(function(){
+        $("main").toggleClass("overflow-y-scroll overflow-hidden")
+        $("#layer-login").toggle()
+        $("#layer-login-panel").slideToggle()
+    })
+    $("#button-setting").click(function(){
+        $("main").toggleClass("overflow-y-scroll overflow-hidden")
+        $("#layer-setting").toggle()
+        $("#layer-setting-panel").slideToggle()
+    })
+
+    $("#layer-login").click(function(event){
+        if($(event.target).is("#layer-login")){
+            $("main").toggleClass("overflow-y-scroll overflow-hidden")
+            $("#layer-login-panel").toggle()
+            $("#layer-login").toggle()
+        }
+    })
+    $("#layer-setting").click(function(event){
+        if($(event.target).is("#layer-setting")){
+            $("main").toggleClass("overflow-y-scroll overflow-hidden")
+            $("#layer-setting-panel").toggle()
+            $("#layer-setting").toggle()
+        }
+    })
+
+    // GET TOTAL POSTS IN DATABASES
+    $.get("/api/v1/posts/count", postsCount => $("#post-count").text(postsCount))
+    // GET TOTAL USERS IN DATABASES
+    $.get("/api/v1/users/total-user", userCount => $("#user-count").text(userCount))
+    // CHECK IS USER LOGIN OR NOT?
+    $.get("/api/v1/users/verify-token", function(isVerified){
+        if(isVerified){
+            GetPosts()
+            $("#login").remove()
+
+            const decoded = JSON.parse(atob(isVerified.accessToken.split('.')[1]));
+        }
+    }).fail(function(xhr, status, error) {
+        $("#search-bar, #search-button").prop("disabled", true).prop('title', 'Login dibutuhkan untuk menggunakan fitur ini');
+        $.get("/api/v1/posts/three", postsData => {
+            if (postsData.length !== 0){
+                postsData.forEach(post => {
+                    GetCard(post)
+                });
+            }
+        })
+    });
+
+
+    $("#search-bar").change(function(){
+        let keyword = $(this).val()
+        $("#cards").html("")
+        
+        GetPosts(keyword)
+    })
+
+    $("#button-apply-filter").click(function(){
+        let FILTER_PLATFORM = []
+        let FILTER_POST_DATE = $("input[name=post_date]:checked").prop("id")
+        $("input[type=checkbox]:checked").each(function(_, item){
+            FILTER_PLATFORM.push($(this).val())
+        })
+
+        $("main").toggleClass("overflow-y-scroll overflow-hidden")
+        $("#layer-setting-panel").toggle()
+        $("#layer-setting").toggle()
+
+        $("#cards").html("")
+        GetPosts("", FILTER_POST_DATE, FILTER_PLATFORM)
+    })
+
+    function GetPosts(keyword="", post_date_order="DESC", platform=""){
+        const url = `/api/v1/posts?search=${keyword}&post_date=${post_date_order}&platform=${platform}`
+        $.get(url, function(postsData){
+            if (postsData.datas.length !== 0){
+                postsData.datas.forEach(post => {
+                    GetCard(post)
+                });
+            }else{
+                $("#cards").append(`
+                    <div class="mt-4 flex flex-col justify-center items-center">
+                        <p class="text-xl font-bold text-center">Tidak ada postingan ditemukan</p>
+                        <p class="text-black/60 text-center text-sm mt-1">postingan yang kamu cari tidak di temukan di database :( Coba cari menggunakan keyword lain</p>
+                        <img src="/img/NotFound.webp" width="50%" alt="">
+                    </div>
+                `)
+            }
+        })
+    }
+
+    function GetCard(post){
+        let logo;
+        switch (post.platform) {
+            case "Linkedin":
+                logo = "/img/Linkedin.png"
+                break;
+            case "Kalibrr":
+                logo = "/img/Kalibrr.png"
+                break;
+            case "Jobstreet":
+                logo = "/img/Jobstreet.png"
+                break;
+            case "Indeed":
+                logo = "/img/Indeed.png"
+                break;
+            case "Glints":
+                logo = "/img/Glints.png"
+                break;
+            default:
+                logo = "/img/Other.png"
+                break;
+        }
+        $("#cards").append(`
+            <a href="${post.link}" target="_blank" class="card cursor-pointer hover:-translate-y-1 duration-300 rounded-2xl shadow-lg overflow-hidden">
+                <div class="p-4 bg-white">
+                    <p class="font-bold text-second text-sm">${timeAgo(post.post_date)}</p>
+                    <b class="text-lg font-bold mt-3">${post.title}</b>
+                    <div class="flex gap-2 mb-2.5 text-sm items-center">
+                        <p>${post.company}</p>
+                        <p>•</p>
+                        <p>${post.location}</p>
+                        <p>•</p>
+                        <p>${post.tags}</p>
+                    </div>
+                    <div class="text-sm flex gap-2 items-center mt-2">
+                        <div class="flex -space-x-2 rtl:space-x-reverse">
+                            <img class="w-6 h-6 border border-white rounded-full dark:border-gray-800 object-cover bg-center" src="${logo}" alt="">
+                        </div>
+                        <p class="text-black/60">Post ditemukan di <span class="font-semibold text-black/70">${post.platform}</span></p>
+                    </div>
+                </div>
+            </a>
+        `)
+    }
+
+    function timeAgo(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        
+        // Menghilangkan perbedaan waktu agar hanya tanggal yang dibandingkan
+        date.setHours(0, 0, 0, 0);
+        now.setHours(0, 0, 0, 0);
+
+        const diffInMilliseconds = now - date;
+        const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+
+        if (diffInDays === 0) {
+            return "Postingan hari ini";
+        } else if (diffInDays === 1) {
+            return "Postingan 1 hari lalu";
+        } else if (diffInDays < 7) {
+            return `Postingan ${diffInDays} hari lalu`;
+        } else if (diffInDays < 30) {
+            const weeks = Math.floor(diffInDays / 7);
+            return `Postingan ${weeks} minggu lalu`;
+        } else if (diffInDays < 365) {
+            const months = Math.floor(diffInDays / 30);
+            return `Postingan ${months} bulan lalu`;
+        } else {
+            const years = Math.floor(diffInDays / 365);
+            return `Postingan ${years} tahun lalu`;
+        }
+    }
+</script>

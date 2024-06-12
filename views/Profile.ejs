@@ -1,0 +1,82 @@
+<%- include('./layouts/header'); -%>
+
+<main class="bg-body lg:w-[720px] h-screen max-h-screen m-auto overflow-y-scroll relative shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]">
+
+    <div class="px-4 lg:px-10 mb-20 mt-16">
+        <div class="px-[7.5%] lg:px-[15%] flex flex-col items-center justify-center">
+            <img class="w-28 h-28 rounded-full border-2 border-second" src="/img/favicon.png" alt="Rounded avatar">
+            <b class="mt-2">@lavaruz</b>
+            <p class="text-lg mt-1">Assami Muzaki</p>
+            <p class="text-center text-sm mt-2.5 text-black/60">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda tempora minus laborum libero quibusdam voluptates obcaecati doloribus voluptate iste incidunt?</p>
+            <div class="mt-4">
+                <button type="button" class="duration-300 text-second hover:text-white border border-second hover:bg-second focus:ring-4 focus:outline-none focus:ring-second font-medium rounded-full text-sm px-5 py-1.5 text-center me-2 mb-2">Update Profile</button>
+            </div>
+        </div>
+
+        
+
+        <div class="mt-8 text-sm font-medium text-center border-b border-grey-500 text-gray-500">
+            <ul class="flex flex-wrap justify-around">
+                <li class="me-2">
+                    <a href="#" class="duration-300 inline-block p-4 text-second border-b-2 border-second rounded-t-lg active dark:text-second dark:border-second" aria-current="page">Kegiatan</a>
+                </li>
+                <!-- <li class="me-2">
+                    <a href="#" class="duration-300 inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Profile</a>
+                </li> -->
+            </ul>
+        </div>
+
+        <div class="mt-8 min-h-[200px]">
+            <!-- <p class="text-sm text-center mt-20">Anda belum mengikuti kegiatan apapun</p> -->
+            <div class="grid lg:grid-cols-3 gap-4">
+                <div class="">
+                    <div role="status" class="flex items-center justify-center aspect-video w-full bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700">
+                        <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                            <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
+                            <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM9 13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2Zm4 .382a1 1 0 0 1-1.447.894L10 13v-2l1.553-1.276a1 1 0 0 1 1.447.894v2.764Z"/>
+                        </svg>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <b class="text-sm">Tailwind CSS Toast - Flowbite</b>
+                    <p class="text-xs text-black/80">Sun, 14 Mei 2024</p>
+                </div>
+                <div class="">
+                    <div role="status" class="flex items-center justify-center aspect-video w-full bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700">
+                        <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                            <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
+                            <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM9 13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2Zm4 .382a1 1 0 0 1-1.447.894L10 13v-2l1.553-1.276a1 1 0 0 1 1.447.894v2.764Z"/>
+                        </svg>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <b class="text-sm">Tailwind CSS Toast - Flowbite</b>
+                    <p class="text-xs text-black/80">Sun, 14 Mei 2024</p>
+                </div>
+                <div class="">
+                    <div role="status" class="flex items-center justify-center aspect-video w-full bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700">
+                        <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                            <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
+                            <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM9 13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2Zm4 .382a1 1 0 0 1-1.447.894L10 13v-2l1.553-1.276a1 1 0 0 1 1.447.894v2.764Z"/>
+                        </svg>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <b class="text-sm">Tailwind CSS Toast - Flowbite</b>
+                    <p class="text-xs text-black/80">Sun, 14 Mei 2024</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="lg:sticky fixed bottom-0 flex justify-around divide-x divide-second/60 left-0 right-0 bg-body rounded-t-2xl shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] py-4 lg:py-3">
+        <a href="/" class="material-symbols-outlined text-[30px] cursor-pointer text-black/60 w-full text-center">
+            home
+        </a>
+        <a href="/create" class="material-symbols-outlined text-[30px] cursor-pointer text-black/60 w-full text-center">
+            add_circle
+        </a>
+        <a href="/profile" class="material-symbols-outlined text-[30px] cursor-pointer text-black/60 w-full text-center">
+            person
+        </a>
+    </div>
+</main>

@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+main::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+main::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+main::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
