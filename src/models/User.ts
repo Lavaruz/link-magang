@@ -4,6 +4,7 @@ import { sequelize } from "."; // Pastikan Anda mengganti path sesuai dengan str
 class User extends Model {
   declare id: CreationOptional<number>;
   declare email: string;
+  declare role: number;
 
   // createdAt can be undefined during creation
   declare createdAt: CreationOptional<Date>;
@@ -29,8 +30,7 @@ User.init(
       unique: true
     },
     role: {
-      type: DataTypes.NUMBER,
-      allowNull: false,
+      type: DataTypes.INTEGER,
       defaultValue: USER_ROLE
     },
   },
