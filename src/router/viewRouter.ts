@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/", (req: Request, res: Response, next) => {
   try {
-    return res.render("Home")
+    return res.render("Home", {AES_KEYS: process.env.AES_KEYS})
   } catch (error) {
     return res.send(error);
   }
@@ -18,6 +18,22 @@ router.get("/", (req: Request, res: Response, next) => {
 router.get("/create", (req: Request, res: Response, next) => {
   try {
     return res.render("Create")
+  } catch (error) {
+    return res.send(error);
+  }
+});
+
+router.get("/privacy-policy", (req: Request, res: Response, next) => {
+  try {
+    return res.render("PrivacyPolicy")
+  } catch (error) {
+    return res.send(error);
+  }
+});
+
+router.get("/terms-of-service", (req: Request, res: Response, next) => {
+  try {
+    return res.render("TermAndService")
   } catch (error) {
     return res.send(error);
   }

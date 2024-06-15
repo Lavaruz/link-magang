@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 let sequelize
-if(process.env.ENV_TYPE == 'production'){
+if(process.env.NODE_ENV == 'production'){
   console.log("DB run on host");
   
   sequelize = new Sequelize({

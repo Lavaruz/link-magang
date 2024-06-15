@@ -5,6 +5,8 @@ class User extends Model {
   declare id: CreationOptional<number>;
   declare email: string;
   declare role: number;
+  declare profile_picture: string;
+  declare name: string;
 
   // createdAt can be undefined during creation
   declare createdAt: CreationOptional<Date>;
@@ -12,8 +14,8 @@ class User extends Model {
   declare updatedAt: CreationOptional<Date>;
 }
 
-const USER_ROLE = 1
-const ADMIN_ROLE = 2
+const ADMIN_ROLE = 1
+const USER_ROLE = 2
 
 User.init(
   {
@@ -27,12 +29,17 @@ User.init(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
     },
     role: {
       type: DataTypes.INTEGER,
       defaultValue: USER_ROLE
     },
+    profile_picture: {
+      type: DataTypes.TEXT,
+    },
+    name:{
+      type: DataTypes.STRING
+    }
   },
   {
     sequelize, // Instance Sequelize yang digunakan

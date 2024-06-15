@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Post from "../models/Post";
-import { Op } from "sequelize";
+import { encrypt, decrypt } from "../config/crypto";
 
 
 export const getAllPost = async (req: Request, res: Response) => {
@@ -26,7 +26,11 @@ export const getAllPost = async (req: Request, res: Response) => {
 
       let filtered_data = POST.filter(post => {
         let post_json = post.toJSON()
-        const matchesSearch = post_json.title.toLowerCase().includes(search.toString().toLowerCase()) || post_json.company.toLowerCase().includes(search.toString().toLowerCase()) || post_json.location.toLowerCase().includes(search.toString().toLowerCase());
+        const matchesSearch = 
+            post_json.title.toLowerCase().includes(search.toString().toLowerCase()) 
+            || post_json.company.toLowerCase().includes(search.toString().toLowerCase()) 
+            || post_json.location.toLowerCase().includes(search.toString().toLowerCase())
+            || post_json.tags.toLowerCase().includes(search.toString().toLowerCase())
         const matchesPlatform = platform.length !== 0 ? platform.includes(post.platform.toString().toLowerCase()) : true
         
         return matchesSearch && matchesPlatform
@@ -35,26 +39,14 @@ export const getAllPost = async (req: Request, res: Response) => {
       const total_entries = filtered_data.length;
       const total_pages = Math.ceil(total_entries / +db_limit);
 
-      return res.status(200).json({
+      let encryptedData = encrypt({
         limit: db_limit,
         page: db_page,
         total_page: total_pages,
         datas: filtered_data
-      })
-    } catch (error) {
-      return res.status(500).json({ error: error.message });
-    }
-};
+      }, process.env.AES_KEYS)
 
-export const getThreePost = async (req: Request, res: Response) => {
-    try {
-      const POST = await Post.findAll({
-        attributes:{exclude:["createdAt", "updatedAt"]},
-        limit: 3,
-        order: [["post_date", "DESC"]],
-      })
-
-      return res.status(200).json(POST)
+      return res.status(200).json(encryptedData)
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
@@ -69,13 +61,39 @@ export const getAllPostCount = async (req: Request, res: Response) => {
     }
 };
 
+export const getPostCount = async (req: Request, res: Response) => {
+  const platform = req.query.platform 
+  try {
+    const POST = await Post.count({
+      where: {
+        platform: platform
+      }
+    })
+    return res.status(200).json(POST)
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 export const addPost = async (req: Request, res: Response) => {
   const postData = req.body; // Data pembaruan pengguna dari permintaan PUT  
 
   try {
-    await Post.create(postData)    
-    return res.sendStatus(201)
+
+    let POST = await Post.findOne({
+      where: {
+        link: postData.link
+      }
+    })
+
+    if(POST){
+      return res.status(400).json({message: "Post already exist"})
+    }else{
+      await Post.create(postData)    
+      return res.sendStatus(201)
+    }
   } catch (error) {
+    console.error(error)
     return res.status(500).json({ error: error.message });
   }
 };
@@ -93,6 +111,7 @@ export const updatePosts = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Pengguna tidak ditemukan" });
     }
   } catch (error) {
+    console.error(error)
     return res.status(500).json({ error: error.message });
   }
 };
@@ -109,6 +128,7 @@ export const DeletePost = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Pengguna tidak ditemukan" });
     }
   } catch (error) {
+    console.error(error)
     return res.status(500).json({ error: error.message });
   }
 };

@@ -31,7 +31,7 @@ Post.init(
       allowNull: false
     },
     link: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     company: {

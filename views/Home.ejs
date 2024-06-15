@@ -1,31 +1,54 @@
 <%- include('./layouts/header'); -%>
 
-<main class="bg-body shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] lg:w-[620px] h-screen max-h-screen m-auto overflow-y-scroll relative">
-    <p class="font-second font-bold text-2xl text-center text-second py-6 m-auto shadow-md">LINK MAGANG</p>
+<main class="bg-body shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] lg:w-[1000px] h-screen max-h-screen m-auto overflow-y-scroll relative">
+    <div class="flex justify-center items-center px-10 py-6 shadow-lg sticky top-0 bg-body z-50">
+        <p class="font-second font-bold text-2xl text-second cursor-pointer tracking-wide">- INTERNSHIT -</p>
+    </div>
     
     <hr>
     
     <!-- LINK DONASI, WARNING, TOTAL USER, TOTAL POST -->
     <div class="px-4 lg:px-10 pt-10">
-        <div class="col-span-1 p-4 bg-white shadow-md gap-4 rounded-lg flex items-center justify-center">
-            <img width="60px" src="/img/qr.png" alt="">
-            <p>atau</p>
-            <a href="https://saweria.co/linkmagang" target="_blank" class="flex items-center gap-2 bg-second text-white text-sm font-bold px-4 py-1.5 rounded-lg">Link Donasi <span class="material-symbols-outlined">
-                payments
-                </span></a>
-        </div>
-        <p class="text-sm text-red-500 mt-4 font-semibold">NB: Website ini tidak menarik biaya sama sekali, kalian bisa berbaik hati dengan cara melakukan donasi, agar website ini tetap hidup dan semangat upload.</p>
-        <div class="grid grid-cols-2 gap-4 mt-4">
-            <div class="p-4 bg-white shadow-md rounded-lg">
-                <p class="text-lg font-bold text-second">User Mendaftar</p>
-                <p id="user-count" class="text-lg font-bold">0</p>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+            <div id="user-count-body" class="hidden p-4 bg-white shadow-md rounded-lg">
+                <p class="font-bold text-second text-sm lg:text-base">User Mendaftar</p>
+                <p id="user-count" class="text-lg font-bold text-second">0</p>
             </div>
             <div class="p-4 bg-white shadow-md rounded-lg">
-                <p class="text-lg font-bold text-second">Jumlah Postingan</p>
-                <p id="post-count" class="text-lg font-bold">0</p>
+                <p class="font-bold text-second flex items-center gap-2 text-sm lg:text-base"><img width="25px" src="/img/Logo.png" alt=""> Loker dipost</p>
+                <p id="post-count" class="text-lg font-bold text-second">0</p>
+            </div>
+            <div class="p-4 bg-white shadow-md rounded-lg">
+                <p class="font-bold text-second flex gap-2 items-center text-sm lg:text-base"><img width="25px" src="/img/Kalibrr.png" alt=""> Post Kalibrr</p>
+                <p id="post-kalibrr-count" class="text-lg font-bold text-second">0</p>
+            </div>
+            <div class="p-4 bg-white shadow-md rounded-lg">
+                <p class="font-bold text-second flex gap-2 items-center text-sm lg:text-base"><img width="25px" src="/img/Linkedin.png" alt=""> Post Linkedin</p>
+                <p id="post-linkedin-count" class="text-lg font-bold text-second">0</p>
+            </div>
+            <div class="p-4 bg-white shadow-md rounded-lg">
+                <p class="font-bold text-second flex gap-2 items-center text-sm lg:text-base"><img width="25px" src="/img/Jobstreet.png" alt=""> Post Jobstreet</p>
+                <p id="post-jobstreet-count" class="text-lg font-bold text-second">0</p>
+            </div>
+            <div class="p-4 bg-white shadow-md rounded-lg">
+                <p class="font-bold text-second flex gap-2 items-center text-sm lg:text-base"><img width="25px" src="/img/Glints.png" alt=""> Post Glints</p>
+                <p id="post-glints-count" class="text-lg font-bold text-second">0</p>
+            </div>
+            <div class="p-4 bg-white shadow-md rounded-lg">
+                <p class="font-bold text-second flex gap-2 items-center text-sm lg:text-base"><img width="25px" src="/img/Indeed.png" alt=""> Post Indeed</p>
+                <p id="post-indeed-count" class="text-lg font-bold text-second">0</p>
+            </div>
+            <div class="p-4 bg-white shadow-md rounded-lg">
+                <p class="font-bold text-second text-sm lg:text-base">Post platform lain</p>
+                <p id="post-other-count" class="text-lg font-bold text-second">0</p>
             </div>
         </div>
-        
+
+        <div class="px-5 py-4 text-center bg-white shadow-md rounded-lg flex items-center justify-center w-[250px] mt-10 m-auto">
+            <a id="post-other-count" class="w-full"><button class="text-lg font-bold w-full py-2 bg-second text-sm rounded-2xl text-body">Link Donasi</button></a>
+        </div>
+        <p class="text-sm text-red-500 mt-4 font-semibold">Note: Website ini tidak menarik biaya sama sekali, kalian bisa melakukan donasi, agar website ini tetap hidup dan mimin semangat upload.</p>
+
     </div>
 
     <!-- MAIN CONTENT, CARDS, SEARCHBAR -->
@@ -39,7 +62,7 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <input type="search" id="search-bar" class="disabled:opacity-70 block w-full py-2.5 px-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-gray-200 focus:border-gray-200" placeholder="Cari Pekerjaan, Nama Perusahaan..." required />
+                <input type="search" id="search-bar" class="focus:outline-second block w-full py-2.5 px-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-gray-200 focus:border-gray-200" title="Login untuk menggunakan search bar" placeholder="Login dibutuhkan untuk menggunakan search bar" required />
             </div>
             <button type="button" id="button-setting" class="disabled:opacity-70 text-second rounded-lg">
                 <span class="material-symbols-outlined">
@@ -49,14 +72,16 @@
         </div>
 
         <!-- CARDS -->
-        <div id="cards" class="grid gap-4 mt-4">
+        <div id="cards" class="grid lg:grid-cols-2 gap-4 mt-4">
             
         </div>
 
         <!-- BUTTON APABILA USER BELUM LOGIN HANYA MENAMPILKAN X JPOSTINGAN -->
         <div id="login" class="flex items-center justify-center w-full flex-col mt-8">
-            <p class="text-sm font-semibold">Login untuk melihat lebih banyak posting</p>
-            <button class="text-sm font-bold text-white bg-second px-10 py-2.5 rounded-lg mt-2">Login</button>
+            <button class="text-sm font-bold text-white bg-second px-20 py-2.5 mt-8 rounded-lg mb-3 flex items-center gap-2"><span class="material-symbols-outlined">
+                login
+                </span> Login</button>
+            <p class="text-lg font-semibold">untuk melihat lebih banyak posting</p>
         </div>
     </div>
 
@@ -65,7 +90,7 @@
         <a href="/" class="material-symbols-outlined text-[30px] cursor-pointer text-black/60 w-full text-center">
             home
         </a>
-        <a href="/create" class="material-symbols-outlined text-[30px] cursor-pointer text-black/60 w-full text-center">
+        <a id="link-create-post" href="/create" class="hidden material-symbols-outlined text-[30px] cursor-pointer text-black/60 w-full text-center">
             add_circle
         </a>
         <button id="button-login" class="material-symbols-outlined text-[30px] cursor-pointer text-black/60 w-full text-center">
@@ -76,12 +101,25 @@
     <!-- LAYER APABILA LOGIN DIPENCET -->
     <div id="layer-login" class="hidden sticky h-screen bottom-0 right-0 left-0 top-0 bg-black/50">
         <div id="layer-login-panel" class="hidden w-full text-center flex flex-col items-center bg-white absolute bottom-0 py-8 px-6 lg:px-[15%] rounded-t-2xl">
-            <p class="text-lg font-bold mb-2">Bergabung dengan Link Magang</p>
-            <p class="text-sm text-black/70 text-center">Dengan bergabung kamu dapat melihat lebih banyak post yang telah dipajang setiap harinya</p>
-            <a href="/api/google" class="hover:bg-gray-200 hover:shadow-sm duration-300 my-4 flex gap-4 items-center py-2.5 w-full rounded-full border border-gray-200 justify-center"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="23" height="23" viewBox="0 0 48 48">
-                <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
-                </svg> Login dengan Google</a>
-            <p class="text-xs mt-2">Dengan melanjutkan, anda menyetujui <a href="" class="text-second">Terms and Conditions</a> kami</p>
+            <div id="no-authorized" class="">
+                <p class="text-lg font-bold mb-2">Bergabung dengan Link Magang</p>
+                <p class="text-sm text-black/70 text-center">Dengan bergabung kamu dapat melihat lebih banyak post yang telah dipajang setiap harinya</p>
+                <a href="/api/google" class="hover:bg-gray-200 hover:shadow-sm duration-300 my-4 flex gap-4 items-center py-2.5 w-full rounded-full border border-grey-200 justify-center"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="23" height="23" viewBox="0 0 48 48">
+                    <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                    </svg> Login dengan Google</a>
+                <p class="text-xs mt-2">Dengan melanjutkan, anda menyetujui <a target="_blank" href="/terms-of-service" class="text-second">Terms of Service</a> dan <a target="_blank" class="text-second" href="/privacy-policy">Privacy Policy</a> kami</p>
+            </div>
+            <div id="authorized" class="hidden">
+                <p class="text-lg font-bold mb-2">Kamu sudah bergabung dengan Link Magang</p>
+                <p class="text-sm text-black/70 text-center mb-6">Haloo! Terimakasih kamu sudah menjadi bagian dari website ini, dukungan sekecil apapun sangat berarti untukku</p>
+
+                <button id="button-logout" class="hover:bg-red-600 hover:shadow-sm bg-red-500 text-white font-medium duration-300 my-4 flex gap-4 items-center py-2.5 w-full rounded-full border border-red-500 justify-center">
+                    <span class="material-symbols-outlined">
+                        logout
+                    </span> 
+                    Keluar dari Website
+                </button>
+            </div>
         </div>
     </div>
 
@@ -133,7 +171,8 @@
                         </div>
                     </div>
                 </div>
-                <button id="button-apply-filter" class="py-2 px-8 rounded-lg bg-second text-white font-bold text-sm mt-14">Terapkan Filter</button>
+                <button disabled id="button-apply-filter" class="disabled:bg-second/50 py-2 px-8 rounded-lg bg-second text-white font-bold text-sm mt-14">Terapkan Filter</button>
+                <p id="warning-button-setting" class="text-xs text-red-500">Login dibutuhkan untuk menggunakan filter</p>
             </div>
         </div>
     </div>
@@ -149,6 +188,7 @@
         $("#layer-login").toggle()
         $("#layer-login-panel").slideToggle()
     })
+    
     $("#button-setting").click(function(){
         $("main").toggleClass("overflow-y-scroll overflow-hidden")
         $("#layer-setting").toggle()
@@ -157,41 +197,48 @@
 
     $("#layer-login").click(function(event){
         if($(event.target).is("#layer-login")){
-            $("main").toggleClass("overflow-y-scroll overflow-hidden")
-            $("#layer-login-panel").toggle()
-            $("#layer-login").toggle()
+            $("#layer-login-panel").slideToggle()
+            setTimeout(() => {
+                $("main").toggleClass("overflow-y-scroll overflow-hidden")
+                $("#layer-login").toggle()
+            }, 400)
         }
     })
+    
     $("#layer-setting").click(function(event){
         if($(event.target).is("#layer-setting")){
-            $("main").toggleClass("overflow-y-scroll overflow-hidden")
-            $("#layer-setting-panel").toggle()
-            $("#layer-setting").toggle()
+            $("#layer-setting-panel").slideToggle()
+            setTimeout(() => {
+                $("main").toggleClass("overflow-y-scroll overflow-hidden")
+                $("#layer-setting").toggle()
+            }, 400)
         }
     })
 
-    // GET TOTAL POSTS IN DATABASES
-    $.get("/api/v1/posts/count", postsCount => $("#post-count").text(postsCount))
-    // GET TOTAL USERS IN DATABASES
-    $.get("/api/v1/users/total-user", userCount => $("#user-count").text(userCount))
     // CHECK IS USER LOGIN OR NOT?
     $.get("/api/v1/users/verify-token", function(isVerified){
         if(isVerified){
-            GetPosts()
+            GetPosts("", "DESC", "", "999")
             $("#login").remove()
-
+            $("#authorized").show()
+            $("#no-authorized").hide()
+            $("#button-apply-filter").prop("disabled", false)
+            $("#warning-button-setting").hide()
+            $("#search-bar").prop("disabled", false).prop("placeholder", "Cari Pekerjaan, Nama Perusahaan, Lokasi, Atau Bidang...")
             const decoded = JSON.parse(atob(isVerified.accessToken.split('.')[1]));
+            
+            if(decoded.role == 1) {
+                $("#link-create-post").show()
+                $("#user-count-body").show()
+            }
         }
     }).fail(function(xhr, status, error) {
-        $("#search-bar, #search-button").prop("disabled", true).prop('title', 'Login dibutuhkan untuk menggunakan fitur ini');
-        $.get("/api/v1/posts/three", postsData => {
-            if (postsData.length !== 0){
-                postsData.forEach(post => {
-                    GetCard(post)
-                });
-            }
-        })
+        $("#search-bar, #search-button").prop("disabled", true)
+        GetPosts("", "DESC", "", "8")
     });
+
+
+    CountAllPlatform()
 
 
     $("#search-bar").change(function(){
@@ -199,6 +246,11 @@
         $("#cards").html("")
         
         GetPosts(keyword)
+    })
+
+    $("#button-logout").click(function(){
+        document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+        location.reload()
     })
 
     $("#button-apply-filter").click(function(){
@@ -216,9 +268,17 @@
         GetPosts("", FILTER_POST_DATE, FILTER_PLATFORM)
     })
 
-    function GetPosts(keyword="", post_date_order="DESC", platform=""){
-        const url = `/api/v1/posts?search=${keyword}&post_date=${post_date_order}&platform=${platform}`
+    function decrypt(data, keys='<%= process.env.AES_KEYS %>'){
+        let bytes = CryptoJS.AES.decrypt(data, keys)
+        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+    }
+
+    function GetPosts(keyword="", post_date_order="DESC", platform="", limit='999'){
+        const url = `/api/v1/posts?search=${keyword}&post_date=${post_date_order}&platform=${platform}&limit=${limit}`
         $.get(url, function(postsData){
+
+            postsData = decrypt(postsData.r)
+
             if (postsData.datas.length !== 0){
                 postsData.datas.forEach(post => {
                     GetCard(post)
@@ -261,13 +321,12 @@
             <a href="${post.link}" target="_blank" class="card cursor-pointer hover:-translate-y-1 duration-300 rounded-2xl shadow-lg overflow-hidden">
                 <div class="p-4 bg-white">
                     <p class="font-bold text-second text-sm">${timeAgo(post.post_date)}</p>
-                    <b class="text-lg font-bold mt-3">${post.title}</b>
-                    <div class="flex gap-2 mb-2.5 text-sm items-center">
-                        <p>${post.company}</p>
+                    <b class="text-lg font-bold mt-3">${post.title.length > 38 ? `${post.title.substring(0,38)}..` : post.title}</b>
+                    <p class="text-xs mb-2 text-black/80">${post.tags}</p>
+                    <div class="flex gap-2 mb-3 text-sm items-center">
+                        <p class="font-medium">${post.company}</p>
                         <p>•</p>
-                        <p>${post.location}</p>
-                        <p>•</p>
-                        <p>${post.tags}</p>
+                        <p class="text-black/70">${post.location}</p>
                     </div>
                     <div class="text-sm flex gap-2 items-center mt-2">
                         <div class="flex -space-x-2 rtl:space-x-reverse">
@@ -278,6 +337,27 @@
                 </div>
             </a>
         `)
+    }
+
+    function CountAllPlatform(){
+        // GET TOTAL POSTS IN DATABASES
+        $.get("/api/v1/posts/count-all", postsCount => $("#post-count").text(postsCount))
+        // GET TOTAL USERS IN DATABASES
+        $.get("/api/v1/users/total-user", userCount => $("#user-count").text(userCount))
+
+        // GET TOTAL POSTS IN DATABASES
+        $.get("/api/v1/posts/count?platform=Kalibrr", postsCount => $("#post-kalibrr-count").text(postsCount))
+        // GET TOTAL USERS IN DATABASES
+        $.get("/api/v1/posts/count?platform=Linkedin", postsCount => $("#post-linkedin-count").text(postsCount))
+        // GET TOTAL USERS IN DATABASES
+        $.get("/api/v1/posts/count?platform=Glints", postsCount => $("#post-glints-count").text(postsCount))
+        // GET TOTAL POSTS IN DATABASES
+        $.get("/api/v1/posts/count?platform=Jobstreet", postsCount => $("#post-jobstreet-count").text(postsCount))
+        // GET TOTAL USERS IN DATABASES
+        $.get("/api/v1/posts/count?platform=Indeed", postsCount => $("#post-indeed-count").text(postsCount))
+        // GET TOTAL USERS IN DATABASES
+        $.get("/api/v1/posts/count?platform=Lainnya...", postsCount => $("#post-indeed-count").text(postsCount))
+
     }
 
     function timeAgo(dateString) {

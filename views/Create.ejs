@@ -20,11 +20,11 @@
                 <input type="text" id="" name="tags" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Bidang" required />
                 <div class="">
                     <label for="date-picker" class="block text-sm font-medium text-second">Tanggal Job di Post</label>
-                    <input type="date" name="post_date" id="date-picker" class="w-full mt-2 text-sm bg-gray-50 rounded-lg border-gray-300 p-2.5">
+                    <input type="date" name="post_date" id="date-picker" class="w-full border mt-2 text-sm bg-gray-50 rounded-lg border-gray-300 p-2.5">
                 </div>
                 <div class="">
                     <label for="date-picker" class="block text-sm font-medium text-second">Dimana post ditemukan</label>
-                    <select name="platform" id="" class="w-full mt-2 text-sm bg-gray-50 rounded-lg border-gray-300 p-2.5">
+                    <select name="platform" id="" class="w-full mt-2 text-sm bg-gray-50 rounded-lg border border-gray-300 p-2.5">
                         <option value="Linkedin">Linkedin</option>
                         <option value="Kalibrr">Kalibrr</option>
                         <option value="Jobstreet">Jobstreet</option>
@@ -54,27 +54,41 @@
 <%- include('./layouts/footer'); -%>
 
 <script>
+
+    $.get("/api/v1/users/verify-token", function(isVerified){
+        if(isVerified){
+            const decoded = JSON.parse(atob(isVerified.accessToken.split('.')[1]));
+            if(decoded.role != 1) window.location = "/"
+        }
+    })
+
     const form_update = document.getElementById("form-add-post");
     $(`#form-add-post`).submit(function(e){
         e.preventDefault();
         let formData = new FormData(form_update)
+        let obj = {}
+        for (var pair of formData.entries()) {
+            obj[`${pair[0]}`] = pair[1]
+        }
+
         $.ajax({
             url: "/api/v1/posts",
             type: "POST",
-            data: formData,
-            async: false,
-            cache: false,
-            contentType: false,
-            encrypt: "multipart/form-data",
-            processData: false,
-            success: (response, _, xhr) => {
+            contentType: "application/json; charset=utf-8",
+            data : JSON.stringify(obj),
+            success : function(response, _, xhr) {
+                console.log(response);
                 if(xhr.status == 201) {
                     location.reload()
-                }
-            },
-            error: function (request, status, error) {
-                alert("Error!")
-            },
+                };
+            },error: function(xhr, status, response){
+                alert(xhr.responseJSON.message)
+            }
         });
     })
+
+    function encrypt(data, keys='<%= process.env.AES_KEYS %>'){
+        if(typeof data == 'object') data = JSON.stringify(data);
+	    return {r: CryptoJS.AES.encrypt(data, keys).toString()};
+    }
 </script>

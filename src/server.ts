@@ -33,6 +33,8 @@ passport.use(new GoogleStrategy({
   }else{
     let USER = await User.create({
       email: email,
+      profile_picture: profile.photos[0].value,
+      name: profile.name.givenName,
     })
     const accessToken = createToken(USER);
     Object.assign(profile, {accessToken})
