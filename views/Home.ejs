@@ -45,7 +45,7 @@
         </div>
 
         <div class="px-5 py-4 text-center bg-white shadow-md rounded-lg flex items-center justify-center w-[250px] mt-10 m-auto">
-            <a id="post-other-count" class="w-full"><button class="text-lg font-bold w-full py-2 bg-second text-sm rounded-2xl text-body">Link Donasi</button></a>
+            <a href="https://saweria.co/linkmagang" target="_blank" id="post-other-count" class="w-full"><button class="text-lg font-bold w-full py-2 bg-second text-sm rounded-2xl text-body">Link Donasi</button></a>
         </div>
         <p class="text-sm text-red-500 mt-4 font-semibold">Note: Website ini tidak menarik biaya sama sekali, kalian bisa melakukan donasi, agar website ini tetap hidup dan mimin semangat upload.</p>
 
@@ -356,7 +356,7 @@
         // GET TOTAL USERS IN DATABASES
         $.get("/api/v1/posts/count?platform=Indeed", postsCount => $("#post-indeed-count").text(postsCount))
         // GET TOTAL USERS IN DATABASES
-        $.get("/api/v1/posts/count?platform=Lainnya...", postsCount => $("#post-indeed-count").text(postsCount))
+        $.get("/api/v1/posts/count?platform=Lainnya...", postsCount => $("#post-other-count").text(postsCount))
 
     }
 

@@ -90,6 +90,7 @@ import { connectToDatabase } from "./models";
 import viewRouter from "./router/viewRouter";
 import postRouter from "./router/post.router";
 import userRouter from "./router/user.router";
+import sitemapRouter from "./router/sitemap.router";
 
 app.use(cors({
   origin: "*"
@@ -115,6 +116,7 @@ connectToDatabase()
     // set router
     const VERSION_API = "v1";
     app.use("/", viewRouter);
+    app.use(`/sitemap.xml`, sitemapRouter);
     app.use(`/api/${VERSION_API}/posts`, postRouter);
     app.use(`/api/${VERSION_API}/users`, userRouter);
     app.listen(PORT, () => {

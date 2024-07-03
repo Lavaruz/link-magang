@@ -99,6 +99,7 @@ const models_1 = require("./models");
 const viewRouter_1 = __importDefault(require("./router/viewRouter"));
 const post_router_1 = __importDefault(require("./router/post.router"));
 const user_router_1 = __importDefault(require("./router/user.router"));
+const sitemap_router_1 = __importDefault(require("./router/sitemap.router"));
 app.use((0, cors_1.default)({
     origin: "*"
 }));
@@ -119,6 +120,7 @@ let PORT = process.env.PORT || 8090;
     // set router
     const VERSION_API = "v1";
     app.use("/", viewRouter_1.default);
+    app.use(`/sitemap.xml`, sitemap_router_1.default);
     app.use(`/api/${VERSION_API}/posts`, post_router_1.default);
     app.use(`/api/${VERSION_API}/users`, user_router_1.default);
     app.listen(PORT, () => {
