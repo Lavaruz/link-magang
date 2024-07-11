@@ -13,53 +13,6 @@ dotenv.config();
 
 const app = express();
 
-// Konfigurasi Google OAuth
-passport.use(new GoogleStrategy({
-  clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: `/api/google/callback`,
-}, async (accessToken, refreshToken, profile, done) => {
-  // Lakukan sesuatu dengan data profil pengguna, seperti menyimpan di database
-  const email = profile.emails![0].value;
-
-  if (!email) throw new Error('Login failed');
-
-  const existingUser = await User.findOne({where: {email}});
-  
-  if(existingUser){
-    const accessToken = createToken(existingUser);
-    Object.assign(profile, {accessToken})
-    return done(null, profile);
-  }else{
-    let USER = await User.create({
-      email: email,
-      profile_picture: profile.photos[0].value,
-      name: profile.name.givenName,
-    })
-    const accessToken = createToken(USER);
-    Object.assign(profile, {accessToken})
-    return done(null, profile);
-  }
-}));
-
-app.use(passport.initialize());
-
-app.get('/api/google',passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-app.get('/api/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' , session: false}),
-  (req:Request, res: Response) => {
-    // Di sini, Anda dapat mengarahkan pengguna atau melakukan sesuatu setelah otentikasi sukses
-    res.cookie("access-token", req.user.accessToken, {
-      maxAge: 360000000,
-    });
-    return res.redirect("/")
-  }
-);
-
-
-
-
 
 
 

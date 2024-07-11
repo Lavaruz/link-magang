@@ -15,6 +15,7 @@ export const getAllPost = async (req: Request, res: Response) => {
 
       let db_page = req.query.page || 1
       let db_limit = req.query.limit || 20
+      
 
       const POST = await Post.findAll({
         attributes:{exclude:["createdAt", "updatedAt"]},

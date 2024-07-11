@@ -371,21 +371,14 @@
         const diffInMilliseconds = now - date;
         const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
 
-        if (diffInDays === 0) {
-            return "Postingan hari ini";
-        } else if (diffInDays === 1) {
-            return "Postingan 1 hari lalu";
-        } else if (diffInDays < 7) {
-            return `Postingan ${diffInDays} hari lalu`;
-        } else if (diffInDays < 30) {
-            const weeks = Math.floor(diffInDays / 7);
-            return `Postingan ${weeks} minggu lalu`;
-        } else if (diffInDays < 365) {
-            const months = Math.floor(diffInDays / 30);
-            return `Postingan ${months} bulan lalu`;
+        console.log(diffInDays);
+
+        if (diffInDays < 7) {
+            return `Postingan minggu ini`;
+        } else if (diffInDays < 14) {
+            return `Postingan minggu lalu`;
         } else {
-            const years = Math.floor(diffInDays / 365);
-            return `Postingan ${years} tahun lalu`;
-        }
+            return `Postingan beberapa minggu lalu`;
+        } 
     }
 </script>

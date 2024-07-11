@@ -6,7 +6,8 @@ class User extends Model {
   declare email: string;
   declare role: number;
   declare profile_picture: string;
-  declare name: string;
+  declare firstname: string;
+  declare lastname: string;
 
   // createdAt can be undefined during creation
   declare createdAt: CreationOptional<Date>;
@@ -37,7 +38,11 @@ User.init(
     profile_picture: {
       type: DataTypes.TEXT,
     },
-    name:{
+    firstname:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    lastname:{
       type: DataTypes.STRING
     }
   },
