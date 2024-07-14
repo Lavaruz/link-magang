@@ -1,82 +1,815 @@
 <%- include('./layouts/header'); -%>
+<%- include('./layouts/navbar-all'); -%>
 
-<main class="bg-body lg:w-[720px] h-screen max-h-screen m-auto overflow-y-scroll relative shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)]">
+<section id="main" class="w-[1100px] lg:px-0 m-auto pb-28">
+    <p id="header-firstname" class="lg:pb-3 lg:pt-8 py-5 text-main text-xl font-bold">Hi, <span class="firstname"></span></p>
 
-    <div class="px-4 lg:px-10 mb-20 mt-16">
-        <div class="px-[7.5%] lg:px-[15%] flex flex-col items-center justify-center">
-            <img class="w-28 h-28 rounded-full border-2 border-second" src="/img/favicon.png" alt="Rounded avatar">
-            <b class="mt-2">@lavaruz</b>
-            <p class="text-lg mt-1">Assami Muzaki</p>
-            <p class="text-center text-sm mt-2.5 text-black/60">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda tempora minus laborum libero quibusdam voluptates obcaecati doloribus voluptate iste incidunt?</p>
-            <div class="mt-4">
-                <button type="button" class="duration-300 text-second hover:text-white border border-second hover:bg-second focus:ring-4 focus:outline-none focus:ring-second font-medium rounded-full text-sm px-5 py-1.5 text-center me-2 mb-2">Update Profile</button>
-            </div>
-        </div>
+    <div class="lg:grid lg:grid-cols-[1fr_.6fr] lg:gap-5">
+        <div class="flex flex-col gap-5 lg:gap-4">
 
-        
-
-        <div class="mt-8 text-sm font-medium text-center border-b border-grey-500 text-gray-500">
-            <ul class="flex flex-wrap justify-around">
-                <li class="me-2">
-                    <a href="#" class="duration-300 inline-block p-4 text-second border-b-2 border-second rounded-t-lg active dark:text-second dark:border-second" aria-current="page">Kegiatan</a>
-                </li>
-                <!-- <li class="me-2">
-                    <a href="#" class="duration-300 inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Profile</a>
-                </li> -->
-            </ul>
-        </div>
-
-        <div class="mt-8 min-h-[200px]">
-            <!-- <p class="text-sm text-center mt-20">Anda belum mengikuti kegiatan apapun</p> -->
-            <div class="grid lg:grid-cols-3 gap-4">
-                <div class="">
-                    <div role="status" class="flex items-center justify-center aspect-video w-full bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700">
-                        <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
-                            <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
-                            <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM9 13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2Zm4 .382a1 1 0 0 1-1.447.894L10 13v-2l1.553-1.276a1 1 0 0 1 1.447.894v2.764Z"/>
-                        </svg>
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <b class="text-sm">Tailwind CSS Toast - Flowbite</b>
-                    <p class="text-xs text-black/80">Sun, 14 Mei 2024</p>
+            <!-- BASIC INFORMATION -->
+            <div class="basic-info rounded-2xl overflow-hidden shadow-md border-2 border-main">
+                <div class="lg:w-100 bg-main flex items-center justify-between lg:px-5 py-3">
+                    <p class="text-white flex items-center gap-2">BASIC INFORMATION</p>
+                    <p id="edit-basic-info" class="cursor-pointer text-background text-sm font-second flex items-center gap-2">Edit</p>
                 </div>
-                <div class="">
-                    <div role="status" class="flex items-center justify-center aspect-video w-full bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700">
-                        <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
-                            <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
-                            <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM9 13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2Zm4 .382a1 1 0 0 1-1.447.894L10 13v-2l1.553-1.276a1 1 0 0 1 1.447.894v2.764Z"/>
-                        </svg>
-                        <span class="sr-only">Loading...</span>
+                <div class="lg:w-100 p-5 pb-6 bg-white noise lg:rounded-none border-2 lg:border-0 border-header">
+                    <div class="lg:flex lg:items-start lg:gap-5">
+                        <div class="w-[88px] h-[88px] min-w-[88px] min-h-[88px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                            <img id="basic-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
+                        </div>
+                        <div class="w-full">
+                            <div class="mb-4 text-center lg:text-left">
+                                <p id="basic-fullname" class="font-bold text-xl text-main">Assami Muzaki</p>
+                                <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">Founder of Internshits</p>
+                            </div>
+                            <hr>
+                            <div class="grid grid-cols-2 w-full gap-3 pt-4 text-white">
+                                <div class="col-span-2">
+                                    <span class="text-thrid/60 font-medium text-sm">EMAIL</span>
+                                    <p id="basic-email" class="text-second/80 font-second font-medium text-sm">assamim80@gmail.com</p>
+                                </div>
+                                <div class="">
+                                    <span class="text-thrid/60 font-medium text-sm">MOBILE</span>
+                                    <p id="basic-mobile" class="text-second/80 font-second font-medium text-sm">085712062191</p>
+                                </div>
+                                <div class="">
+                                    <span class="text-thrid/60 font-medium text-sm">BIRTHDATE</span>
+                                    <p id="basic-birthdate" class="text-second/80 font-second font-medium text-sm">18 Oktober 2001</p>
+                                </div>
+                                <div class="">
+                                    <span class="text-thrid/60 font-medium text-sm">SEX</span>
+                                    <p id="basic-sex" class="text-second/80 font-second font-medium text-sm">Laki-Laki</p>
+                                </div>
+                                <div class="">
+                                    <span class="text-thrid/60 font-medium text-sm">DOMICILE</span>
+                                    <p id="basic-domicile" class="text-second/80 font-second font-medium text-sm">Jakarta</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <b class="text-sm">Tailwind CSS Toast - Flowbite</b>
-                    <p class="text-xs text-black/80">Sun, 14 Mei 2024</p>
-                </div>
-                <div class="">
-                    <div role="status" class="flex items-center justify-center aspect-video w-full bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700">
-                        <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
-                            <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
-                            <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM9 13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2Zm4 .382a1 1 0 0 1-1.447.894L10 13v-2l1.553-1.276a1 1 0 0 1 1.447.894v2.764Z"/>
-                        </svg>
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <b class="text-sm">Tailwind CSS Toast - Flowbite</b>
-                    <p class="text-xs text-black/80">Sun, 14 Mei 2024</p>
                 </div>
             </div>
 
+            <!-- PROFILE SUMMARY -->
+            <div class="profile-summary rounded-2xl overflow-hidden shadow-md border-2 border-main">
+                <div class="w-100 lg:bg-main flex items-center justify-between lg:px-5 py-3">
+                    <p class="text-white flex items-center gap-2">PROFILE SUMMARY</p>
+                    <p id="edit-profile-summary" class="cursor-pointer text-white text-sm font-second flex items-center gap-2">Edit</p>
+                </div>
+                <div id="profile-summary" class="w-full p-5 pb-6 noise bg-white border-2 lg:border-0 border-header lg:rounded-b-2xl">
+                    <div id="off-summary" class="text-center">
+                        <p class="font-bold text-base text-main mb-3">Write your profile summary here!</p>
+                        <p class="font-second text-white-60 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2">This is your chance to put a good word about yourself, so that recruiters could catch a glimpse of you as a candidate.</p>
+                        <button id="button-profile-summary" class="flex items-center gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 m-auto mt-4">Add Profile Summary
+                        </button>
+                    </div>
+                    <div id="on-summary" class="">
+                        <p id="profile-summary-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROFILE SKILLS -->
+            <div class="profile-skills rounded-2xl overflow-hidden shadow-md border-2 border-main">
+                <div class="w-100 lg:bg-main flex items-center justify-between lg:px-5 py-3">
+                    <p class="text-white flex items-center gap-2">TOP SKILLS</p>
+                    <p id="edit-profile-summary" class="cursor-pointer text-white text-sm font-second flex items-center gap-2">Edit</p>
+                </div>
+                <div id="profile-summary" class="w-full p-5 pb-6 noise bg-white border-2 lg:border-0 border-header lg:rounded-b-2xl">
+                    <div class="text-center">
+                        <p class="font-bold text-base text-main mb-3">Add your top 3 skills here!</p>
+                        <p class="font-second text-white-60 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2">Skills help us to find recomended jobs for you</p>
+                        <button id="button-profile-summary" class="flex items-center gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 m-auto mt-4">Add Skills</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROFILE EXPERIENCES -->
+            <div class="experiences rounded-2xl overflow-hidden shadow-md border-2 border-main">
+                <div class="w-100 lg:bg-main flex items-center justify-between lg:px-5 py-3">
+                    <p class="text-white flex items-center gap-2">EXPERIENCES</p>
+                    <p id="edit-experiences" class="cursor-pointer text-teal-100 text-sm font-second flex items-center gap-2">Edit</p>
+                </div>
+                <div id="experiences" class="w-100 px-5 bg-white noise lg:rounded-none rounded-2xl lg:rounded-b-2xl border-2 lg:border-0 border-header">
+                    <div id="off-experiences" class="py-5 pb-6 text-center">
+                        <p class="font-bold text-base text-main mb-3">Add your experiences here!</p>
+                        <p class="font-second text-white-60 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2">The heart of your profile. You can add any experiences from university organizations, event committees, internships, and more!</p>
+                        <button id="button-experiences" class="flex items-center gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 m-auto mt-4">Add Experiences</button>
+                    </div>
+                    <div id="on-experiences" class="hidden flex flex-col gap-4 pb-4 divide-y divide-gray-300">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROFILE EDUCATIONS -->
+            <div class="education rounded-2xl overflow-hidden shadow-md border-2 border-main">
+                <div class="w-100 lg:bg-main flex items-center justify-between lg:px-5 py-3">
+                    <p class="text-white flex items-center gap-2">EDUCATION</p>
+                    <p id="edit-education" class="cursor-pointer text-teal-100 text-sm font-second flex items-center gap-2">Edit</p>
+                </div>
+                <div id="educations" class="w-100 p-5 pb-6 bg-white noise lg:rounded-none rounded-2xl lg:rounded-b-2xl border-2 lg:border-0 border-header divide-header divide-y">
+                    <div class="text-center">
+                        <p class="font-bold text-base text-main mb-3">Add your education here!</p>
+                        <p class="font-second text-white-60 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2">Just as important as experiences, your education will show recruiters what your capable of!</p>
+                        <button id="button-education" class="flex items-center gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 m-auto mt-4">Add Education</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <div class="hidden lg:flex flex-col gap-3">
+            <!-- PROFILE COMPLETION -->
+            <!-- <div class="profie-completion rounded-2xl overlay-tale p-4">
+                <p class="text-base font-normal text-white tracking-[1.6px]">PROFILE COMPLETION</p>
+                <p class="font-extrabold text-4xl text-white mt-3 mb-2"><span id="completion_rate">0</span>%</p>
+                <p class="font-second text-sm text-white-60 font-semibold">Complete your profile to differentiate yourself from other candidates!</p>
+                <div class="flex flex-col gap-2 text-sm text-teal-100 font-medium font-second mt-2">
+                    <p id="completion-profile-picture" class="flex items-center gap-2 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                        <circle cx="8" cy="8.5" r="8" fill="white" fill-opacity="0.16"/>
+                        <circle cx="8" cy="8.5" r="7" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+                        </svg>Add a Profile Picture</p>
+                    <p id="completion-profile-summary" class="flex items-center gap-2 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                        <circle cx="8" cy="8.5" r="8" fill="white" fill-opacity="0.16"/>
+                        <circle cx="8" cy="8.5" r="7" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+                        </svg>Add Profile Summary</p>
+                    <p id="completion-experiences" class="flex items-center gap-2 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                        <circle cx="8" cy="8.5" r="8" fill="white" fill-opacity="0.16"/>
+                        <circle cx="8" cy="8.5" r="7" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+                        </svg>Add Experiences</p>
+                    <p id="completion-education" class="flex items-center gap-2 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                        <circle cx="8" cy="8.5" r="8" fill="white" fill-opacity="0.16"/>
+                        <circle cx="8" cy="8.5" r="7" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+                        </svg>Add Education</p>
+                    <p id="completion-resume" class="flex items-center gap-2 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                        <circle cx="8" cy="8.5" r="8" fill="white" fill-opacity="0.16"/>
+                        <circle cx="8" cy="8.5" r="7" stroke="white" stroke-opacity="0.16" stroke-width="2"/>
+                        </svg>Add Resume/CV</p>
+                </div>
+            </div> -->
+            
+            <div class="bg-main rounded-2xl p-4 pb-6 shadow-md">
+                <p class="text-sm font-medium text-background">See how people see your profile</p>
+                <a href="" class="mt-4 w-full flex justify-center py-2.5 bg-white font-medium rounded-lg text-sm text-black/70">
+                    Preview
+                </a>
+            </div>
+
+            <!-- ATTACHMENT -->
+            <div class="attachments bg-white border-main border-2 noise rounded-2xl p-4 pb-6 shadow-md">
+                <div class="w-100 flex items-center justify-between rounded-t-2xl">
+                    <p class="text-main flex items-center gap-2">ATTACHMENTS</p>
+                    <p id="edit-attachment" class="cursor-pointer text-main text-sm font-second flex items-center gap-2">Edit</p>
+                </div>
+                <p class="font-second text-sm font-semibold text-white-60 mt-3 mb-4">You can attach your latest CV or Portfolio here!</p>
+                <div class="">
+                    <div class="attachment-body">
+                        <p class="hidden field_name">atc_resume</p>
+                        <p class="flex items-center gap-2 text-white-60">RESUME*</p>
+                        <div class="porto flex items-center bg-background rounded-lg border border-main justify-between p-3 mt-2">
+                            <div class="">
+                                <a href="#" target="_blank" id="resume" class="font-second text-sm font-medium text-teal-100"></a>
+                                <p id="resume-date" class="font-second text-xs font-medium text-white-60"></p>
+                            </div>
+                            <svg class="cursor-pointer delete-attachment" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                <path d="M4.89375 15.75C4.59375 15.75 4.33125 15.6375 4.10625 15.4125C3.88125 15.1875 3.76875 14.925 3.76875 14.625V3.9375H3.5625C3.4 3.9375 3.26563 3.88437 3.15938 3.77812C3.05313 3.67187 3 3.5375 3 3.375C3 3.2125 3.05313 3.07813 3.15938 2.97188C3.26563 2.86563 3.4 2.8125 3.5625 2.8125H6.525C6.525 2.65 6.57813 2.51563 6.68438 2.40938C6.79063 2.30313 6.925 2.25 7.0875 2.25H10.9125C11.075 2.25 11.2094 2.30313 11.3156 2.40938C11.4219 2.51563 11.475 2.65 11.475 2.8125H14.4375C14.6 2.8125 14.7344 2.86563 14.8406 2.97188C14.9469 3.07813 15 3.2125 15 3.375C15 3.5375 14.9469 3.67187 14.8406 3.77812C14.7344 3.88437 14.6 3.9375 14.4375 3.9375H14.2313V14.625C14.2313 14.925 14.1188 15.1875 13.8938 15.4125C13.6688 15.6375 13.4063 15.75 13.1063 15.75H4.89375ZM6.88125 12.45C6.88125 12.6125 6.93438 12.7469 7.04063 12.8531C7.14688 12.9594 7.28125 13.0125 7.44375 13.0125C7.60625 13.0125 7.74062 12.9594 7.84688 12.8531C7.95312 12.7469 8.00625 12.6125 8.00625 12.45V6.09375C8.00625 5.93125 7.95312 5.79688 7.84688 5.69063C7.74062 5.58438 7.60625 5.53125 7.44375 5.53125C7.28125 5.53125 7.14688 5.58438 7.04063 5.69063C6.93438 5.79688 6.88125 5.93125 6.88125 6.09375V12.45ZM9.99375 12.45C9.99375 12.6125 10.0469 12.7469 10.1531 12.8531C10.2594 12.9594 10.3938 13.0125 10.5563 13.0125C10.7188 13.0125 10.8531 12.9594 10.9594 12.8531C11.0656 12.7469 11.1188 12.6125 11.1188 12.45V6.09375C11.1188 5.93125 11.0656 5.79688 10.9594 5.69063C10.8531 5.58438 10.7188 5.53125 10.5563 5.53125C10.3938 5.53125 10.2594 5.58438 10.1531 5.69063C10.0469 5.79688 9.99375 5.93125 9.99375 6.09375V12.45Z" fill="#A5A5A5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-3 attachment-body">
+                        <p class="hidden field_name">atc_portfolio</p>
+                        <p class="flex items-center gap-2 text-white-60">PORTFOLIO</p>
+                        <div class="porto flex items-center bg-background border border-main rounded-lg justify-between p-3 mt-2">
+                            <div class="flex items-center gap-2">
+                                <div class="">
+                                    <a id="portfolio" target="_blank" href="#" class="font-second text-sm font-medium text-teal-100 flex items-center gap-2"></a>
+                                    <p id="portfolio-type" class="font-second text-xs font-medium text-white-60"></p>
+                                </div>
+                            </div>
+                            <svg class="cursor-pointer delete-attachment" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                <path d="M4.89375 15.75C4.59375 15.75 4.33125 15.6375 4.10625 15.4125C3.88125 15.1875 3.76875 14.925 3.76875 14.625V3.9375H3.5625C3.4 3.9375 3.26563 3.88437 3.15938 3.77812C3.05313 3.67187 3 3.5375 3 3.375C3 3.2125 3.05313 3.07813 3.15938 2.97188C3.26563 2.86563 3.4 2.8125 3.5625 2.8125H6.525C6.525 2.65 6.57813 2.51563 6.68438 2.40938C6.79063 2.30313 6.925 2.25 7.0875 2.25H10.9125C11.075 2.25 11.2094 2.30313 11.3156 2.40938C11.4219 2.51563 11.475 2.65 11.475 2.8125H14.4375C14.6 2.8125 14.7344 2.86563 14.8406 2.97188C14.9469 3.07813 15 3.2125 15 3.375C15 3.5375 14.9469 3.67187 14.8406 3.77812C14.7344 3.88437 14.6 3.9375 14.4375 3.9375H14.2313V14.625C14.2313 14.925 14.1188 15.1875 13.8938 15.4125C13.6688 15.6375 13.4063 15.75 13.1063 15.75H4.89375ZM6.88125 12.45C6.88125 12.6125 6.93438 12.7469 7.04063 12.8531C7.14688 12.9594 7.28125 13.0125 7.44375 13.0125C7.60625 13.0125 7.74062 12.9594 7.84688 12.8531C7.95312 12.7469 8.00625 12.6125 8.00625 12.45V6.09375C8.00625 5.93125 7.95312 5.79688 7.84688 5.69063C7.74062 5.58438 7.60625 5.53125 7.44375 5.53125C7.28125 5.53125 7.14688 5.58438 7.04063 5.69063C6.93438 5.79688 6.88125 5.93125 6.88125 6.09375V12.45ZM9.99375 12.45C9.99375 12.6125 10.0469 12.7469 10.1531 12.8531C10.2594 12.9594 10.3938 13.0125 10.5563 13.0125C10.7188 13.0125 10.8531 12.9594 10.9594 12.8531C11.0656 12.7469 11.1188 12.6125 11.1188 12.45V6.09375C11.1188 5.93125 11.0656 5.79688 10.9594 5.69063C10.8531 5.58438 10.7188 5.53125 10.5563 5.53125C10.3938 5.53125 10.2594 5.58438 10.1531 5.69063C10.0469 5.79688 9.99375 5.93125 9.99375 6.09375V12.45Z" fill="#A5A5A5"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOCIALS -->
+            <div class="socials bg-white border-main border-2 noise rounded-2xl p-4 pb-5 shadow-md">
+                <div class="w-100 flex items-center justify-between rounded-t-2xl">
+                    <p class="text-main flex items-center gap-2">SOCIALS</p>
+                    <p id="edit-attachment" class="cursor-pointer text-main text-sm font-second flex items-center gap-2">Edit</p>
+                </div>
+                <p class="font-second text-sm font-semibold text-white-60 mt-3 mb-4">Make other people easier to find your ability!</p>
+                <div class="flex items-center gap-4 text-thrid/80 text-2xl">
+                    <a href=""><i class="uil uil-twitter"></i></a>
+                    <a href=""><i class="uil uil-instagram-alt"></i></a>
+                    <a href=""><i class="uil uil-linkedin"></i></a>
+                    <a href=""><i class="uil uil-behance"></i></a>
+                    <a href=""><i class="uil uil-github"></i></a>
+                    <a href=""><i class="uil uil-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- PROFILE VIEWS -->
+            <div class="profile-viewers bg-main noise rounded-2xl p-4 pb-5 shadow-md">
+                <div class="w-100 rounded-t-2xl">
+                    <p class="text-white flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10.0002 13.3333C11.0418 13.3333 11.9272 12.9688 12.6564 12.2396C13.3856 11.5104 13.7502 10.625 13.7502 9.58334C13.7502 8.54168 13.3856 7.65626 12.6564 6.92709C11.9272 6.19793 11.0418 5.83334 10.0002 5.83334C8.9585 5.83334 8.07308 6.19793 7.34391 6.92709C6.61475 7.65626 6.25016 8.54168 6.25016 9.58334C6.25016 10.625 6.61475 11.5104 7.34391 12.2396C8.07308 12.9688 8.9585 13.3333 10.0002 13.3333ZM10.0002 11.8333C9.37516 11.8333 8.84391 11.6146 8.40641 11.1771C7.96891 10.7396 7.75016 10.2083 7.75016 9.58334C7.75016 8.95834 7.96891 8.42709 8.40641 7.98959C8.84391 7.55209 9.37516 7.33334 10.0002 7.33334C10.6252 7.33334 11.1564 7.55209 11.5939 7.98959C12.0314 8.42709 12.2502 8.95834 12.2502 9.58334C12.2502 10.2083 12.0314 10.7396 11.5939 11.1771C11.1564 11.6146 10.6252 11.8333 10.0002 11.8333ZM10.0002 15.8333C7.97238 15.8333 6.12516 15.2674 4.4585 14.1354C2.79183 13.0035 1.5835 11.4861 0.833496 9.58334C1.5835 7.68057 2.79183 6.1632 4.4585 5.03126C6.12516 3.89932 7.97238 3.33334 10.0002 3.33334C12.0279 3.33334 13.8752 3.89932 15.5418 5.03126C17.2085 6.1632 18.4168 7.68057 19.1668 9.58334C18.4168 11.4861 17.2085 13.0035 15.5418 14.1354C13.8752 15.2674 12.0279 15.8333 10.0002 15.8333Z" fill="white"/>
+                      </svg> PROFILE VIEWERS</p>
+                </div>
+                <p class="font-second text-sm font-semibold text-background mt-3">The number of people who viewed your profile this week.</p>
+                <p class="font-extrabold text-4xl text-white mt-5 flex items-center gap-2"><span id="profile-viewers">0</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M3.4 18L2 16.6L9.4 9.15L13.4 13.15L18.6 8H16V6H22V12H20V9.4L13.4 16L9.4 12L3.4 18Z" fill="#2BDE68"/>
+                  </svg></p>
+            </div>
+
+            <!-- VISIBILITY -->
+            <div class="visibility-status bg-white border-2 border-main rounded-2xl p-4 pb-5 shadow-md">
+                <form id="form-update-active-search">
+                    <div class="w-100 rounded-t-2xl">
+                        <p class="text-main flex items-center gap-2">ACTIVESEARCH VISIBILITY</p>
+                    </div>
+                    <p class="font-second text-sm font-semibold text-white-60 mt-3">If this is turned on, recruiters are able to handpick you for job invites!</p>
+                    <label class="relative inline-flex items-center cursor-pointer mt-5">
+                        <input id="active-search" name="active_search" type="checkbox" value="" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
+                        <span id="active-search-status" class="ml-2 text-red-500 font-second text-sm font-semibold">ActiveSearch is off.</span>
+                    </label>
+                </form>
+            </div>
+
+            <form action="/api/v1/seeker/logout" method="post">
+                <button class="bg-second noise w-full py-4 flex items-center gap-2 text-red-500 font-bold rounded-lg justify-center font-second text-sm">
+                    <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.66667 15.5C1.20833 15.5 0.815972 15.3368 0.489583 15.0104C0.163194 14.684 0 14.2917 0 13.8333V2.16667C0 1.70833 0.163194 1.31597 0.489583 0.989583C0.815972 0.663194 1.20833 0.5 1.66667 0.5H6.66667C6.90278 0.5 7.10069 0.579861 7.26042 0.739583C7.42014 0.899306 7.5 1.09722 7.5 1.33333C7.5 1.56944 7.42014 1.76736 7.26042 1.92708C7.10069 2.08681 6.90278 2.16667 6.66667 2.16667H1.66667V13.8333H6.66667C6.90278 13.8333 7.10069 13.9132 7.26042 14.0729C7.42014 14.2326 7.5 14.4306 7.5 14.6667C7.5 14.9028 7.42014 15.1007 7.26042 15.2604C7.10069 15.4201 6.90278 15.5 6.66667 15.5H1.66667ZM11.8125 8.83333H5.83333C5.59722 8.83333 5.39931 8.75347 5.23958 8.59375C5.07986 8.43403 5 8.23611 5 8C5 7.76389 5.07986 7.56597 5.23958 7.40625C5.39931 7.24653 5.59722 7.16667 5.83333 7.16667H11.8125L10.25 5.60417C10.0972 5.45139 10.0208 5.26389 10.0208 5.04167C10.0208 4.81944 10.0972 4.625 10.25 4.45833C10.4028 4.29167 10.5972 4.20486 10.8333 4.19792C11.0694 4.19097 11.2708 4.27083 11.4375 4.4375L14.4167 7.41667C14.5833 7.58333 14.6667 7.77778 14.6667 8C14.6667 8.22222 14.5833 8.41667 14.4167 8.58333L11.4375 11.5625C11.2708 11.7292 11.0729 11.809 10.8438 11.8021C10.6146 11.7951 10.4167 11.7083 10.25 11.5417C10.0972 11.375 10.0243 11.1771 10.0312 10.9479C10.0382 10.7188 10.1181 10.5278 10.2708 10.375L11.8125 8.83333Z" fill="#FC4545"/>
+                    </svg>
+                     Logout from this account
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section id="popup" class="hidden fixed top-0 bottom-0 left-0 right-0 bg-black/50 z-20 flex items-end lg:items-center justify-center h-100">
+
+    <!-- POPUP BASIC INFORMATION -->
+    <%- include('./components/ProfilePopup/ProfileBasicInformation'); -%>
+    
+    <!-- POPUP PROFILE SUMMARY -->
+    <%- include('./components/ProfilePopup/ProfileSummary'); -%>
+    
+    <!-- POPUP EXPERIENCES -->
+    <%- include('./components/ProfilePopup/ProfileExperiences'); -%>
+    
+    <!-- POPUP EDUCATION -->
+    <%- include('./components/ProfilePopup/ProfileEducations'); -%>
+
+    
+
+    <!-- POPUP ATTACHMENT -->
+    <div class="hidden popup popup-attachments border-2 border-header w-full lg:w-[720px] rounded-2xl overflow-hidden">
+        <div class="hidden header bg-header lg:flex justify-between px-5 py-3 items-center">
+            <p class="font-normal text-white text-base tracking-[1.6px] flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M9.58333 18.3333C8.30556 18.3333 7.22222 17.8889 6.33333 17C5.44444 16.1111 5 15.0278 5 13.75V4.99999C5 4.08332 5.32639 3.2986 5.97917 2.64582C6.63194 1.99305 7.41667 1.66666 8.33333 1.66666C9.25 1.66666 10.0347 1.99305 10.6875 2.64582C11.3403 3.2986 11.6667 4.08332 11.6667 4.99999V12.9167C11.6667 13.5 11.4653 13.993 11.0625 14.3958C10.6597 14.7986 10.1667 15 9.58333 15C9 15 8.50694 14.7986 8.10417 14.3958C7.70139 13.993 7.5 13.5 7.5 12.9167V5.62499C7.5 5.44443 7.55903 5.29513 7.67708 5.17707C7.79514 5.05902 7.94444 4.99999 8.125 4.99999C8.30556 4.99999 8.45486 5.05902 8.57292 5.17707C8.69097 5.29513 8.75 5.44443 8.75 5.62499V12.9167C8.75 13.1528 8.82986 13.3507 8.98958 13.5104C9.14931 13.6701 9.34722 13.75 9.58333 13.75C9.81944 13.75 10.0174 13.6701 10.1771 13.5104C10.3368 13.3507 10.4167 13.1528 10.4167 12.9167V4.99999C10.4167 4.41666 10.2153 3.9236 9.8125 3.52082C9.40972 3.11805 8.91667 2.91666 8.33333 2.91666C7.75 2.91666 7.25694 3.11805 6.85417 3.52082C6.45139 3.9236 6.25 4.41666 6.25 4.99999V13.75C6.25 14.6667 6.57639 15.4514 7.22917 16.1042C7.88194 16.7569 8.66667 17.0833 9.58333 17.0833C10.5 17.0833 11.2847 16.7569 11.9375 16.1042C12.5903 15.4514 12.9167 14.6667 12.9167 13.75V5.62499C12.9167 5.44443 12.9757 5.29513 13.0938 5.17707C13.2118 5.05902 13.3611 4.99999 13.5417 4.99999C13.7222 4.99999 13.8715 5.05902 13.9896 5.17707C14.1076 5.29513 14.1667 5.44443 14.1667 5.62499V13.75C14.1667 15.0278 13.7222 16.1111 12.8333 17C11.9444 17.8889 10.8611 18.3333 9.58333 18.3333Z" fill="white"/>
+              </svg> EDITING ATTACHMENTS</p>
+            <p class="close-x cursor-pointer font-second font-medium text-sm text-teal-100">Close x</p>
+        </div>
+        <div class="body bg-[#222222] lg:bg-body h-[92vh] lg:h-[500px] overflow-y-scroll">
+            <form id="form-add-attachment" class="relative">
+                <div class="divide-y divide-header pb-40 lg:pb-0">
+                    <div class="p-5">
+                        <button type="button" class="lg:hidden my-4 mb-6 flex items-center gap-2 close-x text-teal-100 font-second text-base"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <mask id="mask0_50_1377" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                              <rect width="24" height="24" fill="#D9D9D9"/>
+                            </mask>
+                            <g mask="url(#mask0_50_1377)">
+                              <path d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z" fill="#3DD1DB"/>
+                            </g>
+                          </svg> Back to Your Profie
+                        </button>
+                        <p class="font-bold text-lg text-white mb-1">Attachments</p>
+                        <p class="text-white-60 text-sm font-second font-medium">Here, you can upload your resume or portfolio to showcase your works from past Experiences!</p>
+                    </div>
+                    <div class="divide-y divide-header px-5">
+                        <div class="flex items-center lg:items-start gap-3 py-5">
+                            <svg class="hidden lg:block" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 40 40" fill="none">
+                                <path d="M20.0003 23.3333C20.917 23.3333 21.7017 23.007 22.3545 22.3542C23.0073 21.7014 23.3337 20.9167 23.3337 20C23.3337 19.0833 23.0073 18.2986 22.3545 17.6458C21.7017 16.9931 20.917 16.6667 20.0003 16.6667C19.0837 16.6667 18.2989 16.9931 17.6462 17.6458C16.9934 18.2986 16.667 19.0833 16.667 20C16.667 20.9167 16.9934 21.7014 17.6462 22.3542C18.2989 23.007 19.0837 23.3333 20.0003 23.3333ZM13.3337 30H26.667V29.0417C26.667 28.375 26.4864 27.7639 26.1253 27.2083C25.7642 26.6528 25.2642 26.2361 24.6253 25.9583C23.9031 25.6528 23.16 25.4167 22.3962 25.25C21.6323 25.0833 20.8337 25 20.0003 25C19.167 25 18.3684 25.0833 17.6045 25.25C16.8406 25.4167 16.0975 25.6528 15.3753 25.9583C14.7364 26.2361 14.2364 26.6528 13.8753 27.2083C13.5142 27.7639 13.3337 28.375 13.3337 29.0417V30ZM30.8337 36.6667H9.16699C8.50033 36.6667 7.91699 36.4167 7.41699 35.9167C6.91699 35.4167 6.66699 34.8333 6.66699 34.1667V5.83334C6.66699 5.16668 6.91699 4.58334 7.41699 4.08334C7.91699 3.58334 8.50033 3.33334 9.16699 3.33334H22.3337C22.667 3.33334 22.9934 3.40279 23.3128 3.54168C23.6323 3.68057 23.9031 3.86112 24.1253 4.08334L32.5837 12.5417C32.8059 12.7639 32.9864 13.0347 33.1253 13.3542C33.2642 13.6736 33.3337 14 33.3337 14.3333V34.1667C33.3337 34.8333 33.0837 35.4167 32.5837 35.9167C32.0837 36.4167 31.5003 36.6667 30.8337 36.6667Z" fill="white"/>
+                            </svg>
+                            <div class="w-full lg:w-max">
+                                <p class="text-white font-bold text-lg">Resume*</p>
+                                <p class="lg:hidden font-second text-sm font-medium text-white-60">Accepted file is only in PDF. Maximum file size 2 MB.</p>
+                                <p class="hidden lg:block font-second text-white-60 text-sm font-medium">Keep in mind that some companies still require you to upload your resume in digital copy. However, they will be seeing your profile first, not your resume!</p>
+                                <div id="unfilled-resume" class="flex items-center gap-2 mt-4 lg:mt-3">
+                                    <label for="custom-input-file">
+                                        <input type="file" id="custom-input-resume" class="hidden" name="atc_resume" accept="application/pdf"/>
+                                        <button type="button" id="button-input-resume" class="flex items-center gap-1 py-4 lg:py-2 px-4 bg-teal-8 text-teal-100 rounded-lg font-second text-sm font-medium">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                <path d="M9.16634 15.8333H10.833V12.3542L12.1663 13.6875L13.333 12.5L9.99967 9.16666L6.66634 12.5L7.85384 13.6667L9.16634 12.3542V15.8333ZM4.99967 18.3333C4.54134 18.3333 4.14898 18.1701 3.82259 17.8437C3.4962 17.5174 3.33301 17.125 3.33301 16.6667V3.33332C3.33301 2.87499 3.4962 2.48263 3.82259 2.15624C4.14898 1.82985 4.54134 1.66666 4.99967 1.66666H11.6663L16.6663 6.66666V16.6667C16.6663 17.125 16.5031 17.5174 16.1768 17.8437C15.8504 18.1701 15.458 18.3333 14.9997 18.3333H4.99967ZM10.833 7.49999H14.9997L10.833 3.33332V7.49999Z" fill="#3DD1DB"/>
+                                            </svg>
+                                            Upload Resume
+                                        </button>
+                                    </label>
+                                    <p class="hidden lg:block font-second text-sm font-medium text-white-60">Accepted file is only in PDF. Maximum file size 2 MB.</p>
+                                </div>
+                                <div id="filled-resume" class="hidden mt-3 flex justify-between w-full lg:w-[320px] bg-[#1E1E1E] rounded-lg p-3 items-center">
+                                    <div class="">
+                                        <a href="#" class="text-teal-100 font-second text-sm font-medium">resumefinalbangetbanget.pdf</a>
+                                        <p class="text-[#A5A5A5] font-second text-xs font-medium">1 mb • <span>12 Aug 2023</span></p>
+                                    </div>
+                                    <svg id="filled-resume-delete" class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                                        <path d="M4.89375 15.75C4.59375 15.75 4.33125 15.6375 4.10625 15.4125C3.88125 15.1875 3.76875 14.925 3.76875 14.625V3.9375H3.5625C3.4 3.9375 3.26563 3.88437 3.15938 3.77812C3.05313 3.67187 3 3.5375 3 3.375C3 3.2125 3.05313 3.07813 3.15938 2.97188C3.26563 2.86563 3.4 2.8125 3.5625 2.8125H6.525C6.525 2.65 6.57813 2.51563 6.68438 2.40938C6.79063 2.30313 6.925 2.25 7.0875 2.25H10.9125C11.075 2.25 11.2094 2.30313 11.3156 2.40938C11.4219 2.51563 11.475 2.65 11.475 2.8125H14.4375C14.6 2.8125 14.7344 2.86563 14.8406 2.97188C14.9469 3.07813 15 3.2125 15 3.375C15 3.5375 14.9469 3.67187 14.8406 3.77812C14.7344 3.88437 14.6 3.9375 14.4375 3.9375H14.2313V14.625C14.2313 14.925 14.1188 15.1875 13.8938 15.4125C13.6688 15.6375 13.4063 15.75 13.1063 15.75H4.89375ZM6.88125 12.45C6.88125 12.6125 6.93438 12.7469 7.04063 12.8531C7.14688 12.9594 7.28125 13.0125 7.44375 13.0125C7.60625 13.0125 7.74062 12.9594 7.84688 12.8531C7.95312 12.7469 8.00625 12.6125 8.00625 12.45V6.09375C8.00625 5.93125 7.95312 5.79688 7.84688 5.69063C7.74062 5.58438 7.60625 5.53125 7.44375 5.53125C7.28125 5.53125 7.14688 5.58438 7.04063 5.69063C6.93438 5.79688 6.88125 5.93125 6.88125 6.09375V12.45ZM9.99375 12.45C9.99375 12.6125 10.0469 12.7469 10.1531 12.8531C10.2594 12.9594 10.3938 13.0125 10.5563 13.0125C10.7188 13.0125 10.8531 12.9594 10.9594 12.8531C11.0656 12.7469 11.1188 12.6125 11.1188 12.45V6.09375C11.1188 5.93125 11.0656 5.79688 10.9594 5.69063C10.8531 5.58438 10.7188 5.53125 10.5563 5.53125C10.3938 5.53125 10.2594 5.58438 10.1531 5.69063C10.0469 5.79688 9.99375 5.93125 9.99375 6.09375V12.45Z" fill="#A5A5A5"/>
+                                      </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 py-5">
+                            <svg class="hidden lg:block" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <path d="M23.7497 16.8333L26.6663 15.0416L29.583 16.8333C29.8052 16.9722 30.0205 16.9791 30.2288 16.8541C30.4372 16.7291 30.5413 16.5416 30.5413 16.2916V5.83331H22.7913V16.2916C22.7913 16.5416 22.8955 16.7291 23.1038 16.8541C23.3122 16.9791 23.5275 16.9722 23.7497 16.8333ZM10.833 31.6666C10.1663 31.6666 9.58301 31.4166 9.08301 30.9166C8.58301 30.4166 8.33301 29.8333 8.33301 29.1666V5.83331C8.33301 5.16665 8.58301 4.58331 9.08301 4.08331C9.58301 3.58331 10.1663 3.33331 10.833 3.33331H34.1663C34.833 3.33331 35.4163 3.58331 35.9163 4.08331C36.4163 4.58331 36.6663 5.16665 36.6663 5.83331V29.1666C36.6663 29.8333 36.4163 30.4166 35.9163 30.9166C35.4163 31.4166 34.833 31.6666 34.1663 31.6666H10.833ZM5.83301 36.6666C5.16634 36.6666 4.58301 36.4166 4.08301 35.9166C3.58301 35.4166 3.33301 34.8333 3.33301 34.1666V9.58331C3.33301 9.2222 3.45106 8.92359 3.68717 8.68748C3.92329 8.45137 4.2219 8.33331 4.58301 8.33331C4.94412 8.33331 5.24273 8.45137 5.47884 8.68748C5.71495 8.92359 5.83301 9.2222 5.83301 9.58331V34.1666H30.4163C30.7775 34.1666 31.0761 34.2847 31.3122 34.5208C31.5483 34.7569 31.6663 35.0555 31.6663 35.4166C31.6663 35.7778 31.5483 36.0764 31.3122 36.3125C31.0761 36.5486 30.7775 36.6666 30.4163 36.6666H5.83301Z" fill="white"/>
+                              </svg>
+                            <div class="">
+                                <p class="text-white font-bold text-lg">Portfolio</p>
+                                <p class="font-second text-white-60 text-sm font-medium">Might be required if the job post says so. You can add a link to your portfolio from another website (GitHub, Behance, Google Drive, etc.)</p>
+                                <label class="flex items-center gap-3 mt-4 lg:mt-3">
+                                    <span class="text-white-60 tracking-[1.4px] font-normal text-sm">LINK</span>
+                                    <!-- Using form state modifiers, the classes can be identical for every input -->
+                                    <input id="popup-body-portfolio" type="text" name="atc_portfolio" placeholder="www.drive.google.com/file" class="block border-0 w-full lg:w-[360px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-sm placeholder-white-60 text-white font-second
+                                      focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                      focus:invalid:border-red-500 focus:invalid:ring-red-500
+                                    "/>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fixed lg:static left-0 bottom-0 flex gap-3 w-full lg:w-max lg:ms-auto lg:justify-end mt-8 py-8 lg:pt-10 p-5 pe-8 lg:p-5 bg-[#2A2A2A] lg:bg-transparent rounded-t-2xl shadow-lg">
+                    <button type="button" class="close-x rounded-lg bg-teal-8 text-teal-100 py-4 lg:py-2 px-10 font-second text-base">Cancel</button>
+                    <button type="submit" class="w-full lg:w-max rounded-lg bg-teal-100 text-teal-8 py-4 lg:py-2 px-14 font-second text-base">Save</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <div class="lg:sticky fixed bottom-0 flex justify-around divide-x divide-second/60 left-0 right-0 bg-body rounded-t-2xl shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] py-4 lg:py-3">
-        <a href="/" class="material-symbols-outlined text-[30px] cursor-pointer text-black/60 w-full text-center">
-            home
-        </a>
-        <a href="/create" class="material-symbols-outlined text-[30px] cursor-pointer text-black/60 w-full text-center">
-            add_circle
-        </a>
-        <a href="/profile" class="material-symbols-outlined text-[30px] cursor-pointer text-black/60 w-full text-center">
-            person
-        </a>
+    <!-- POPUP RECRUITER -->
+    <div class="popup popup-recruiter rounded-2xl overflow-hidden border-2 border-header w-[720px] hidden">
+        <div class="header bg-header flex justify-between px-5 py-3 items-center">
+            <p class="font-normal text-white text-base tracking-[1.6px] flex items-center gap-2">RECRUITER PROFILE</p>
+            <p class="close-x cursor-pointer font-second font-medium text-sm text-teal-100">Close x</p>
+        </div>
+        <div class="popup-bar flex gap-3 px-5 py-1 bg-teal-8 items-center">
+            <p class="text-[#A5A5A5] tracking-[1.4px] text-sm font-normal">PROGRESS</p>
+            <p id="popup-recruiter-bar-text" class="text-sm font-bold text-white">0%</p>
+            <div class="w-full bg-black rounded-full h-2.5">
+                <div id="popup-recruiter-bar-progress" class="bg-teal-100 h-2.5 rounded-full" style="width: 2%"></div>
+            </div>
+        </div>
+        <form id="form-register-recruiter">
+            <div class="body bg-body min-h-[300px] max-h-[500px] overflow-y-scroll">
+                <div class="body-percent 0%">
+                    <div class="w-full bg-cover bg-no-repeat p-4 flex flex-col gap-6" style="background-image: url('/img/Login.png')">
+                        <div class="flex gap-3 items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="30" viewBox="0 0 60 30" fill="none">
+                                <g clip-path="url(#clip0_161_1128)">
+                                  <path d="M36.3426 9.29912L35.3072 24.174L30.8327 23.8597L30.3944 21.3268C28.7188 23.0938 26.8079 23.9019 24.6619 23.7511C23.8893 23.6969 23.1672 23.5378 22.4954 23.274C21.8452 23.0117 21.3626 22.6637 21.0478 22.23C20.8711 21.9793 20.7622 21.3759 20.7209 20.4198C20.7011 19.4652 20.7587 18.0178 20.8938 16.0776L21.4385 8.25218L26.9431 8.63885L26.4028 16.3996C26.3728 16.8308 26.3483 17.3382 26.3292 17.9217C26.3102 18.5053 26.349 18.8763 26.4458 19.0347C26.581 19.2609 27.0027 19.3988 27.7109 19.4485L28.2282 19.4524C28.8306 19.473 29.4627 19.3766 30.1245 19.1632L30.8381 8.91245L36.3426 9.29912Z" fill="white"/>
+                                  <path d="M47.889 9.78524C49.4341 9.89378 50.6214 10.4971 51.4507 11.5952C52.3029 12.6732 52.6405 14.4841 52.4634 17.028C52.3314 18.925 52.0409 20.4644 51.5921 21.646C51.1447 22.806 50.6715 23.5635 50.1723 23.9184C49.6732 24.2732 48.8252 24.5278 47.6284 24.682C46.453 24.8378 45.243 24.8719 43.9983 24.7845C43.6335 24.7588 43.0234 24.6943 42.168 24.5909L41.8483 29.1827L36.328 29.0224L37.6944 9.39407L42.201 9.71064L42.5884 12.045C43.2019 11.2865 43.9544 10.7003 44.8458 10.2864C45.7587 9.87389 46.7731 9.70685 47.889 9.78524ZM45.8181 20.9479C46.0661 20.7921 46.2716 20.3191 46.4344 19.529C46.5987 18.7173 46.7064 17.945 46.7574 17.212C46.8415 16.0048 46.7535 15.0996 46.4936 14.4964C46.2337 13.8933 45.653 13.56 44.7517 13.4967C44.1079 13.4515 43.5025 13.474 42.9356 13.5641L42.4358 20.7428L43.3304 20.9032C43.6079 20.9443 44.0042 20.983 44.5192 21.0192C45.2488 21.0704 45.6818 21.0467 45.8181 20.9479Z" fill="white"/>
+                                  <path d="M54.101 18.1503C54.1811 16.3796 54.28 12.7904 54.3977 7.3829L54.4564 5.14489L59.6915 5.22018C59.6829 5.65284 59.6494 6.28955 59.5909 7.1303C59.4348 9.37231 59.1429 12.0164 58.7152 15.0625C58.5334 16.4362 58.4182 17.3163 58.3697 17.7028C57.2991 18.2125 55.9261 18.4193 54.2507 18.3233L54.101 18.1503ZM55.6068 25.7949C54.8986 25.7451 54.3242 25.4773 53.8836 24.9914C53.4659 24.4855 53.2849 23.8337 53.3404 23.0361C53.3884 22.3462 53.665 21.7808 54.1701 21.3397C54.6967 20.9001 55.3141 20.7051 56.0223 20.7549C56.709 20.8031 57.2612 21.0802 57.6789 21.5861C58.118 22.0936 58.3135 22.6922 58.2655 23.3821C58.21 24.1797 57.9404 24.7998 57.4567 25.2424C56.9745 25.6635 56.3579 25.8476 55.6068 25.7949Z" fill="white"/>
+                                  <path d="M1.98832 1.57505L8.361 2.0227L7.84644 9.41465L7.56331 13.482L6.95766 22.1826L0.584988 21.7349L1.98832 1.57505Z" fill="white"/>
+                                  <path d="M13.3037 9.79799L13.8183 2.40604L20.1909 2.85369L18.7876 23.0136L12.4149 22.5659L13.0206 13.8653L13.3037 9.79799Z" fill="white"/>
+                                  <path d="M12.6611 11.8052C12.6611 13.064 11.6453 14.3377 10.3922 14.3377C9.13911 14.3377 8.12329 13.064 8.12329 11.8052C8.12329 10.5464 9.13911 9.39935 10.3922 9.39935C11.6453 9.39935 12.6611 10.5464 12.6611 11.8052Z" fill="white"/>
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0_161_1128">
+                                    <rect width="60" height="28.2857" fill="white" transform="translate(0 0.857117)"/>
+                                  </clipPath>
+                                </defs>
+                              </svg>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <path d="M6.66658 35C5.74992 35 4.9652 34.6736 4.31242 34.0208C3.65964 33.368 3.33325 32.5833 3.33325 31.6666V13.3333C3.33325 12.4166 3.65964 11.6319 4.31242 10.9791C4.9652 10.3264 5.74992 9.99998 6.66658 9.99998H13.3333V6.66665C13.3333 5.74998 13.6596 4.96526 14.3124 4.31248C14.9652 3.6597 15.7499 3.33331 16.6666 3.33331H23.3333C24.2499 3.33331 25.0346 3.6597 25.6874 4.31248C26.3402 4.96526 26.6666 5.74998 26.6666 6.66665V9.99998H33.3333C34.2499 9.99998 35.0346 10.3264 35.6874 10.9791C36.3402 11.6319 36.6666 12.4166 36.6666 13.3333V31.6666C36.6666 32.5833 36.3402 33.368 35.6874 34.0208C35.0346 34.6736 34.2499 35 33.3333 35H6.66658ZM16.6666 9.99998H23.3333V6.66665H16.6666V9.99998Z" fill="white"/>
+                              </svg>
+                        </div>
+                        <div class="w-[360px]">
+                            <p class="text-lg font-bold text-white">Applying for a Hup! Recruiter Profile</p>
+                            <p class="font-second text-sm font-semibold text-white-80">A recruiter profile enables you to post job vacancies and use ActiveSearch to find the perfect candidate.</p>
+                        </div>
+                        <div class="w-[348px] flex items-center bg-[#3B3B3B]/80 rounded-lg p-3 gap-3 mt-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 17C12.2833 17 12.5208 16.9042 12.7125 16.7125C12.9042 16.5208 13 16.2833 13 16V12C13 11.7167 12.9042 11.4792 12.7125 11.2875C12.5208 11.0958 12.2833 11 12 11C11.7167 11 11.4792 11.0958 11.2875 11.2875C11.0958 11.4792 11 11.7167 11 12V16C11 16.2833 11.0958 16.5208 11.2875 16.7125C11.4792 16.9042 11.7167 17 12 17ZM12 9C12.2833 9 12.5208 8.90417 12.7125 8.7125C12.9042 8.52083 13 8.28333 13 8C13 7.71667 12.9042 7.47917 12.7125 7.2875C12.5208 7.09583 12.2833 7 12 7C11.7167 7 11.4792 7.09583 11.2875 7.2875C11.0958 7.47917 11 7.71667 11 8C11 8.28333 11.0958 8.52083 11.2875 8.7125C11.4792 8.90417 11.7167 9 12 9ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22Z" fill="#3DD1DB"/>
+                              </svg>
+                            <div class="">
+                                <p class="tracking-[1.6px] font-normal text-base text-teal-100">TIP</p>
+                                <p class="font-second text-sm font-medium text-white">To apply, you will have to verify that you are an active representative of a company or university organization.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-3 justify-end mt-2 p-5 pb-6">
+                        <button type="button" class="close-x rounded-lg bg-teal-8 text-teal-100 py-2 px-10 font-second text-base">Cancel</button>
+                        <button type="button" class="button-next rounded-lg bg-teal-100 text-teal-8 py-2 px-14 font-second text-base">Apply</button>
+                    </div>
+                </div>
+                <div class="body-percent 20% py-4 px-5 hidden">
+                    <p class="font-second text-base text-white font-bold">What type of organization are you hiring for?</p>
+                    <div class="flex flex-col gap-2 mt-4">
+                        <ul class="flex flex-col gap-2">
+                            <li>
+                                <input checked type="radio" id="hosting-small" name="rec_type" value="Company" class="hidden peer" required>
+                                <label for="hosting-small" class="inline-flex items-center justify-between w-full border border-header rounded-lg cursor-pointer peer-checked:border-white-80 peer-checked:bg-gray-100/10 hover:text-gray-600/20 hover:bg-gray-100/20">                           
+                                    <div class="flex gap-5 rounded-lg py-3 px-4 w-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                            <path d="M5.83325 35C5.16659 35 4.58325 34.75 4.08325 34.25C3.58325 33.75 3.33325 33.1666 3.33325 32.5V11.9583C3.33325 11.2916 3.58325 10.7083 4.08325 10.2083C4.58325 9.70831 5.16659 9.45831 5.83325 9.45831H13.7499V5.83331C13.7499 5.16665 13.9999 4.58331 14.4999 4.08331C14.9999 3.58331 15.5833 3.33331 16.2499 3.33331H23.7499C24.4166 3.33331 24.9999 3.58331 25.4999 4.08331C25.9999 4.58331 26.2499 5.16665 26.2499 5.83331V9.45831H34.1666C34.8333 9.45831 35.4166 9.70831 35.9166 10.2083C36.4166 10.7083 36.6666 11.2916 36.6666 11.9583V32.5C36.6666 33.1666 36.4166 33.75 35.9166 34.25C35.4166 34.75 34.8333 35 34.1666 35H5.83325ZM16.2499 9.45831H23.7499V5.83331H16.2499V9.45831Z" fill="white"/>
+                                        </svg>
+                                        <div class="font-second">
+                                            <p class="text-xl font-bold text-white">Company</p>
+                                            <p class="text-sm font-medium text-white-60 w-[555px]">You are a representative of a company, startup, or charity organization to hire candidates.</p>
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                            <li>
+                                <input type="radio" id="hosting-big" name="rec_type" value="University Organization" class="hidden peer">
+                                <label for="hosting-big" class="inline-flex items-center justify-between w-full border border-header rounded-lg cursor-pointer peer-checked:border-white-80 peer-checked:bg-gray-100/10 hover:text-gray-600/20 hover:bg-gray-100/20">
+                                    <div class="flex gap-5 rounded-lg py-3 px-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                            <path d="M37.3333 28.5417C36.8333 28.5417 36.4236 28.375 36.1042 28.0417C35.7847 27.7083 35.625 27.3194 35.625 26.875V17L21.7917 24.4583C21.5417 24.5694 21.25 24.6667 20.9167 24.75C20.5833 24.8333 20.2639 24.875 19.9583 24.875C19.6528 24.875 19.3403 24.8333 19.0208 24.75C18.7014 24.6667 18.4167 24.5694 18.1667 24.4583L4.125 16.75C3.79167 16.6111 3.54167 16.3958 3.375 16.1042C3.20833 15.8125 3.125 15.4722 3.125 15.0833C3.125 14.7222 3.20833 14.3958 3.375 14.1042C3.54167 13.8125 3.79167 13.5833 4.125 13.4167L18.1667 5.75C18.4444 5.63889 18.7431 5.52778 19.0625 5.41667C19.3819 5.30556 19.6806 5.25 19.9583 5.25C20.2361 5.25 20.5347 5.30556 20.8542 5.41667C21.1736 5.52778 21.5 5.63889 21.8333 5.75L37.9583 14.5417C38.2639 14.6806 38.5069 14.9097 38.6875 15.2292C38.8681 15.5486 38.9583 15.875 38.9583 16.2083V26.875C38.9583 27.3194 38.7986 27.7083 38.4792 28.0417C38.1597 28.375 37.7778 28.5417 37.3333 28.5417ZM19.9583 34.5833C19.6806 34.5833 19.375 34.5486 19.0417 34.4792C18.7083 34.4097 18.4167 34.3056 18.1667 34.1667L9.58333 29.5417C8.94444 29.2361 8.45139 28.7778 8.10417 28.1667C7.75695 27.5556 7.58333 26.8889 7.58333 26.1667V20.25L17.3333 25.625C17.75 25.8472 18.1667 26.0556 18.5833 26.25C19 26.4444 19.4583 26.5417 19.9583 26.5417C20.4583 26.5417 20.9306 26.4444 21.375 26.25C21.8194 26.0556 22.2361 25.8333 22.625 25.5833L32.375 20.25V26.1667C32.375 26.8889 32.1944 27.5556 31.8333 28.1667C31.4722 28.7778 30.9861 29.2361 30.375 29.5417L21.7917 34.1667C21.5139 34.3056 21.2083 34.4097 20.875 34.4792C20.5417 34.5486 20.2361 34.5833 19.9583 34.5833Z" fill="white"/>
+                                        </svg>
+                                        <div class="font-second">
+                                            <p class="text-xl font-bold text-white">University Organization / Student Organization</p>
+                                            <p class="text-sm font-medium text-white-60 w-[555px]">You are a representative of a university organization or student body under a government-verified education institution.</p>
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                        
+                        
+                        <div class="flex gap-3 justify-end mt-6 pb-1">
+                            <button type="button" class="button-back rounded-lg bg-teal-8 text-teal-100 py-2 px-10 font-second text-base">Back</button>
+                            <button type="button" class="button-next rounded-lg bg-teal-100 text-teal-8 py-2 px-14 font-second text-base">Next</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="popup-recruiter-org" class="body-percent 40% py-4 px-5 hidden">
+                    <div class="divide-header divide-y">
+                        <div class="pb-4">
+                            <p class="font-second text-base text-white font-bold mb-3">Please fill in the details of your organization</p>
+                            <div class="flex flex-col gap-4">
+                                <label class="block">
+                                    <span class="text-white-60 tracking-[1.4px] font-normal text-sm">ORGANIZATION NAME*</span>
+                                    <!-- Using form state modifiers, the classes can be identical for every input -->
+                                    <input type="text" placeholder="Startup Keren" name="rec_org_name" class="block border-0 w-[360px] px-3 py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                    focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                    focus:invalid:border-red-500 focus:invalid:ring-red-500
+                                    "/>
+                                </label>
+                                <label class="block">
+                                    <span class="text-white-60 tracking-[1.4px] font-normal text-sm">DESCRIPTION*</span>
+                                    <!-- Using form state modifiers, the classes can be identical for every input -->
+                                    <input type="text" placeholder="Artificial Intelligence Agency" name="rec_org_desc" class="block border-0 w-[360px] px-3 py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                    focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                    focus:invalid:border-red-500 focus:invalid:ring-red-500
+                                    "/>
+                                    <p class="font-second text-xs font-normal text-white-60 mt-1">Describe your organization in one sentence. (Ex. Creative Agency, Startup Media for Gen-Z, etc.)</p>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="py-4">
+                            <div class="flex gap-5">
+                                <label class="block">
+                                    <span class="text-white-60 tracking-[1.4px] font-normal text-sm">ORGANIZATION SIZE*</span>
+                                    <!-- Using form state modifiers, the classes can be identical for every input -->
+                                    <select id="countries" name="rec_org_size" class="block border-0 w-[200px] px-3 py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white focus:ring-white-60">
+                                        <option value="1-5 people" selected>1-5 people</option>
+                                        <option value="5-100">5-100</option>
+                                        <option value="> 100">> 100</option>
+                                    </select>
+                                </label>
+                                <label class="block">
+                                    <span class="text-white-60 tracking-[1.4px] font-normal text-sm">YEAR FOUNDED*</span>
+                                    <!-- Using form state modifiers, the classes can be identical for every input -->
+                                    <input type="number" placeholder="2023" name="rec_org_year" class="block border-0 w-[120px] px-3 py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                    focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                    focus:invalid:border-red-500 focus:invalid:ring-red-500
+                                    "/>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-4 py-4">
+                            <label class="block">
+                                <span class="text-white-60 tracking-[1.4px] font-normal text-sm">WEBSITE</span>
+                                <!-- Using form state modifiers, the classes can be identical for every input -->
+                                <input type="url" placeholder="www.startupkeren.id" name="rec_org_website" class="peer block border-0 w-[300px] px-3 py-[10px] bg-header rounded-lg placeholder-white-60 text-white font-second text-sm
+                                focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                focus:invalid:border-red-500 focus:invalid:ring-red-500
+                                "/>
+                                <p class="mt-2 invisible peer-invalid:visible font-second text-red-500 text-xs">invalid url</p>
+                            </label>
+                            <label class="block">
+                                <span class="text-white-60 tracking-[1.4px] font-normal text-sm">OFFICE ADDRESS</span>
+                                <!-- Using form state modifiers, the classes can be identical for every input -->
+                                <input type="text" placeholder="" name="rec_org_address" class="block border-0 w-[300px] px-3 py-[10px] bg-header rounded-lg placeholder-white-60 text-white font-second text-sm
+                                focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                focus:invalid:border-red-500 focus:invalid:ring-red-500
+                                "/>
+                            </label>
+                            <div class="flex gap-3 justify-end mt-6">
+                                <button type="button" class="button-back rounded-lg bg-teal-8 text-teal-100 py-2 px-10 font-second text-base">Cancel</button>
+                                <button disabled id="button-recruiter-org" type="button" class="disabled:bg-teal-100/50 button-next rounded-lg bg-teal-100 text-teal-8 py-2 px-14 font-second text-base">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="popup-recruiter-info" class="body-percent 60% py-4 px-5 hidden">
+                    <div class="divide-header divide-y">
+                        <div class="pb-4">
+                            <p class="font-second text-base text-white font-bold mb-1">Please fill in your information</p>
+                            <p class="font-second text-sm text-white-60 font-medium mb-3">Please choose the most suitable package for your organization.</p>
+                            <div class="flex gap-5">
+                                <label class="block">
+                                    <span class="text-white-60 tracking-[1.4px] font-normal text-sm">FIRST NAME*</span>
+                                    <!-- Using form state modifiers, the classes can be identical for every input -->
+                                    <input type="text" placeholder="Pepeng" name="rec_info_firstname" class="block border-0 w-[200px] px-3 py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                    focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                    focus:invalid:border-red-500 focus:invalid:ring-red-500
+                                    "/>
+                                </label>
+                                <label class="block">
+                                    <span class="text-white-60 tracking-[1.4px] font-normal text-sm">LAST NAME*</span>
+                                    <!-- Using form state modifiers, the classes can be identical for every input -->
+                                    <input type="text" placeholder="Suherman" name="rec_info_lastname" class="block border-0 w-[280px] px-3 py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                    focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                    focus:invalid:border-red-500 focus:invalid:ring-red-500
+                                    "/>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="py-4">
+                            <div class="">
+                                <label class="block">
+                                    <span class="text-white-60 tracking-[1.4px] font-normal text-sm">WORK EMAIL*</span>
+                                    <!-- Using form state modifiers, the classes can be identical for every input -->
+                                    <input type="email" placeholder="john.doe@domain.com" name="rec_info_email" class="block border-0 w-[240px] px-3 py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                    focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                    focus:invalid:border-red-500 focus:invalid:ring-red-500
+                                    "/>
+                                    <p class="font-second text-white-60 text-xs font-normal">Your work email should use the official domain of your organization’s website. (Ex. name@gojek.com, name@university.ac.id)</p>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-4 py-4">
+                            <label class="block">
+                                <span class="text-white-60 tracking-[1.4px] font-normal text-sm">POSITION*</span>
+                                <!-- Using form state modifiers, the classes can be identical for every input -->
+                                <input type="text" placeholder="Talent Acquisition" name="rec_info_position" class="block border-0 w-[240px] px-3 py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                focus:invalid:border-red-500 focus:invalid:ring-red-500
+                                "/>
+                                <p class="font-second text-white-60 text-xs font-normal">Your position in the organization.</p>
+                            </label>
+                            <div class="flex gap-3 justify-end mt-6">
+                                <button type="button" class="button-back rounded-lg bg-teal-8 text-teal-100 py-2 px-10 font-second text-base">Cancel</button>
+                                <button disabled id="button-recruiter-info" type="button" class="button-next disabled:bg-teal-100/50 rounded-lg bg-teal-100 text-teal-8 py-2 px-14 font-second text-base">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="body-percent 80% py-4 px-5 hidden">
+                    <div class="pb-4">
+                        <p class="font-second text-base text-white font-bold mb-1">Packages</p>
+                        <p class="font-second text-sm text-white-60 font-medium mb-3">Please choose the most suitable package for your organization.</p>    
+                    </div>
+                    <ul class="flex gap-2">
+                        <li>
+                            <input checked type="radio" id="package-free" name="rec_tier" value="package-free" class="hidden peer" required>
+                            <label for="package-free" class="inline-flex items-center justify-between w-[240px] h-[300px] bg-[#363636] border border-header rounded-lg cursor-pointer peer-checked:border-white-80 peer-checked:bg-gray-100/10 hover:text-gray-600/20 hover:bg-gray-100/20">                           
+                                <div class="rounded-lg p-4 relative w-full h-full">
+                                    <p class="font-bold text-white text-[32px]">Free</p>
+                                    <p class="font-second text-sm font-medium text-white-60">Unlimited job posts and ActiveSearches. Free for a limited time.</p>
+                                    <p class="absolute bottom-4 left-4 text-2xl text-white font-bold">Rp.0</p>
+                                </div>  
+                            </label>
+                        </li>
+                    </ul>
+                    <div class="flex gap-3 justify-end mt-6 pb-3">
+                        <button type="button" class="button-back rounded-lg bg-teal-8 text-teal-100 py-2 px-10 font-second text-base">Cancel</button>
+                        <button type="button" class="button-next rounded-lg bg-teal-100 text-teal-8 py-2 px-14 font-second text-base">Save</button>
+                    </div>
+                </div>
+                <div class="body-percent 100% py-4 px-5 hidden">
+                    <div class="h-[270px] flex flex-col justify-center gap-4 items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="31" viewBox="0 0 56 31" fill="none">
+                            <path d="M14.75 31L0.625 16.875L4.1875 13.375L14.8125 24L18.3125 27.5L14.75 31ZM28.875 31L14.75 16.875L18.25 13.3125L28.875 23.9375L51.875 0.9375L55.375 4.5L28.875 31ZM28.875 16.875L25.3125 13.375L37.6875 1L41.25 4.5L28.875 16.875Z" fill="#2BDE68"/>
+                        </svg>
+                        <div class="text-center">
+                            <p class="text-white font-bold text-xl">Cool! Your application has been submitted.</p>
+                            <p class="font-second text-sm font-medium text-white-60">We'll notify you via email when you have been approved for a Recruiter Profile!</p>
+                        </div>
+                        <button type="submit" class="bg-teal-100 text-teal-8 px-10 py-2 rounded-lg font-second text-base font-medium">I'll check my email, then.</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-</main>
+
+</section>
+
+
+
+<%- include('./layouts/footer'); -%>
+
+<script>
+    // Get User untuk initialisasi data di page ini
+    $.ajax({
+        url: '/api/v1/users/info',
+        type: 'get',
+        dataType: 'json',
+        headers: {
+            "Authorization": window.USER_TOKEN,
+        },
+        success: async function (userData) {
+            const data = decrypt(userData.r);
+            
+            // Inisialisasi basic information
+            InitBasic(data)
+
+            // Inisialisasi summary
+            InitSummary(data)
+
+            // Inisialisasi Experiences
+            InitExperiences(data.experiences)
+            
+            // Inisialisasi Educations
+        },
+        error: function(xhr){
+            window.location.href = "/"
+        }
+    });
+
+    $("#edit-attachment, #completion-resume").click(function(){
+        $("#popup").removeClass("hidden")
+        $(".popup-attachments").removeClass("hidden")
+        $("body").addClass('no-scroll');
+    })
+    $(".close-x").click(function(){
+        $(this).closest('.popup').slideToggle(function(){
+            $(this).closest('#popup').fadeOut()
+        })
+        $("body").removeClass('no-scroll');
+    })
+
+
+
+
+
+    // basic information submit DOM
+    PutUserData("form-basic-information", "/api/v1/users", function(dis, response){
+        InitBasic(response)
+        $(dis).closest('.popup').slideToggle(function(){
+            $(dis).closest('#popup').fadeOut()
+        })
+        $("body").removeClass('no-scroll');
+    })
+
+    // summary submit DOM
+    PutUserData("form-profile-summary", "/api/v1/users", function(dis, response){
+        InitSummary(response)
+        $(dis).closest('.popup').slideToggle(function(){
+            $(dis).closest('#popup').fadeOut()
+        })
+        $("body").removeClass('no-scroll');
+    })
+
+    $(`#form-add-experience`).submit(function(e){
+        e.preventDefault();
+        let formData = new FormData($(this)[0])
+
+        $.ajax({
+            url: "/api/v1/users/info/experiences",
+            type: "POST",
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            encrypt: "multipart/form-data",
+            processData: false,
+            headers: {
+                "Authorization": window.USER_TOKEN,
+            },
+            success: (response) => {
+                $("#adding-new-experience").addClass("hidden")
+                $("#registered-experience").removeClass("hidden")
+                $(this).closest('.popup').slideToggle(function(){
+                    $(this).closest('#popup').fadeOut()
+                })
+                InitExperiences(response)
+                $(`#form-add-experience`).trigger("reset");
+                $("body").removeClass('no-scroll');
+                return
+            },
+            error: function (request, status, error) {
+                return request
+            },
+        });
+    })
+
+
+    function PutUserData(formName, url, callback = () => {}){
+        $(`#${formName}`).submit(function(e){
+            e.preventDefault();
+            let formData = new FormData($(this)[0])
+
+            $.ajax({
+                url: url,
+                type: "PUT",
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                encrypt: "multipart/form-data",
+                processData: false,
+                headers: {
+                    "Authorization": window.USER_TOKEN,
+                },
+                success: (response) => {
+                    // callback parameter this isinya button submit yang di klik
+                    // biar bisa dipake buat manipulasi dom
+                    callback(this, response)
+                    return
+                },
+                error: function (request, status, error) {
+                    return request
+                },
+            });
+        })
+    }
+
+    function InitBasic(data){
+        $(".firstname").text(data.firstname)
+        $("#basic-fullname").text(`${data.firstname} ${data.lastname}`)
+        $("#popup-firstname").val(data.firstname)
+        $("#popup-lastname").val(data.lastname)
+        $("#basic-email").text(data.email)
+        $("#popup-email").val(data.email)
+        $("#basic-mobile").text(data.mobile ? data.mobile : "no data")
+        $("#popup-mobile").val(data.mobile ? data.mobile : "")
+        $("#basic-sex").text(data.sex ? data.sex : "no data")
+        $("#popup-sex").val(data.sex ? data.sex : "")
+        $("#basic-birthdate").text(data.date_of_birth ? data.date_of_birth : "no data")
+        $("#popup-birthdate").val(data.date_of_birth ? data.date_of_birth : "")
+        $("#basic-domicile").text(data.domicile ? data.domicile : "no data")
+        $("#popup-domicile").val(data.domicile ? data.domicile : "")
+    }
+
+    function InitSummary(data){
+        if(data.summary){
+            $("#off-summary").addClass("hidden")
+            $("#on-summary").removeClass("hidden")
+            $("#popup-summary-textarea").val(data.summary)
+            document.getElementById('profile-summary-text').innerHTML = data.summary.replace(/\n/g, '<br/>');
+        }else{
+            $("#off-summary").removeClass("hidden")
+            $("#on-summary").addClass("hidden")
+        }
+    }
+    
+    function InitExperiences(data){
+        if(data.length <= 0){
+            $("#on-experiences").addClass("hidden")
+            $("#off-experiences").removeClass("hidden")
+        }else{
+            $("#off-experiences").addClass("hidden")
+            $("#on-experiences").removeClass("hidden")
+            $("#on-experiences").html("")
+            data.forEach((experienceData) => {
+                $("#on-experiences").append(`
+                    <div class="w-full py-5">
+                        <div class="flex justify-between items-start">
+                            <div class="">
+                            <p class="mb-1 text-sm bg-main/60 px-2 w-max text-white">${experienceData.exp_type}</p>
+                            <p class="text-xl font-semibold">${experienceData.exp_position}</p>
+                            <div class="flex items-center gap-1 text-black/70">
+                                <p>${experienceData.exp_orgname}</p>
+                                <p>•</p>
+                                <p>${experienceData.exp_time}</p>
+                                <p>•</p>
+                                <p>${experienceData.exp_status} (${experienceData.exp_location})</p>
+                            </div>
+                            </div>
+                            <div class="text-right">
+                            <p class="text-sm">Nov 2023 - Now</p>
+                            <p class="text-xs text-black/60">8 MONTH</p>
+                            </div>
+                        </div>
+                        <!-- BODY -->
+                        <p class="mt-3">${experienceData.exp_description}</p>
+                    </div>
+                `)
+            })
+        }
+    }
+
+    const decrypt = (data, keys='<%= process.env.AES_KEYS %>') => {
+        let bytes = CryptoJS.AES.decrypt(data, keys)
+        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+    }
+
+</script>

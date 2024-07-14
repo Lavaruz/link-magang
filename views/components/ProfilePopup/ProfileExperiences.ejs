@@ -1,0 +1,273 @@
+<div class="hidden popup popup-experiences border-2 border-main w-full lg:w-[720px] rounded-t-2xl lg:rounded-2xl overflow-hidden">
+    <div class="hidden header bg-main lg:flex justify-between px-5 py-3 items-center">
+        <p class="font-normal text-white text-base tracking-[1.6px] flex items-center gap-2">EXPERIENCES</p>
+        <p class="close-x cursor-pointer font-second font-medium text-sm text-teal-100">Close x</p>
+    </div>
+
+    <div class="body bg-background lg:bg-background h-[92vh] lg:h-[500px] overflow-y-scroll">
+
+        <!-- ADDING NEW EXPERIENCE -->
+
+        <div id="adding-new-experience" class="hidden additional-popup">
+            <form id="form-add-experience" class="relative">
+                <div class="pb-40 lg:pb-5 p-5 divide-gray-300 divide-y flex flex-col gap-4">
+                    <div class="lg:flex flex-col gap-4 py-4 lg:py-0">
+                        <p class="font-bold text-xl lg:text-lg text-main mb-1">Add Experiences</p>
+                        <label class="block">
+                            <label class="block mb-1 text-black/80 tracking-[1.4px] font-normal text-sm">POSITION/JOB TITLE*</label>
+                            <!-- Using form state modifiers, the classes can be identical for every input -->
+                            <input required id="popup-firstname" type="text" placeholder="Software Engineer" name="exp_position" class="block border-2 border-gray-300 w-full lg:w-[360px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80
+                            focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                            focus:invalid:border-red-500 focus:invalid:ring-red-500
+                            "/>
+                        </label>
+                        <label class="block">
+                            <label class="block mb-1 text-black/80 tracking-[1.4px] font-normal text-sm">COMPANY/ORGANIZATION NAME*</label>
+                            <!-- Using form state modifiers, the classes can be identical for every input -->
+                            <input required id="popup-firstname" type="text" placeholder="Hup! Indonesia" name="exp_orgname" class="block border-2 border-gray-300 w-full lg:w-[360px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80
+                            focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                            focus:invalid:border-red-500 focus:invalid:ring-red-500
+                            "/>
+                        </label>
+                    </div>
+                    <div class="flex flex-col gap-4 py-4">
+                        <div class="lg:flex gap-5">
+                            <label class="block">
+                                <label class="block mb-1 text-black/80 tracking-[1.4px] font-normal text-sm">EXPERIENCE TYPE*</label>
+                                <!-- Using form state modifiers, the classes can be identical for every input -->
+                                <select id="countries" name="exp_type" class="block border-2 border-gray-300 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80 focus:ring-white-60">
+                                    <option value="Employee" selected>Employee</option>
+                                    <option value="Volunteer">Volunteer</option>
+                                    <option value="Student Event Committee">Student Event Committee</option>
+                                    <option value="Student Organization">Student Organization</option>
+                                    <option value="Self-Employed">Self-Employed</option>
+                                </select>
+                            </label>
+                            <label class="block mt-4 lg:mt-0">
+                                <label class="block mb-1 text-black/80 tracking-[1.4px] font-normal text-sm">FULL-TIME/PART-TIME*</label>
+                                <!-- Using form state modifiers, the classes can be identical for every input -->
+                                <select id="countries" name="exp_time" class="block border-2 border-gray-300 w-full lg:w-[140px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80 focus:ring-white-60">
+                                    <option selected value="Full-time">Full-time</option>
+                                    <option value="Part-time">Part-time</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="lg:flex gap-5 items-center">
+                            <label class="block lg:w-max">
+                                <label class="block mb-1 text-black/80 tracking-[1.4px] font-normal text-sm">START DATE*</label>
+                                <!-- Using form state modifiers, the classes can be identical for every input -->
+                                <input required id="popup-firstname" type="month" placeholder="Hup! Indonesia" name="exp_startdate" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80
+                                focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                focus:invalid:border-red-500 focus:invalid:ring-red-500
+                                "/>
+                            </label>
+                            <label class="block lg:w-max mt-4 lg:mt-0">
+                                <label class="block mb-1 text-black/80 tracking-[1.4px] font-normal text-sm">END DATE*</label>
+                                <!-- Using form state modifiers, the classes can be identical for every input -->
+                                <input id="popup-firstname" type="month" placeholder="Hup! Indonesia" name="exp_enddate" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80
+                                focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:bg-header/50 disabled:text-slate-100/50 disabled:placeholder-text-black/80/50
+                                "/>
+                            </label>
+                            <div class="flex items-center mt-5">
+                                <input id="still-work-here" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-header border-0 rounded focus:ring-blue-500 focus:ring-0 focus:outline-none focus:border-0">
+                                <label for="still-work-here" class="ml-2 font-second text-sm font-medium text-black/80">I still work here</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:flex gap-5 py-4">
+                        <label class="block">
+                            <label class="block mb-1 text-black/80 tracking-[1.4px] font-normal text-sm">LOCATION TYPE</label>
+                            <!-- Using form state modifiers, the classes can be identical for every input -->
+                            <select id="countries" name="exp_status" class="block border-2 border-gray-300 w-full lg:w-[140px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80 focus:ring-white-60">
+                                <option value="On-Site" selected>On-Site</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="Remote">Remote</option>
+                            </select>
+                        </label>
+                        <label class="block mt-4 lg:mt-0">
+                            <label class="block mb-1 text-black/80 tracking-[1.4px] font-normal text-sm">OFFICE LOCATION*</label>
+                            <!-- Using form state modifiers, the classes can be identical for every input -->
+                            <input required id="popup-firstname" type="text" placeholder="Jakarta" name="exp_location" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80
+                            focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                            focus:invalid:border-red-500 focus:invalid:ring-red-500
+                            "/>
+                        </label>
+                    </div>
+                    <div class="pt-4">
+                        <label class="block mb-1 text-black/80 tracking-[1.4px] font-normal text-sm">JOB DESCRIPTION</label>
+                        <textarea id="" rows="4" name="exp_description" class="block border-2 border-gray-300 resize-none px-4 lg:px-3 py-4 lg:py-[10px] w-full h-[240px] font-second text-sm text-black/80 bg-header rounded-lg focus:ring-white-60" placeholder="Write your desciprtion here..."></textarea>
+                    </div>
+                </div>
+                <div class="fixed lg:static left-0 bottom-0 flex gap-3 w-full lg:w-max lg:ms-auto lg:justify-end mt-6 pb-6 p-5">
+                    <button type="button" class="cancle-add rounded-lg text-main py-4 lg:py-2 px-10 font-second text-base">Cancel</button>
+                    <button type="submit" class="rounded-lg w-full bg-main text-white py-4 lg:py-2 px-14 font-second text-base">Add</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- EDITING EXPERIENCE -->
+
+        <div id="editing-experience" class="hidden additional-popup-edit">
+            <form id="form-editing-experience" class="relative">
+                <div class="pb-40 lg:pb-5 p-5 divide-gray-300 divide-y flex flex-col gap-4">
+                    <div class="flex flex-col gap-4">
+                        <p class="font-bold text-xl lg:text-lg text-black/80 mb-1">Edit Experiences</p>
+                        <label class="block">
+                            <span class="text-black/80 tracking-[1.4px] font-normal text-sm">POSITION/JOB TITLE*</span>
+                            <!-- Using form state modifiers, the classes can be identical for every input -->
+                            <input required type="text" placeholder="Software Engineer" name="exp_position" class="block border-0 w-full lg:w-[360px] px-3 py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80
+                            focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                            focus:invalid:border-red-500 focus:invalid:ring-red-500
+                            "/>
+                        </label>
+                        <label class="block">
+                            <span class="text-black/80 tracking-[1.4px] font-normal text-sm">COMPANY/ORGANIZATION NAME*</span>
+                            <!-- Using form state modifiers, the classes can be identical for every input -->
+                            <input required type="text" placeholder="Hup! Indonesia" name="exp_orgname" class="block border-0 w-full lg:w-[360px] px-3 py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80
+                            focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                            focus:invalid:border-red-500 focus:invalid:ring-red-500
+                            "/>
+                        </label>
+                    </div>
+                    <div class="flex flex-col gap-4 py-4">
+                        <div class="lg:flex gap-5">
+                            <label class="block">
+                                <span class="text-black/80 tracking-[1.4px] font-normal text-sm">EXPERIENCE TYPE*</span>
+                                <!-- Using form state modifiers, the classes can be identical for every input -->
+                                <select name="exp_type" class="block border-0 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80 focus:ring-white-60">
+                                    <option value="Employee" selected>Employee</option>
+                                    <option value="Volunteer">Volunteer</option>
+                                    <option value="Student Event Committee">Student Event Committee</option>
+                                    <option value="Student Organization">Student Organization</option>
+                                    <option value="Self-Employed">Self-Employed</option>
+                                </select>
+                            </label>
+                            <label class="block mt-4 lg:mt-0">
+                                <span class="text-black/80 tracking-[1.4px] font-normal text-sm">FULL-TIME/PART-TIME*</span>
+                                <!-- Using form state modifiers, the classes can be identical for every input -->
+                                <select name="exp_time" class="block border-0 w-full lg:w-[140px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80 focus:ring-white-60">
+                                    <option selected value="Full-time">Full-time</option>
+                                    <option value="Part-time">Part-time</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="lg:flex gap-5 items-center">
+                            <label class="block">
+                                <span class="text-black/80 tracking-[1.4px] font-normal text-sm">START DATE*</span>
+                                <!-- Using form state modifiers, the classes can be identical for every input -->
+                                <input required type="month" placeholder="Hup! Indonesia" name="exp_startdate" class="block border-0 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80
+                                focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                focus:invalid:border-red-500 focus:invalid:ring-red-500
+                                "/>
+                            </label>
+                            <label class="block mt-4 lg:mt-0">
+                                <span class="text-black/80 tracking-[1.4px] font-normal text-sm">END DATE*</span>
+                                <!-- Using form state modifiers, the classes can be identical for every input -->
+                                <input type="month" placeholder="Hup! Indonesia" name="exp_enddate" class="block border-0 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80
+                                focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                                focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:bg-header/50 disabled:text-slate-100/50 disabled:placeholder-text-black/80/50
+                                "/>
+                            </label>
+                            <div class="flex items-center mt-5">
+                                <input id="still-work-here" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-header border-0 rounded focus:ring-blue-500 focus:ring-0 focus:outline-none focus:border-0">
+                                <label for="still-work-here" class="ml-2 font-second text-sm font-medium text-black/80">I still work here</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:flex gap-5 py-4">
+                        <label class="block">
+                            <span class="text-black/80 tracking-[1.4px] font-normal text-sm">LOCATION TYPE</span>
+                            <!-- Using form state modifiers, the classes can be identical for every input -->
+                            <select id="countries" name="exp_status" class="block border-0 w-full lg:w-[140px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80 focus:ring-white-60">
+                                <option value="On-Site" selected>On-Site</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="Remote">Remote</option>
+                            </select>
+                        </label>
+                        <label class="block mt-4 lg:mt-0">
+                            <span class="text-black/80 tracking-[1.4px] font-normal text-sm">OFFICE LOCATION*</span>
+                            <!-- Using form state modifiers, the classes can be identical for every input -->
+                            <input required type="text" placeholder="Jakarta" name="exp_location" class="block border-0 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80
+                            focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
+                            focus:invalid:border-red-500 focus:invalid:ring-red-500
+                            "/>
+                        </label>
+                    </div>
+                    <div class="flex gap-4 flex-col">
+                        <div class="flex items-center bg-[#3B3B3B] rounded-lg p-3 gap-3 mt-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="49" viewBox="0 0 24 25" fill="none">
+                                <path d="M12 17.5C12.2833 17.5 12.5208 17.4042 12.7125 17.2125C12.9042 17.0208 13 16.7833 13 16.5V12.5C13 12.2167 12.9042 11.9792 12.7125 11.7875C12.5208 11.5958 12.2833 11.5 12 11.5C11.7167 11.5 11.4792 11.5958 11.2875 11.7875C11.0958 11.9792 11 12.2167 11 12.5V16.5C11 16.7833 11.0958 17.0208 11.2875 17.2125C11.4792 17.4042 11.7167 17.5 12 17.5ZM12 9.5C12.2833 9.5 12.5208 9.40417 12.7125 9.2125C12.9042 9.02083 13 8.78333 13 8.5C13 8.21667 12.9042 7.97917 12.7125 7.7875C12.5208 7.59583 12.2833 7.5 12 7.5C11.7167 7.5 11.4792 7.59583 11.2875 7.7875C11.0958 7.97917 11 8.21667 11 8.5C11 8.78333 11.0958 9.02083 11.2875 9.2125C11.4792 9.40417 11.7167 9.5 12 9.5ZM12 22.5C10.6167 22.5 9.31667 22.2375 8.1 21.7125C6.88333 21.1875 5.825 20.475 4.925 19.575C4.025 18.675 3.3125 17.6167 2.7875 16.4C2.2625 15.1833 2 13.8833 2 12.5C2 11.1167 2.2625 9.81667 2.7875 8.6C3.3125 7.38333 4.025 6.325 4.925 5.425C5.825 4.525 6.88333 3.8125 8.1 3.2875C9.31667 2.7625 10.6167 2.5 12 2.5C13.3833 2.5 14.6833 2.7625 15.9 3.2875C17.1167 3.8125 18.175 4.525 19.075 5.425C19.975 6.325 20.6875 7.38333 21.2125 8.6C21.7375 9.81667 22 11.1167 22 12.5C22 13.8833 21.7375 15.1833 21.2125 16.4C20.6875 17.6167 19.975 18.675 19.075 19.575C18.175 20.475 17.1167 21.1875 15.9 21.7125C14.6833 22.2375 13.3833 22.5 12 22.5Z" fill="#3DD1DB"/>
+                              </svg>
+                            <div class="">
+                                <p class="tracking-[1.6px] font-normal text-base text-teal-100">TIP</p>
+                                <p class="font-second text-sm font-medium text-black/80">Remember to always describe and elaborate each and every responsibilities you have during your experience. Here is a helpful article to assist you in writing a good description!</p>
+                            </div>
+                        </div>
+                        <textarea id="" rows="4" name="exp_description" class="block border-0 resize-none px-3 py-[10px] w-full h-[240px] font-second text-sm text-black/80 bg-header rounded-lg focus:ring-white-60" placeholder="Write your desciprtion here..."></textarea>
+                    </div>
+                </div>
+                <div class="fixed lg:static left-0 bottom-0 flex gap-3 w-full lg:w-max lg:ms-auto lg:justify-end mt-8 py-8 p-5 pe-8 lg:p-6 bg-[#2A2A2A] lg:bg-transparent rounded-t-2xl shadow-lg">
+                    <button type="button" class="cancle-edit rounded-lg bg-teal-8 text-teal-100 py-4 lg:py-2 px-10 font-second text-base">Cancel</button>
+                    <button type="submit" class="rounded-lg w-full bg-teal-100 text-teal-8 py-4 lg:py-2 px-14 font-second text-base">Save</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- REGISTERED EXPERIENCES -->
+
+        <div id="registered-experience" class="main-popup">
+            <div class="">
+                <div class="p-5">
+                    <button type="button" class="lg:hidden my-4 mb-6 flex items-center gap-2 close-x text-teal-100 font-second text-base"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <mask id="mask0_50_1377" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                          <rect width="24" height="24" fill="#D9D9D9"/>
+                        </mask>
+                        <g mask="url(#mask0_50_1377)">
+                          <path d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z" fill="#3DD1DB"/>
+                        </g>
+                      </svg> Back to Your Profie
+                    </button>
+                    <p class="font-bold text-xl lg:text-lg text-main mb-1">Your Experiences</p>
+                    <p class="text-black/80 text-sm font-second font-medium">You can add as much experience as you'd like! You can even add your university's organizational experiences. Always remember to elaborate your responsibilities well in the description.</p>
+                </div>
+                <div class="p-5">
+                    <div class="lg:divide-y divide-gray-300">
+                        <!-- <div class="lg:hidden">
+                            <button id="add-experience-mobile" class="font-second text-sm font-medium w-full lg:w-[90%] m-auto rounded-lg bg-main text-black/80 p-4 mb-5 flex items-center gap-2 justify-center">
+                                Add Experience
+                            </button>
+                        </div> -->
+
+                        <div id="popup-body-experiences" class="py-5 flex flex-col gap-5 lg:gap-10">
+                            <!-- ADD BY JS -->
+                            <!-- <p class="text-center">No Experiences Added</p> -->
+                        </div>
+
+                        <div class="hidden lg:block">
+                            <button id="add-experience" class="font-second text-sm font-medium w-[90%] m-auto rounded-lg bg-main text-white p-4 my-5 flex items-center gap-2 justify-center">
+                                Add Experience
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#edit-experiences, #completion-experiences, #button-experiences").click(function(){
+        $("#popup").fadeIn(function(){
+            $("body").addClass('no-scroll');
+            $(".popup-experiences").slideToggle()
+        }).css("display", "flex")
+    })
+
+    $("#add-experience").click(function(){
+        $("#adding-new-experience").removeClass("hidden")
+        $("#registered-experience").addClass("hidden")
+    })
+
+
+</script>

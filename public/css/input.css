@@ -10,6 +10,14 @@
   'opsz' 24
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+.noise{
+  background-image: url("/img/noise-dark.png");
+}
+
 main::-webkit-scrollbar {
   width: 8px;
 }
@@ -27,4 +35,8 @@ main::-webkit-scrollbar-thumb {
 /* Handle on hover */
 main::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.no-scroll{
+  overflow: hidden;
 }

@@ -4,10 +4,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        body: "#F8FAE5",  //Putih Kuning
-        second: "#43766C" //Hijau
-      },
+        background: "#EEEEEE",
+        main: "#47A992",
+        second: "#2D3332",
+        thrid: "#332F2D"
+      }
     },
   },
-  plugins: [],
+  plugins: [require('flowbite/plugin')],
 };

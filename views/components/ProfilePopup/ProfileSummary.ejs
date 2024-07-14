@@ -1,0 +1,26 @@
+<div class="hidden popup popup-summary border-2 border-header w-full lg:w-[720px] rounded-2xl overflow-hidden lg:rounded-2xl overflow-hidden">
+    <form id="form-profile-summary">
+        <div class="hidden header bg-main lg:flex justify-between px-5 py-3 items-center">
+            <p class="font-normal text-white text-base tracking-[1.6px] flex items-center gap-2">EDITING PROFILE SUMMARY</p>
+            <p class="close-x cursor-pointer font-second font-medium text-sm text-teal-100">Close x</p>
+        </div>
+        <div class="body bg-background noise lg:bg-body p-5 pb-20 lg:pb-6">
+            <p class="font-bold text-lg text-main">Your Profile Summary</p>
+            <p class="text-black/80 font-second font-medium text-sm mb-3">Your profile summary is your chance to make a lasting impression on potential employers! <a href="" class="text-main">Here</a> is a helpful article on how to create an attractive profile summary.</p>        
+            <textarea id="popup-summary-textarea" rows="8" name="summary" class="focus:ring-0 focus:border-main block border-2 border-gray-300 resize-none px-3 py-2.5 w-full font-second text-sm text-black/80 rounded-lg" placeholder="Write your thoughts here..."></textarea>
+            <div class="flex gap-3 lg:justify-end mt-8">
+                <button type="button" class="close-x rounded-lg bg-teal-8 text-main py-4 lg:py-2 px-10 font-second text-base">Cancel</button>
+                <button type="submit" class="rounded-lg lg:w-max w-full bg-main py-4 lg:py-2 px-14 text-white">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    $("#edit-education, #completion-education, #button-education").click(function(){
+        $("#popup").fadeIn(function(){
+            $("body").addClass('no-scroll');
+            $(".popup-education").slideToggle()
+        }).css("display", "flex")
+    })
+</script>

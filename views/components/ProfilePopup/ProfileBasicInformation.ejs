@@ -1,0 +1,110 @@
+<div class="hidden popup popup-basic border-2 border-main w-full lg:w-[720px] rounded-2xl lg:rounded-2xl overflow-hidden">
+    <form id="form-basic-information">
+        <div class="hidden lg:flex header bg-main justify-between px-5 py-3 items-center">
+            <p class="font-normal text-white text-base tracking-[1.6px] flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M10.0002 10C9.0835 10 8.29877 9.67362 7.646 9.02084C6.99322 8.36807 6.66683 7.58334 6.66683 6.66668C6.66683 5.75001 6.99322 4.96529 7.646 4.31251C8.29877 3.65973 9.0835 3.33334 10.0002 3.33334C10.9168 3.33334 11.7016 3.65973 12.3543 4.31251C13.0071 4.96529 13.3335 5.75001 13.3335 6.66668C13.3335 7.58334 13.0071 8.36807 12.3543 9.02084C11.7016 9.67362 10.9168 10 10.0002 10ZM5.00016 16.6667C4.54183 16.6667 4.14947 16.5035 3.82308 16.1771C3.49669 15.8507 3.3335 15.4583 3.3335 15V14.3333C3.3335 13.8611 3.45502 13.4271 3.69808 13.0313C3.94113 12.6354 4.26405 12.3333 4.66683 12.125C5.52794 11.6945 6.40294 11.3715 7.29183 11.1563C8.18072 10.941 9.0835 10.8333 10.0002 10.8333C10.9168 10.8333 11.8196 10.941 12.7085 11.1563C13.5974 11.3715 14.4724 11.6945 15.3335 12.125C15.7363 12.3333 16.0592 12.6354 16.3022 13.0313C16.5453 13.4271 16.6668 13.8611 16.6668 14.3333V15C16.6668 15.4583 16.5036 15.8507 16.1772 16.1771C15.8509 16.5035 15.4585 16.6667 15.0002 16.6667H5.00016Z" fill="white"/>
+            </svg> EDITING BASIC INFORMATION</p>
+            <p class="close-x cursor-pointer font-second font-medium text-sm text-teal-100">Close x</p>
+        </div>
+
+        <div class="relative body bg-background noise lg:bg-body divide-y divide-gray-300 h-[92vh] lg:h-[500px] overflow-y-scroll">
+            
+            <!-- PROFILE PICTURE HANDLE -->
+            <div class="p-5">
+                <button type="button" class="lg:hidden my-4 mb-6 flex items-center gap-2 close-x text-teal-100 font-second text-base">Back to Your Profie</button>
+                <p class="font-bold text-xl lg:text-lg text-main mb-3">Profile Picture</p>
+                <div class="flex items-center gap-5">
+                    <div class="min-w-[88px] max-w-[88px] min-h-[88px] max-h-[88px] rounded-full overflow-hidden">
+                        <img id="popup-profile-pic" src="/img/no-profile.jpg" alt="profile-pic" class="w-full h-full object-cover">
+                    </div>
+                    <div class="">
+                        <div class="hidden lg:block">
+                            <p class="text-white-60 font-second text-sm font-medium mb-2">Make sure your profile picture is professional and shows your face clearly.<br>
+                            <span class="text-main">Maximum file size is 1 MB.</span></p>
+                        </div>
+                        <label for="custom-input-file">
+                            <input type="file" id="custom-input-file" class="hidden" name="profile-picture" accept="image/*"/>
+                            <button id="button-profile-pic" type="button" class="flex items-center gap-1 bg-main text-white text-sm py-2 px-4 rounded-lg">Upload Profile Picture</button>
+                        </label>
+                    </div>
+                </div>
+                <div class="lg:hidden pt-4">
+                    <p class="text-white-60 font-second text-sm font-medium mb-2">Make sure your profile picture is professional and shows your face clearly.<br>
+                    <span class="text-white">Maximum file size is 1 MB.</span></p>
+                </div>
+            </div>
+
+            <!-- BASIC INFORMATION, EMAIL, FIRSTNAME, LASTNAME, DLL -->
+            <div class="p-5">
+                <p class="font-bold text-xl lg:text-lg text-main mb-3">Basic Information</p>
+                <div class="lg:flex gap-5 mb-4">
+                    <label class="block">
+                        <label class="block mb-1 text-white-60 tracking-[1.4px] font-normal text-sm">FIRST NAME</label>
+                        <!-- Using form state modifiers, the classes can be identical for every input -->
+                        <input id="popup-firstname" type="text" name="firstname" placeholder="Ex. Assami" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder:text-black/40 text-black/80"/>
+                    </label>
+                    <label class="block mt-4 lg:mt-0">
+                        <label class="block mb-1 text-white-60 tracking-[1.4px] font-normal text-sm">LAST NAME</label>
+                        <!-- Using form state modifiers, the classes can be identical for every input -->
+                        <input id="popup-lastname" type="text" name="lastname" placeholder="Ex. Muzaki" class="block border-2 border-gray-300 w-full lg:w-[280px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder:text-black/40 text-black/80"/>
+                    </label>
+                </div>
+                <div class="lg:flex gap-5">
+                    <label class="block">
+                        <label class="block mb-1 text-white-60 tracking-[1.4px] font-normal text-sm">DOMICILE</label>
+                        <!-- Using form state modifiers, the classes can be identical for every input -->
+                        <input id="popup-domicile" type="text" name="domicile" placeholder="Ex. Jakarta" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder:text-black/40 text-black/80"/>
+                    </label>
+                    <label class="block mt-4 lg:mt-0">
+                        <label class="block mb-1 text-white-60 tracking-[1.4px] font-normal text-sm">DATE OF BIRTH</label>
+                        <!-- Using form state modifiers, the classes can be identical for every input -->
+                        <input id="popup-birthdate" type="date" name="date_of_birth" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder:text-black/40 text-black/80"/>
+                    </label>
+                </div>
+                <label class="block mt-4">
+                    <label class="block mb-1 text-white-60 tracking-[1.4px] font-normal text-sm">SEX</label>
+                    <!-- Using form state modifiers, the classes can be identical for every input -->
+                    <div class="flex gap-4 w-max rounded-xl px-4 bg-main">
+                        <div class="flex items-center gap-3 lg:justify-between rounded-lg px-4 lg:px-3 py-4 lg:py-2.5 bg-darkest-grey lg:w-max w-full">
+                            <input id="Male" type="radio" value="Male" name="sex" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="Male" class="text-white font-second text-xs font-medium">Male</label>
+                        </div>
+                        <div class="flex items-center gap-3 lg:justify-between rounded-lg px-4 lg:px-3 py-4 lg:py-2.5 bg-darkest-grey lg:w-max w-full">
+                            <input id="Female" type="radio" value="Female" name="sex" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="Female" class="text-white font-second text-xs font-medium">Female</label>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <div class="p-5 pb-40 lg:pb-6">
+                <p class="font-bold text-xl lg:text-lg text-main mb-3">Contact Information</p>
+                <div class="lg:flex gap-5 mb-14">
+                    <label class="block">
+                        <label class="block mb-1 text-white-60 tracking-[1.4px] font-normal text-sm">EMAIL</label>
+                        <!-- Using form state modifiers, the classes can be identical for every input -->
+                        <input id="popup-email" type="text" name="email" disabled title="Email address cannot be updated" class="block border-2 border-gray-300 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder:text-black/40 text-black/80"/>
+                    </label>
+                    <label class="block mt-4 lg:mt-0">
+                        <label class="block mb-1 text-white-60 tracking-[1.4px] font-normal text-sm">MOBILE</label>
+                        <!-- Using form state modifiers, the classes can be identical for every input -->
+                        <input id="popup-mobile" type="text" name="mobile" class="block border-2 border-gray-300 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder:text-black/40 text-black/80"/>
+                    </label>
+                </div>
+                <div class="fixed lg:static left-0 bottom-0 flex gap-3 w-full lg:w-max lg:ms-auto lg:justify-end mt-8 lg:p-0 lg:pe-0 bg-[#2A2A2A] lg:bg-transparent">
+                    <button type="button" class="close-x rounded-lg text-main py-4 lg:py-2 px-10 font-second text-base">Cancel</button>
+                    <button type="submit" class="rounded-lg w-full lg:w-max bg-main text-white py-4 lg:py-2 px-14 font-second text-base">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    $("#edit-basic-info, #completion-profile-picture").click(function(){
+        $("#popup").fadeIn(function(){
+            $("body").addClass('no-scroll');
+            $(".popup-basic").slideToggle()
+        }).css("display", "flex")
+        $("body").addClass('no-scroll');
+    })
+</script>

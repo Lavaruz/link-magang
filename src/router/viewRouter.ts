@@ -15,6 +15,14 @@ router.get("/", (req: Request, res: Response, next) => {
   }
 });
 
+router.get("/profile/me", (req: Request, res: Response, next) => {
+  try {
+    return res.render("Profile", {AES_KEYS: process.env.AES_KEYS})
+  } catch (error) {
+    return res.send(error);
+  }
+});
+
 router.get("/create", (req: Request, res: Response, next) => {
   try {
     return res.render("Create")
