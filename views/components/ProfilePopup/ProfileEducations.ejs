@@ -5,7 +5,7 @@
           </svg> EDITING EDUCATION</p>
         <p class="close-x cursor-pointer font-second font-medium text-sm text-teal-100">Close x</p>
     </div>
-    <div class="body lg:bg-background h-[92vh] lg:h-[500px] overflow-y-scroll">
+    <div id="popup-educations-s" class="body lg:bg-background h-[92vh] lg:h-[500px] overflow-y-scroll">
 
         <!-- ADDING NEW EDUCATION -->
 
@@ -17,7 +17,7 @@
                         <label class="block">
                             <span class="text-white-60 tracking-[1.4px] font-normal text-sm">MAJOR/DEGREE/PROGRAM NAME*</span>
                             <!-- Using form state modifiers, the classes can be identical for every input -->
-                            <input id="popup-firstname" type="text" placeholder="Software Engineer" name="edu_program" class="block border-0 w-full lg:w-[360px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                            <input id="popup-firstname" type="text" placeholder="Software Engineer" name="edu_program" class="block border-2 border-gray-300 w-full lg:w-[360px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80
                             focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
                             focus:invalid:border-red-500 focus:invalid:ring-red-500
                             "/>
@@ -25,7 +25,7 @@
                         <label class="block">
                             <span class="text-white-60 tracking-[1.4px] font-normal text-sm">INSTITUTION*</span>
                             <!-- Using form state modifiers, the classes can be identical for every input -->
-                            <input id="popup-firstname" type="text" placeholder="Universitas Hup! Indonesia" name="edu_institution" class="block border-0 w-full lg:w-[360px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                            <input id="popup-firstname" type="text" placeholder="Universitas Hup! Indonesia" name="edu_institution" class="block border-2 border-gray-300 w-full lg:w-[360px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80
                             focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
                             focus:invalid:border-red-500 focus:invalid:ring-red-500
                             "/>
@@ -36,7 +36,7 @@
                             <label class="block">
                                 <span class="text-white-60 tracking-[1.4px] font-normal text-sm">EDUCATION TYPE*</span>
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
-                                <select required id="countries" name="edu_type" class="block border-0 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white focus:ring-white">
+                                <select required id="countries" name="edu_type" class="block border-2 border-gray-300 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80 focus:ring-white">
                                     <option selected>Select Type</option>
                                     <option value="Bachelor's Degree">Bachelor's Degree</option>
                                     <option value="High-School">High-School</option>
@@ -46,7 +46,7 @@
                             <label class="block mt-4 lg:mt-0">
                                 <span class="text-white-60 tracking-[1.4px] font-normal text-sm">GPA (IF AVAILABLE)</span>
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
-                                <input id="popup-firstname" type="text" pattern="^[0-9.]+" placeholder="3.42" name="edu_gpa" class="block border-0 w-full lg:w-[80px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                <input id="popup-firstname" type="text" pattern="^[0-9.]+" placeholder="3.42" name="edu_gpa" class="block border-2 border-gray-300 w-full lg:w-[80px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80
                                 focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
                                 focus:invalid:border-red-500 focus:invalid:ring-red-500
                                 "/>
@@ -56,7 +56,7 @@
                             <label class="block">
                                 <span class="text-white-60 tracking-[1.4px] font-normal text-sm">START DATE*</span>
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
-                                <input id="popup-firstname" type="month" placeholder="Hup! Indonesia" name="edu_startdate" class="block border-0 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                <input id="popup-firstname" type="month" placeholder="Hup! Indonesia" name="edu_startdate" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80
                                 focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
                                 focus:invalid:border-red-500 focus:invalid:ring-red-500
                                 "/>
@@ -64,7 +64,7 @@
                             <label class="block mt-4 lg:mt-0">
                                 <span class="text-white-60 tracking-[1.4px] font-normal text-sm">END DATE*</span>
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
-                                <input id="popup-firstname" type="month" placeholder="Hup! Indonesia" name="edu_enddate" class="block border-0 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                <input id="popup-firstname" type="month" placeholder="Hup! Indonesia" name="edu_enddate" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80
                                 focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
                                 focus:invalid:border-red-500 focus:invalid:ring-red-500
                                 "/>
@@ -74,7 +74,7 @@
                             <label class="block">
                                 <span class="text-white-60 tracking-[1.4px] font-normal text-sm">LOCATION TYPE</span>
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
-                                <select id="countries" name="edu_status" class="block border-0 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white focus:ring-white">
+                                <select id="countries" name="edu_status" class="block border-2 border-gray-300 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80 focus:ring-white">
                                     <option value="On-Site" selected>On-Site</option>
                                     <option value="Hybrid">Hybrid</option>
                                     <option value="Remote">Remote</option>
@@ -83,29 +83,21 @@
                             <label class="block mt-4 lg:mt-0">
                                 <span class="text-white-60 tracking-[1.4px] font-normal text-sm">INSTITUTION LOCATION</span>
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
-                                <input id="popup-firstname" type="text" placeholder="Hup! Indonesia" name="edu_location" class="block border-0 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                <input id="popup-firstname" type="text" placeholder="Jakarta" name="edu_location" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80
                                 focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
                                 focus:invalid:border-red-500 focus:invalid:ring-red-500
                                 "/>
                             </label>
                         </div>
                     </div>
-                    <div class="flex gap-4 flex-col py-4">
-                        <div class="flex items-center bg-[#3B3B3B] rounded-lg p-3 gap-3 mt-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="49" viewBox="0 0 24 25" fill="none">
-                                <path d="M12 17.5C12.2833 17.5 12.5208 17.4042 12.7125 17.2125C12.9042 17.0208 13 16.7833 13 16.5V12.5C13 12.2167 12.9042 11.9792 12.7125 11.7875C12.5208 11.5958 12.2833 11.5 12 11.5C11.7167 11.5 11.4792 11.5958 11.2875 11.7875C11.0958 11.9792 11 12.2167 11 12.5V16.5C11 16.7833 11.0958 17.0208 11.2875 17.2125C11.4792 17.4042 11.7167 17.5 12 17.5ZM12 9.5C12.2833 9.5 12.5208 9.40417 12.7125 9.2125C12.9042 9.02083 13 8.78333 13 8.5C13 8.21667 12.9042 7.97917 12.7125 7.7875C12.5208 7.59583 12.2833 7.5 12 7.5C11.7167 7.5 11.4792 7.59583 11.2875 7.7875C11.0958 7.97917 11 8.21667 11 8.5C11 8.78333 11.0958 9.02083 11.2875 9.2125C11.4792 9.40417 11.7167 9.5 12 9.5ZM12 22.5C10.6167 22.5 9.31667 22.2375 8.1 21.7125C6.88333 21.1875 5.825 20.475 4.925 19.575C4.025 18.675 3.3125 17.6167 2.7875 16.4C2.2625 15.1833 2 13.8833 2 12.5C2 11.1167 2.2625 9.81667 2.7875 8.6C3.3125 7.38333 4.025 6.325 4.925 5.425C5.825 4.525 6.88333 3.8125 8.1 3.2875C9.31667 2.7625 10.6167 2.5 12 2.5C13.3833 2.5 14.6833 2.7625 15.9 3.2875C17.1167 3.8125 18.175 4.525 19.075 5.425C19.975 6.325 20.6875 7.38333 21.2125 8.6C21.7375 9.81667 22 11.1167 22 12.5C22 13.8833 21.7375 15.1833 21.2125 16.4C20.6875 17.6167 19.975 18.675 19.075 19.575C18.175 20.475 17.1167 21.1875 15.9 21.7125C14.6833 22.2375 13.3833 22.5 12 22.5Z" fill="#3DD1DB"/>
-                            </svg>
-                            <div class="">
-                                <p class="tracking-[1.6px] font-normal text-base text-teal-100">TIP</p>
-                                <p class="font-second text-sm font-medium text-white-60">Remember to always describe and elaborate each and every responsibilities you have during your experience. Here is a helpful article to assist you in writing a good description!</p>
-                            </div>
-                        </div>
-                        <textarea id="" rows="4" name="edu_description" class="block border-0 resize-none px-3 py-[10px] w-full h-[240px] font-second text-sm text-white bg-header rounded-lg focus:ring-white-60" placeholder="Write your desciprtion here..."></textarea>
+                    <div class="py-4">
+                        <span class="text-white-60 tracking-[1.4px] font-normal text-sm">ORGANIZATION DESCRIPTION</span>
+                        <textarea id="" rows="4" name="edu_description" class="block border-0 resize-none px-3 py-[10px] w-full h-[240px] font-second text-black/80 bg-header rounded-lg focus:ring-white-60" placeholder="Write your desciprtion here..."></textarea>
                     </div>
                 </div>
-                <div class="fixed lg:static left-0 bottom-0 flex gap-3 w-full lg:w-max lg:ms-auto lg:justify-end mt-8 py-8 p-5 pe-8 lg:p-6 bg-[#2A2A2A] lg:bg-transparent rounded-t-2xl shadow-lg">
-                    <button type="button" class="cancle-add rounded-lg bg-teal-8 text-teal-100 py-4 lg:py-2 px-10 font-second text-base">Cancel</button>
-                    <button type="submit" class="rounded-lg w-full bg-teal-100 text-teal-8 py-4 lg:py-2 px-14 font-second text-base">Save</button>
+                <div class="fixed lg:static left-0 bottom-0 flex gap-3 w-full lg:w-max lg:ms-auto lg:justify-end mt-4 py-8 pe-8 lg:p-6">
+                    <button type="button" class="cancle-add rounded-lg text-main py-4 lg:py-2 px-10 font-second text-base">Cancel</button>
+                    <button type="submit" class="rounded-lg w-full bg-main text-white py-4 lg:py-2 px-14 font-second text-base">Save</button>
                 </div>
             </form>
         </div>
@@ -114,13 +106,13 @@
 
         <div id="editing-education" class="additional-popup-edit hidden">
             <form id="form-editing-education" class="relative">
-                <div class="pb-40 lg:pb-5 p-5 divide-header divide-y flex flex-col gap-4">
+                <div class="pb-40 lg:pb-5 p-5 divide-gray-300 divide-y flex flex-col gap-4">
                     <div class="flex flex-col gap-4 py-4 lg:py-0">
-                        <p class="font-bold text-xl lg:text-lg text-white mb-1">Edit Education</p>
+                        <p class="font-bold text-xl lg:text-lg text-main mb-1">Edit Education</p>
                         <label class="block">
                             <span class="text-white-60 tracking-[1.4px] font-normal text-sm">MAJOR/DEGREE/PROGRAM NAME*</span>
                             <!-- Using form state modifiers, the classes can be identical for every input -->
-                            <input type="text" placeholder="Software Engineer" name="edu_program" class="block border-0 w-full lg:w-[360px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                            <input type="text" placeholder="Software Engineer" name="edu_program" class="block border-2 border-gray-300 w-full lg:w-[360px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80
                             focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
                             focus:invalid:border-red-500 focus:invalid:ring-red-500
                             "/>
@@ -128,7 +120,7 @@
                         <label class="block">
                             <span class="text-white-60 tracking-[1.4px] font-normal text-sm">INSTITUTION*</span>
                             <!-- Using form state modifiers, the classes can be identical for every input -->
-                            <input type="text" placeholder="Universitas Hup! Indonesia" name="edu_institution" class="block border-0 w-full lg:w-[360px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                            <input type="text" placeholder="Universitas Hup! Indonesia" name="edu_institution" class="block border-2 border-gray-300 w-full lg:w-[360px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80
                             focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
                             focus:invalid:border-red-500 focus:invalid:ring-red-500
                             "/>
@@ -139,7 +131,7 @@
                             <label class="block">
                                 <span class="text-white-60 tracking-[1.4px] font-normal text-sm">EDUCATION TYPE*</span>
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
-                                <select required id="countries" name="edu_type" class="block border-0 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white focus:ring-white">
+                                <select required id="countries" name="edu_type" class="block border-2 border-gray-300 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80 focus:ring-white">
                                     <option selected>Select Type</option>
                                     <option value="Bachelor's Degree">Bachelor's Degree</option>
                                     <option value="High-School">High-School</option>
@@ -149,7 +141,7 @@
                             <label class="block mt-4 lg:mt-0">
                                 <span class="text-white-60 tracking-[1.4px] font-normal text-sm">GPA (IF AVAILABLE)</span>
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
-                                <input type="text" pattern="^[0-9.]+" placeholder="3.42" name="edu_gpa" class="block border-0 w-full lg:w-[80px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                <input type="text" pattern="^[0-9.]+" placeholder="3.42" name="edu_gpa" class="block border-2 border-gray-300 w-full lg:w-[80px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80
                                 focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
                                 focus:invalid:border-red-500 focus:invalid:ring-red-500
                                 "/>
@@ -159,7 +151,7 @@
                             <label class="block">
                                 <span class="text-white-60 tracking-[1.4px] font-normal text-sm">START DATE*</span>
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
-                                <input type="month" placeholder="Hup! Indonesia" name="edu_startdate" class="block border-0 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                <input type="month" placeholder="Hup! Indonesia" name="edu_startdate" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80
                                 focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
                                 focus:invalid:border-red-500 focus:invalid:ring-red-500
                                 "/>
@@ -167,7 +159,7 @@
                             <label class="block mt-4 lg:mt-0">
                                 <span class="text-white-60 tracking-[1.4px] font-normal text-sm">END DATE*</span>
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
-                                <input type="month" placeholder="Hup! Indonesia" name="edu_enddate" class="block border-0 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                <input type="month" placeholder="Hup! Indonesia" name="edu_enddate" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80
                                 focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
                                 focus:invalid:border-red-500 focus:invalid:ring-red-500
                                 "/>
@@ -177,7 +169,7 @@
                             <label class="block">
                                 <span class="text-white-60 tracking-[1.4px] font-normal text-sm">LOCATION TYPE</span>
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
-                                <select id="countries" name="edu_status" class="block border-0 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white focus:ring-white">
+                                <select id="countries" name="edu_status" class="block border-2 border-gray-300 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80 focus:ring-white">
                                     <option value="On-Site" selected>On-Site</option>
                                     <option value="Hybrid">Hybrid</option>
                                     <option value="Remote">Remote</option>
@@ -186,29 +178,21 @@
                             <label class="block mt-4 lg:mt-0">
                                 <span class="text-white-60 tracking-[1.4px] font-normal text-sm">INSTITUTION LOCATION</span>
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
-                                <input type="text" placeholder="Hup! Indonesia" name="edu_location" class="block border-0 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-white-60 text-white
+                                <input type="text" placeholder="Hup! Indonesia" name="edu_location" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80
                                 focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
                                 focus:invalid:border-red-500 focus:invalid:ring-red-500
                                 "/>
                             </label>
                         </div>
                     </div>
-                    <div class="flex gap-4 flex-col py-4">
-                        <div class="flex items-center bg-[#3B3B3B] rounded-lg p-3 gap-3 mt-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="49" viewBox="0 0 24 25" fill="none">
-                                <path d="M12 17.5C12.2833 17.5 12.5208 17.4042 12.7125 17.2125C12.9042 17.0208 13 16.7833 13 16.5V12.5C13 12.2167 12.9042 11.9792 12.7125 11.7875C12.5208 11.5958 12.2833 11.5 12 11.5C11.7167 11.5 11.4792 11.5958 11.2875 11.7875C11.0958 11.9792 11 12.2167 11 12.5V16.5C11 16.7833 11.0958 17.0208 11.2875 17.2125C11.4792 17.4042 11.7167 17.5 12 17.5ZM12 9.5C12.2833 9.5 12.5208 9.40417 12.7125 9.2125C12.9042 9.02083 13 8.78333 13 8.5C13 8.21667 12.9042 7.97917 12.7125 7.7875C12.5208 7.59583 12.2833 7.5 12 7.5C11.7167 7.5 11.4792 7.59583 11.2875 7.7875C11.0958 7.97917 11 8.21667 11 8.5C11 8.78333 11.0958 9.02083 11.2875 9.2125C11.4792 9.40417 11.7167 9.5 12 9.5ZM12 22.5C10.6167 22.5 9.31667 22.2375 8.1 21.7125C6.88333 21.1875 5.825 20.475 4.925 19.575C4.025 18.675 3.3125 17.6167 2.7875 16.4C2.2625 15.1833 2 13.8833 2 12.5C2 11.1167 2.2625 9.81667 2.7875 8.6C3.3125 7.38333 4.025 6.325 4.925 5.425C5.825 4.525 6.88333 3.8125 8.1 3.2875C9.31667 2.7625 10.6167 2.5 12 2.5C13.3833 2.5 14.6833 2.7625 15.9 3.2875C17.1167 3.8125 18.175 4.525 19.075 5.425C19.975 6.325 20.6875 7.38333 21.2125 8.6C21.7375 9.81667 22 11.1167 22 12.5C22 13.8833 21.7375 15.1833 21.2125 16.4C20.6875 17.6167 19.975 18.675 19.075 19.575C18.175 20.475 17.1167 21.1875 15.9 21.7125C14.6833 22.2375 13.3833 22.5 12 22.5Z" fill="#3DD1DB"/>
-                            </svg>
-                            <div class="">
-                                <p class="tracking-[1.6px] font-normal text-base text-teal-100">TIP</p>
-                                <p class="font-second text-sm font-medium text-white-60">Remember to always describe and elaborate each and every responsibilities you have during your experience. Here is a helpful article to assist you in writing a good description!</p>
-                            </div>
-                        </div>
-                        <textarea id="" rows="4" name="edu_description" class="block border-0 resize-none px-3 py-[10px] w-full h-[240px] font-second text-sm text-white bg-header rounded-lg focus:ring-white-60" placeholder="Write your desciprtion here..."></textarea>
+                    <div class="py-4">
+                        <span class="text-white-60 tracking-[1.4px] font-normal text-sm">ORGANIZATION DESCRIPTION</span>
+                        <textarea id="" rows="4" name="edu_description" class="block border-0 resize-none px-3 py-[10px] w-full h-[240px] font-second text-black/80 bg-header rounded-lg focus:ring-white-60" placeholder="Write your desciprtion here..."></textarea>
                     </div>
                 </div>
-                <div class="fixed lg:static left-0 bottom-0 flex gap-3 w-full lg:w-max lg:ms-auto lg:justify-end mt-8 py-8 p-5 pe-8 lg:p-6 bg-[#2A2A2A] lg:bg-transparent rounded-t-2xl shadow-lg">
-                    <button type="button" class="cancle-edit rounded-lg bg-teal-8 text-teal-100 py-4 lg:py-2 px-10 font-second text-base">Cancel</button>
-                    <button type="submit" class="rounded-lg w-full bg-teal-100 text-teal-8 py-4 lg:py-2 px-14 font-second text-base">Save</button>
+                <div class="fixed lg:static left-0 bottom-0 flex gap-3 w-full lg:w-max lg:ms-auto lg:justify-end mt-4 py-8 p-5 pe-8 lg:p-6">
+                    <button type="button" class="cancle-edit rounded-lg text-main py-4 lg:py-2 px-10 font-second text-base">Cancel</button>
+                    <button type="submit" class="rounded-lg w-full bg-main text-white py-4 lg:py-2 px-14 font-second text-base">Save</button>
                 </div>
             </form>
         </div>
@@ -230,22 +214,15 @@
                     <p class="font-bold text-xl lg:text-lg text-main mb-1">Your Education</p>
                     <p class="text-black/80 text-sm font-second font-medium">This is where you show off your education to recruiters! You can basically add any education programs you have accomplished or still participating.</p>
                 </div>
-                <div class="p-5">
+                <div class="px-5">
                     <div class="divide-y divide-gray-300">
-                        <!-- <div class="lg:hidden">
-                            <button type="button" id="add-education-mobile" class="font-second text-sm font-medium w-full lg:w-[90%] m-auto rounded-lg bg-teal-8 text-teal-100 p-4 my-5 flex items-center gap-2 justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
-                                    <path d="M9.66675 10.8333H4.66675V9.16666H9.66675V4.16666H11.3334V9.16666H16.3334V10.8333H11.3334V15.8333H9.66675V10.8333Z" fill="#3DD1DB"/>
-                                  </svg> Add Education
-                            </button>
-                        </div> -->
-                        <div id="popup-body-educations" class="py-5 flex flex-col gap-5  lg:gap-10">
-                            <!-- ADD BY JS -->
-                        </div>
-                        <div class="hidden lg:block">
+                        <div class="hidden lg:block mb-4">
                             <button type="button" id="add-education" class="font-second text-sm font-medium w-[90%] m-auto rounded-lg bg-main text-white p-4 my-5 flex items-center gap-2 justify-center">
                                 Add Education
                             </button>
+                        </div>
+                        <div id="popup-body-educations" class="flex flex-col gap-4 pt-4 pb-20">
+                            <!-- ADD BY JS -->
                         </div>
                     </div>
                 </div>
@@ -262,4 +239,34 @@
         }).css("display", "flex")
         $("body").addClass('no-scroll');
     })
+
+    $("#add-education").click(function(){
+        $("#adding-new-education").removeClass("hidden")
+        $("#registered-education").addClass("hidden")
+        document.getElementById("popup-educations-s").scrollTo(0, 0);
+
+        $(".cancle-add").click(function(){
+            $(this).closest(".body").find(".additional-popup").addClass("hidden")
+            $(this).closest(".body").find(".main-popup").removeClass('hidden')
+            document.getElementById("popup-educations-s").scrollTo(0, 0);
+        })
+    })
+
+    $(".popup-education").on("click", ".delete-education-button", function(){
+        const ID = $(this).prev().text()
+        let isDelete = confirm("Apakah kamu yakin ingin menghapus pendidikan ini dari daftar pendidikan?")
+        if(isDelete){
+            $.ajax({
+                url: `/api/v1/users/info/educations/${ID}`,
+                type: "DELETE",
+                success: function (response) {
+                    location.reload()
+                },
+                error: function (error) {
+                    alert("Error")
+                }
+            });
+        }
+    })
+
 </script>

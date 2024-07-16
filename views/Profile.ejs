@@ -91,7 +91,7 @@
                     <p class="text-white flex items-center gap-2">EXPERIENCES</p>
                     <p id="edit-experiences" class="cursor-pointer text-teal-100 text-sm font-second flex items-center gap-2">Edit</p>
                 </div>
-                <div id="experiences" class="w-100 px-5 bg-white noise lg:rounded-none rounded-2xl lg:rounded-b-2xl border-2 lg:border-0 border-header">
+                <div id="experiences" class="w-full px-5 bg-white noise lg:rounded-none rounded-2xl lg:rounded-b-2xl border-2 lg:border-0 border-header">
                     <div id="off-experiences" class="py-5 pb-6 text-center">
                         <p class="font-bold text-base text-main mb-3">Add your experiences here!</p>
                         <p class="font-second text-white-60 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2">The heart of your profile. You can add any experiences from university organizations, event committees, internships, and more!</p>
@@ -104,16 +104,19 @@
             </div>
 
             <!-- PROFILE EDUCATIONS -->
-            <div class="education rounded-2xl overflow-hidden shadow-md border-2 border-main">
+            <div class="educations rounded-2xl overflow-hidden shadow-md border-2 border-main">
                 <div class="w-100 lg:bg-main flex items-center justify-between lg:px-5 py-3">
                     <p class="text-white flex items-center gap-2">EDUCATION</p>
                     <p id="edit-education" class="cursor-pointer text-teal-100 text-sm font-second flex items-center gap-2">Edit</p>
                 </div>
-                <div id="educations" class="w-100 p-5 pb-6 bg-white noise lg:rounded-none rounded-2xl lg:rounded-b-2xl border-2 lg:border-0 border-header divide-header divide-y">
-                    <div class="text-center">
+                <div id="educations" class="w-full px-5 bg-white noise lg:rounded-none rounded-2xl lg:rounded-b-2xl border-2 lg:border-0 border-header">
+                    <div id="off-educations" class="text-center">
                         <p class="font-bold text-base text-main mb-3">Add your education here!</p>
                         <p class="font-second text-white-60 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2">Just as important as experiences, your education will show recruiters what your capable of!</p>
                         <button id="button-education" class="flex items-center gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 m-auto mt-4">Add Education</button>
+                    </div>
+                    <div id="on-educations" class="hidden flex flex-col gap-4 pb-4 divide-y divide-gray-300">
+                        
                     </div>
                 </div>
             </div>
@@ -240,7 +243,7 @@
                 </form>
             </div>
 
-            <form action="/api/v1/seeker/logout" method="post">
+            <form action="/api/v1/users/logout" method="post">
                 <button class="bg-second noise w-full py-4 flex items-center gap-2 text-red-500 font-bold rounded-lg justify-center font-second text-sm">
                     <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1.66667 15.5C1.20833 15.5 0.815972 15.3368 0.489583 15.0104C0.163194 14.684 0 14.2917 0 13.8333V2.16667C0 1.70833 0.163194 1.31597 0.489583 0.989583C0.815972 0.663194 1.20833 0.5 1.66667 0.5H6.66667C6.90278 0.5 7.10069 0.579861 7.26042 0.739583C7.42014 0.899306 7.5 1.09722 7.5 1.33333C7.5 1.56944 7.42014 1.76736 7.26042 1.92708C7.10069 2.08681 6.90278 2.16667 6.66667 2.16667H1.66667V13.8333H6.66667C6.90278 13.8333 7.10069 13.9132 7.26042 14.0729C7.42014 14.2326 7.5 14.4306 7.5 14.6667C7.5 14.9028 7.42014 15.1007 7.26042 15.2604C7.10069 15.4201 6.90278 15.5 6.66667 15.5H1.66667ZM11.8125 8.83333H5.83333C5.59722 8.83333 5.39931 8.75347 5.23958 8.59375C5.07986 8.43403 5 8.23611 5 8C5 7.76389 5.07986 7.56597 5.23958 7.40625C5.39931 7.24653 5.59722 7.16667 5.83333 7.16667H11.8125L10.25 5.60417C10.0972 5.45139 10.0208 5.26389 10.0208 5.04167C10.0208 4.81944 10.0972 4.625 10.25 4.45833C10.4028 4.29167 10.5972 4.20486 10.8333 4.19792C11.0694 4.19097 11.2708 4.27083 11.4375 4.4375L14.4167 7.41667C14.5833 7.58333 14.6667 7.77778 14.6667 8C14.6667 8.22222 14.5833 8.41667 14.4167 8.58333L11.4375 11.5625C11.2708 11.7292 11.0729 11.809 10.8438 11.8021C10.6146 11.7951 10.4167 11.7083 10.25 11.5417C10.0972 11.375 10.0243 11.1771 10.0312 10.9479C10.0382 10.7188 10.1181 10.5278 10.2708 10.375L11.8125 8.83333Z" fill="#FC4545"/>
@@ -638,6 +641,105 @@
             InitExperiences(data.experiences)
             
             // Inisialisasi Educations
+            InitEducations(data.educations)
+
+
+
+
+
+
+            if(data.experiences.length !== 0){     
+                // Editing Experiences
+                $(".popup-experiences").on("click", ".update-experience-button", function(){
+                    const ID = $(this).next().text()
+                    const EXPERIENCE = data.experiences.find(experience => experience.id == ID)
+                    $("#registered-experience").addClass("hidden")
+                    $("#editing-experience").removeClass("hidden")
+                    document.getElementById("popup-experiences-s").scrollTo(0, 0);
+                    
+                    $("#editing-experience input[name=exp_position]").val(EXPERIENCE.exp_position)
+                    $("#editing-experience input[name=exp_orgname]").val(EXPERIENCE.exp_orgname)
+                    $("#editing-experience select[name=exp_type]").val(EXPERIENCE.exp_type)
+                    $("#editing-experience select[name=exp_time]").val(EXPERIENCE.exp_time)
+                    $("#editing-experience input[name=exp_startdate]").val(EXPERIENCE.exp_startdate)
+                    if(EXPERIENCE.exp_enddate){
+                        $("#editing-experience input[name=exp_enddate]").val(EXPERIENCE.exp_enddate)
+                    } else{
+                        $("#editing-experience input[name=exp_enddate]").prop("disabled", true)
+                        $("#editing-experience input[type=checkbox]").prop("checked", true)
+                    }
+                    $("#editing-experience select[name=exp_status]").val(EXPERIENCE.exp_status)
+                    $("#editing-experience input[name=exp_location]").val(EXPERIENCE.exp_location)
+                    $("#editing-experience textarea[name=exp_description]").val(EXPERIENCE.exp_description)
+
+                    $("#editing-experience input[type=checkbox]").change(function(){
+                        if($(this).is(":checked")){
+                            $("#editing-experience input[name=exp_enddate]").prop("disabled", true)
+                            $("#editing-experience input[name=exp_enddate]").val("")
+                        }else{
+                            $("#editing-experience input[name=exp_enddate]").prop("disabled", false)
+                        }
+                    })
+
+                    $(".cancle-edit").click(function(){
+                        $(this).closest("#editing-experience").addClass("hidden")
+                        $("#registered-experience").removeClass("hidden")
+                        document.getElementById("popup-experiences-s").scrollTo(0, 0);
+                    })
+
+                    // UPDATE
+                    PutUserData("form-editing-experience", `/api/v1/users/info/experiences/${ID}`, function(dis, response){
+                        $("#editing-experience").addClass("hidden")
+                        $("#registered-experience").removeClass("hidden")
+                        $(dis).closest('.popup').slideToggle(function(){
+                            $(dis).closest('#popup').fadeOut()
+                        })
+                        InitExperiences(response)
+                        $(`#form-editing-experience`).trigger("reset");
+                        $("body").removeClass('no-scroll');
+                    })
+                })
+            }
+        
+            if(data.educations.length !== 0){
+                const EDUCATIONS = data.educations
+                // Editing Education
+                $("#popup").on("click", ".update-education-button", function(){
+                    $("#registered-education").addClass("hidden")
+                    $("#editing-education").removeClass("hidden")
+                    document.getElementById("popup-educations-s").scrollTo(0, 0);
+                    
+                    const CARD_EDUCATION_ID = $(this).next().text()
+                    let obj = EDUCATIONS.find(edu => edu.id === CARD_EDUCATION_ID)
+                    $("#editing-education input[name=edu_program]").val(obj.edu_program)
+                    $("#editing-education input[name=edu_institution]").val(obj.edu_institution)
+                    $("#editing-education select[name=edu_type]").val(obj.edu_type)
+                    $("#editing-education input[name=edu_gpa]").val(obj.edu_gpa)
+                    $("#editing-education input[name=edu_startdate]").val(obj.edu_startdate)
+                    $("#editing-education input[name=edu_enddate]").val(obj.edu_enddate)
+                    $("#editing-education input[name=edu_status]").val(obj.edu_status)
+                    $("#editing-education input[name=edu_location]").val(obj.edu_location)
+                    $("#editing-education textarea[name=edu_description]").val(obj.edu_description)
+
+                    $(".cancle-edit").click(function(){
+                        $(this).closest("#editing-education").addClass("hidden")
+                        $("#registered-education").removeClass("hidden")
+                        document.getElementById("popup-educations-s").scrollTo(0, 0);
+                    })
+                    
+                    // UPDATE
+                    PutUserData("form-editing-education", `/api/v1/users/info/educations/${CARD_EDUCATION_ID}`, function(dis, response){
+                        $("#adding-new-educations").addClass("hidden")
+                        $("#registered-educations").removeClass("hidden")
+                        $(dis).closest('.popup').slideToggle(function(){
+                            $(dis).closest('#popup').fadeOut()
+                        })
+                        InitEducations(response)
+                        $(`#form-editing-education`).trigger("reset");
+                        $("body").removeClass('no-scroll');
+                    })
+                })
+            }
         },
         error: function(xhr){
             window.location.href = "/"
@@ -656,7 +758,7 @@
         $("body").removeClass('no-scroll');
     })
 
-    $(".experiences").on("click", ".button-readmore", function(){
+    $(".experiences, .educations").on("click", ".button-readmore", function(){
         const content = $(this).closest(".content")
         content.addClass("hidden")
         content.prev().removeClass("hidden")
@@ -683,6 +785,22 @@
         })
         $("body").removeClass('no-scroll');
     })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     $(`#form-add-experience`).submit(function(e){
         e.preventDefault();
@@ -717,6 +835,40 @@
         });
     })
 
+    $(`#form-add-education`).submit(function(e){
+        e.preventDefault();
+        let formData = new FormData($(this)[0])
+
+        $.ajax({
+            url: "/api/v1/users/info/educations",
+            type: "POST",
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            encrypt: "multipart/form-data",
+            processData: false,
+            headers: {
+                "Authorization": window.USER_TOKEN,
+            },
+            success: (response) => {
+                $("#adding-new-educations").addClass("hidden")
+                $("#registered-educations").removeClass("hidden")
+                $(this).closest('.popup').slideToggle(function(){
+                    $(this).closest('#popup').fadeOut()
+                })
+                InitEducations(response)
+                $(`#form-add-educations`).trigger("reset");
+                $("body").removeClass('no-scroll');
+                return
+            },
+            error: function (request, status, error) {
+                return request
+            },
+        });
+    })
+
+    
 
     function PutUserData(formName, url, callback = () => {}){
         $(`#${formName}`).submit(function(e){
@@ -785,7 +937,9 @@
             $("#off-experiences").addClass("hidden")
             $("#on-experiences").removeClass("hidden")
             $("#on-experiences").html("")
+            $("#popup-body-experiences").html("")
             data.forEach((experienceData) => {
+                let paragraph = experienceData.exp_description.substring(0,200).split('\n')
                 $("#on-experiences").append(`
                     <div class="experience w-full py-5">
                         <div class="flex justify-between items-start">
@@ -801,14 +955,119 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="text-sm">Nov 2023 - Now</p>
-                                <p class="text-xs text-black/60">8 MONTH</p>
+                                <p class="text-sm">${formatDateMonth(experienceData.exp_startdate)} - ${experienceData.exp_enddate?formatDateMonth(experienceData.exp_enddate):"Now"}</p>
+                                <p class="text-xs text-black/60">${calculateMonthDifference(experienceData.exp_startdate, experienceData.exp_enddate?experienceData.exp_enddate:getFormattedDate()).toUpperCase()}</p>
                             </div>
                         </div>
                         <!-- BODY -->
-                        <p class="id hidden">${experienceData.id}</p>
                         <p class="mt-3 hidden">${experienceData.exp_description.replace(/\n/g, '<br/>')}</p>
                         <p class="mt-3 content">${experienceData.exp_description.length > 210 ? `${experienceData.exp_description.replace(/\n/g, '<br/>').substring(0,210)}... <button class="button-readmore text-sm text-main">Read More</button>` : experienceData.exp_description.replace(/\n/g, '<br/>')}</p>
+                    </div>
+                `)
+            
+                $("#popup-body-experiences").append(`
+                     <div class="card-experience bg-white p-5 py-4 rounded-lg">
+                        <div class="relative flex gap-4">
+                            <div class="w-full">
+                                <div class="head lg:flex justify-between">
+                                    <div class="">
+                                        <p class="text-white bg-main/60 py-[2px] px-2 inline cursor-default text-xs font-second font-medium">${experienceData.exp_type.toUpperCase()}</p>
+                                        <p class="font-bold text-lg text-main mt-2 lg:mt-0">${experienceData.exp_position}</p>
+                                        <p class="font-semibold text-sm text-black/80 font-second">${experienceData.exp_orgname} • ${experienceData.exp_time} • ${experienceData.exp_status} (${experienceData.exp_location}) </p>
+                                    </div>
+                                    <div class="text-left mt-1 lg:mt-0 lg:text-right flex gap-2 lg:block">
+                                        <p class="font-second text-xs font-normal text-black/80">${formatDateMonth(experienceData.exp_startdate)} - ${experienceData.exp_enddate?formatDateMonth(experienceData.exp_enddate):"Now"}</p>
+                                        <p class="text-xs font-semibold text-[#A5A5A5]">${calculateMonthDifference(experienceData.exp_startdate, experienceData.exp_enddate?experienceData.exp_enddate:getFormattedDate()).toUpperCase()}</p>
+                                    </div>
+                                </div>
+                                <div <div class="body flex">
+                                    <p class="font-second text-sm text-white-60 font-normal mt-3">${paragraph.join("</br>")}...</p>
+                                </div>
+                            </div>
+                            <div class="absolute lg:static right-0 flex flex-col flex-row-reverse gap-4 lg:gap-2">
+                                <svg class="cursor-pointer update-experience-button" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M19.3 8.925L15.05 4.725L16.45 3.325C16.8333 2.94167 17.3042 2.75 17.8625 2.75C18.4208 2.75 18.8917 2.94167 19.275 3.325L20.675 4.725C21.0583 5.10833 21.2583 5.57083 21.275 6.1125C21.2917 6.65417 21.1083 7.11667 20.725 7.5L19.3 8.925ZM4 21C3.71667 21 3.47917 20.9042 3.2875 20.7125C3.09583 20.5208 3 20.2833 3 20V17.175C3 17.0417 3.025 16.9125 3.075 16.7875C3.125 16.6625 3.2 16.55 3.3 16.45L13.6 6.15L17.85 10.4L7.55 20.7C7.45 20.8 7.3375 20.875 7.2125 20.925C7.0875 20.975 6.95833 21 6.825 21H4Z" fill="#A5A5A5"/>
+                                </svg>
+                                <p class="id" style="display: none;">${experienceData.id}</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer delete-experience-button" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M6.525 21C6.125 21 5.775 20.85 5.475 20.55C5.175 20.25 5.025 19.9 5.025 19.5V5.25H4.75C4.53333 5.25 4.35417 5.17917 4.2125 5.0375C4.07083 4.89583 4 4.71667 4 4.5C4 4.28333 4.07083 4.10417 4.2125 3.9625C4.35417 3.82083 4.53333 3.75 4.75 3.75H8.7C8.7 3.53333 8.77083 3.35417 8.9125 3.2125C9.05417 3.07083 9.23333 3 9.45 3H14.55C14.7667 3 14.9458 3.07083 15.0875 3.2125C15.2292 3.35417 15.3 3.53333 15.3 3.75H19.25C19.4667 3.75 19.6458 3.82083 19.7875 3.9625C19.9292 4.10417 20 4.28333 20 4.5C20 4.71667 19.9292 4.89583 19.7875 5.0375C19.6458 5.17917 19.4667 5.25 19.25 5.25H18.975V19.5C18.975 19.9 18.825 20.25 18.525 20.55C18.225 20.85 17.875 21 17.475 21H6.525ZM9.175 16.6C9.175 16.8167 9.24583 16.9958 9.3875 17.1375C9.52917 17.2792 9.70833 17.35 9.925 17.35C10.1417 17.35 10.3208 17.2792 10.4625 17.1375C10.6042 16.9958 10.675 16.8167 10.675 16.6V8.125C10.675 7.90833 10.6042 7.72917 10.4625 7.5875C10.3208 7.44583 10.1417 7.375 9.925 7.375C9.70833 7.375 9.52917 7.44583 9.3875 7.5875C9.24583 7.72917 9.175 7.90833 9.175 8.125V16.6ZM13.325 16.6C13.325 16.8167 13.3958 16.9958 13.5375 17.1375C13.6792 17.2792 13.8583 17.35 14.075 17.35C14.2917 17.35 14.4708 17.2792 14.6125 17.1375C14.7542 16.9958 14.825 16.8167 14.825 16.6V8.125C14.825 7.90833 14.7542 7.72917 14.6125 7.5875C14.4708 7.44583 14.2917 7.375 14.075 7.375C13.8583 7.375 13.6792 7.44583 13.5375 7.5875C13.3958 7.72917 13.325 7.90833 13.325 8.125V16.6Z" fill="#A5A5A5"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                `)
+            })
+        }
+    }
+
+    function InitEducations(data){
+        if(data.length <= 0){
+            $("#on-educations").addClass("hidden")
+            $("#off-educations").removeClass("hidden")
+        }else{
+            $("#off-educations").addClass("hidden")
+            $("#on-educations").removeClass("hidden")
+            $("#on-educations").html("")
+            $("#popup-body-educations").html("")
+            data.forEach((educationsData) => {
+                let paragraph = educationsData.edu_description.substring(0,200).split('\n')
+                $("#on-educations").append(`
+                    <div class="experience w-full py-5">
+                        <div class="flex justify-between items-start">
+                            <div class="">
+                                <p class="mb-1 text-sm bg-main/60 px-2 w-max text-white">${educationsData.edu_type}</p>
+                                <p class="text-xl font-semibold">${educationsData.edu_program}</p>
+                                <div class="flex items-center gap-1 text-black/70">
+                                    <p>${educationsData.edu_institution}</p>
+                                    <p>•</p>
+                                    <p>${educationsData.edu_faculty}</p>
+                                    <p>•</p>
+                                    <p>${educationsData.edu_status} (${educationsData.edu_location})</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm">${formatDateMonth(educationsData.edu_startdate)} - ${educationsData.edu_enddate?formatDateMonth(educationsData.edu_enddate):"Now"}</p>
+                                <p class="text-xs text-black/60">${calculateMonthDifference(educationsData.edu_startdate, educationsData.edu_enddate?educationsData.edu_enddate:getFormattedDate()).toUpperCase()}</p>
+                            </div>
+                        </div>
+                        <!-- BODY -->
+                        <p class="mt-3 hidden">${educationsData.edu_description.replace(/\n/g, '<br/>')}</p>
+                        <p class="mt-3 content">${educationsData.edu_description.length > 210 ? `${educationsData.edu_description.replace(/\n/g, '<br/>').substring(0,210)}... <button class="button-readmore text-sm text-main">Read More</button>` : educationsData.edu_description.replace(/\n/g, '<br/>')}</p>
+                    </div>
+                `)
+            
+                $("#popup-body-educations").append(`
+                    <div class="card-education bg-white p-5 py-4 rounded-lg">
+                        <div class="relative flex gap-4">
+                            <div class="w-full">
+                                <div class="head lg:flex justify-between">
+                                    <div class="">
+                                        <div class="flex items-center gap-2">
+                                            <p class="text-white bg-main/60 py-[2px] px-2 inline cursor-default text-xs font-second font-medium">${educationsData.edu_type.toUpperCase()}</p>
+                                            <p class="text-white bg-white/30 py-[2px] px-2 inline cursor-default text-xs font-second font-medium">GPA ${educationsData.edu_gpa}</p>
+                                        </div>
+                                        <p class="font-bold text-lg text-main">${educationsData.edu_program}</p>
+                                        <p class="font-semibold text-sm text-white-80 font-second">${educationsData.edu_institution} • ${educationsData.edu_status} (${educationsData.edu_location}) </p>
+                                    </div>
+                                    <div class="text-left mt-1 lg:mt-0 lg:text-right flex gap-2 lg:block">
+                                        <p class="font-second text-xs font-normal text-black/80">${formatDateMonth(educationsData.edu_startdate)} - ${formatDateMonth(educationsData.edu_enddate)}</p>
+                                        <p class="text-xs font-semibold text-[#A5A5A5]">${calculateMonthDifference(educationsData.edu_startdate, educationsData.edu_enddate).toUpperCase()}</p>
+                                    </div>
+                                </div>
+                                <div class="body flex">
+                                    <p class="font-second text-sm text-white-60 font-normal mt-3">${paragraph.join("</br>")}...</p>
+                                </div>
+                            </div>
+                            <div class="absolute lg:static right-0 flex lg:flex-col flex-row-reverse gap-4 lg:gap-2">
+                                <svg class="cursor-pointer update-education-button" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M19.3 8.925L15.05 4.725L16.45 3.325C16.8333 2.94167 17.3042 2.75 17.8625 2.75C18.4208 2.75 18.8917 2.94167 19.275 3.325L20.675 4.725C21.0583 5.10833 21.2583 5.57083 21.275 6.1125C21.2917 6.65417 21.1083 7.11667 20.725 7.5L19.3 8.925ZM4 21C3.71667 21 3.47917 20.9042 3.2875 20.7125C3.09583 20.5208 3 20.2833 3 20V17.175C3 17.0417 3.025 16.9125 3.075 16.7875C3.125 16.6625 3.2 16.55 3.3 16.45L13.6 6.15L17.85 10.4L7.55 20.7C7.45 20.8 7.3375 20.875 7.2125 20.925C7.0875 20.975 6.95833 21 6.825 21H4Z" fill="#A5A5A5"/>
+                                </svg>
+                                <p class="id" style="display: none;">${educationsData.id}</p>
+                                <svg class="cursor-pointer delete-education-button" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M6.525 21C6.125 21 5.775 20.85 5.475 20.55C5.175 20.25 5.025 19.9 5.025 19.5V5.25H4.75C4.53333 5.25 4.35417 5.17917 4.2125 5.0375C4.07083 4.89583 4 4.71667 4 4.5C4 4.28333 4.07083 4.10417 4.2125 3.9625C4.35417 3.82083 4.53333 3.75 4.75 3.75H8.7C8.7 3.53333 8.77083 3.35417 8.9125 3.2125C9.05417 3.07083 9.23333 3 9.45 3H14.55C14.7667 3 14.9458 3.07083 15.0875 3.2125C15.2292 3.35417 15.3 3.53333 15.3 3.75H19.25C19.4667 3.75 19.6458 3.82083 19.7875 3.9625C19.9292 4.10417 20 4.28333 20 4.5C20 4.71667 19.9292 4.89583 19.7875 5.0375C19.6458 5.17917 19.4667 5.25 19.25 5.25H18.975V19.5C18.975 19.9 18.825 20.25 18.525 20.55C18.225 20.85 17.875 21 17.475 21H6.525ZM9.175 16.6C9.175 16.8167 9.24583 16.9958 9.3875 17.1375C9.52917 17.2792 9.70833 17.35 9.925 17.35C10.1417 17.35 10.3208 17.2792 10.4625 17.1375C10.6042 16.9958 10.675 16.8167 10.675 16.6V8.125C10.675 7.90833 10.6042 7.72917 10.4625 7.5875C10.3208 7.44583 10.1417 7.375 9.925 7.375C9.70833 7.375 9.52917 7.44583 9.3875 7.5875C9.24583 7.72917 9.175 7.90833 9.175 8.125V16.6ZM13.325 16.6C13.325 16.8167 13.3958 16.9958 13.5375 17.1375C13.6792 17.2792 13.8583 17.35 14.075 17.35C14.2917 17.35 14.4708 17.2792 14.6125 17.1375C14.7542 16.9958 14.825 16.8167 14.825 16.6V8.125C14.825 7.90833 14.7542 7.72917 14.6125 7.5875C14.4708 7.44583 14.2917 7.375 14.075 7.375C13.8583 7.375 13.6792 7.44583 13.5375 7.5875C13.3958 7.72917 13.325 7.90833 13.325 8.125V16.6Z" fill="#A5A5A5"/>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 `)
             })
@@ -818,6 +1077,65 @@
     const decrypt = (data, keys='<%= process.env.AES_KEYS %>') => {
         let bytes = CryptoJS.AES.decrypt(data, keys)
         return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+    }
+
+
+
+
+
+
+
+
+    function calculateMonthDifference(startDate, endDate) {
+        let start = new Date(startDate);
+        let end = new Date(endDate);
+
+        let yearDiff = end.getFullYear() - start.getFullYear();
+        let monthDiff = end.getMonth() - start.getMonth();
+
+        if (monthDiff < 0) {
+            yearDiff -= 1;
+            monthDiff += 12;
+        }
+
+        if (yearDiff === 0) {
+            return `${monthDiff} Month`;
+        } else if (yearDiff === 1) {
+            return `1 Year ${monthDiff} Month`;
+        } else {
+            return `${yearDiff} Years ${monthDiff} Month`;
+        }
+    }
+
+    function formatDateMonth(inputDate) {
+        // Parse tanggal dalam format "YYYY-MM-DD"
+        const dateParts = inputDate.split('-');
+        const year = dateParts[0];
+        const month = dateParts[1];
+    
+        // Daftar nama bulan
+        const monthNames = [
+            'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+            'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'
+        ];
+    
+        // Konversi komponen bulan ke nama bulan
+        const formattedMonth = monthNames[parseInt(month, 10) - 1];
+    
+        // Gabungkan komponen-komponen dalam format yang diinginkan
+        const formattedDate = `${formattedMonth} ${year}`;
+    
+        return formattedDate;
+    }
+
+    function getFormattedDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Dapat ditambahkan 1 karena bulan dimulai dari 0.
+        const day = String(today.getDate()).padStart(2, '0');
+    
+        const formattedDate = `${year}-${month}-${day}`;
+        return formattedDate;
     }
 
 </script>

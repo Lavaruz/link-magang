@@ -23,6 +23,16 @@ export function VerifyJWT(req:Request, res:Response){
     }
 }
 
+export function UserLogout(req:Request, res:Response){
+    try {
+        res.clearCookie("userAuthenticate");
+        res.redirect("/");
+      } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ error: error.message });
+      }
+}
+
 export async function GetUserByToken(req:Request, res: Response){
     const userToken:any = req.headers.authorization;
 
@@ -33,46 +43,13 @@ export async function GetUserByToken(req:Request, res: Response){
             const USER = await User.findOne({where:{id: user.id}, include: [
                 {model: Experience, as: "experiences"},
                 {model: Education, as: "educations"},
+            ], order:[
+                [{model: Experience, as: "experiences"}, "createdAt", "DESC"],
+                [{model: Education, as: "educations"}, "createdAt", "DESC"]
             ]})
             if(!USER) return res.status(404).json({message: "user not found"})
 
             const encryptedData = encrypt(USER, process.env.AES_KEYS)
-            return res.status(200).json(encryptedData)
-        })
-    } catch (error) {
-        console.error(error)
-        return res.status(200).json({message: error.message})
-    }
-}
-
-export async function GetExperiencesByUserToken(req:Request, res: Response){
-    const userToken:any = req.headers.authorization;
-    try {
-        jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, user:any){
-            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
-            if(err) return res.status(200).send(false)
-            const USER = await User.findOne({where:{id: user.id}})
-
-            const EXPERIENCES = await USER.getExperiences()
-            const encryptedData = encrypt(EXPERIENCES)
-            return res.status(200).json(encryptedData)
-        })
-    } catch (error) {
-        console.error(error)
-        return res.status(200).json({message: error.message})
-    }
-}
-
-export async function GetEducationsByUserToken(req:Request, res: Response){
-    const userToken:any = req.headers.authorization;
-    try {
-        jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, user:any){
-            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
-            if(err) return res.status(200).send(false)
-            const USER = await User.findOne({where:{id: user.id}})
-        
-            const EDUCATIONS = await USER.getEducations()
-            const encryptedData = encrypt(EDUCATIONS)
             return res.status(200).json(encryptedData)
         })
     } catch (error) {
@@ -142,6 +119,90 @@ export async function GoogleLoginHandler(req:Request, res: Response){
     }
 }
 
+export async function GetEducationsByUserToken(req:Request, res: Response){
+    const userToken:any = req.headers.authorization;
+    try {
+        jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, user:any){
+            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+            if(err) return res.status(200).send(false)
+            const USER = await User.findOne({where:{id: user.id}})
+        
+            const EDUCATIONS = await USER.getEducations()
+            const encryptedData = encrypt(EDUCATIONS)
+            return res.status(200).json(encryptedData)
+        })
+    } catch (error) {
+        console.error(error)
+        return res.status(200).json({message: error.message})
+    }
+}
+
+
+// ------------- EXPERIENCES ---------------
+
+export async function GetExperiencesByUserToken(req:Request, res: Response){
+    const userToken:any = req.headers.authorization;
+    try {
+        jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, user:any){
+            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+            if(err) return res.status(200).send(false)
+            const USER = await User.findOne({where:{id: user.id}})
+
+            const EXPERIENCES = await USER.getExperiences({order:[["updatedAt", "DESC"]]})
+            const encryptedData = encrypt(EXPERIENCES)
+            return res.status(200).json(encryptedData)
+        })
+    } catch (error) {
+        console.error(error)
+        return res.status(200).json({message: error.message})
+    }
+}
+
+export async function UpdateExperienceById(req:Request, res: Response){
+    const userData = req.body
+    const ID = req.params.id
+    const userToken = req.headers.authorization
+
+    console.log(userData);
+    
+
+    
+    try {
+        if(!userToken) return res.status(400).json({message: "token is required"})
+
+        jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
+            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+            if(err) return res.status(400).send(err)
+            const USER = await User.findOne({where:{id: decoded.id}})
+            if(!USER) return res.status(404).json({message: "user not found"})
+            const EXPERIENCE = await Experience.findByPk(ID)
+            await EXPERIENCE.update(userData)
+            const EXPERIENCES = await USER.getExperiences({order: [["createdAt", "DESC"]]})
+
+            console.log(EXPERIENCE);
+            
+
+            return res.status(200).json(EXPERIENCES)
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({message: error.message})
+    }
+}
+
+export async function GetExperienceById(req:Request, res:Response) {
+    const ID = req.params.id
+    try {
+        const EXPERIENCE = await Experience.findByPk(ID)
+        if(!EXPERIENCE) return res.status(400).json({message: "Experience not found"})
+        const encryptedData = encrypt(EXPERIENCE)
+        return res.status(200).json(encryptedData)
+    } catch (error) {
+        console.error(error.message)
+        return res.status(500).json({message: error.message})
+    }
+}
+
 export async function AddNewExperience(req:Request, res: Response){
     let experienceData = req.body
     const userToken = req.headers.authorization;
@@ -157,9 +218,84 @@ export async function AddNewExperience(req:Request, res: Response){
 
         let EXPERIENCE = await Experience.create(experienceData)
         await USER.addExperience(EXPERIENCE)
-        let EXPERIENCES = await USER.getExperiences()
+        let EXPERIENCES = await USER.getExperiences({order: [["createdAt", "DESC"]]})
 
         return res.status(200).json(EXPERIENCES)
     })
+}
+
+export async function DeleteExperienceById(req:Request, res:Response) {
+    const ID = req.params.id
+    try {
+        const EXPERIENCE = await Experience.findByPk(ID)
+        if(!EXPERIENCE) return res.status(400).json({message: "Experience not found"})
+        await Experience.destroy({ where: { id: ID }})
+        return res.sendStatus(200)
+    } catch (error) {
+        console.error(error.message)
+        return res.status(500).json({message: error.message})
+    }
+}
+
+
+// --------------------- EDUCATIONS ---------------------
+
+export async function AddNewEducation(req:Request, res: Response){
+    let educationData = req.body
+    const userToken = req.headers.authorization;
+
+    jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
+        // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+        if(err) return res.status(400).send(err)
+        const USER = await User.findOne({where:{id: decoded.id}, include: [
+            {model: Experience, as: "experiences"},
+            {model: Education, as: "educations"},
+        ]})
+        if(!USER) return res.status(404).json({message: "user not found"})
+
+        let EDUCATION = await Education.create(educationData)
+        await USER.addEducation(EDUCATION)
+        let EDUCATIONS = await USER.getEducations({order: [["createdAt", "DESC"]]})
+
+        return res.status(200).json(EDUCATIONS)
+    })
+}
+
+export async function UpdateEducationById(req:Request, res: Response){
+    const userData = req.body
+    const ID = req.params.id
+    const userToken = req.headers.authorization
+
+    try {
+        if(!userToken) return res.status(400).json({message: "token is required"})
+
+        jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
+            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+            if(err) return res.status(400).send(err)
+            const USER = await User.findOne({where:{id: decoded.id}})
+            if(!USER) return res.status(404).json({message: "user not found"})
+            const EDUCATION = await Education.findByPk(ID)
+            await EDUCATION.update(userData)
+            const EDUCATIONS = await USER.getEducations({order: [["createdAt", "DESC"]]})
+
+            return res.status(200).json(EDUCATIONS)
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({message: error.message})
+    }
+}
+
+export async function DeleteEducationById(req:Request, res:Response) {
+    const ID = req.params.id
+    try {
+        const EDUCATION = await Education.findByPk(ID)
+        if(!EDUCATION) return res.status(400).json({message: "Education not found"})
+        await Education.destroy({ where: { id: ID }})
+        return res.sendStatus(200)
+    } catch (error) {
+        console.error(error.message)
+        return res.status(500).json({message: error.message})
+    }
 }
 

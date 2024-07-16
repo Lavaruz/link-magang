@@ -1362,6 +1362,10 @@ input[type="range"]::-ms-fill-lower {
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -1641,8 +1645,12 @@ input[type="range"]::-ms-fill-lower {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-white\/50 {
-  background-color: rgb(255 255 255 / 0.5);
+.bg-white\/30 {
+  background-color: rgb(255 255 255 / 0.3);
+}
+
+.bg-white\/70 {
+  background-color: rgb(255 255 255 / 0.7);
 }
 
 .bg-white\/80 {
@@ -1842,8 +1850,12 @@ input[type="range"]::-ms-fill-lower {
   padding-top: 1rem;
 }
 
-.pb-64 {
-  padding-bottom: 16rem;
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .text-center {
@@ -2045,6 +2057,14 @@ input[type="range"]::-ms-fill-lower {
 
 .placeholder-black\/30::placeholder {
   color: rgb(0 0 0 / 0.3);
+}
+
+.placeholder-black\/40::-moz-placeholder {
+  color: rgb(0 0 0 / 0.4);
+}
+
+.placeholder-black\/40::placeholder {
+  color: rgb(0 0 0 / 0.4);
 }
 
 .shadow-\[0px_4px_16px_rgba\(17\2c 17\2c 26\2c 0\.1\)\2c _0px_8px_24px_rgba\(17\2c 17\2c 26\2c 0\.1\)\2c _0px_16px_56px_rgba\(17\2c 17\2c 26\2c 0\.1\)\] {
@@ -2316,6 +2336,10 @@ main::-webkit-scrollbar-thumb:hover {
   color: rgb(241 245 249 / 0.5);
 }
 
+.disabled\:opacity-50:disabled {
+  opacity: 0.5;
+}
+
 .peer:checked ~ .peer-checked\:bg-gray-100\/10 {
   background-color: rgb(243 244 246 / 0.1);
 }
@@ -2474,6 +2498,10 @@ main::-webkit-scrollbar-thumb:hover {
     grid-template-columns: 1fr .6fr;
   }
 
+  .lg\:flex-col {
+    flex-direction: column;
+  }
+
   .lg\:items-start {
     align-items: flex-start;
   }
@@ -2490,8 +2518,8 @@ main::-webkit-scrollbar-thumb:hover {
     justify-content: space-between;
   }
 
-  .lg\:gap-10 {
-    gap: 2.5rem;
+  .lg\:gap-2 {
+    gap: 0.5rem;
   }
 
   .lg\:gap-4 {
@@ -2632,6 +2660,10 @@ main::-webkit-scrollbar-thumb:hover {
 
   .lg\:text-left {
     text-align: left;
+  }
+
+  .lg\:text-right {
+    text-align: right;
   }
 
   .lg\:text-lg {
