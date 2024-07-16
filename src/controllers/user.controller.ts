@@ -6,6 +6,7 @@ import { encrypt } from "../config/crypto"
 import { jwtDecode } from "jwt-decode";
 import Experience from "../models/UserExperience"
 import Education from "../models/UserEducation"
+import Attachment from "../models/UserAttachment"
 
 export function VerifyJWT(req:Request, res:Response){
     const accessToken = req.headers.authorization
@@ -33,6 +34,7 @@ export async function GetUserByToken(req:Request, res: Response){
             const USER = await User.findOne({where:{id: user.id}, include: [
                 {model: Experience, as: "experiences"},
                 {model: Education, as: "educations"},
+                {model: Attachment, as: "attachments"},
             ]})
             if(!USER) return res.status(404).json({message: "user not found"})
 
@@ -163,3 +165,33 @@ export async function AddNewExperience(req:Request, res: Response){
     })
 }
 
+
+
+
+
+export async function UpdateAttachment(req:Request, res: Response){
+    let attachmentData = req.body
+    const userToken = req.headers.authorization;
+
+    jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
+        // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+        if(err) return res.status(400).send(err)
+        const USER = await User.findOne({where:{id: decoded.id}})
+        if(!USER) return res.status(404).json({message: "user not found"})
+
+        const hasAttachments = await USER.getAttachments()
+
+        if(!hasAttachments){
+            await USER.createAttachments(attachmentData)
+        }else{
+            const ATTACHMENT = await Attachment.create(attachmentData)
+            await USER.setAttachments(ATTACHMENT)
+        }
+
+        const newAttachments = await USER.getAttachments()
+        console.log(newAttachments);
+        
+
+        return res.status(200).json(newAttachments)
+    })
+}
