@@ -97,6 +97,9 @@ export async function UpdateUserByToken(req:Request, res: Response){
     const userToken = req.headers.authorization;
     const userData = req.body
 
+    console.log(userData);
+    
+
     delete userData.email
     
     try {
