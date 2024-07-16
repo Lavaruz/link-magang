@@ -237,11 +237,9 @@
             </div>
 
             <form action="/api/v1/users/logout" method="post">
-                <button class="bg-second noise w-full py-4 flex items-center gap-2 text-red-500 font-bold rounded-lg justify-center font-second text-sm">
-                    <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1.66667 15.5C1.20833 15.5 0.815972 15.3368 0.489583 15.0104C0.163194 14.684 0 14.2917 0 13.8333V2.16667C0 1.70833 0.163194 1.31597 0.489583 0.989583C0.815972 0.663194 1.20833 0.5 1.66667 0.5H6.66667C6.90278 0.5 7.10069 0.579861 7.26042 0.739583C7.42014 0.899306 7.5 1.09722 7.5 1.33333C7.5 1.56944 7.42014 1.76736 7.26042 1.92708C7.10069 2.08681 6.90278 2.16667 6.66667 2.16667H1.66667V13.8333H6.66667C6.90278 13.8333 7.10069 13.9132 7.26042 14.0729C7.42014 14.2326 7.5 14.4306 7.5 14.6667C7.5 14.9028 7.42014 15.1007 7.26042 15.2604C7.10069 15.4201 6.90278 15.5 6.66667 15.5H1.66667ZM11.8125 8.83333H5.83333C5.59722 8.83333 5.39931 8.75347 5.23958 8.59375C5.07986 8.43403 5 8.23611 5 8C5 7.76389 5.07986 7.56597 5.23958 7.40625C5.39931 7.24653 5.59722 7.16667 5.83333 7.16667H11.8125L10.25 5.60417C10.0972 5.45139 10.0208 5.26389 10.0208 5.04167C10.0208 4.81944 10.0972 4.625 10.25 4.45833C10.4028 4.29167 10.5972 4.20486 10.8333 4.19792C11.0694 4.19097 11.2708 4.27083 11.4375 4.4375L14.4167 7.41667C14.5833 7.58333 14.6667 7.77778 14.6667 8C14.6667 8.22222 14.5833 8.41667 14.4167 8.58333L11.4375 11.5625C11.2708 11.7292 11.0729 11.809 10.8438 11.8021C10.6146 11.7951 10.4167 11.7083 10.25 11.5417C10.0972 11.375 10.0243 11.1771 10.0312 10.9479C10.0382 10.7188 10.1181 10.5278 10.2708 10.375L11.8125 8.83333Z" fill="#FC4545"/>
-                    </svg>
-                     Logout from this account
+                <button class="bg-red-500 noise w-full py-3 border-2 border-red-600 flex items-center gap-2 text-white font-bold rounded-2xl shadow-md justify-center font-second text-sm">
+                    <i class="uil uil-signout text-xl text-white"></i>
+                    Logout from this account
                 </button>
             </form>
         </div>
@@ -452,12 +450,6 @@
         })
     })
 
-    // $(".educations").on("click", ".button-readmore", function(){
-    //     const content = $(this).closest(".content")
-    //     content.addClass("hidden")
-    //     content.prev().removeClass("hidden")
-    // })
-
     $(".experiences, .educations").on("click", ".button-readmore", function(){
         const content = $(this).closest(".content")
         content.addClass("hidden")
@@ -616,6 +608,8 @@
         });
     })
 
+    
+    
     function PutUserData(formName, url, callback = () => {}){
         $(`#${formName}`).submit(function(e){
             e.preventDefault();
@@ -897,6 +891,8 @@
             $("#off-skills").addClass("hidden")
         }
     }
+    
+    
     // const decrypt = (data, keys='<%= process.env.AES_KEYS %>') => {
     //     let bytes = CryptoJS.AES.decrypt(data, keys)
     //     return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
