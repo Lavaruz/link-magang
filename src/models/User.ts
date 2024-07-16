@@ -3,6 +3,7 @@ import { sequelize } from "."; // Pastikan Anda mengganti path sesuai dengan str
 import Experience from "./UserExperience";
 import Education from "./UserEducation";
 import Attachment from "./UserAttachment";
+import Socials from "./UserSocial";
 
 class User extends Model {
   declare id: CreationOptional<number>;
@@ -32,6 +33,10 @@ class User extends Model {
   declare createAttachments: HasOneCreateAssociationMixin<Attachment>
   declare getAttachments: HasOneGetAssociationMixin<Attachment>
   declare setAttachments: HasOneSetAssociationMixin<Attachment, number>
+
+  declare createSocials: HasOneCreateAssociationMixin<Socials>
+  declare getSocials: HasOneGetAssociationMixin<Socials>
+  declare setSocials: HasOneSetAssociationMixin<Socials, number>
 }
 
 const ADMIN_ROLE = 1
@@ -102,6 +107,12 @@ User.hasOne(Attachment, {
   sourceKey: 'id',
   foreignKey: 'ownerId',
   as: 'attachments',
+  constraints:false
+});
+User.hasOne(Socials, {
+  sourceKey: 'id',
+  foreignKey: 'ownerId',
+  as: 'socials',
   constraints:false
 });
 

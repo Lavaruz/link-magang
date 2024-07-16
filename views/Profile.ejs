@@ -76,9 +76,9 @@
                     <p class="text-white flex items-center gap-2">TOP SKILLS</p>
                     <p id="edit-profile-summary" class="cursor-pointer text-white text-sm font-second flex items-center gap-2">Edit</p>
                 </div>
-                <div id="profile-summary" class="w-full p-5 pb-6 noise bg-white border-2 lg:border-0 border-header lg:rounded-b-2xl">
+                <div id="profile-skills" class="w-full p-5 pb-6 noise bg-white border-2 lg:border-0 border-header lg:rounded-b-2xl">
                     <div class="text-center">
-                        <p class="font-bold text-base text-main mb-3">Add your top 3 skills here!</p>
+                        <p class="font-bold text-base text-main mb-3">Add your top skills here!</p>
                         <p class="font-second text-black/80 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2">Skills help us to find recomended jobs for you</p>
                         <button id="button-profile-summary" class="flex items-center gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 m-auto mt-4">Add Skills</button>
                     </div>
@@ -191,16 +191,16 @@
             <div class="socials bg-white border-main border-2 noise rounded-2xl p-4 pb-5 shadow-md">
                 <div class="w-100 flex items-center justify-between rounded-t-2xl">
                     <p class="text-main flex items-center gap-2">SOCIALS</p>
-                    <p id="edit-attachment" class="cursor-pointer text-main text-sm font-second flex items-center gap-2">Edit</p>
+                    <p id="edit-socials" class="cursor-pointer text-main text-sm font-second flex items-center gap-2">Edit</p>
                 </div>
                 <p class="font-second text-sm font-semibold text-black/80 mt-3 mb-4">Make other people easier to find your ability!</p>
-                <div class="flex items-center gap-4 text-thrid/80 text-2xl">
-                    <a href=""><i class="uil uil-twitter"></i></a>
-                    <a href=""><i class="uil uil-instagram-alt"></i></a>
-                    <a href=""><i class="uil uil-linkedin"></i></a>
-                    <a href=""><i class="uil uil-behance"></i></a>
-                    <a href=""><i class="uil uil-github"></i></a>
-                    <a href=""><i class="uil uil-youtube"></i></a>
+                <div id="socials" class="hidden flex items-center gap-4 text-thrid/80 text-2xl">
+                    <a id="link-twitter" href="" class="hidden link-social"><i class="uil uil-twitter"></i></a>
+                    <a id="link-instagram" href="" class="hidden link-social"><i class="uil uil-instagram-alt"></i></a>
+                    <a id="link-linkedin" href="" class="hidden link-social"><i class="uil uil-linkedin"></i></a>
+                    <a id="link-behance" href="" class="hidden link-social"><i class="uil uil-behance"></i></a>
+                    <a id="link-github" href="" class="hidden link-social"><i class="uil uil-github"></i></a>
+                    <a id="link-youtube" href="" class="hidden link-social"><i class="uil uil-youtube"></i></a>
                 </div>
             </div>
 
@@ -261,6 +261,9 @@
     <!-- POPUP ATTACHMENT -->
     <%- include('./components/ProfilePopup/Attachments'); -%>
 
+    <!-- POPUP SOCIALS -->
+    <%- include('./components/ProfilePopup/Socials'); -%>
+
 
 </section>
 
@@ -286,6 +289,9 @@
 
             // Inisialisasi Attachment
             InitAttachment(data.attachments)
+
+            // Inisialisasi Socials
+            InitSocials(data.socials)
             
             // Inisialisasi basic information
             InitBasic(data)
@@ -355,9 +361,17 @@
 
 
 
+    // socials edit
+    PutUserData("form-edit-socials", "/api/v1/users/info/socials", function(dis, response){
+        InitSocials(response)
+        $(dis).closest('.popup').slideToggle(function(){
+            $(dis).closest('#popup').fadeOut()
+        })
+        $("body").removeClass('no-scroll');
+    })
+
     // attachment edit
     PutUserData("form-edit-attachment", "/api/v1/users/info/attachments", function(dis, response){
-        console.log(response);
         InitAttachment(response)
         $(dis).closest('.popup').slideToggle(function(){
             $(dis).closest('#popup').fadeOut()
@@ -495,6 +509,39 @@
             $("#resume").text("-")
             $("#portfolio").parent().removeAttr('href');
             $("#resume").parent().removeAttr('href');
+        }
+    }
+
+    function InitSocials(data){
+        $(".link-social").addClass("hidden")
+        if(data){
+            $("#socials").removeClass("hidden")
+            if(data.twitter){
+                $("#popup-social-twitter").val(data.twitter)
+                $("#link-twitter").removeClass("hidden").prop("href",data.twitter)
+            }
+            if(data.instagram){
+                $("#popup-social-instagram").val(data.instagram)
+                $("#link-instagram").removeClass("hidden").prop("href",data.instagram)
+            }
+            if(data.linkedin){
+                $("#popup-social-linkedin").val(data.linkedin)
+                $("#link-linkedin").removeClass("hidden").prop("href",data.linkedin)
+            }
+            if(data.behance){
+                $("#popup-social-behance").val(data.behance)
+                $("#link-behance").removeClass("hidden").prop("href",data.behance)
+            }
+            if(data.github){
+                $("#popup-social-github").val(data.github)
+                $("#link-github").removeClass("hidden").prop("href",data.github)
+            }
+            if(data.youtube){
+                $("#popup-social-youtube").val(data.youtube)
+                $("#link-youtube").removeClass("hidden").prop("href",data.youtube)
+            }
+        }else{
+            $("#socials").addClass("hidden")
         }
     }
 

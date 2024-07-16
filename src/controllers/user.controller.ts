@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import Experience from "../models/UserExperience"
 import Education from "../models/UserEducation"
 import Attachment from "../models/UserAttachment"
+import Socials from "../models/UserSocial"
 
 export function VerifyJWT(req:Request, res:Response){
     const accessToken = req.headers.authorization
@@ -35,6 +36,7 @@ export async function GetUserByToken(req:Request, res: Response){
                 {model: Experience, as: "experiences"},
                 {model: Education, as: "educations"},
                 {model: Attachment, as: "attachments"},
+                {model: Socials, as: "socials"},
             ]})
             if(!USER) return res.status(404).json({message: "user not found"})
 
@@ -187,6 +189,7 @@ export async function UpdateAttachment(req:Request, res: Response){
         if(!hasAttachments){
             await USER.createAttachments(attachmentData)
         }else{
+            await Attachment.destroy({where: { id: (await USER.getAttachments()).id }})
             const ATTACHMENT = await Attachment.create(attachmentData)
             await USER.setAttachments(ATTACHMENT)
         }
@@ -196,5 +199,33 @@ export async function UpdateAttachment(req:Request, res: Response){
         
 
         return res.status(200).json(newAttachments)
+    })
+}
+
+export async function UpdateSocials(req:Request, res: Response){
+    let socialsData = req.body
+    const userToken = req.headers.authorization;
+
+    jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
+        // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+        if(err) return res.status(400).send(err)
+        const USER = await User.findOne({where:{id: decoded.id}})
+        if(!USER) return res.status(404).json({message: "user not found"})
+
+        const hasSocials = await USER.getSocials()
+
+        if(!hasSocials){
+            await USER.createSocials(socialsData)
+        }else{
+            await Socials.destroy({where: { id: (await USER.getSocials()).id}})
+            const SOCIALS = await Socials.create(socialsData)
+            await USER.setSocials(SOCIALS)
+        }
+
+        const newSocials = await USER.getSocials()
+        console.log(newSocials);
+        
+
+        return res.status(200).json(newSocials)
     })
 }

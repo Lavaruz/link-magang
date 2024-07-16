@@ -1,5 +1,5 @@
 import express from "express";
-import { AddNewExperience, GetEducationsByUserToken, GetExperiencesByUserToken, GetTotalUser, GetUserByToken, GoogleLoginHandler, UpdateAttachment, UpdateUserByToken, VerifyJWT } from "../controllers/user.controller";
+import { AddNewExperience, GetEducationsByUserToken, GetExperiencesByUserToken, GetTotalUser, GetUserByToken, GoogleLoginHandler, UpdateAttachment, UpdateSocials, UpdateUserByToken, VerifyJWT } from "../controllers/user.controller";
     
 const userRouter = express.Router();
 
@@ -12,6 +12,7 @@ userRouter.post("/info/experiences", AddNewExperience)
 
 
 userRouter.put("/info/attachments", UpdateAttachment)
+userRouter.put("/info/socials", UpdateSocials)
 
 userRouter.get("/verify-token", VerifyJWT)
 userRouter.get("/total-user", GetTotalUser)
