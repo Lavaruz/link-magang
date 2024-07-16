@@ -16,6 +16,10 @@ userRouter.post("/info/experiences", AddNewExperience)
 userRouter.put("/info/experiences/:id", UpdateExperienceById)
 userRouter.delete("/info/experiences/:id", DeleteExperienceById)
 
+
+userRouter.put("/info/attachments", UpdateAttachment)
+userRouter.put("/info/socials", UpdateSocials)
+
 userRouter.get("/verify-token", VerifyJWT)
 userRouter.get("/total-user", GetTotalUser)
 userRouter.post("/logout", UserLogout)

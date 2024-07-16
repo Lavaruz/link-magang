@@ -6,6 +6,8 @@ import { encrypt } from "../config/crypto"
 import { jwtDecode } from "jwt-decode";
 import Experience from "../models/UserExperience"
 import Education from "../models/UserEducation"
+import Attachment from "../models/UserAttachment"
+import Socials from "../models/UserSocial"
 
 export function VerifyJWT(req:Request, res:Response){
     const accessToken = req.headers.authorization
@@ -43,9 +45,8 @@ export async function GetUserByToken(req:Request, res: Response){
             const USER = await User.findOne({where:{id: user.id}, include: [
                 {model: Experience, as: "experiences"},
                 {model: Education, as: "educations"},
-            ], order:[
-                [{model: Experience, as: "experiences"}, "createdAt", "DESC"],
-                [{model: Education, as: "educations"}, "createdAt", "DESC"]
+                {model: Attachment, as: "attachments"},
+                {model: Socials, as: "socials"},
             ]})
             if(!USER) return res.status(404).json({message: "user not found"})
 
@@ -71,6 +72,9 @@ export async function GetTotalUser(req:Request, res: Response){
 export async function UpdateUserByToken(req:Request, res: Response){
     const userToken = req.headers.authorization;
     const userData = req.body
+
+    console.log(userData);
+    
 
     delete userData.email
     
@@ -224,78 +228,62 @@ export async function AddNewExperience(req:Request, res: Response){
     })
 }
 
-export async function DeleteExperienceById(req:Request, res:Response) {
-    const ID = req.params.id
-    try {
-        const EXPERIENCE = await Experience.findByPk(ID)
-        if(!EXPERIENCE) return res.status(400).json({message: "Experience not found"})
-        await Experience.destroy({ where: { id: ID }})
-        return res.sendStatus(200)
-    } catch (error) {
-        console.error(error.message)
-        return res.status(500).json({message: error.message})
-    }
-}
 
 
-// --------------------- EDUCATIONS ---------------------
 
-export async function AddNewEducation(req:Request, res: Response){
-    let educationData = req.body
+
+export async function UpdateAttachment(req:Request, res: Response){
+    let attachmentData = req.body
     const userToken = req.headers.authorization;
 
     jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
         // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
         if(err) return res.status(400).send(err)
-        const USER = await User.findOne({where:{id: decoded.id}, include: [
-            {model: Experience, as: "experiences"},
-            {model: Education, as: "educations"},
-        ]})
+        const USER = await User.findOne({where:{id: decoded.id}})
         if(!USER) return res.status(404).json({message: "user not found"})
 
-        let EDUCATION = await Education.create(educationData)
-        await USER.addEducation(EDUCATION)
-        let EDUCATIONS = await USER.getEducations({order: [["createdAt", "DESC"]]})
+        const hasAttachments = await USER.getAttachments()
 
-        return res.status(200).json(EDUCATIONS)
+        if(!hasAttachments){
+            await USER.createAttachments(attachmentData)
+        }else{
+            await Attachment.destroy({where: { id: (await USER.getAttachments()).id }})
+            const ATTACHMENT = await Attachment.create(attachmentData)
+            await USER.setAttachments(ATTACHMENT)
+        }
+
+        const newAttachments = await USER.getAttachments()
+        console.log(newAttachments);
+        
+
+        return res.status(200).json(newAttachments)
     })
 }
 
-export async function UpdateEducationById(req:Request, res: Response){
-    const userData = req.body
-    const ID = req.params.id
-    const userToken = req.headers.authorization
+export async function UpdateSocials(req:Request, res: Response){
+    let socialsData = req.body
+    const userToken = req.headers.authorization;
 
-    try {
-        if(!userToken) return res.status(400).json({message: "token is required"})
+    jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
+        // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+        if(err) return res.status(400).send(err)
+        const USER = await User.findOne({where:{id: decoded.id}})
+        if(!USER) return res.status(404).json({message: "user not found"})
 
-        jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
-            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
-            if(err) return res.status(400).send(err)
-            const USER = await User.findOne({where:{id: decoded.id}})
-            if(!USER) return res.status(404).json({message: "user not found"})
-            const EDUCATION = await Education.findByPk(ID)
-            await EDUCATION.update(userData)
-            const EDUCATIONS = await USER.getEducations({order: [["createdAt", "DESC"]]})
+        const hasSocials = await USER.getSocials()
 
-            return res.status(200).json(EDUCATIONS)
-        })
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({message: error.message})
-    }
+        if(!hasSocials){
+            await USER.createSocials(socialsData)
+        }else{
+            await Socials.destroy({where: { id: (await USER.getSocials()).id}})
+            const SOCIALS = await Socials.create(socialsData)
+            await USER.setSocials(SOCIALS)
+        }
+
+        const newSocials = await USER.getSocials()
+        console.log(newSocials);
+        
+
+        return res.status(200).json(newSocials)
+    })
 }
-
-export async function DeleteEducationById(req:Request, res:Response) {
-    const ID = req.params.id
-    try {
-        const EDUCATION = await Education.findByPk(ID)
-        if(!EDUCATION) return res.status(400).json({message: "Education not found"})
-        await Education.destroy({ where: { id: ID }})
-        return res.sendStatus(200)
-    } catch (error) {
-        console.error(error.message)
-        return res.status(500).json({message: error.message})
-    }
-}
-

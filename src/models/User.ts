@@ -1,7 +1,9 @@
-import { DataTypes, Model,CreationOptional, HasManyAddAssociationMixin, HasManyHasAssociationMixin, HasManyRemoveAssociationsMixin, HasManyGetAssociationsMixin } from "sequelize";
+import { DataTypes, Model,CreationOptional, HasManyAddAssociationMixin, HasManyHasAssociationMixin, HasManyRemoveAssociationsMixin, HasManyGetAssociationsMixin, HasOneCreateAssociationMixin, HasOneGetAssociationMixin, HasOneSetAssociationMixin } from "sequelize";
 import { sequelize } from "."; // Pastikan Anda mengganti path sesuai dengan struktur direktori Anda
 import Experience from "./UserExperience";
 import Education from "./UserEducation";
+import Attachment from "./UserAttachment";
+import Socials from "./UserSocial";
 
 class User extends Model {
   declare id: CreationOptional<number>;
@@ -27,6 +29,14 @@ class User extends Model {
   declare hasExperience: HasManyHasAssociationMixin<Experience, number>
   declare removeExperience: HasManyRemoveAssociationsMixin<Experience,number>
   declare getExperiences: HasManyGetAssociationsMixin<Experience>
+
+  declare createAttachments: HasOneCreateAssociationMixin<Attachment>
+  declare getAttachments: HasOneGetAssociationMixin<Attachment>
+  declare setAttachments: HasOneSetAssociationMixin<Attachment, number>
+
+  declare createSocials: HasOneCreateAssociationMixin<Socials>
+  declare getSocials: HasOneGetAssociationMixin<Socials>
+  declare setSocials: HasOneSetAssociationMixin<Socials, number>
 }
 
 const ADMIN_ROLE = 1
@@ -91,6 +101,18 @@ User.hasMany(Education, {
   sourceKey: 'id',
   foreignKey: 'ownerId',
   as: 'educations',
+  constraints:false
+});
+User.hasOne(Attachment, {
+  sourceKey: 'id',
+  foreignKey: 'ownerId',
+  as: 'attachments',
+  constraints:false
+});
+User.hasOne(Socials, {
+  sourceKey: 'id',
+  foreignKey: 'ownerId',
+  as: 'socials',
   constraints:false
 });
 
