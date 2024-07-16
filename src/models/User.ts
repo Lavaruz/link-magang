@@ -1,9 +1,10 @@
-import { DataTypes, Model,CreationOptional, HasManyAddAssociationMixin, HasManyHasAssociationMixin, HasManyRemoveAssociationsMixin, HasManyGetAssociationsMixin, HasOneCreateAssociationMixin, HasOneGetAssociationMixin, HasOneSetAssociationMixin } from "sequelize";
+import { DataTypes, Model,CreationOptional, HasManyAddAssociationMixin, HasManyHasAssociationMixin, HasManyRemoveAssociationsMixin, HasManyGetAssociationsMixin, HasOneCreateAssociationMixin, HasOneGetAssociationMixin, HasOneSetAssociationMixin, BelongsToManyAddAssociationMixin, BelongsToManyGetAssociationsMixin, BelongsToManyRemoveAssociationMixin, BelongsToManySetAssociationsMixin } from "sequelize";
 import { sequelize } from "."; // Pastikan Anda mengganti path sesuai dengan struktur direktori Anda
 import Experience from "./UserExperience";
 import Education from "./UserEducation";
 import Attachment from "./UserAttachment";
 import Socials from "./UserSocial";
+import Skills from "./Skills";
 
 class User extends Model {
   declare id: CreationOptional<number>;
@@ -37,6 +38,11 @@ class User extends Model {
   declare createSocials: HasOneCreateAssociationMixin<Socials>
   declare getSocials: HasOneGetAssociationMixin<Socials>
   declare setSocials: HasOneSetAssociationMixin<Socials, number>
+
+  declare addSkills: BelongsToManyAddAssociationMixin<Skills, number>
+  declare getSkills: BelongsToManyGetAssociationsMixin<Skills>
+  declare removeSkills: BelongsToManyRemoveAssociationMixin<Skills,number>
+  declare setSkills: BelongsToManySetAssociationsMixin<Skills,number>
 }
 
 const ADMIN_ROLE = 1
@@ -115,5 +121,19 @@ User.hasOne(Socials, {
   as: 'socials',
   constraints:false
 });
+
+
+User.belongsToMany(Skills,{
+  as: "skills",
+  sourceKey: "id",
+  constraints: false,
+  through: "UserSkill"
+})
+Skills.belongsToMany(User,{
+  as: "users",
+  sourceKey: "id",
+  constraints: false,
+  through: "UserSkill"
+})
 
 export default User;
