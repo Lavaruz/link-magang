@@ -71,7 +71,7 @@
         </div>
 
         <!-- PAGINATION -->
-        <div class="flex flex-col items-center mt-12">
+        <div id="paginations" class="flex flex-col items-center mt-12">
             <span class="text-sm text-gray-700 dark:text-gray-400">
                 Showing <span id="limit-start" class="font-semibold text-gray-900 dark:text-white">0</span> to <span id="limit-end" class="font-semibold text-gray-900 dark:text-white">9</span> of <span class="total-post font-semibold text-gray-900 dark:text-white"></span> Entries
             </span>
@@ -116,6 +116,33 @@
 <%- include('./layouts/footer'); -%>
 
 <script>
+
+    $.ajax({
+        url: "/api/v1/users/verify-token",
+        type: "GET",
+        headers: {
+            "Authorization": window.USER_TOKEN,
+        },
+        success: (isVerified) => {
+            if(!isVerified){
+                window.onload = function () {
+                    google.accounts.id.initialize({
+                        client_id: "698401836212-gi5ntasmqfae7hiu2q0qu8i2h2gco82h.apps.googleusercontent.com",
+                        callback: handleCredentialResponse
+                    });
+                    google.accounts.id.renderButton(
+                        document.getElementById("button-google"),
+                        { theme: "outline", size: "large" }  // customization attributes
+                    );
+                    google.accounts.id.prompt(); // also display the One Tap dialog
+                }
+            }
+        },
+        error: function (request, status, error) {
+            return request
+        },
+    })
+
     function handleCredentialResponse(response) {
         $.ajax({
             url: '/api/v1/users/auth/google',
@@ -130,18 +157,6 @@
                 console.error('Error:', error);
             }
         });
-    }
-    
-    window.onload = function () {
-        google.accounts.id.initialize({
-            client_id: "698401836212-gi5ntasmqfae7hiu2q0qu8i2h2gco82h.apps.googleusercontent.com",
-            callback: handleCredentialResponse
-        });
-        google.accounts.id.renderButton(
-            document.getElementById("button-google"),
-            { theme: "outline", size: "large" }  // customization attributes
-        );
-        google.accounts.id.prompt(); // also display the One Tap dialog
     }
 </script>
 
@@ -195,7 +210,9 @@
                 postsData.datas.forEach(post => {
                     GetCard(post)
                 });
+                $("#paginations").removeClass("hidden")
             }else{
+                $("#paginations").addClass("hidden")
                 $("#cards").addClass("hidden")
                 $("#cards-notfound").removeClass("hidden")
             }

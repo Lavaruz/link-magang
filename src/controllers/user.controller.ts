@@ -63,20 +63,25 @@ export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
     }
 }
 
-function calculateTotalExperienceMonth(experiences) {
-    let totalMonths = 0;
+export async function GetUserById(req:Request, res: Response){
+    const userId = req.params.id
+    try {
+        const USER = await User.findByPk(userId, {
+            include: [
+                {model: Experience, as: "experiences"},
+                {model: Education, as: "educations"},
+                {model: Attachment, as: "attachments"},
+                {model: Socials, as: "socials"},
+                {model: Skills, as: "skills"},
+            ]
+        })
 
-    experiences.forEach(exp => {
-        const startDate = new Date(exp.exp_startdate);
-        const endDate = new Date(exp.exp_enddate);
-        
-        const yearsDifference = endDate.getFullYear() - startDate.getFullYear();
-        const monthsDifference = endDate.getMonth() - startDate.getMonth();
-
-        totalMonths += (yearsDifference * 12) + monthsDifference;
-    });
-
-    return totalMonths
+        const encryptedData = encrypt(USER)
+        return res.status(200).json(encryptedData)
+    } catch (error) {
+        console.error(error)
+        return res.status(200).json({message: error.message})
+    }
 }
 
 export async function GetUserByToken(req:Request, res: Response){
@@ -455,4 +460,21 @@ export async function UpdateSocials(req:Request, res: Response){
 
         return res.status(200).json(newSocials)
     })
+}
+
+
+function calculateTotalExperienceMonth(experiences) {
+    let totalMonths = 0;
+
+    experiences.forEach(exp => {
+        const startDate = new Date(exp.exp_startdate);
+        const endDate = new Date(exp.exp_enddate);
+        
+        const yearsDifference = endDate.getFullYear() - startDate.getFullYear();
+        const monthsDifference = endDate.getMonth() - startDate.getMonth();
+
+        totalMonths += (yearsDifference * 12) + monthsDifference;
+    });
+
+    return totalMonths
 }

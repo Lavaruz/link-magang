@@ -1,5 +1,5 @@
 import express from "express";
-import { AddNewEducation, AddNewExperience, AddNewSkill, AddSkillToUser, DeleteEducationById, DeleteExperienceById, GetAllSkills, GetAllUserWhereActiveSearch, GetEducationsByUserToken, GetExperienceById, GetExperiencesByUserToken, GetTotalUser, GetUserByToken, GoogleLoginHandler, UpdateAttachment, UpdateEducationById, UpdateExperienceById, UpdateSocials, UpdateUserByToken, UserLogout, VerifyJWT } from "../controllers/user.controller";
+import { AddNewEducation, AddNewExperience, AddNewSkill, AddSkillToUser, DeleteEducationById, DeleteExperienceById, GetAllSkills, GetAllUserWhereActiveSearch, GetEducationsByUserToken, GetExperienceById, GetExperiencesByUserToken, GetTotalUser, GetUserById, GetUserByToken, GoogleLoginHandler, UpdateAttachment, UpdateEducationById, UpdateExperienceById, UpdateSocials, UpdateUserByToken, UserLogout, VerifyJWT } from "../controllers/user.controller";
     
 const userRouter = express.Router();
 
@@ -31,6 +31,8 @@ userRouter.get("/total-user", GetTotalUser)
 userRouter.post("/logout", UserLogout)
 userRouter.post("/auth/google", GoogleLoginHandler)
 userRouter.put("/", UpdateUserByToken)
+
+userRouter.get("/:id", GetUserById)
     
 export default userRouter;
     
