@@ -23,6 +23,14 @@ router.get("/profile/me", (req: Request, res: Response, next) => {
   }
 });
 
+router.get("/market", (req: Request, res: Response, next) => {
+  try {
+    return res.render("Market", {AES_KEYS: process.env.AES_KEYS})
+  } catch (error) {
+    return res.send(error);
+  }
+});
+
 router.get("/create", (req: Request, res: Response, next) => {
   try {
     return res.render("Create")

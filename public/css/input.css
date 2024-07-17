@@ -18,22 +18,22 @@ html {
   background-image: url("/img/noise-dark.png");
 }
 
-main::-webkit-scrollbar {
-  width: 8px;
+html::-webkit-scrollbar, div::-webkit-scrollbar {
+  width: 4px;
 }
 
 /* Track */
-main::-webkit-scrollbar-track {
+html::-webkit-scrollbar-track, div::-webkit-scrollbar-track {
   background: transparent;
 }
 
 /* Handle */
-main::-webkit-scrollbar-thumb {
-  background: #888;
+html::-webkit-scrollbar-thumb, div::-webkit-scrollbar-thumb {
+  background: #47A992;
 }
 
 /* Handle on hover */
-main::-webkit-scrollbar-thumb:hover {
+html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
 
