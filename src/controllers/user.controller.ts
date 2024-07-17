@@ -36,6 +36,49 @@ export function UserLogout(req:Request, res:Response){
       }
 }
 
+export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
+    try {
+        const USERS = await User.findAll({where:{active_search: true}, include: [
+            {model: Experience, as: "experiences"},
+            {model: Education, as: "educations"},
+            {model: Attachment, as: "attachments"},
+            {model: Socials, as: "socials"},
+            {model: Skills, as: "skills"},
+        ]})
+
+        const updatedUsers = await Promise.all(USERS.map(async user => {
+            const userExperience = user.toJSON().experiences;
+            const YoE = calculateTotalExperienceMonth(userExperience);
+            return {
+                ...user.toJSON(),
+                YoE: YoE
+            };
+        }));
+        
+        const encryptedData = encrypt(updatedUsers)
+        return res.status(200).json(encryptedData)
+    } catch (error) {
+        console.error(error)
+        return res.status(200).json({message: error.message})
+    }
+}
+
+function calculateTotalExperienceMonth(experiences) {
+    let totalMonths = 0;
+
+    experiences.forEach(exp => {
+        const startDate = new Date(exp.exp_startdate);
+        const endDate = new Date(exp.exp_enddate);
+        
+        const yearsDifference = endDate.getFullYear() - startDate.getFullYear();
+        const monthsDifference = endDate.getMonth() - startDate.getMonth();
+
+        totalMonths += (yearsDifference * 12) + monthsDifference;
+    });
+
+    return totalMonths
+}
+
 export async function GetUserByToken(req:Request, res: Response){
     const userToken:any = req.headers.authorization;
 

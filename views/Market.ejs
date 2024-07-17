@@ -68,71 +68,7 @@
         <div class="col-span-8 divide-y">
             <p class="px-14 py-3.5 text-2xl font-medium text-main">Talent</p>
             <div id="cards" class="grid grid-cols-2 gap-4 p-6 px-14">
-
                 <!-- CARD -->
-                <div class="card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
-                    <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                        <img id="basic-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
-                    </div>
-                    <div class="w-full">
-                        <div class="mb-2 text-center lg:text-left">
-                            <p id="basic-fullname" class="font-bold text-xl text-main">Assami Muzaki</p>
-                            <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">Founder of Internshits</p>
-                        </div>
-                        <hr>
-                        <div class="pt-2">
-                            <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag"></i><span class="font-medium ms-2 me-1">2.5</span>Years of Experience</p>
-                            <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">Bachelor Degree Computer Science Science Science</span></p>
-                            <div class="flex gap-2 mt-3 flex-wrap">
-                                <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">Backend Developer</button>
-                                <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">NodeJS</button>
-                                <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+3</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
-                    <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                        <img id="basic-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
-                    </div>
-                    <div class="w-full">
-                        <div class="mb-2 text-center lg:text-left">
-                            <p id="basic-fullname" class="font-bold text-xl text-main">Assami Muzaki</p>
-                            <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">Founder of Internshits</p>
-                        </div>
-                        <hr>
-                        <div class="pt-2">
-                            <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag"></i><span class="font-medium ms-2 me-1">2.5</span>Years of Experience</p>
-                            <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">Bachelor Degree Computer Science Science Science</span></p>
-                            <div class="flex gap-2 mt-3 flex-wrap">
-                                <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">Backend Developer</button>
-                                <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">NodeJS</button>
-                                <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+3</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
-                    <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                        <img id="basic-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
-                    </div>
-                    <div class="w-full">
-                        <div class="mb-2 text-center lg:text-left">
-                            <p id="basic-fullname" class="font-bold text-xl text-main">Assami Muzaki</p>
-                            <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">Founder of Internshits</p>
-                        </div>
-                        <hr>
-                        <div class="pt-2">
-                            <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag"></i><span class="font-medium ms-2 me-1">2.5</span>Years of Experience</p>
-                            <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">Bachelor Degree Computer Science Science Science</span></p>
-                            <div class="flex gap-2 mt-3 flex-wrap">
-                                <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">Backend Developer</button>
-                                <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">NodeJS</button>
-                                <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+3</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -140,7 +76,7 @@
 
 <!-- POPUP USER -->
 <div id="popup" class="hidden fixed top-0 bottom-0 right-0 left-0 bg-black/60 z-30 flex items-center justify-center">
-    <div id="popup-user" class="hidden w-1/3 bg-background noise rounded-2xl relative overflow-hidden w-full">
+    <div id="popup-user" class="hidden w-1/2 bg-background noise rounded-2xl relative overflow-hidden w-full">
         <div class="h-[90vh] overflow-y-scroll w-full px-12 py-8">
             <div class="text-center flex flex-col items-center justify-center">
                 <div class="w-[90px] h-[90px] min-w-[90px] min-h-[90px] rounded-full overflow-hidden mx-auto lg:mx-0">
@@ -241,4 +177,39 @@
             $("#popup").fadeOut()
         })
     })
+
+    $.get("/api/v1/users/active", function(usersData){
+        usersData = decrypt(usersData.r)
+        usersData.forEach(user => {
+            $("#cards").append(`
+                <div class="card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
+                    <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                        <img id="basic-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
+                    </div>
+                    <div class="w-full">
+                        <div class="mb-2 text-center lg:text-left">
+                            <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname}</p>
+                            <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">Founder of Internshits</p>
+                        </div>
+                        <hr>
+                        <div class="pt-2">
+                            <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag"></i><span class="font-medium ms-2 me-1">2.5</span>Years of Experience</p>
+                            <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">Bachelor Degree Computer Science Science Science</span></p>
+                            <div class="flex gap-2 mt-3 flex-wrap">
+                                <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">Backend Developer</button>
+                                <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">NodeJS</button>
+                                <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+3</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `)
+        });
+    })
+
+
+    const decrypt = (data, keys='<%= process.env.AES_KEYS %>') => {
+        let bytes = CryptoJS.AES.decrypt(data, keys)
+        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+    }
 </script>
