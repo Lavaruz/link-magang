@@ -642,7 +642,7 @@
 
     function InitBasic(data){
         $(".firstname").text(data.firstname)
-        $("#basic-fullname").text(`${data.firstname} ${data.lastname}`)
+        $("#basic-fullname").text(`${data.firstname ? data.firstname : ""} ${data.lastname ? data.lastname : ""}`)
         $("#popup-firstname").val(data.firstname)
         $("#popup-lastname").val(data.lastname)
         $("#basic-email").text(data.email)

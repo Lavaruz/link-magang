@@ -13,16 +13,14 @@ import Skills from "../models/Skills"
 export function VerifyJWT(req:Request, res:Response){
     const accessToken = req.headers.authorization
     try {
-        // if(!accessToken) return res.status(400).json({message: "access token doesn't exist"})
         if(!accessToken) return res.status(200).send(false)
         jwt.verify(accessToken.toString(), process.env.ACCESS_TOKEN_SECRET, async function (err, _){
-            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
             if(err) return res.status(200).send(false)
-
             return res.status(200).json(true)
         })
     } catch (error) {
-        
+        console.error(error.message)
+        return res.status(500).json({message: error.message})
     }
 }
 
