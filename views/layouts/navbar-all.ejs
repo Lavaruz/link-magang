@@ -22,7 +22,26 @@
     </div>
 </nav>
 
+
+
+
+
 <script>
+
+    $("#button-login").click(function(){
+        $("#popup").fadeIn(function(){
+            $("#popup-login").slideToggle()
+            $("body").css("overflow", "hidden")
+        }).css("display", "flex")
+    })
+    $("#close-login").click(function(){
+        $("#popup-login").slideToggle(function(){
+            $("#popup").fadeOut(function(){
+                $("body").css("overflow", "auto")
+            })
+        })
+    })
+
     $.ajax({
         url: "/api/v1/users/verify-token",
         type: "GET",
@@ -30,16 +49,46 @@
             "Authorization": window.USER_TOKEN,
         },
         success: (isVerified) => {
-            if(isVerified){
-                $("#nav-profile").removeClass("hidden")
-                $("#button-login").addClass("hidden")
-            }else{
+            if(!isVerified){
                 $("#nav-profile").addClass("hidden")
                 $("#button-login").removeClass("hidden")
+                window.onload = function () {
+                    google.accounts.id.initialize({
+                        client_id: "698401836212-gi5ntasmqfae7hiu2q0qu8i2h2gco82h.apps.googleusercontent.com",
+                        callback: handleCredentialResponse
+                    });
+                    google.accounts.id.renderButton(
+                        document.getElementById("button-google"),
+                        { theme: "outline", size: "large", text:"continue_with", shape:"pill" }  // customization attributes
+                    );
+
+                    google.accounts.id.prompt(); // also display the One Tap dialog
+                }
+            }else{
+                $("#nav-profile").removeClass("hidden")
+                $("#button-login").addClass("hidden")
             }
         },
         error: function (request, status, error) {
+            $("#nav-profile").addClass("hidden")
+            $("#button-login").removeClass("hidden")
             return request
         },
     })
+
+    function handleCredentialResponse(response) {
+        $.ajax({
+            url: '/api/v1/users/auth/google',
+            method: 'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({ token: response.credential }),
+            success: function(data) {
+                window.location.href = "/profile/me"
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
 </script>
