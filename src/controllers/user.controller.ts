@@ -9,6 +9,8 @@ import Education from "../models/UserEducation"
 import Attachment from "../models/UserAttachment"
 import Socials from "../models/UserSocial"
 import Skills from "../models/Skills"
+import fs from "fs"
+import path from "path"
 
 export function VerifyJWT(req:Request, res:Response){
     const accessToken = req.headers.authorization
@@ -404,7 +406,7 @@ export async function AddSkillToUser(req:Request, res: Response){
 
 
 
-
+// --------------------- ATTACHMENT -------------------
 
 export async function UpdateAttachment(req:Request, res: Response){
     let attachmentData = req.body
@@ -461,6 +463,22 @@ export async function UpdateSocials(req:Request, res: Response){
         return res.status(200).json(newSocials)
     })
 }
+
+
+// -------------------- PROFILE PICTURE ---------------------
+
+export async function GetAllProfilePicture(req:Request, res:Response) {
+    const files = fs.readdirSync(path.join(__dirname, "..", "..", "public", "img", "ProfilePic"))
+    const urlFiles = files.map(file => {
+        return `/img/ProfilePic/${file}`
+    })
+    
+    return res.status(200).json(urlFiles)
+}
+
+
+
+
 
 
 function calculateTotalExperienceMonth(experiences) {
