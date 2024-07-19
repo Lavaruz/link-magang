@@ -4,7 +4,7 @@
             <a href="/" class="font-bold text-2xl text-main flex items-center gap-2 tracking-wide">INSHIT</a>
             <div class="flex items-center gap-10">
                 <a href="/community" class="text-sm font-medium text-thrid">Community</a>
-                <a href="/market" class="text-sm font-medium text-thrid">Human Trafficking</a>
+                <a href="/market" class="text-sm font-medium text-thrid">Talent Hunt</a>
                 <a target="_blank" href="https://saweria.co/internshits" class="text-sm font-medium text-thrid">Donate us</a>
             </div>
         </div>
@@ -22,6 +22,28 @@
     </div>
 </nav>
 
+<div id="popup-layer-navbar" class="hidden fixed top-0 bottom-0 right-0 left-0 bg-black/60 z-30 flex items-center justify-center">
+    <div id="popup-login" class="hidden w-1/3 bg-background noise rounded-md py-8 px-12 relative">
+        <div class="text-center ">
+            <p class="text-4xl font-bold text-main">Internshits</p>
+        </div>
+        <hr class="my-4">
+        <div id="no-authorized" class="">
+            <p class="text-sm text-black/70 text-center">Dengan bergabung, kamu dapat mengakses lebih banyak fitur, dan membuka personalisasi post</p>
+            
+            <div class="w-full flex justify-center">
+                <button id="button-google" class="mx-auto mt-4"></button>
+            </div>
+
+            <p class="text-xs mt-4 text-center">Dengan melanjutkan, anda menyetujui <a target="_blank" href="/terms-of-service" class="text-main">Terms of Service</a> dan <a target="_blank" class="text-main" href="/privacy-policy">Privacy Policy</a> kami</p>
+        </div>
+
+        <button id="close-login" class="rounded-full w-10 h-10 flex items-center justify-center absolute top-0 right-0">
+            <i class="uil uil-times text-xl"></i>
+        </button>
+    </div>
+</div>
+
 
 
 
@@ -29,14 +51,14 @@
 <script>
 
     $("#button-login").click(function(){
-        $("#popup").fadeIn(function(){
+        $("#popup-layer-navbar").fadeIn(function(){
             $("#popup-login").slideToggle()
             $("body").css("overflow", "hidden")
         }).css("display", "flex")
     })
     $("#close-login").click(function(){
         $("#popup-login").slideToggle(function(){
-            $("#popup").fadeOut(function(){
+            $("#popup-layer-navbar").fadeOut(function(){
                 $("body").css("overflow", "auto")
             })
         })

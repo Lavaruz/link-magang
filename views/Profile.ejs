@@ -16,7 +16,7 @@
                 <div class="lg:w-100 p-5 pb-6 bg-white noise lg:rounded-none border-2 lg:border-0 border-header">
                     <div class="lg:flex lg:items-start lg:gap-5">
                         <div class="w-[88px] h-[88px] min-w-[88px] min-h-[88px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                            <img id="basic-profile-pic" src="/img/ProfilePic/me.png" alt="profile-picture" class="w-full h-full object-cover">
+                            <img id="basic-profile-pic" src="" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
                         </div>
                         <div class="w-full">
                             <div class="mb-4 text-center lg:text-left">
@@ -610,7 +610,44 @@
         });
     })
 
-    
+    $("#images").on("click", ".button-select-avatar", function(){
+        $(".button-select-avatar").removeClass("bg-main")
+        $(this).addClass("bg-main")
+        const imgLink = $(this).find("img").prop("src")
+
+        $("#form-basic-information").submit(function(e){
+            e.preventDefault()
+            const formData = new FormData()
+            formData.append("profile_picture", imgLink)
+
+            $.ajax({
+                url: "/api/v1/users",
+                type: "PUT",
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                encrypt: "multipart/form-data",
+                processData: false,
+                headers: {
+                    "Authorization": window.USER_TOKEN,
+                },
+                success: (response) => {
+                    InitBasic(response)
+                    $(this).closest('#popup').fadeOut()
+                    // $(this).closest('.popup').slideToggle(function(){
+                    // })
+                    $("body").removeClass('no-scroll');
+                    $("#image-input").addClass("hidden")
+                    $("#basic-input").removeClass("hidden")
+                    return
+                },
+                error: function (request, status, error) {
+                    return request
+                },
+            })
+        })
+    })
     
     function PutUserData(formName, url, callback = () => {}){
         $(`#${formName}`).submit(function(e){
@@ -644,6 +681,10 @@
 
     function InitBasic(data){
         $(".firstname").text(data.firstname)
+
+        $("#basic-profile-pic").prop("src", data.profile_picture)
+        $("#popup-profile-pic").prop("src", data.profile_picture)
+
         $("#basic-fullname").text(`${data.firstname ? data.firstname : ""} ${data.lastname ? data.lastname : ""}`)
         $("#popup-firstname").val(data.firstname)
         $("#popup-lastname").val(data.lastname)
