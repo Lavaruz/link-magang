@@ -96,7 +96,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="">
+                    <div class="py-3">
                         <p class="text-2xl text-black/70 font-medium">How to Activate your Card ?</p>
                         <div class="ms-2 mt-3 text-black/60">
                             <p>• Complete Your Basic Information</p>
@@ -133,7 +133,7 @@
         <div class="h-[90vh] overflow-y-scroll w-full px-12 py-8">
             <div class="text-center flex flex-col items-center justify-center">
                 <div class="w-[90px] h-[90px] min-w-[90px] min-h-[90px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                    <img id="basic-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
+                    <img id="popup-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
                 </div>
                 <p id="popup-username" class="text-2xl font-bold text-main">Assami Muzaki</p>
                 <p class="font-medium text-black/60 text-sm">Founder of Internshits</p>
@@ -156,23 +156,23 @@
             
             <hr class="my-4">
 
-            <div class="py-6 flex flex-col gap-4 px-10">
-                <div class="grid grid-cols-2">
+            <div class="py-6 flex flex-col gap-4">
+                <div class="grid grid-cols-2 text-center">
                     <div class="">
                         <p class="text-xs text-black/60 font-medium">LOCATION</p>
                         <p id="popup-domicile" class="font-bold text-sm mt-2 text-black/70">Jakarta Utara</p>
                     </div>
-                    <div class="justify-self-end">
+                    <div class="">
                         <p class="text-xs text-black/60 font-medium">PHONE NUMBER</p>
                         <p id="popup-mobile" class="font-bold text-sm mt-2 text-black/70">-</p>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 mt-4">
+                <div class="grid grid-cols-2 mt-4 text-center">
                     <div class="">
                         <p class="text-xs text-black/60 font-medium">SALARY RANGE</p>
                         <p class="font-bold text-sm mt-2 text-black/70">7.5mio - 10mio</p>
                     </div>
-                    <div class="justify-self-end">
+                    <div class="">
                         <p class="text-xs text-black/60 font-medium">YOE (month)</p>
                         <p class="font-bold text-sm mt-2 text-black/70">2.5 month</p>
                     </div>
@@ -233,9 +233,10 @@ $.ajax({
         $.get(`/api/v1/users/${ID}`, function(userData){
             userData = decrypt(userData.r)
             $("#popup-username").text(`${userData.firstname} ${userData.lastname}`)
-            $("#popup-domicile").text(userData.domicile)
-            $("#popup-mobile").text(userData.mobile)
+            $("#popup-domicile").text(userData.domicile ? userData.domicile : "-")
+            $("#popup-mobile").text(userData.mobile ? userData.mobile : "-")
             $("#popup-view").prop("href", `/profile/${userData.id}`)
+            $("#popup-profile-pic").prop("src", userData.profile_picture)
 
             if(userData.socials){
                 if(userData.socials.twitter){
@@ -280,7 +281,7 @@ $.ajax({
             $("#cards").append(`
                 <div class="card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
                     <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                        <img id="basic-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
+                        <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
                     </div>
                     <div class="w-full">
                         <div class="mb-2 text-center lg:text-left">

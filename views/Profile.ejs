@@ -698,6 +698,7 @@
         $("#popup-birthdate").val(data.date_of_birth ? data.date_of_birth : "")
         $("#basic-domicile").text(data.domicile ? data.domicile : "no data")
         $("#popup-domicile").val(data.domicile ? data.domicile : "")
+        $(`input[name=sex][value=${data.sex}]`).prop("checked",true);
     }
 
     function InitSummary(data){
