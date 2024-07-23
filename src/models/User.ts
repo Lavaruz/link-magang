@@ -5,6 +5,7 @@ import Education from "./UserEducation";
 import Attachment from "./UserAttachment";
 import Socials from "./UserSocial";
 import Skills from "./Skills";
+import Config from "./UserConfig";
 
 class User extends Model {
   declare id: CreationOptional<number>;
@@ -34,6 +35,10 @@ class User extends Model {
   declare createAttachments: HasOneCreateAssociationMixin<Attachment>
   declare getAttachments: HasOneGetAssociationMixin<Attachment>
   declare setAttachments: HasOneSetAssociationMixin<Attachment, number>
+
+  declare createConfig: HasOneCreateAssociationMixin<Config>
+  declare getConfig: HasOneGetAssociationMixin<Config>
+  declare setConfig: HasOneSetAssociationMixin<Config, number>
 
   declare createSocials: HasOneCreateAssociationMixin<Socials>
   declare getSocials: HasOneGetAssociationMixin<Socials>
@@ -119,6 +124,12 @@ User.hasOne(Socials, {
   sourceKey: 'id',
   foreignKey: 'ownerId',
   as: 'socials',
+  constraints:false
+});
+User.hasOne(Config, {
+  sourceKey: 'id',
+  foreignKey: 'ownerId',
+  as: 'config',
   constraints:false
 });
 

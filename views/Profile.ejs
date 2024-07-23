@@ -425,33 +425,6 @@
         $("body").removeClass('no-scroll');
     })
 
-    $("#active-search").change(function(){
-        const isChecked = $(this).is(":checked")
-        const formData = new FormData()
-        formData.append("active_search", isChecked)
-
-        $.ajax({
-            url: "/api/v1/users",
-            type: "PUT",
-            data: formData,
-            async: false,
-            cache: false,
-            contentType: false,
-            encrypt: "multipart/form-data",
-            processData: false,
-            headers: {
-                "Authorization": window.USER_TOKEN,
-            },
-            success: (response) => {
-                InitActivesearch(response)
-                return
-            },
-            error: function (request, status, error) {
-                return request
-            },
-        })
-    })
-
     $(".experiences, .educations").on("click", ".button-readmore", function(){
         const content = $(this).closest(".content")
         content.addClass("hidden")
@@ -495,12 +468,6 @@
         })
         $("body").removeClass('no-scroll');
     })
-
-
-
-
-
-
 
 
 
@@ -768,9 +735,40 @@
         if(data.active_search){
             $("#active-search").prop("checked", true)
             $("#active-search-status").text("Active Search is On").css("color", "green")
+            $("#declare-active-search").addClass("hidden")
+            $("#stop-active-search").removeClass("hidden")
         }else{
             $("#active-search").prop("checked", false)
             $("#active-search-status").text("Active Search is Off").css("color", "red")
+            $("#stop-active-search").addClass("hidden")
+            $("#declare-active-search").removeClass("hidden")
+        }
+
+        let COMPLETION = 0
+
+        if(data.profile_picture){
+            $("#active-profile-picture").removeClass("uil-times text-red-500").addClass("uil-check")
+            COMPLETION += 25
+        }
+        if(data.skills.length > 2){
+            $("#active-profile-skills").removeClass("uil-times text-red-500").addClass("uil-check")
+            COMPLETION += 25
+        }
+        if(data.educations){
+            $("#active-educations").removeClass("uil-times text-red-500").addClass("uil-check")
+            COMPLETION += 25
+        }
+        if(data?.attachments?.atc_resume){
+            $("#active-cv").removeClass("uil-times text-red-500").addClass("uil-check")
+            COMPLETION += 25
+        }
+
+        if(COMPLETION == 100){
+            $("#declare-active-search").prop("disabled", false)
+        }
+        
+        if(data.config.show_sensitive_data){
+            $("#sensitive-data").prop("checked", true)
         }
     }
     

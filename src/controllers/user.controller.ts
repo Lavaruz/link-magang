@@ -11,6 +11,7 @@ import Socials from "../models/UserSocial"
 import Skills from "../models/Skills"
 import fs from "fs"
 import path from "path"
+import Config from "../models/UserConfig"
 
 export function VerifyJWT(req:Request, res:Response){
     const accessToken = req.headers.authorization
@@ -44,6 +45,7 @@ export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
             {model: Attachment, as: "attachments"},
             {model: Socials, as: "socials"},
             {model: Skills, as: "skills"},
+            {model: Config, as: "config"}
         ]})
 
         const updatedUsers = await Promise.all(USERS.map(async user => {
@@ -73,6 +75,7 @@ export async function GetUserById(req:Request, res: Response){
                 {model: Attachment, as: "attachments"},
                 {model: Socials, as: "socials"},
                 {model: Skills, as: "skills"},
+                {model: Config, as: "config"}
             ]
         })
 
@@ -97,6 +100,7 @@ export async function GetUserByToken(req:Request, res: Response){
                 {model: Attachment, as: "attachments"},
                 {model: Socials, as: "socials"},
                 {model: Skills, as: "skills"},
+                {model: Config, as: "config"}
             ]})
             if(!USER) return res.status(404).json({message: "user not found"})
 
@@ -165,6 +169,7 @@ export async function GoogleLoginHandler(req:Request, res: Response){
             firstname: userData.given_name,
             lastname: userData.family_name
         })
+        NEW_USER.createConfig()
         const accessToken = createToken(NEW_USER)
         res.cookie("userAuthenticate", accessToken, {
             maxAge: 360000000,
@@ -472,6 +477,24 @@ export async function GetAllProfilePicture(req:Request, res:Response) {
     })
     
     return res.status(200).json(urlFiles)
+}
+
+export async function UpdateActiveSearch(req:Request, res: Response){
+    let configData = req.body
+    const userToken = req.headers.authorization;
+
+    jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
+        // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+        if(err) return res.status(400).send(err)
+        const USER = await User.findOne({where:{id: decoded.id}})
+        if(!USER) return res.status(404).json({message: "user not found"})
+
+        const USER_CONFIG = await USER.getConfig()
+        if(!USER_CONFIG) return res.status(400).json({message: "user config not found"})
+        await USER_CONFIG.update(configData)
+        
+        return res.status(200).json(await USER.getConfig())
+    })
 }
 
 

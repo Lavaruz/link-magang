@@ -25,19 +25,20 @@
                     <div class="my-6">
                         <div class="flex flex-col items-center">
                             <label class="relative block inline-flex items-center cursor-pointer">
-                                <input id="" name="active_search" checked type="checkbox" value="" class="sr-only peer">
+                                <input id="sensitive-data" name="show_sensitive_data" type="checkbox" value="" class="sr-only peer">
                                 <div class="w-11 h-6 bg-red-500 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                                 <span id="active-search-status" class="ml-2 text-green-500 font-second text-sm font-semibold">Show my <span class="font-bold text-red-500">Phone Number</span> & <span class="font-bold text-red-500">Birthday</span>.</span>
                             </label>
                         </div>
-                        <button disabled class="disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-red-600 text-white rounded-lg text-sm py-2 px-4 mt-6">please i need job rightnow 🙇‍♀️</button>
+                        <button id="declare-active-search" disabled class="disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-red-600 text-white rounded-lg text-sm py-2 px-4 mt-6">please i need job rightnow 🙇‍♀️</button>
+                        <button id="stop-active-search" class="disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 mt-6">stop showing my profile 🙏</button>
                         <p class="text-black/60 text-xs mt-1">*complete your profile before declare you need job</p>
                     </div>
                     <div class="flex gap-6 pt-5">
-                        <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i class="uil uil-check text-lg"></i>Add Profile Picture</button>
-                        <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i class="uil uil-check text-lg"></i>Add Skills</button>
-                        <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i class="uil uil-check text-lg"></i>Add Educations</button>
-                        <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i class="uil uil-times text-lg text-red-500"></i>Add Curriculum Vitae (CV)</button>
+                        <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i id="active-profile-picture" class="uil uil-times text-lg text-red-500"></i>Add Profile Picture</button>
+                        <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i id="active-profile-skills" class="uil uil-times text-lg text-red-500"></i>Add Skills</button>
+                        <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i id="active-educations" class="uil uil-times text-lg text-red-500"></i>Add Educations</button>
+                        <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i id="active-cv" class="uil uil-times text-lg text-red-500"></i>Add Curriculum Vitae (CV)</button>
                     </div>
                 </div>
             </div>
@@ -52,5 +53,66 @@
             $(".popup-active-search").slideToggle()
         }).css("display", "flex")
         $("body").addClass('no-scroll');
+    })
+
+    $("#sensitive-data").change(function(){
+        const isChecked = $(this).is(":checked")
+        const formData = new FormData()
+        formData.append("show_sensitive_data", isChecked)
+
+        $.ajax({
+            url: "/api/v1/users/info/config",
+            type: "PUT",
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            encrypt: "multipart/form-data",
+            processData: false,
+            headers: {
+                "Authorization": window.USER_TOKEN,
+            },
+            success: (response) => {
+                console.log(response);
+                return
+            },
+            error: function (request, status, error) {
+                return request
+            },
+        })
+    })
+
+    $("#form-edit-active-information").submit(function(e){
+        e.preventDefault()
+        const formData = new FormData()
+
+        if($("#declare-active-search").hasClass("hidden")){
+            formData.append("active_search", false)
+        }else{
+            formData.append("active_search", true)
+        }
+        
+
+        $.ajax({
+            url: "/api/v1/users",
+            type: "PUT",
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            encrypt: "multipart/form-data",
+            processData: false,
+            headers: {
+                "Authorization": window.USER_TOKEN,
+            },
+            success: (response) => {
+                location.reload()
+                return
+            },
+            error: function (request, status, error) {
+                return request
+            },
+        });
+
     })
 </script>
