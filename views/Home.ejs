@@ -88,6 +88,39 @@
     </div>
 </main>
 
+<div class="hidden fixed top-0 bottom-0 right-0 left-0 bg-black/50 flex items-center justify-center z-30" id="popup-home">
+    <div id="popup-detail-job" class="hidden w-1/2 bg-background noise rounded-3xl overflow-hidden">
+        <div class="h-[500px] overflow-y-scroll divide-y divide-gray-300 px-8 py-14 relative">
+            <div class="text-center pb-8">
+                <p class="text-2xl font-bold text-main">Backend Developer</p>
+                <div class="flex gap-2 mt-4 flex-wrap justify-center">
+                    <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">NodeJS</button>
+                    <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">MYSQL</button>
+                    <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">2 Years Experience</button>
+                    <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">Team Work</button>
+                </div>
+                <div class="grid-cols-3 grid gap-2 text-sm text-black/60 mt-8 divide-x">
+                    <p class="flex flex-col"><i class="text-xl font-bold text-black/80 uil uil-bag"></i> Found In Jobstreet</p>
+                    <p class="flex flex-col"><i class="text-xl font-bold text-black/80 uil uil-building"></i> PT Enviromate Technology International</p>
+                    <p class="flex flex-col"><i class="text-xl font-bold text-black/80 uil uil-map-marker-alt"></i> Surabaya</p>
+                </div>
+                <div class="mt-6 flex gap-4 justify-center">
+                    <a href="#" class="px-8 py-2 self-start rounded-lg text-sm font-medium bg-main text-white shadow-md hover:scale-[1.01]"><i class="uil uil-external-link-alt"></i> More Detail</a>
+                    <div class="text-right">
+                        <button disabled class="disabled:opacity-70 px-8 py-2 rounded-lg text-sm font-medium bg-main text-white shadow-md hover:scale-[1.01]"><i class="uil uil-bookmark"></i> Bookmark</button>
+                        <p class="text-xs text-black/60 mt-1">*login needed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <p class="text-black/70 font-bold mt-4 text-xl">Overview</p>
+                <p id="job-overview" class="mt-4">Selama lebih dari setengah abad, kami telah mengolah bahan-bahan dari sumber alam menjadi produk-produk berkualitas pilihan konsumen. Berawal dari produk minuman kesehatan dgn ramuan alamiah yg diolah secara tradisional, produk-produk kami berkembang semakin modern, canggih, praktis, & efisien sesuai dgn tuntutan zaman. Warisan nenek moyang kita, yg telah terbukti khasiatnya sejak dahulu, terus dikembangkan secara berkesinambungan tanpa meninggalkan rahasia keasliannya.<br>Melalui riset dan inovasi, kami selalu menghadirkan Unique Winning Products untuk memenangkan persaingan & menciptakan produk-produk bermerek pilihan utama konsumen dgn investasi merek yg terus menerus dilakukan. Sebut saja merek-merek TANGO, FORMULA, TEH GELAS, FULLO, OOPS, VITACHARM, KIRANTI, & lain-lain yg sudah tidak asing lagi. Mulai dari pasta gigi & sikat gigi hingga makanan & minuman kesehatan, beragam produk kami telah menjadi bagian dari kehidupan masyarakat Indonesia. Bahkan, banyak produk kami yg sudah dapat dinikmati oleh konsumen di berbagai negara.</p>
+            </div>
+
+            <button id="close-detail-job" class="absolute top-[1rem] right-[2rem] text-2xl"><i class="uil uil-multiply"></i></button>
+        </div>
+    </div>
+</div>
 
 <%- include('./layouts/footer'); -%>
 
@@ -112,7 +145,18 @@
         document.getElementById("search-bar").scrollIntoView();
         CountAllPlatform()
     })
-    
+    $("#cards").on("click", ".job-detail", function(){
+        $("#popup-home").fadeIn(function(){
+            $("#popup-detail-job").slideToggle()
+            $("body").css("overflow", "hidden")
+        }).css("display", "flex")
+    })
+    $("#close-detail-job").click(function(){
+        $("#popup-detail-job").slideToggle(function(){
+            $("#popup-home").fadeOut()
+            $("body").css("overflow", "auto")
+        })
+    })
 
 
 
@@ -147,7 +191,7 @@
 
     function GetCard(post){
         $("#cards").append(`
-            <a target="_blank" href="${post.link}" class="hover:scale-[1.005] duration-100 shadow-md border border-main bg-white p-4 rounded-2xl self-start">
+            <div class="job-detail cursor-pointer hover:scale-[1.005] duration-100 shadow-md border border-main bg-white p-4 rounded-2xl self-start">
                 <p class="font-bold text-black">${post.title.length > 33 ? post.title.substring(0,33)+"..." : post.title}</p>
                 <p class="text-sm text-black">PT UOB</p>
                 <p class="text-xs px-2 bg-main w-max mt-2 rounded-sm mb-4 text-background">INTERNSHIP</p>
@@ -155,7 +199,7 @@
                 <p class="text-sm flex items-center gap-2"><i class="uil uil-building"></i> <span class="font-medium">${post.tags.length > 20 ? post.tags.substring(0,20)+"..." : post.tags}</span> • <span>${post.location.length > 18 ? post.location.substring(0,18)+"..." : post.location}</span></p>
                 <p class="text-sm flex items-center gap-2"><i class="uil uil-bag"></i>in ${post.platform}</p>
                 <p class="text-sm flex items-center gap-2 mt-2"><i class="uil uil-upload"></i><span class="text-xs font-medium">${timeAgo(post.post_date)}</span></p>
-            </a>
+            </div>
         `)
     }
 
