@@ -23,6 +23,30 @@ router.get("/profile/me", (req: Request, res: Response, next) => {
   }
 });
 
+router.get("/profile/bookmark", (req: Request, res: Response, next) => {
+  try {
+    return res.render("Bookmark", {AES_KEYS: process.env.AES_KEYS})
+  } catch (error) {
+    return res.send(error);
+  }
+});
+
+router.get("/community", (req: Request, res: Response, next) => {
+  try {
+    return res.render("Community", {AES_KEYS: process.env.AES_KEYS})
+  } catch (error) {
+    return res.send(error);
+  }
+});
+
+router.get("/posts/create", (req: Request, res: Response, next) => {
+  try {
+    return res.render("CreatePost", {AES_KEYS: process.env.AES_KEYS})
+  } catch (error) {
+    return res.send(error);
+  }
+});
+
 router.get("/market", (req: Request, res: Response, next) => {
   try {
     return res.render("Market", {AES_KEYS: process.env.AES_KEYS})

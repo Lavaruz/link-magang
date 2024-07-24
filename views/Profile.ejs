@@ -652,6 +652,8 @@
         $("#basic-profile-pic").prop("src", data.profile_picture)
         $("#popup-profile-pic").prop("src", data.profile_picture)
 
+        $("#navbar-fullname").text(`${data.firstname} ${data?.lastname}`)
+
         $("#basic-fullname").text(`${data.firstname ? data.firstname : ""} ${data.lastname ? data.lastname : ""}`)
         $("#popup-firstname").val(data.firstname)
         $("#popup-lastname").val(data.lastname)
@@ -767,7 +769,7 @@
             $("#declare-active-search").prop("disabled", false)
         }
         
-        if(data.config.show_sensitive_data){
+        if(data?.config?.show_sensitive_data){
             $("#sensitive-data").prop("checked", true)
         }
     }
