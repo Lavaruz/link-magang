@@ -12,7 +12,7 @@
         <div class="flex gap-4">
             <div id="nav-profile" class="flex items-center gap-8">
                 <a href="/profile/bookmark" title="Bookmark" class="group rounded-full flex items-center justify-center"><i class="group-hover:text-main uil uil-bookmark text-black/80 text-2xl"></i></a>
-                <a href="/posts/create" title="Add Post" class="group rounded-full flex items-center justify-center"><i class="group-hover:text-main uil uil-file-plus-alt text-black/80 text-2xl"></i></a>
+                <a id="add-post" href="/posts/create" title="Add Post" class="hidden group rounded-full flex items-center justify-center"><i class="group-hover:text-main uil uil-file-plus-alt text-black/80 text-2xl"></i></a>
                 <a href="/profile/me" class="my-4 flex items-center gap-4 bg-white shadow-md py-2 noise rounded-lg px-4">
                     <div class="rounded-full w-9 h-9 bg-main flex items-center justify-center"><i class="uil uil-user-md text-xl text-white"></i></div>
                     <div class="">
@@ -93,6 +93,23 @@
             }else{
                 $("#nav-profile").removeClass("hidden")
                 $("#button-login").addClass("hidden")
+                $.ajax({
+                    url: '/api/v1/users/info',
+                    type: 'get',
+                    dataType: 'json',
+                    headers: {
+                        "Authorization": window.USER_TOKEN,
+                    },
+                    success: async function (userData) {
+                        userData = decrypt(userData.r)
+                        if(userData.role < 2){
+                            $("#add-post").removeClass("hidden")
+                        }
+                    },
+                    error: function(xhr){
+                        window.location.href = "/"
+                    }
+                });
             }
             
         },

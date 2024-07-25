@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Post from "../models/Post";
 import { encrypt, decrypt } from "../config/crypto";
+import Skills from "../models/Skills";
 
 
 export const getAllPost = async (req: Request, res: Response) => {
@@ -18,10 +19,10 @@ export const getAllPost = async (req: Request, res: Response) => {
       
 
       const POST = await Post.findAll({
-        attributes:{exclude:["createdAt", "updatedAt"]},
+        attributes:{exclude:[ "updatedAt"]},
         limit: +db_limit,
         offset: (+db_page - 1) * +db_limit,
-        order: [["post_date", post_date.toString()]],
+        order: [["createdAt", post_date.toString()]],
       })
 
 
@@ -78,21 +79,18 @@ export const getPostCount = async (req: Request, res: Response) => {
 
 export const addPost = async (req: Request, res: Response) => {
   const postData = req.body; // Data pembaruan pengguna dari permintaan PUT  
+  const skillBody = req.body.skills
+  
 
   try {
+    let POST = await Post.findOne({ where: { link: postData.link } })
+    if(POST) return res.status(400).json({message: "Post already exist"})
 
-    let POST = await Post.findOne({
-      where: {
-        link: postData.link
-      }
-    })
-
-    if(POST){
-      return res.status(400).json({message: "Post already exist"})
-    }else{
-      await Post.create(postData)    
-      return res.sendStatus(201)
-    }
+    const NEW_POST = await Post.create(postData)
+    const SKILLS = await Skills.findAll({where: { id: skillBody}})
+    await NEW_POST.setSkills(SKILLS)
+     
+    return res.sendStatus(201)
   } catch (error) {
     console.error(error)
     return res.status(500).json({ error: error.message });

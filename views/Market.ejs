@@ -73,30 +73,12 @@
                 <hr class="border-gray-300 pt-4">
                 <!-- CARD -->
                 <div class="grid grid-cols-2 gap-6">
-                    <div class="w-full card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
-                        <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                            <img id="basic-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
-                        </div>
-                        <div class="w-full">
-                            <div class="mb-2 text-center lg:text-left flex justify-between items-center">
-                                <div class="">
-                                    <p id="basic-fullname" class="font-bold text-xl text-main">Assami Muzaki <i class="uil uil-mars text-blue-500"></i></p>
-                                    <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">Founder of Internshits</p>
-                                </div>
-                                <p class="text-sm bg-red-500 text-white/80 px-4 self-start rounded">INACTIVE</p>
-                            </div>
-                            <hr>
-                            <div class="pt-2">
-                                <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">20</span>Month of Experience</p>
-                                <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag me-2"></i>Fullstack Developer at PT Enviromate Technology International</p>
-                                <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">Bachelor Degree of Computer Science</span></p>
-                                <div class="flex gap-2 mt-3 flex-wrap">
-                                    <button class="text-xs bg-main text-white px-2 py-1 rounded-lg">Backend Developer</button>
-                                </div>
-                            </div>
-                        </div>
+
+                    <div id="my-profile">
+                        <!-- HERE -->
                     </div>
-                    <div class="py-3">
+                    
+                    <div class="">
                         <p class="text-2xl text-black/70 font-medium">How to Activate your Card ?</p>
                         <div class="ms-2 mt-3 text-black/60">
                             <p>• Complete Your Basic Information</p>
@@ -104,7 +86,7 @@
                             <p>• Add Curicullum Vitae </p>
                             <p>• Activate Active Search in Profile Page</p>
                         </div>
-                        <button class="mt-4 rounded-lg px-6 py-2 text-white font-medium text-sm bg-main">Activate your profile card</button>
+                        <a href="/profile/me" class="block w-max mt-4 rounded-lg px-6 py-2 text-white font-medium text-sm bg-main">Activate your profile card</a>
                     </div>
                 </div>
             </div>
@@ -208,6 +190,90 @@ $.ajax({
                 $("#on-login").addClass("hidden")
                 $("#off-login").removeClass("hidden")
             }
+
+            $.ajax({
+                url: '/api/v1/users/info',
+                type: 'get',
+                dataType: 'json',
+                headers: {
+                    "Authorization": window.USER_TOKEN,
+                },
+                success: async function (userData) {
+                    userData = decrypt(userData.r)
+                    let SKILLS = userData.skills.map(function(skill){
+                        return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill}</button>`
+                    })
+                    let ACTIVE_SKILL = SKILLS.slice(0,3)
+                    let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
+
+                    $("#my-profile").append(`
+                        <div class="card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
+                            <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                                <img id="basic-profile-pic" src="${userData.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
+                            </div>
+                            <div class="w-full">
+                                <div class="mb-2 text-center lg:text-left">
+                                    <p class="id" style="display:none">${userData.id}</p>
+                                    <p id="basic-fullname" class="font-bold text-xl text-main">${userData.firstname} ${userData.lastname} ${userData.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : `<i class="uil uil-venus text-pink-500"></i>`}</p>
+                                    <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">Founder of Internshits</p>
+                                </div>
+                                <hr>
+                                <div class="pt-2">
+                                    <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${userData.YoE}</span>Month of Experience</p>
+                                    <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag me-2"></i>${userData.experiences.length > 0 ? userData.experiences[0].exp_position + " at " + userData.experiences[0].exp_orgname : "no experiences"}</p>
+                                    <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${userData.educations.length > 0 ? userData.educations[0].edu_type + " - " + userData.educations[0].edu_program : "No Education Added"}</span></p>
+                                    <div class="flex gap-2 mt-3 flex-wrap">
+                                        ${ACTIVE_SKILL.join("")}
+                                        ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                
+                    $.get("/api/v1/users/active", function(usersData){
+                        usersData = decrypt(usersData.r)
+                        // usersData = filterDataById(userData, userData.id)
+                        const filteredUsersData = filterDataById(usersData, userData.id)
+                        filteredUsersData.forEach(user => {
+                            let SKILLS = user.skills.map(function(skill){
+                                return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill}</button>`
+                            })
+                            let ACTIVE_SKILL = SKILLS.slice(0,3)
+                            let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
+                            $("#cards").append(`
+                                <div class="card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
+                                    <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                                        <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="w-full">
+                                        <div class="mb-2 text-center lg:text-left">
+                                            <p class="id" style="display:none">${user.id}</p>
+                                            <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : `<i class="uil uil-venus text-pink-500"></i>`}</p>
+                                            <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">Founder of Internshits</p>
+                                        </div>
+                                        <hr>
+                                        <div class="pt-2">
+                                            <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${user.YoE}</span>Month of Experience</p>
+                                            <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag me-2"></i>${user.experiences.length > 0 ? user.experiences[0].exp_position + " at " + user.experiences[0].exp_orgname : "no experiences"}</p>
+                                            <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_type + " - " + user.educations[0].edu_program : "No Education Added"}</span></p>
+                                            <div class="flex gap-2 mt-3 flex-wrap">
+                                                ${ACTIVE_SKILL.join("")}
+                                                ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `)
+                        });
+                    })
+
+                },
+                error: function(xhr){
+                    window.location.href = "/"
+                }
+            });
+
         },
         error: function (request, status, error) {
             $("#nav-profile").addClass("hidden")
@@ -270,44 +336,14 @@ $.ajax({
         })
     })
 
-    $.get("/api/v1/users/active", function(usersData){
-        usersData = decrypt(usersData.r)
-        usersData.forEach(user => {
-            let SKILLS = user.skills.map(function(skill){
-                return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill}</button>`
-            })
-            let ACTIVE_SKILL = SKILLS.slice(0,3)
-            let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
-            $("#cards").append(`
-                <div class="card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
-                    <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                        <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
-                    </div>
-                    <div class="w-full">
-                        <div class="mb-2 text-center lg:text-left">
-                            <p class="id" style="display:none">${user.id}</p>
-                            <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : `<i class="uil uil-venus text-pink-500"></i>`}</p>
-                            <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">Founder of Internshits</p>
-                        </div>
-                        <hr>
-                        <div class="pt-2">
-                            <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${user.YoE}</span>Month of Experience</p>
-                            <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag me-2"></i>${user.experiences.length > 0 ? user.experiences[0].exp_position + " at " + user.experiences[0].exp_orgname : "no experiences"}</p>
-                            <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_type + " - " + user.educations[0].edu_program : "No Education Added"}</span></p>
-                            <div class="flex gap-2 mt-3 flex-wrap">
-                                ${ACTIVE_SKILL.join("")}
-                                ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `)
-        });
-    })
-
-
+    
     const decrypt = (data, keys='<%= process.env.AES_KEYS %>') => {
         let bytes = CryptoJS.AES.decrypt(data, keys)
         return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+    }
+
+    function filterDataById(dataArray, excludeId) {
+        console.log(dataArray);
+        return dataArray.filter(item => item.id !== excludeId);
     }
 </script>

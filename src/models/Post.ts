@@ -1,4 +1,4 @@
-import { DataTypes, Model,CreationOptional } from "sequelize";
+import { DataTypes, Model,CreationOptional, BelongsToManyAddAssociationMixin, BelongsToManyGetAssociationsMixin, BelongsToManyRemoveAssociationMixin, BelongsToManySetAssociationsMixin } from "sequelize";
 import { sequelize } from "."; // Pastikan Anda mengganti path sesuai dengan struktur direktori Anda
 import Skills from "./Skills";
 
@@ -18,6 +18,11 @@ class Post extends Model {
   declare createdAt: CreationOptional<Date>;
   // updatedAt can be undefined during creation
   declare updatedAt: CreationOptional<Date>;
+
+  declare addSkills: BelongsToManyAddAssociationMixin<Skills, number>
+  declare getSkills: BelongsToManyGetAssociationsMixin<Skills>
+  declare removeSkills: BelongsToManyRemoveAssociationMixin<Skills,number>
+  declare setSkills: BelongsToManySetAssociationsMixin<Skills,number>
 }
 
 Post.init(

@@ -174,7 +174,6 @@
         const url = `/api/v1/posts?search=${keyword}&platform=${platform}&limit=${limit}&page=${page}`
         $.get(url, function(postsData){
             postsData = decrypt(postsData.r)
-
             if (postsData.datas.length !== 0){
                 $("#cards").html("")
                 postsData.datas.forEach(post => {
@@ -196,7 +195,7 @@
                 <p class="text-sm text-black">PT UOB</p>
                 <p class="text-xs px-2 bg-main w-max mt-2 rounded-sm mb-4 text-background">INTERNSHIP</p>
                 <hr class="my-2">
-                <p class="text-sm flex items-center gap-2"><i class="uil uil-building"></i> <span class="font-medium">${post.tags.length > 20 ? post.tags.substring(0,20)+"..." : post.tags}</span> • <span>${post.location.length > 18 ? post.location.substring(0,18)+"..." : post.location}</span></p>
+                <p class="text-sm flex items-center gap-2"><i class="uil uil-location-point"></i> ${post.location}</p>
                 <p class="text-sm flex items-center gap-2"><i class="uil uil-bag"></i>in ${post.platform}</p>
                 <p class="text-sm flex items-center gap-2 mt-2"><i class="uil uil-upload"></i><span class="text-xs font-medium">${timeAgo(post.post_date)}</span></p>
             </div>

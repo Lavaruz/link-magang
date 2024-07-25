@@ -105,7 +105,9 @@ export async function GetUserByToken(req:Request, res: Response){
             ]})
             if(!USER) return res.status(404).json({message: "user not found"})
 
-            const encryptedData = encrypt(USER, process.env.AES_KEYS)
+            const YOE = calculateTotalExperienceMonth(await USER.getExperiences())
+
+            const encryptedData = encrypt({...USER.toJSON(), YoE: YOE}, process.env.AES_KEYS)
             return res.status(200).json(encryptedData)
         })
     } catch (error) {
