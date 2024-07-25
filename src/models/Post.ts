@@ -1,11 +1,13 @@
 import { DataTypes, Model,CreationOptional } from "sequelize";
 import { sequelize } from "."; // Pastikan Anda mengganti path sesuai dengan struktur direktori Anda
+import Skills from "./Skills";
 
 class Post extends Model {
   declare id: CreationOptional<number>;
   declare title: string;
   declare link: string;
   declare company: string;
+  declare type: string;
   declare location: string;
   declare post_date: string;
   declare tags: string;
@@ -36,14 +38,17 @@ Post.init(
     },
     company: {
       type: DataTypes.STRING,
+      allowNull: false
+    },
+    type: {
+      type: DataTypes.STRING,
+      defaultValue: "INTERNSHIP"
     },
     location: {
       type: DataTypes.STRING,
+      defaultValue: ""
     },
     post_date: {
-      type: DataTypes.STRING,
-    },
-    tags: {
       type: DataTypes.STRING,
     },
     platform: {
@@ -56,5 +61,19 @@ Post.init(
     sequelize, // Instance Sequelize yang digunakan
   }
 );
+
+
+Post.belongsToMany(Skills,{
+  as: "skills",
+  sourceKey: "id",
+  constraints: false,
+  through: "PostSkill"
+})
+Skills.belongsToMany(Post,{
+  as: "posts",
+  sourceKey: "id",
+  constraints: false,
+  through: "PostSkill"
+})
 
 export default Post;
