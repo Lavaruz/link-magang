@@ -12,6 +12,7 @@ class Post extends Model {
   declare post_date: string;
   declare tags: string;
   declare platform: string;
+  declare overview: string;
 
   // createdAt can be undefined during creation
   declare createdAt: CreationOptional<Date>;
@@ -55,6 +56,10 @@ Post.init(
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "Lainnya..."
+    },
+    overview: {
+      type: DataTypes.TEXT,
+      allowNull: true,
     },
   },
   {

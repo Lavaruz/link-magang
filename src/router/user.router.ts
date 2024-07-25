@@ -1,5 +1,5 @@
 import express from "express";
-import { AddNewEducation, AddNewExperience, AddNewSkill, AddSkillToUser, DeleteEducationById, DeleteExperienceById, GetAllProfilePicture, GetAllSkills, GetAllUserWhereActiveSearch, GetEducationsByUserToken, GetExperienceById, GetExperiencesByUserToken, GetTotalUser, GetUserById, GetUserByToken, GoogleLoginHandler, UpdateActiveSearch, UpdateAttachment, UpdateEducationById, UpdateExperienceById, UpdateSocials, UpdateUserByToken, UserLogout, VerifyJWT } from "../controllers/user.controller";
+import { AddNewEducation, AddNewExperience, AddNewLocation, AddNewSkill, AddSkillToUser, DeleteEducationById, DeleteExperienceById, GetAllLocations, GetAllProfilePicture, GetAllSkills, GetAllUserWhereActiveSearch, GetEducationsByUserToken, GetExperienceById, GetExperiencesByUserToken, GetTotalUser, GetUserById, GetUserByToken, GoogleLoginHandler, UpdateActiveSearch, UpdateAttachment, UpdateEducationById, UpdateExperienceById, UpdateSocials, UpdateUserByToken, UserLogout, VerifyJWT } from "../controllers/user.controller";
     
 const userRouter = express.Router();
 
@@ -22,7 +22,9 @@ userRouter.delete("/info/experiences/:id", DeleteExperienceById)
 
 
 userRouter.get("/skills", GetAllSkills)
+userRouter.get("/locations", GetAllLocations)
 userRouter.post("/skills", AddNewSkill)
+userRouter.post("/locations", AddNewLocation)
 
 userRouter.put("/info/attachments", UpdateAttachment)
 userRouter.put("/info/socials", UpdateSocials)

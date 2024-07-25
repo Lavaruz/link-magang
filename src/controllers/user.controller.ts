@@ -12,6 +12,7 @@ import Skills from "../models/Skills"
 import fs from "fs"
 import path from "path"
 import Config from "../models/UserConfig"
+import Locations from "../models/Locations"
 
 export function VerifyJWT(req:Request, res:Response){
     const accessToken = req.headers.authorization
@@ -401,6 +402,32 @@ export async function AddSkillToUser(req:Request, res: Response){
         })
         // await User
         // return res.status(200).json(skillBody)
+    } catch (error) {
+        console.error(error)
+        return res.status(200).json({message: error.message})
+    }
+}
+
+
+// -------------------- LOCATION -------------------------
+
+export async function GetAllLocations(req:Request, res: Response){
+    try {
+        const LOCATIONS = await Locations.findAll()
+        const encryptedData = encrypt(LOCATIONS)
+        return res.status(200).json(encryptedData)
+    } catch (error) {
+        console.error(error)
+        return res.status(200).json({message: error.message})
+    }
+}
+
+export async function AddNewLocation(req:Request, res: Response){
+    const locationBody = req.body
+    try {
+        const LOCATIONS = await Locations.create(locationBody)
+        const encryptedData = encrypt(LOCATIONS)
+        return res.status(200).json(encryptedData)
     } catch (error) {
         console.error(error)
         return res.status(200).json({message: error.message})
