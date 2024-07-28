@@ -2,20 +2,25 @@ import { Request, Response } from "express";
 import Post from "../models/Post";
 import { encrypt, decrypt } from "../config/crypto";
 import Skills from "../models/Skills";
+import Locations from "../models/Locations";
 
 
 export const getAllPost = async (req: Request, res: Response) => {
     try {
       const search = req.query.search || ""
       const post_date = req.query.post_date || "DESC"
-      let platform:any = req.query.platform || []
-
-      if(platform.length !== 0){
-        platform = platform.toString().split(",")
-      }
+      let skills:any = req.query.skills
+      let locations:any = req.query.locations
 
       let db_page = req.query.page || 1
       let db_limit = req.query.limit || 20
+      locations = JSON.parse(locations)
+      skills = JSON.parse(skills)
+
+
+      if(search !== "" || locations !== "") {
+        db_limit = 999
+      }
       
 
       const POST = await Post.findAll({
@@ -23,19 +28,25 @@ export const getAllPost = async (req: Request, res: Response) => {
         limit: +db_limit,
         offset: (+db_page - 1) * +db_limit,
         order: [["createdAt", post_date.toString()]],
+        include: [
+          {model: Skills, as:"skills"},
+        ]
       })
-
+      
 
       let filtered_data = POST.filter(post => {
         let post_json = post.toJSON()
         const matchesSearch = 
             post_json.title.toLowerCase().includes(search.toString().toLowerCase()) 
-            || post_json.company.toLowerCase().includes(search.toString().toLowerCase()) 
-            || post_json.location.toLowerCase().includes(search.toString().toLowerCase())
-            || post_json.tags.toLowerCase().includes(search.toString().toLowerCase())
-        const matchesPlatform = platform.length !== 0 ? platform.includes(post.platform.toString().toLowerCase()) : true
-        
-        return matchesSearch && matchesPlatform
+            || post_json.company.toLowerCase().includes(search.toString().toLowerCase())
+
+        let matchesLocation = true;
+
+        if (locations.length > 0) {
+          matchesLocation = locations.includes(post_json.location.toLowerCase());
+        }
+    
+        return matchesSearch && matchesLocation;
       })
 
       const total_entries = filtered_data.length;

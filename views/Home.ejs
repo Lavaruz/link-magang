@@ -29,31 +29,90 @@
 
         <!-- SEARCH BAR -->
         <div id="search-bar" class="mt-12">
-            <form class="flex items-center gap-4">   
-                <div class="w-[35%] relative">
-                    <input type="search" formControlName="search" readonly id="input-search" value="you have to login to use search feature" class="block w-full p-4 ps-6 font-medium text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-main focus:border-main" placeholder="Search title, company, location..." required />
-                    <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-main hover:bg-main/90 focus:outline-none focus:ring-main font-medium rounded-full text-sm px-4 py-2"><i class="uil uil-search"></i></button>
+            <form id="form-search-job" class="flex items-center gap-4">   
+                <div class="w-[32%] relative">
+                    <input type="search" readonly id="input-search" value="you have to login to use search feature" class="block w-full p-4 py-3 ps-6 font-medium text-sm text-gray-900 border-2 border-gray-300 rounded-full bg-gray-50 focus:ring-main focus:border-main" placeholder="Cari posisi, perusahaan..." />
+                    <button type="submit" class="text-white absolute end-2.5 bottom-2 bg-main hover:bg-main/90 focus:outline-none focus:ring-main font-medium rounded-full text-sm px-4 py-1.5"><i class="uil uil-search"></i></button>
                 </div>
-                <button class="text-2xl bg-white rounded-xl w-12 h-12 border-gray-300 border text-thrid"><i class="uil uil-sliders-v"></i></button>
+                <!-- <button class="text-2xl bg-white rounded-xl w-12 h-12 border-gray-300 border text-thrid"><i class="uil uil-sliders-v"></i></button> -->
                 <div class=" flex gap-2 ms-6">
                     <div class="flex flex-col">
-                        <select name="" id="" class="text-sm font-medium rounded-full border-2 py-3 border-gray-300 focus:ring-main focus:border-main">
-                            <option value="9" selected>Limit</option>
-                            <option value="12">12 Post per Page</option>
-                            <option value="15">15 Post per Page</option>
-                            <option value="999">Show All Post</option>
-                        </select>
+                        <button id="dropdown-type" data-dropdown-toggle="dropdown-type-dd" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">Filter Tipe <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                            </svg>
+                        </button>
+                            
+                            <!-- Dropdown menu -->
+                        <div id="dropdown-type-dd" class="z-10 border hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
+                            <ul class="p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-type">
+                                <li>
+                                    <div class="flex items-center">
+                                        <input id="type-internship" type="checkbox" value="Internship" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="type-internship" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Internship</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="flex items-center">
+                                        <input id="type-parttime" type="checkbox" value="Parttime" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="type-parttime" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Part-Time</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="flex items-center">
+                                        <input id="type-fulltime" type="checkbox" value="Fulltime" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="type-fulltime" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full-Time</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="flex flex-col">
-                        <select name="" id="" class="text-sm font-medium rounded-full border-2 py-3 border-gray-300 focus:ring-main focus:border-main">
-                            <option value="" selected>All Platform</option>
-                            <option value="Jobstreet">Jobstreet</option>
-                            <option value="Glints">Glints</option>
-                            <option value="Indeed">Indeed</option>
-                            <option value="Kalibrr">Kalibrr</option>
-                            <option value="Linkedin">Linkedin</option>
-                            <option value="Lainnya">Lainnya</option>
-                        </select>
+                        <button type="button" id="dropdown-location" data-dropdown-toggle="dropdown-location-dd" data-dropdown-placement="bottom" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Lokasi <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="dropdown-location-dd" class="border z-10 hidden bg-white rounded-lg shadow w-1/4 dark:bg-gray-700">
+                            <div class="p-3">
+                                <label for="input-group-search" class="sr-only">Search</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
+                                    </div>
+                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari lokadi">
+                                </div>
+                            </div>
+                            <ul id="list-locations" class="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location">
+                                <!-- HERE -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        
+                        <button type="button" id="dropdown-skills" data-dropdown-toggle="dropdown-skills-dd" data-dropdown-placement="bottom" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Keahlian <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="dropdown-skills-dd" class="border z-10 hidden bg-white rounded-lg shadow w-1/4 dark:bg-gray-700">
+                            <div class="p-3">
+                                <label for="input-group-search" class="sr-only">Search</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
+                                    </div>
+                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari keahilan">
+                                </div>
+                            </div>
+                            <ul id="list-skills" class="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-skills">
+                                <!-- HERE -->
+                            </ul>
+                        </div>
+    
                     </div>
                 </div>
             </form>
@@ -130,18 +189,23 @@
     let PAGE = pageParam ? parseInt(pageParam, 10) : 1;
     let LIMIT = 9
 
+    let INPUT = ""
+    let TYPE = []
+    let LOCATIONS = []
+    let SKILLS = []
+
     CountAllPlatform()
-    GetPosts("", "", LIMIT, PAGE)
+    GetPosts("", LIMIT, PAGE)
 
     $("#pagination-back").click(function(){ 
         PAGE -= 1
-        GetPosts("", "", LIMIT, PAGE)
+        GetPosts(INPUT, LIMIT, PAGE)
         document.getElementById("search-bar").scrollIntoView();
         CountAllPlatform()
     })
     $("#pagination-forward").click(function(){ 
         PAGE += 1
-        GetPosts("", "", LIMIT, PAGE)
+        GetPosts(INPUT, LIMIT, PAGE)
         document.getElementById("search-bar").scrollIntoView();
         CountAllPlatform()
     })
@@ -158,22 +222,107 @@
         })
     })
 
+    $.ajax({
+        url: "/api/v1/users/verify-token",
+        type: "GET",
+        headers: {
+            "Authorization": window.USER_TOKEN,
+        },
+        success: (isVerified) => {
+            if(isVerified){
+                $("#input-search").prop("readonly", false).val("")
+            }
+        }
+    })
+
+    $.get("/api/v1/users/locations", function(locationData){
+        locationData = decrypt(locationData.r)
+        locationData.forEach(location => {
+            $("#list-locations").append(`
+                <li>
+                    <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                        <p style="display:none">${location.id}</p>
+                        <input id="checkbox-${location.id}" type="checkbox" value="${location.location.toLowerCase()}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="checkbox-${location.id}" class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">${location.location}</label>
+                    </div>
+                </li>
+            `)
+        })
+    })
+    
+    $.get("/api/v1/users/skills", function(skillsData){
+        skillsData = decrypt(skillsData.r)
+        skillsData.forEach(skill => {
+            $("#list-skills").append(`
+                <li>
+                    <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                        <p style="display:none">${skill.id}</p>
+                        <input id="checkbox-${skill.id}" type="checkbox" value="${skill.skill}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="checkbox-${skill.id}" class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">${skill.skill}</label>
+                    </div>
+                </li>
+            `)
+        })
+    })
+
+
+    // Search Position and Company
+    $("#form-search-job").submit(function(e){
+        e.preventDefault()
+        INPUT = $(this).find("#input-search").val()
+
+        GetPosts(INPUT, LIMIT, PAGE)
+    })
+
+    // Filter By Locations
+    $("#dropdown-location-dd").on("change", "input", function(){
+        const THIS_VAL = $(this).val()
+        if($(this).is(":checked")){
+            LOCATIONS.push(THIS_VAL)
+            GetPosts(INPUT, LIMIT, PAGE, TYPE, LOCATIONS, SKILLS)
+        }else{
+            LOCATIONS = removeFromArray(LOCATIONS, THIS_VAL)
+            GetPosts(INPUT, LIMIT, PAGE, TYPE, LOCATIONS, SKILLS)
+        }
+    })
+
+    $("#dropdown-skills-dd").on("change", "input", function(){
+        const THIS_VAL = $(this).val()
+        if($(this).is(":checked")){
+            SKILLS.push(THIS_VAL)
+            GetPosts(INPUT, LIMIT, PAGE, TYPE, LOCATIONS, SKILLS)
+        }else{
+            SKILLS = removeFromArray(SKILLS, THIS_VAL)
+            GetPosts(INPUT, LIMIT, PAGE, TYPE, LOCATIONS, SKILLS)
+        }
+    })
 
 
 
 
-
-
+    function removeFromArray(arr, valueToRemove) {
+        return arr.filter(item => item !== valueToRemove);
+    }
 
     function decrypt(data, keys='<%= process.env.AES_KEYS %>'){
         let bytes = CryptoJS.AES.decrypt(data, keys)
         return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
     }
 
-    function GetPosts(keyword="", platform="", limit='999', page=1){
-        const url = `/api/v1/posts?search=${keyword}&platform=${platform}&limit=${limit}&page=${page}`
+    function GetPosts(keyword="", limit='999', page=1, type="", location="", skills=""){
+        location = JSON.stringify(location)
+        skills = JSON.stringify(skills)
+
+        const url = `/api/v1/posts?search=${keyword}&limit=${limit}&page=${page}&locations=${location}&skills=${skills}`
+
         $.get(url, function(postsData){
             postsData = decrypt(postsData.r)
+            console.log(postsData);
+
+            // if(+postsData.limit == 999){
+            //     console.log("999");
+            // }
+
             if (postsData.datas.length !== 0){
                 $("#cards").html("")
                 postsData.datas.forEach(post => {
@@ -211,8 +360,16 @@
 
             $("#limit-start").text(startLimit)
             $("#limit-end").text(endLimit)
-            if(PAGE == 1) $("#pagination-back").prop("disabled", true)
-            if(PAGE * LIMIT > postsCount) $("#pagination-forward").prop("disabled", true)
+            if(PAGE == 1) {
+                $("#pagination-back").prop("disabled", true)
+            }else{
+                $("#pagination-back").prop("disabled", false)
+            }
+            if(PAGE * LIMIT >= postsCount){
+                $("#pagination-forward").prop("disabled", true)
+            }else{
+                $("#pagination-forward").prop("disabled", false)
+            }
         })
     }
 
