@@ -10,16 +10,17 @@ export const getAllPost = async (req: Request, res: Response) => {
       const search = req.query.search || ""
       const post_date = req.query.post_date || "DESC"
       let skills:any = req.query.skills
+      let type:any = req.query.type
       let locations:any = req.query.locations
 
       let db_page = req.query.page || 1
       let db_limit = req.query.limit || 20
       locations = JSON.parse(locations)
+      type = JSON.parse(type)
       skills = JSON.parse(skills)
 
-
-      if(search !== "" || locations !== "") {
-        db_limit = 999
+      if (search !== "" || locations.length > 0 || skills.length > 0 || type.length > 0) {
+        db_limit = 999;
       }
       
 
@@ -35,19 +36,28 @@ export const getAllPost = async (req: Request, res: Response) => {
       
 
       let filtered_data = POST.filter(post => {
-        let post_json = post.toJSON()
-        const matchesSearch = 
-            post_json.title.toLowerCase().includes(search.toString().toLowerCase()) 
-            || post_json.company.toLowerCase().includes(search.toString().toLowerCase())
-
+        let post_json = post.toJSON();
+        const matchesSearch = post_json.title.toLowerCase().includes(search.toString().toLowerCase()) || post_json.company.toLowerCase().includes(search.toString().toLowerCase());
+  
         let matchesLocation = true;
-
         if (locations.length > 0) {
           matchesLocation = locations.includes(post_json.location.toLowerCase());
         }
-    
-        return matchesSearch && matchesLocation;
+
+        let matchesType = true;
+        if (type.length > 0) {
+          matchesType = type.includes(post_json.type.toLowerCase());
+        }
+  
+        let matchesSkills = true;
+        if (skills.length > 0) {
+          const postSkills = post_json.skills.map(skill => skill.skill.toLowerCase());
+          matchesSkills = skills.some(skill => postSkills.includes(skill.toLowerCase()));
+        }
+  
+        return matchesSearch && matchesLocation && matchesSkills && matchesType;
       })
+      
 
       const total_entries = filtered_data.length;
       const total_pages = Math.ceil(total_entries / +db_limit);
@@ -64,6 +74,17 @@ export const getAllPost = async (req: Request, res: Response) => {
       return res.status(500).json({ error: error.message });
     }
 };
+
+export const getPostById = async (req: Request, res: Response) => {
+  const postId = req.params.id
+  try {
+    const POST = await Post.findByPk(postId)
+    const encryptedData = encrypt(POST)
+    return res.status(200).json(encryptedData)
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
 
 export const getAllPostCount = async (req: Request, res: Response) => {
     try {

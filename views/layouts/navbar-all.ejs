@@ -10,7 +10,7 @@
         </div>
     
         <div class="flex gap-4">
-            <div id="nav-profile" class="flex items-center gap-8">
+            <div id="nav-profile" class="hidden flex items-center gap-8">
                 <a href="/profile/bookmark" title="Bookmark" class="group rounded-full flex items-center justify-center"><i class="group-hover:text-main uil uil-bookmark text-black/80 text-2xl"></i></a>
                 <a id="add-post" href="/posts/create" title="Add Post" class="hidden group rounded-full flex items-center justify-center"><i class="group-hover:text-main uil uil-file-plus-alt text-black/80 text-2xl"></i></a>
                 <a href="/profile/me" class="my-4 flex items-center gap-4 bg-white shadow-md py-2 noise rounded-lg px-4">
@@ -53,86 +53,82 @@
 
 
 <script>
+    $(document).ready(function() {
+        var verifyTokenRequest = $.ajax({
+            url: "/api/v1/users/verify-token",
+            type: "GET",
+            headers: {
+                "Authorization": window.USER_TOKEN,
+            }
+        });
 
-    $("#button-login").click(function(){
-        $("#popup-layer-navbar").fadeIn(function(){
-            $("#popup-login").slideToggle()
-            $("body").css("overflow", "hidden")
-        }).css("display", "flex")
-    })
-    $("#close-login").click(function(){
-        $("#popup-login").slideToggle(function(){
-            $("#popup-layer-navbar").fadeOut(function(){
-                $("body").css("overflow", "auto")
-            })
-        })
-    })
-
-    $.ajax({
-        url: "/api/v1/users/verify-token",
-        type: "GET",
-        headers: {
-            "Authorization": window.USER_TOKEN,
-        },
-        success: (isVerified) => {
-            if(!isVerified){
-                $("#nav-profile").addClass("hidden")
-                $("#button-login").removeClass("hidden")
-                window.onload = function () {
-                    google.accounts.id.initialize({
-                        client_id: "698401836212-gi5ntasmqfae7hiu2q0qu8i2h2gco82h.apps.googleusercontent.com",
-                        callback: handleCredentialResponse
-                    });
-                    google.accounts.id.renderButton(
-                        document.getElementById("button-google"),
-                        { theme: "outline", size: "large", text:"continue_with", shape:"pill" }  // customization attributes
-                    );
-
-                    google.accounts.id.prompt(); // also display the One Tap dialog
-                }
-            }else{
-                $("#nav-profile").removeClass("hidden")
-                $("#button-login").addClass("hidden")
-                $.ajax({
+        var userInfoRequest = verifyTokenRequest.then(function(isVerified) {
+            if (!isVerified) {
+                $("#nav-profile").addClass("hidden");
+                $("#button-login").removeClass("hidden");
+                google.accounts.id.initialize({
+                    client_id: "698401836212-gi5ntasmqfae7hiu2q0qu8i2h2gco82h.apps.googleusercontent.com",
+                    callback: handleCredentialResponse
+                });
+                google.accounts.id.renderButton(
+                    document.getElementById("button-google"),
+                    { theme: "outline", size: "large", text: "continue_with", shape: "pill" }  // customization attributes
+                );
+                google.accounts.id.prompt(); // also display the One Tap dialog
+                return $.Deferred().resolve(); // Return a resolved deferred object to continue the chain
+            } else {
+                $("#nav-profile").removeClass("hidden");
+                $("#button-login").addClass("hidden");
+                return $.ajax({
                     url: '/api/v1/users/info',
                     type: 'get',
                     dataType: 'json',
                     headers: {
                         "Authorization": window.USER_TOKEN,
-                    },
-                    success: async function (userData) {
-                        userData = decrypt(userData.r)
-                        if(userData.role < 2){
-                            $("#add-post").removeClass("hidden")
-                        }
-                    },
-                    error: function(xhr){
-                        window.location.href = "/"
                     }
                 });
             }
-            
-        },
-        error: function (request, status, error) {
-            $("#nav-profile").addClass("hidden")
-            $("#button-login").removeClass("hidden")
-            return request
-        },
-    })
+        });
 
-    function handleCredentialResponse(response) {
-        $.ajax({
-            url: '/api/v1/users/auth/google',
-            method: 'POST',
-            contentType: 'application/json',
-            dataType: 'json',
-            data: JSON.stringify({ token: response.credential }),
-            success: function(data) {
-                window.location.href = "/profile/me"
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', error);
+        $.when(userInfoRequest).done(function(userData) {
+            if (userData && userData.role < 2) {
+                $("#add-post").removeClass("hidden");
+            }
+        }).fail(function(xhr) {
+            if (xhr.responseText !== "undefined") {
+                window.location.href = "/";
             }
         });
-    }
+
+        function handleCredentialResponse(response) {
+            $.ajax({
+                url: '/api/v1/users/auth/google',
+                method: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify({ token: response.credential }),
+                success: function(data) {
+                    window.location.href = "/profile/me";
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+        $("#button-login").click(function() {
+            $("#popup-layer-navbar").fadeIn(function() {
+                $("#popup-login").slideToggle();
+                $("body").css("overflow", "hidden");
+            }).css("display", "flex");
+        });
+
+        $("#close-login").click(function() {
+            $("#popup-login").slideToggle(function() {
+                $("#popup-layer-navbar").fadeOut(function() {
+                    $("body").css("overflow", "auto");
+                });
+            });
+        });
+    });
 </script>

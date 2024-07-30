@@ -48,7 +48,7 @@ Post.init(
     },
     type: {
       type: DataTypes.STRING,
-      defaultValue: "INTERNSHIP"
+      defaultValue: "internship"
     },
     location: {
       type: DataTypes.STRING,
