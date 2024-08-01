@@ -2819,6 +2819,10 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
     width: max-content;
   }
 
+  .lg\:w-full {
+    width: 100%;
+  }
+
   .lg\:grid-cols-\[1fr_\.6fr\] {
     grid-template-columns: 1fr .6fr;
   }
