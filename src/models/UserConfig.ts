@@ -22,7 +22,11 @@ Config.init(
       primaryKey: true,
       unique: true,
     },
-    show_sensitive_data: {
+    show_birthday: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    },
+    show_phone: {
         type: DataTypes.BOOLEAN,
         defaultValue: true
     },

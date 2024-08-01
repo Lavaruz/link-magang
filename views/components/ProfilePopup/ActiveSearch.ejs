@@ -21,18 +21,25 @@
                     <p class="font-bold text-lg text-main mb-1">Visibilitas Talent Hunt</p>
                     <p class="text-black/80 text-sm font-second font-medium">Mendeklarasikan dirimu aktif di talent hunt artinya profilmu akan dapat dikunjungi, dan dilihat oleh orang lain.</p>
                 </div>
-                <div class="divide-y divide-header px-5 flex flex-col items-center">
+                <div class="divide-y divide-header px-5 pb-6 flex flex-col items-center">
                     <div class="my-6">
                         <div class="flex flex-col items-center">
                             <label class="relative block inline-flex items-center cursor-pointer">
-                                <input id="sensitive-data" name="show_sensitive_data" type="checkbox" value="" class="sr-only peer">
+                                <input id="show-birthday" name="show_birthday" type="checkbox" value="" class="sr-only peer">
                                 <div class="w-11 h-6 bg-red-500 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
-                                <span id="active-search-status" class="ml-2 text-green-500 font-second text-sm font-semibold">Perlihatkan <span class="font-bold text-red-500">Nomor Handphone</span> & <span class="font-bold text-red-500">Tanggal Lahir</span>.</span>
+                                <span id="active-search-status" class="ml-2 text-green-500 font-second text-sm font-semibold">Perlihatkan <span class="font-bold text-red-500">Tanggal Lahir</span>.</span>
+                            </label>
+                        </div>
+                        <div class="flex flex-col items-center mt-4">
+                            <label class="relative block inline-flex items-center cursor-pointer">
+                                <input id="show-phone" name="show_phone" type="checkbox" value="" class="sr-only peer">
+                                <div class="w-11 h-6 bg-red-500 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
+                                <span id="active-search-status" class="ml-2 text-green-500 font-second text-sm font-semibold">Perlihatkan <span class="font-bold text-red-500">Nomor Handphone</span>.</span>
                             </label>
                         </div>
                         <button id="declare-active-search" disabled class="disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-red-600 text-white rounded-lg text-sm py-2 px-4 mt-6">please i need job rightnow 🙇‍♀️</button>
                         <button id="stop-active-search" class="disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 mt-6">Berhenti tampilkan profilmu 🙏</button>
-                        <p class="text-black/60 text-xs mt-1">*Lengkapi profilmu untuk sebelum mengaktifkan visibilitas</p>
+                        <p class="text-black/60 text-xs mt-1 text-center">*Lengkapi profilmu untuk sebelum mengaktifkan visibilitas</p>
                     </div>
                     <div class="flex gap-6 pt-5">
                         <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i id="active-profile-picture" class="uil uil-times text-lg text-red-500"></i>Tambahkan Foto Profile</button>
@@ -55,10 +62,37 @@
         $("body").addClass('no-scroll');
     })
 
-    $("#sensitive-data").change(function(){
+    $("#show-birthday").change(function(){
         const isChecked = $(this).is(":checked")
         const formData = new FormData()
-        formData.append("show_sensitive_data", isChecked)
+        formData.append("show_birthday", isChecked)
+
+        $.ajax({
+            url: "/api/v1/users/info/config",
+            type: "PUT",
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            encrypt: "multipart/form-data",
+            processData: false,
+            headers: {
+                "Authorization": window.USER_TOKEN,
+            },
+            success: (response) => {
+                console.log(response);
+                return
+            },
+            error: function (request, status, error) {
+                return request
+            },
+        })
+    })
+
+    $("#show-phone").change(function(){
+        const isChecked = $(this).is(":checked")
+        const formData = new FormData()
+        formData.append("show_phone", isChecked)
 
         $.ajax({
             url: "/api/v1/users/info/config",

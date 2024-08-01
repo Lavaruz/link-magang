@@ -201,10 +201,12 @@ $.ajax({
                 success: async function (userData) {
                     userData = decrypt(userData.r)
                     let SKILLS = userData.skills.map(function(skill){
-                        return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill}</button>`
+                        return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill.length >= 14 ? skill.skill.substring(0,14)+".." : skill.skill}</button>`
                     })
                     let ACTIVE_SKILL = SKILLS.slice(0,3)
                     let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
+
+                    let isActive = userData.active_search == false ? `<p class="bg-red-500/90 text-xs px-4 text-white py-0.5">INACTIVE</p>` : `<p class="bg-green-500/90 text-xs px-4 text-white py-0.5">ACTIVE</p>`
 
                     $("#my-profile").append(`
                         <div class="card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
@@ -212,10 +214,13 @@ $.ajax({
                                 <img id="basic-profile-pic" src="${userData.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
                             </div>
                             <div class="w-full">
-                                <div class="mb-2 text-center lg:text-left">
-                                    <p class="id" style="display:none">${userData.id}</p>
-                                    <p id="basic-fullname" class="font-bold text-xl text-main">${userData.firstname} ${userData.lastname} ${userData.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : `<i class="uil uil-venus text-pink-500"></i>`}</p>
-                                    <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">Founder of Internshits</p>
+                                <div class="flex items-start justify-between">
+                                    <div class="mb-2 text-center lg:text-left">
+                                        <p class="id" style="display:none">${userData.id}</p>
+                                        <p id="basic-fullname" class="font-bold text-xl text-main">${userData.firstname} ${userData.lastname} ${userData.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : `<i class="uil uil-venus text-pink-500"></i>`}</p>
+                                        <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">${userData.headline}</p>
+                                    </div>
+                                    ${isActive}
                                 </div>
                                 <hr>
                                 <div class="pt-2">
@@ -235,9 +240,9 @@ $.ajax({
                         usersData = decrypt(usersData.r)
                         // usersData = filterDataById(userData, userData.id)
                         const filteredUsersData = filterDataById(usersData, userData.id)
-                        filteredUsersData.forEach(user => {
+                        usersData.forEach(user => {
                             let SKILLS = user.skills.map(function(skill){
-                                return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill}</button>`
+                                return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill.length >= 14 ? skill.skill.substring(0,14)+".." : skill.skill}</button>`
                             })
                             let ACTIVE_SKILL = SKILLS.slice(0,3)
                             let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)

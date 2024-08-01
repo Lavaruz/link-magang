@@ -887,10 +887,6 @@ input[type="range"]::-ms-fill-lower {
   pointer-events: none;
 }
 
-.visible {
-  visibility: visible;
-}
-
 .fixed {
   position: fixed;
 }
@@ -1769,6 +1765,18 @@ input[type="range"]::-ms-fill-lower {
   background-color: rgb(255 255 255 / 0.8);
 }
 
+.bg-red-500\/70 {
+  background-color: rgb(240 82 82 / 0.7);
+}
+
+.bg-red-500\/90 {
+  background-color: rgb(240 82 82 / 0.9);
+}
+
+.bg-green-500\/90 {
+  background-color: rgb(14 159 110 / 0.9);
+}
+
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
@@ -1934,6 +1942,16 @@ input[type="range"]::-ms-fill-lower {
 .py-\[2px\] {
   padding-top: 2px;
   padding-bottom: 2px;
+}
+
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
 }
 
 .pb-20 {
@@ -2810,8 +2828,8 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
     width: 80px;
   }
 
-  .lg\:w-\[90\%\] {
-    width: 90%;
+  .lg\:w-full {
+    width: 100%;
   }
 
   .lg\:w-max {
@@ -2819,8 +2837,12 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
     width: max-content;
   }
 
-  .lg\:w-full {
-    width: 100%;
+  .lg\:w-\[380px\] {
+    width: 380px;
+  }
+
+  .lg\:w-\[300px\] {
+    width: 300px;
   }
 
   .lg\:grid-cols-\[1fr_\.6fr\] {

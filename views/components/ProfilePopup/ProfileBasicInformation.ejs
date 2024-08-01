@@ -43,7 +43,15 @@
                             <input id="popup-lastname" type="text" name="lastname" placeholder="Ex. Muzaki" class="block border-2 border-gray-300 w-full lg:w-[280px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder:text-black/40 text-black/80"/>
                         </label>
                     </div>
-                    <div class="lg:flex gap-5">
+
+                    <div class="">
+                        <label class="block mt-4 lg:mt-0">
+                            <label class="block mb-1 text-white-60 tracking-[1.4px] font-normal text-sm">HEADLINE</label>
+                            <input id="popup-headline" type="text" name="headline" placeholder="Founder | Backend Developer" class="block border-2 border-gray-300 w-full lg:w-[380px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder:text-black/40 text-black/80"/>
+                        </label>
+                    </div>
+
+                    <div class="lg:flex gap-5  mt-4">
                         <label class="block">
                             <label class="block mb-1 text-white-60 tracking-[1.4px] font-normal text-sm">DOMISILI</label>
                             <input id="popup-domicile" type="text" name="domicile" placeholder="Ex. Jakarta" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder:text-black/40 text-black/80"/>
@@ -68,9 +76,9 @@
                     </label>
                 </div>
 
-                <div class="p-5 pb-40 lg:pb-6">
+                <div class="p-5">
                     <p class="font-bold text-xl lg:text-lg text-main mb-3">Kontak Informasi</p>
-                    <div class="lg:flex gap-5 mb-14">
+                    <div class="lg:flex gap-5">
                         <label class="block">
                             <label class="block mb-1 text-white-60 tracking-[1.4px] font-normal text-sm">EMAIL</label>
                             <input id="popup-email" type="text" name="email" disabled title="Email address cannot be updated" class="block border-2 border-gray-300 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder:text-black/40 text-black/80"/>
@@ -78,6 +86,20 @@
                         <label class="block mt-4 lg:mt-0">
                             <label class="block mb-1 text-white-60 tracking-[1.4px] font-normal text-sm">NO HANDPHONE</label>
                             <input id="popup-mobile" type="text" name="mobile" class="block border-2 border-gray-300 w-full lg:w-[240px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder:text-black/40 text-black/80"/>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="p-5 pb-40 lg:pb-6">
+                    <p class="font-bold text-xl lg:text-lg text-main mb-3">Prefrensi Pekerjaan</p>
+                    <div class="lg:flex gap-5 mb-14">
+                        <label class="block">
+                            <span class="text-white-60 tracking-[1.4px] font-normal text-sm">STATUS PEKERJAAN*</span>
+                            <select required id="popup-pref-status" name="work_pref_status" class="block border-2 border-gray-300 w-full lg:w-[300px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80 focus:ring-white">
+                                <option selected value="WFO">Work From Office (WFO)</option>
+                                <option value="WFH">Work From Home (WFH)</option>
+                                <option value="WFA">Work From Anywhere (WFA)</option>
+                            </select>
                         </label>
                     </div>
                     <div class="fixed lg:static left-0 bottom-0 flex gap-3 w-full lg:w-max lg:ms-auto lg:justify-end mt-8 lg:p-0 lg:pe-0 bg-[#2A2A2A] lg:bg-transparent">

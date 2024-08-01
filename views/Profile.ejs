@@ -21,7 +21,7 @@
                         <div class="w-full">
                             <div class="mb-4 text-center lg:text-left">
                                 <p id="basic-fullname" class="font-bold text-xl text-main">Assami Muzaki</p>
-                                <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">Founder of Internshits</p>
+                                <p id="basic-headline" class="text-sm text-thrid/60 font-medium">Founder of Internshits</p>
                             </div>
                             <hr>
                             <div class="grid grid-cols-2 w-full gap-3 pt-4 text-white">
@@ -659,6 +659,8 @@
         $("#popup-lastname").val(data.lastname)
         $("#basic-email").text(data.email)
         $("#popup-email").val(data.email)
+        $("#basic-headline").text(data.headline)
+        $("#popup-headline").val(data.headline)
         $("#basic-mobile").text(data.mobile ? data.mobile : "no data")
         $("#popup-mobile").val(data.mobile ? data.mobile : "")
         $("#basic-sex").text(data.sex ? data.sex : "no data")
@@ -668,6 +670,7 @@
         $("#basic-domicile").text(data.domicile ? data.domicile : "no data")
         $("#popup-domicile").val(data.domicile ? data.domicile : "")
         $(`input[name=sex][value=${data.sex}]`).prop("checked",true);
+        $("#popup-pref-status").val(data.work_pref_status)
     }
 
     function InitSummary(data){
@@ -769,9 +772,14 @@
             $("#declare-active-search").prop("disabled", false)
         }
         
-        if(data?.config?.show_sensitive_data){
-            $("#sensitive-data").prop("checked", true)
+        if(data?.config?.show_birthday){
+            $("#show-birthday").prop("checked", true)
         }
+        if(data?.config?.show_phone){
+            $("#show-phone").prop("checked", true)
+        }
+
+        console.log(data);
     }
     
     function InitExperiences(data){

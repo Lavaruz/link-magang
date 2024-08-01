@@ -9,12 +9,14 @@ import Config from "./UserConfig";
 
 class User extends Model {
   declare id: CreationOptional<number>;
+  declare headline: string;
   declare email: string;
   declare role: number;
   declare profile_picture: string;
   declare firstname: string;
   declare lastname: string;
   declare summary: string;
+  declare work_pref_status: string;
 
   // createdAt can be undefined during creation
   declare createdAt: CreationOptional<Date>;
@@ -62,6 +64,10 @@ User.init(
       primaryKey: true,
       unique: true,
     },
+    headline: {
+      type: DataTypes.TEXT,
+      defaultValue: ""
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -96,6 +102,10 @@ User.init(
     },
     domicile: DataTypes.STRING,
     date_of_birth: DataTypes.STRING,
+    work_pref_status: {
+      type: DataTypes.STRING,
+      defaultValue: "WFO"
+    },
   },
   {
     sequelize, // Instance Sequelize yang digunakan
