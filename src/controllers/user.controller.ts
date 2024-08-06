@@ -13,6 +13,7 @@ import fs from "fs"
 import path from "path"
 import Config from "../models/UserConfig"
 import Locations from "../models/Locations"
+import { Op } from "sequelize";
 
 export function VerifyJWT(req:Request, res:Response){
     const accessToken = req.headers.authorization
@@ -39,15 +40,36 @@ export function UserLogout(req:Request, res:Response){
 }
 
 export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
+    let keyword = req.query.keyword ? req.query.keyword : ""
+    let domicile = req.query.domicile
+    let YoE = req.query.YoE
+    let departement = req.query.departement
+    let university = req.query.university
+    let edu_type = req.query.edu_type
+
     try {
-        const USERS = await User.findAll({where:{active_search: true}, include: [
-            {model: Experience, as: "experiences"},
-            {model: Education, as: "educations"},
-            {model: Attachment, as: "attachments"},
-            {model: Socials, as: "socials"},
-            {model: Skills, as: "skills"},
-            {model: Config, as: "config"}
-        ]})
+        const USERS = await User.findAll({
+            where:{
+                active_search: true, 
+                [Op.or]: [
+                    { firstname: { [Op.like]: `%${keyword}%` } },
+                    { lastname: { [Op.like]: `%${keyword}%` } },
+                    {
+                        '$experiences.exp_position$': {
+                            [Op.like]: `%${keyword}%`
+                        }
+                    }
+                ]
+            }, 
+            include: [
+                {model: Experience, as: "experiences"},
+                {model: Education, as: "educations"},
+                {model: Attachment, as: "attachments"},
+                {model: Socials, as: "socials"},
+                {model: Skills, as: "skills"},
+                {model: Config, as: "config"}
+            ]
+        })
 
         const updatedUsers = await Promise.all(USERS.map(async user => {
             const userExperience = user.toJSON().experiences;
@@ -80,7 +102,9 @@ export async function GetUserById(req:Request, res: Response){
             ]
         })
 
-        const encryptedData = encrypt(USER)
+        let updatedUser = Object.assign(USER.toJSON(), {YoE: calculateTotalExperienceMonth(await USER.getExperiences())})
+
+        const encryptedData = encrypt(updatedUser)
         return res.status(200).json(encryptedData)
     } catch (error) {
         console.error(error)
@@ -130,9 +154,6 @@ export async function UpdateUserByToken(req:Request, res: Response){
     const userToken = req.headers.authorization;
     const userData = req.body
 
-    console.log(userData);
-    
-
     delete userData.email
     
     try {
@@ -141,9 +162,20 @@ export async function UpdateUserByToken(req:Request, res: Response){
         jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
             // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
             if(err) return res.status(400).send(err)
-            const USER = await User.findOne({where:{id: decoded.id}})
+            const USER = await User.findOne({where:{id: decoded.id}, include:[
+                {model: Experience, as: "experiences"},
+                {model: Education, as: "educations"},
+                {model: Attachment, as: "attachments"},
+                {model: Socials, as: "socials"},
+                {model: Skills, as: "skills"},
+                {model: Config, as: "config"}
+            ]})
             if(!USER) return res.status(404).json({message: "user not found"})
             USER.update(userData)
+
+            if(!userData.active_search){
+                USER.update({active_search: false})
+            }
 
             return res.status(200).json(USER)
         })
@@ -224,10 +256,6 @@ export async function UpdateExperienceById(req:Request, res: Response){
     const userData = req.body
     const ID = req.params.id
     const userToken = req.headers.authorization
-
-    console.log(userData);
-    
-
     
     try {
         if(!userToken) return res.status(400).json({message: "token is required"})
@@ -240,9 +268,6 @@ export async function UpdateExperienceById(req:Request, res: Response){
             const EXPERIENCE = await Experience.findByPk(ID)
             await EXPERIENCE.update(userData)
             const EXPERIENCES = await USER.getExperiences({order: [["createdAt", "DESC"]]})
-
-            console.log(EXPERIENCE);
-            
 
             return res.status(200).json(EXPERIENCES)
         })
@@ -424,6 +449,18 @@ export async function GetAllLocations(req:Request, res: Response){
     }
 }
 
+export async function GetAllUserDomicile(req:Request, res: Response){
+    try {
+        const LOCATIONS = await User.findAll({attributes: ["domicile"]})
+        
+        const encryptedData = encrypt(LOCATIONS)
+        return res.status(200).json(encryptedData)
+    } catch (error) {
+        console.error(error)
+        return res.status(200).json({message: error.message})
+    }
+}
+
 export async function AddNewLocation(req:Request, res: Response){
     const locationBody = req.body
     try {
@@ -447,7 +484,14 @@ export async function UpdateAttachment(req:Request, res: Response){
     jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
         // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
         if(err) return res.status(400).send(err)
-        const USER = await User.findOne({where:{id: decoded.id}})
+        const USER = await User.findOne({where:{id: decoded.id}, include:[
+            {model: Experience, as: "experiences"},
+            {model: Education, as: "educations"},
+            {model: Attachment, as: "attachments"},
+            {model: Socials, as: "socials"},
+            {model: Skills, as: "skills"},
+            {model: Config, as: "config"}
+        ]})
         if(!USER) return res.status(404).json({message: "user not found"})
 
         const hasAttachments = await USER.getAttachments()
@@ -475,7 +519,14 @@ export async function UpdateSocials(req:Request, res: Response){
     jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
         // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
         if(err) return res.status(400).send(err)
-        const USER = await User.findOne({where:{id: decoded.id}})
+        const USER = await User.findOne({where:{id: decoded.id}, include:[
+            {model: Experience, as: "experiences"},
+            {model: Education, as: "educations"},
+            {model: Attachment, as: "attachments"},
+            {model: Socials, as: "socials"},
+            {model: Skills, as: "skills"},
+            {model: Config, as: "config"}
+        ]})
         if(!USER) return res.status(404).json({message: "user not found"})
 
         const hasSocials = await USER.getSocials()
@@ -536,7 +587,7 @@ function calculateTotalExperienceMonth(experiences) {
 
     experiences.forEach(exp => {
         const startDate = new Date(exp.exp_startdate);
-        const endDate = new Date(exp.exp_enddate);
+        const endDate = exp.exp_enddate ? new Date(exp.exp_enddate) : new Date();
         
         const yearsDifference = endDate.getFullYear() - startDate.getFullYear();
         const monthsDifference = endDate.getMonth() - startDate.getMonth();

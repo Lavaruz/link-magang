@@ -20,6 +20,7 @@
                     </button>
                     <p class="font-bold text-lg text-main mb-1">Visibilitas Talent Hunt</p>
                     <p class="text-black/80 text-sm font-second font-medium">Mendeklarasikan dirimu aktif di talent hunt artinya profilmu akan dapat dikunjungi, dan dilihat oleh orang lain.</p>
+                    <p class="text-red-500 text-xs font-second font-medium mt-2">*Visbilitas akan menjadi nonaktif, setiap kamu melakukan update profile</p>
                 </div>
                 <div class="divide-y divide-header px-5 pb-6 flex flex-col items-center">
                     <div class="my-6">
@@ -37,9 +38,9 @@
                                 <span id="active-search-status" class="ml-2 text-green-500 font-second text-sm font-semibold">Perlihatkan <span class="font-bold text-red-500">Nomor Handphone</span>.</span>
                             </label>
                         </div>
-                        <button id="declare-active-search" disabled class="disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-red-600 text-white rounded-lg text-sm py-2 px-4 mt-6">please i need job rightnow 🙇‍♀️</button>
-                        <button id="stop-active-search" class="disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 mt-6">Berhenti tampilkan profilmu 🙏</button>
-                        <p class="text-black/60 text-xs mt-1 text-center">*Lengkapi profilmu untuk sebelum mengaktifkan visibilitas</p>
+                        <button id="declare-active-search" disabled class="disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 mt-6">Aktifkan kartu Talent Hunt</button>
+                        <button id="stop-active-search" class="disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-red-600 text-white rounded-lg text-sm py-2 px-4 mt-6">Berhenti menampilkan kartu</button>
+                        <p id="visibilitas-desc" class="text-black/60 text-xs mt-1 text-center">*Lengkapi profilmu untuk sebelum mengaktifkan visibilitas</p>
                     </div>
                     <div class="flex gap-6 pt-5">
                         <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i id="active-profile-picture" class="uil uil-times text-lg text-red-500"></i>Tambahkan Foto Profile</button>
@@ -125,28 +126,68 @@
         }else{
             formData.append("active_search", true)
         }
-        
 
         $.ajax({
-            url: "/api/v1/users",
-            type: "PUT",
-            data: formData,
-            async: false,
-            cache: false,
-            contentType: false,
-            encrypt: "multipart/form-data",
-            processData: false,
-            headers: {
-                "Authorization": window.USER_TOKEN,
-            },
-            success: (response) => {
-                location.reload()
-                return
-            },
-            error: function (request, status, error) {
-                return request
-            },
-        });
+        url: '/api/v1/users/info',
+        type: 'get',
+        dataType: 'json',
+        headers: {
+            "Authorization": window.USER_TOKEN,
+        },
+        success: async function (userData) {
+            const data = decrypt(userData.r);
+            if(formData.get("active_search")){
+                if(data.skills.length > 0 && data.profile_picture && data.educations.length > 0 && data.attachments.atc_resume){
+                    $.ajax({
+                        url: "/api/v1/users",
+                        type: "PUT",
+                        data: formData,
+                        async: false,
+                        cache: false,
+                        contentType: false,
+                        encrypt: "multipart/form-data",
+                        processData: false,
+                        headers: {
+                            "Authorization": window.USER_TOKEN,
+                        },
+                        success: (response) => {
+                            location.reload()
+                            return
+                        },
+                        error: function (request, status, error) {
+                            return request
+                        },
+                    });
+                }else{
+                    alert("tolong lengkapi profil kamu dulu !")
+                }
+            }else{
+                $.ajax({
+                    url: "/api/v1/users",
+                    type: "PUT",
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    encrypt: "multipart/form-data",
+                    processData: false,
+                    headers: {
+                        "Authorization": window.USER_TOKEN,
+                    },
+                    success: (response) => {
+                        location.reload()
+                        return
+                    },
+                    error: function (request, status, error) {
+                        return request
+                    },
+                });
+            }
+        },
+        error: function(xhr){
+            window.location.href = "/"
+        }
+    });
 
     })
 </script>

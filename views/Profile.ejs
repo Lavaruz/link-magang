@@ -197,7 +197,7 @@
                     <p class="text-main flex items-center gap-2"><i class="uil uil-share"></i> SOSIAL</p>
                     <p id="edit-socials" class="cursor-pointer text-main text-sm font-second flex items-center gap-2">Edit</p>
                 </div>
-                <p class="font-second text-sm font-semibold text-black/80 mt-3 mb-4">Buat semua orang lebih mudah memahami siapa kamu!</p>
+                <p class="font-second text-sm font-semibold text-black/80 mt-3 mb-4">Buat semua orang lebih mudah mengenali tentang kamu!</p>
                 <div id="socials" class="hidden flex items-center gap-4 text-thrid/80 text-2xl">
                     <a id="link-twitter" href="" target="_blank" class="hidden link-social"><i class="uil uil-twitter"></i></a>
                     <a id="link-instagram" href="" target="_blank" class="hidden link-social"><i class="uil uil-instagram-alt"></i></a>
@@ -289,7 +289,6 @@
         },
         success: async function (userData) {
             const data = decrypt(userData.r);
-            console.log(data);
 
             // ACTIVE SEARCH VISIBILITY
             InitActivesearch(data)
@@ -637,6 +636,7 @@
                     // callback parameter this isinya button submit yang di klik
                     // biar bisa dipake buat manipulasi dom
                     callback(this, response)
+                    InitActivesearch(response)
                     return
                 },
                 error: function (request, status, error) {
@@ -738,6 +738,7 @@
 
     function InitActivesearch(data){
         if(data.active_search){
+            $("#visibilitas-desc").remove()
             $("#active-search").prop("checked", true)
             $("#active-search-status").text("Visibilitas Aktif").css("color", "green")
             $("#declare-active-search").addClass("hidden")
@@ -755,11 +756,11 @@
             $("#active-profile-picture").removeClass("uil-times text-red-500").addClass("uil-check")
             COMPLETION += 25
         }
-        if(data.skills.length > 2){
+        if(data.skills.length > 0){
             $("#active-profile-skills").removeClass("uil-times text-red-500").addClass("uil-check")
             COMPLETION += 25
         }
-        if(data.educations){
+        if(data.educations.length > 0){
             $("#active-educations").removeClass("uil-times text-red-500").addClass("uil-check")
             COMPLETION += 25
         }
@@ -778,8 +779,6 @@
         if(data?.config?.show_phone){
             $("#show-phone").prop("checked", true)
         }
-
-        console.log(data);
     }
     
     function InitExperiences(data){
@@ -798,9 +797,9 @@
                         <div class="flex justify-between items-start">
                             <div class="">
                                 <p class="mb-1 text-sm bg-main/60 px-2 w-max text-white">${experienceData.exp_type}</p>
-                                <p class="text-xl font-semibold">${experienceData.exp_position}</p>
+                                <p class="text-xl font-semibold">${experienceData.exp_position.length > 50 ? experienceData.exp_position.substring(0,50)+".." : experienceData.exp_position}</p>
                                 <div class="flex items-center gap-1 text-black/70">
-                                    <p>${experienceData.exp_orgname}</p>
+                                    <p>${experienceData.exp_orgname ? experienceData.exp_orgname.substring(0,25)+".." : experienceData.exp_orgname}</p>
                                     <p>•</p>
                                     <p>${experienceData.exp_time}</p>
                                     <p>•</p>
@@ -869,9 +868,9 @@
                         <div class="flex justify-between items-start">
                             <div class="">
                                 <p class="mb-1 text-sm bg-main/60 px-2 w-max text-white">${educationsData.edu_type}</p>
-                                <p class="text-xl font-semibold">${educationsData.edu_program}</p>
+                                <p class="text-xl font-semibold">${educationsData.edu_program.length > 50 ? educationsData.edu_program.substring(0,50)+".." : educationsData.edu_program}</p>
                                 <div class="flex items-center gap-1 text-black/70">
-                                    <p>${educationsData.edu_institution}</p>
+                                    <p>${educationsData.edu_institution > 25 ? educationsData.edu_institution.substring(0,25)+".." : educationsData.edu_institution}</p>
                                     <p>•</p>
                                     <p>${educationsData.edu_faculty}</p>
                                     <p>•</p>
@@ -944,16 +943,7 @@
         }
     }
     
-    
-    // const decrypt = (data, keys='<%= process.env.AES_KEYS %>') => {
-    //     let bytes = CryptoJS.AES.decrypt(data, keys)
-    //     return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
-    // }
-
-
-
-
-
+   
 
 
 

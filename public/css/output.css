@@ -1725,6 +1725,10 @@ input[type="range"]::-ms-fill-lower {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
+.bg-green-500\/90 {
+  background-color: rgb(14 159 110 / 0.9);
+}
+
 .bg-main {
   --tw-bg-opacity: 1;
   background-color: rgb(71 169 146 / var(--tw-bg-opacity));
@@ -1737,6 +1741,10 @@ input[type="range"]::-ms-fill-lower {
 .bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(240 82 82 / var(--tw-bg-opacity));
+}
+
+.bg-red-500\/90 {
+  background-color: rgb(240 82 82 / 0.9);
 }
 
 .bg-red-600 {
@@ -1763,18 +1771,6 @@ input[type="range"]::-ms-fill-lower {
 
 .bg-white\/80 {
   background-color: rgb(255 255 255 / 0.8);
-}
-
-.bg-red-500\/70 {
-  background-color: rgb(240 82 82 / 0.7);
-}
-
-.bg-red-500\/90 {
-  background-color: rgb(240 82 82 / 0.9);
-}
-
-.bg-green-500\/90 {
-  background-color: rgb(14 159 110 / 0.9);
 }
 
 .bg-gradient-to-b {
@@ -1874,6 +1870,16 @@ input[type="range"]::-ms-fill-lower {
   padding-right: 2rem;
 }
 
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -1942,16 +1948,6 @@ input[type="range"]::-ms-fill-lower {
 .py-\[2px\] {
   padding-top: 2px;
   padding-bottom: 2px;
-}
-
-.py-0 {
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
-
-.py-0\.5 {
-  padding-top: 0.125rem;
-  padding-bottom: 0.125rem;
 }
 
 .pb-20 {
@@ -2299,6 +2295,18 @@ input[type="range"]::-ms-fill-lower {
 
 .duration-300 {
   transition-duration: 300ms;
+}
+
+.invisible-scroll {
+  -ms-overflow-style: none;
+  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.invisible-scroll::-webkit-scrollbar {
+  display: none;
+  /* Safari and Chrome */
 }
 
 .material-symbols-outlined {
@@ -2816,8 +2824,16 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
     width: 280px;
   }
 
+  .lg\:w-\[300px\] {
+    width: 300px;
+  }
+
   .lg\:w-\[360px\] {
     width: 360px;
+  }
+
+  .lg\:w-\[380px\] {
+    width: 380px;
   }
 
   .lg\:w-\[720px\] {
@@ -2835,14 +2851,6 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
   .lg\:w-max {
     width: -moz-max-content;
     width: max-content;
-  }
-
-  .lg\:w-\[380px\] {
-    width: 380px;
-  }
-
-  .lg\:w-\[300px\] {
-    width: 300px;
   }
 
   .lg\:grid-cols-\[1fr_\.6fr\] {

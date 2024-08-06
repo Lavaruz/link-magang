@@ -1,10 +1,11 @@
 import express from "express";
-import { AddNewEducation, AddNewExperience, AddNewLocation, AddNewSkill, AddSkillToUser, DeleteEducationById, DeleteExperienceById, GetAllLocations, GetAllProfilePicture, GetAllSkills, GetAllUserWhereActiveSearch, GetEducationsByUserToken, GetExperienceById, GetExperiencesByUserToken, GetTotalUser, GetUserById, GetUserByToken, GoogleLoginHandler, UpdateActiveSearch, UpdateAttachment, UpdateEducationById, UpdateExperienceById, UpdateSocials, UpdateUserByToken, UserLogout, VerifyJWT } from "../controllers/user.controller";
+import { AddNewEducation, AddNewExperience, AddNewLocation, AddNewSkill, AddSkillToUser, DeleteEducationById, DeleteExperienceById, GetAllLocations, GetAllProfilePicture, GetAllSkills, GetAllUserDomicile, GetAllUserWhereActiveSearch, GetEducationsByUserToken, GetExperienceById, GetExperiencesByUserToken, GetTotalUser, GetUserById, GetUserByToken, GoogleLoginHandler, UpdateActiveSearch, UpdateAttachment, UpdateEducationById, UpdateExperienceById, UpdateSocials, UpdateUserByToken, UserLogout, VerifyJWT } from "../controllers/user.controller";
     
 const userRouter = express.Router();
 
 userRouter.get("/active", GetAllUserWhereActiveSearch)
 userRouter.get("/info", GetUserByToken)
+userRouter.get("/info/domicile", GetAllUserDomicile)
 
 userRouter.post("/info/skills", AddSkillToUser)
 userRouter.put("/info/config", UpdateActiveSearch)

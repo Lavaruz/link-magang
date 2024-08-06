@@ -1,11 +1,11 @@
 <%- include('./layouts/header'); -%>
 <%- include('./layouts/navbar-all'); -%>
 
-<main class="noise">
-    <div class="min-h-screen w-full grid grid-cols-10">
+<main class="noise pb-20">
+    <div class="w-full grid grid-cols-10">
 
         <!-- SIDEBAR -->
-        <div class="col-span-2 border-r-2 h-screen pb-28 overflow-y-scroll">
+        <div class="col-span-2 border-r-2 pb-28 overflow-y-scroll h-screen">
             <form id="form-market-filter" class="flex flex-col items-center gap-4 divide-y divide-gray-300 py-6 px-4">
                 <div class="w-full flex flex-col gap-4 w-full">
                     <div class="pb-4 flex justify-between w-full">
@@ -14,35 +14,49 @@
                     </div> 
                     <!-- <label for="" class="">SEARCH</label> -->
                     <p class="ps-4 text-sm font-medium">BY BASIC INFORMATION ---</p>
-                    <input type="search" formControlName="search" id="input-search" value="" class="block w-full px-4 py-3 rounded-full font-medium text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-main focus:border-main" placeholder="Search candidate name, and position" required />
-                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-full border-2 py-3 border-gray-300 focus:ring-main focus:border-main">
-                        <option value="9" selected>Domicile</option>
-                        <option value="12">12 Post per Page</option>
-                        <option value="15">15 Post per Page</option>
-                        <option value="999">Show All Post</option>
-                    </select>
+                    <input type="search" id="input-search" value="" class="block w-full px-4 py-3 rounded-lg font-medium text-sm text-gray-900 border border-gray-300 bg-white focus:ring-main focus:border-main" placeholder="Cari nama atau posisi" />
+
+                    <!-- LOCATIONS -->
+                    <div class="flex flex-col">
+                        <button type="button" id="dropdown-location" data-dropdown-toggle="dropdown-location-dd" data-dropdown-placement="bottom" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Lokasi <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="dropdown-location-dd" class="border z-10 hidden bg-white rounded-lg shadow w-1/4 dark:bg-gray-700">
+                            <div class="p-3">
+                                <label for="input-group-search" class="sr-only">Search</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
+                                    </div>
+                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari lokadi">
+                                </div>
+                            </div>
+                            <ul id="list-locations" class="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location">
+                                <!-- HERE -->
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="pt-4 flex flex-col gap-4 w-full">
                     <p class="ps-4 text-sm font-medium">BY EXPERIENCES ---</p>
-                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-full border-2 py-3 border-gray-300 focus:ring-main focus:border-main">
-                        <option value="9" selected>YoE</option>
-                        <option value="12">12 Post per Page</option>
-                        <option value="15">15 Post per Page</option>
-                        <option value="999">Show All Post</option>
+                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                        <option value="" selected>YoE</option>
+                        <option value="0">Tidak ada pengalaman</option>
+                        <option value="12">Dibawah 12 bulan</option>
+                        <option value="60">Dibawah 60 bulan/5 tahun</option>
+                        <option value="999">Diatas 5 tahun</option>
                     </select>
-                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-full border-2 py-3 border-gray-300 focus:ring-main focus:border-main">
+                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
                         <option value="" selected>Departement</option>
-                        <option value="Jobstreet">Jobstreet</option>
-                        <option value="Glints">Glints</option>
-                        <option value="Indeed">Indeed</option>
-                        <option value="Kalibrr">Kalibrr</option>
-                        <option value="Linkedin">Linkedin</option>
-                        <option value="Lainnya">Lainnya</option>
                     </select>
                 </div>
                 <div class="pt-4 flex flex-col gap-4 w-full">
                     <p class="ps-4 text-sm font-medium">BY EDUCATIONS ---</p>
-                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-full border-2 py-3 border-gray-300 focus:ring-main focus:border-main">
+                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-full border py-3 border-gray-300 focus:ring-main focus:border-main">
                         <option value="" selected>University</option>
                         <option value="Jobstreet">Jobstreet</option>
                         <option value="Glints">Glints</option>
@@ -51,7 +65,7 @@
                         <option value="Linkedin">Linkedin</option>
                         <option value="Lainnya">Lainnya</option>
                     </select>
-                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-full border-2 py-3 border-gray-300 focus:ring-main focus:border-main">
+                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-full border py-3 border-gray-300 focus:ring-main focus:border-main">
                         <option value="" selected>Education Type</option>
                         <option value="Jobstreet">Jobstreet</option>
                         <option value="Glints">Glints</option>
@@ -65,12 +79,12 @@
         </div>
 
         <!-- CARDS -->
-        <div class="col-span-8 px-14">
+        <div class="col-span-8 px-14 pb-40 overflow-y-scroll h-screen">
             <div id="on-login" class="hidden">
                 <div class="py-4">
-                    <p class="text-2xl font-medium text-main">Your Profile</p>
+                    <p class="text-2xl font-medium text-main">Kartu Kamu</p>
                 </div>
-                <hr class="border-gray-300 pt-4">
+                <hr class="border-gray-300 pt-4 pb-4">
                 <!-- CARD -->
                 <div class="grid grid-cols-2 gap-6">
 
@@ -78,26 +92,26 @@
                         <!-- HERE -->
                     </div>
                     
-                    <div class="">
-                        <p class="text-2xl text-black/70 font-medium">How to Activate your Card ?</p>
+                    <div id="how-to" class="">
+                        <p class="text-2xl text-black/70 font-medium">Bagaimana agar kartu aktif ?</p>
                         <div class="ms-2 mt-3 text-black/60">
-                            <p>• Complete Your Basic Information</p>
-                            <p>• Add Your Profile Educations</p>
-                            <p>• Add Curicullum Vitae </p>
-                            <p>• Activate Active Search in Profile Page</p>
+                            <p>• Lengkapi informasi basicmu</p>
+                            <p>• Tambahkan keahlian & pendidikan yang telah kamu lalui</p>
+                            <p>• Tambahkan Curriculum Vitae (CV) </p>
+                            <p>• Aktifkan visibilitas talent hunt di profil</p>
                         </div>
-                        <a href="/profile/me" class="block w-max mt-4 rounded-lg px-6 py-2 text-white font-medium text-sm bg-main">Activate your profile card</a>
+                        <a href="/profile/me" class="block w-max mt-4 rounded-lg px-6 py-2 text-white font-medium text-sm bg-main">Ayo coba aktifkan</a>
                     </div>
                 </div>
             </div>
             <div id="off-login" class="hidden my-4">
-                <p class="text-black/60">show off your amazing profile, to make recruiter interest in you</p>
-                <button id="button-create-card" class="text-white font-medium text-sm bg-main rounded-lg mt-4 px-6 py-2">Create your own card !</button>
+                <p class="text-black/60">Pamerkan betapa kerennya dirimu, untuk membuat <b>orang lain</b> & <b>recruiter</b> tertarik terhadap profilemu</p>
+                <button id="button-create-card" class="text-white font-medium text-sm bg-main rounded-lg mt-4 px-6 py-2">Buat kartu kamu sendiri !</button>
             </div>
 
             
             <div class="flex justify-between items-center py-4">
-                <p class="text-2xl font-medium text-main">Showing 40 Talent</p>
+                <p class="text-2xl font-medium text-main">Menampilkan 40 Talent</p>
                 <button class="shadow-md w-10 rounded-full h-10 bg-main text-white font-medium"><i class="uil uil-sliders-v"></i></button>
             </div>
             <hr class="border-gray-300">
@@ -118,7 +132,7 @@
                     <img id="popup-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
                 </div>
                 <p id="popup-username" class="text-2xl font-bold text-main">Assami Muzaki</p>
-                <p class="font-medium text-black/60 text-sm">Founder of Internshits</p>
+                <p id="popup-headline" class="font-medium text-black/60 text-sm">Founder of Internshits</p>
             </div>
     
             <hr class="my-4">
@@ -134,7 +148,7 @@
     
             <hr class="my-4">
             
-            <p class="text-black/80 text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime repudiandae inventore dolores dolorum earum aliquid tempora sequi esse, omnis rem nam delectus reprehenderit itaque distinctio architecto deserunt harum illo ullam.</p>
+            <p id="popup-summary" class="text-black/80 text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime repudiandae inventore dolores dolorum earum aliquid tempora sequi esse, omnis rem nam delectus reprehenderit itaque distinctio architecto deserunt harum illo ullam.</p>
             
             <hr class="my-4">
 
@@ -142,21 +156,21 @@
                 <div class="grid grid-cols-2 text-center">
                     <div class="">
                         <p class="text-xs text-black/60 font-medium">LOCATION</p>
-                        <p id="popup-domicile" class="font-bold text-sm mt-2 text-black/70">Jakarta Utara</p>
+                        <p id="popup-domicile" class="font-bold text-sm mt-2 text-black/70"></p>
                     </div>
                     <div class="">
                         <p class="text-xs text-black/60 font-medium">PHONE NUMBER</p>
-                        <p id="popup-mobile" class="font-bold text-sm mt-2 text-black/70">-</p>
+                        <p id="popup-mobile" class="font-bold text-sm mt-2 text-black/70"></p>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 mt-4 text-center">
                     <div class="">
                         <p class="text-xs text-black/60 font-medium">SALARY RANGE</p>
-                        <p class="font-bold text-sm mt-2 text-black/70">7.5mio - 10mio</p>
+                        <p id="popup-salary" class="font-bold text-sm mt-2 text-black/70"></p>
                     </div>
                     <div class="">
                         <p class="text-xs text-black/60 font-medium">YOE (month)</p>
-                        <p class="font-bold text-sm mt-2 text-black/70">2.5 month</p>
+                        <p id="popup-yoe" class="font-bold text-sm mt-2 text-black/70"></p>
                     </div>
                 </div>
             </div>
@@ -165,7 +179,7 @@
     
             <div class="flex flex-col gap-2">
                 <a id="popup-view" class="text-sm text-white font-medium bg-main mx-auto w-full py-2.5 rounded-lg flex justify-center">View More Detail</a>
-                <button class="close-x text-sm text-main font-medium mx-auto w-full py-2 rounded-lg">Close</button>
+                <button class="close-x text-sm text-main font-medium mx-auto w-full py-2 rounded-lg">Tutup</button>
             </div>
         </div>
     </div>
@@ -176,7 +190,67 @@
 
 <script>
 
-$.ajax({
+    $("body").addClass("overflow-hidden")
+
+    let LOCATIONS = []
+    let QUERY = {
+        keyword: ""
+    }
+
+    getActiveUserCard(QUERY)
+
+    $("#form-market-filter").submit(function(e){
+        e.preventDefault()
+        QUERY.keyword = $("#input-search").val()
+        getActiveUserCard(QUERY)
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    // Get All Locations Registered
+    $.get("/api/v1/users/info/domicile", function(locationData){
+        locationData = decrypt(locationData.r)
+        const allLocation = Array.from(new Set(locationData.map(location => {
+            return location.domicile
+        })))
+        allLocation.forEach(location => {
+            $("#list-locations").append(`
+                <li>
+                    <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                        <input id="checkbox-${location}" type="checkbox" value="${location.toLowerCase()}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="checkbox-${location}" class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">${location}</label>
+                    </div>
+                </li>
+            `)
+        })
+    })
+
+    $("#dropdown-location-dd").on("change", "input", function(){
+        const THIS_VAL = $(this).val()
+        if($(this).is(":checked")){
+            LOCATIONS.push(THIS_VAL)
+        }else{
+            LOCATIONS = removeFromArray(LOCATIONS, THIS_VAL)
+        }
+    })
+
+
+
+
+
+    // If User Login
+    $.ajax({
         url: "/api/v1/users/verify-token",
         type: "GET",
         headers: {
@@ -186,6 +260,7 @@ $.ajax({
             if(isVerified){
                 $("#on-login").removeClass("hidden")
                 $("#off-login").addClass("hidden")
+                $("#how-to").addClass("hidden")
             }else{
                 $("#on-login").addClass("hidden")
                 $("#off-login").removeClass("hidden")
@@ -217,15 +292,15 @@ $.ajax({
                                 <div class="flex items-start justify-between">
                                     <div class="mb-2 text-center lg:text-left">
                                         <p class="id" style="display:none">${userData.id}</p>
-                                        <p id="basic-fullname" class="font-bold text-xl text-main">${userData.firstname} ${userData.lastname} ${userData.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : `<i class="uil uil-venus text-pink-500"></i>`}</p>
+                                        <p id="basic-fullname" class="font-bold text-xl text-main">${userData.firstname} ${userData.lastname} ${userData.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : userData.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
                                         <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">${userData.headline}</p>
                                     </div>
                                     ${isActive}
                                 </div>
                                 <hr>
                                 <div class="pt-2">
-                                    <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${userData.YoE}</span>Month of Experience</p>
-                                    <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag me-2"></i>${userData.experiences.length > 0 ? userData.experiences[0].exp_position + " at " + userData.experiences[0].exp_orgname : "no experiences"}</p>
+                                    <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${userData.YoE}</span>Bulan Pengalaman</p>
+                                    <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag me-2"></i>${userData.experiences.length > 0 ? userData.experiences[0].exp_position + " di " + userData.experiences[0].exp_orgname : "no experiences"}</p>
                                     <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${userData.educations.length > 0 ? userData.educations[0].edu_type + " - " + userData.educations[0].edu_program : "No Education Added"}</span></p>
                                     <div class="flex gap-2 mt-3 flex-wrap">
                                         ${ACTIVE_SKILL.join("")}
@@ -235,44 +310,7 @@ $.ajax({
                             </div>
                         </div>
                     `)
-                
-                    $.get("/api/v1/users/active", function(usersData){
-                        usersData = decrypt(usersData.r)
-                        // usersData = filterDataById(userData, userData.id)
-                        const filteredUsersData = filterDataById(usersData, userData.id)
-                        usersData.forEach(user => {
-                            let SKILLS = user.skills.map(function(skill){
-                                return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill.length >= 14 ? skill.skill.substring(0,14)+".." : skill.skill}</button>`
-                            })
-                            let ACTIVE_SKILL = SKILLS.slice(0,3)
-                            let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
-                            $("#cards").append(`
-                                <div class="card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
-                                    <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                                        <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
-                                    </div>
-                                    <div class="w-full">
-                                        <div class="mb-2 text-center lg:text-left">
-                                            <p class="id" style="display:none">${user.id}</p>
-                                            <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : `<i class="uil uil-venus text-pink-500"></i>`}</p>
-                                            <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">Founder of Internshits</p>
-                                        </div>
-                                        <hr>
-                                        <div class="pt-2">
-                                            <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${user.YoE}</span>Month of Experience</p>
-                                            <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag me-2"></i>${user.experiences.length > 0 ? user.experiences[0].exp_position + " at " + user.experiences[0].exp_orgname : "no experiences"}</p>
-                                            <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_type + " - " + user.educations[0].edu_program : "No Education Added"}</span></p>
-                                            <div class="flex gap-2 mt-3 flex-wrap">
-                                                ${ACTIVE_SKILL.join("")}
-                                                ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            `)
-                        });
-                    })
-
+            
                 },
                 error: function(xhr){
                     // window.location.href = "/"
@@ -287,6 +325,8 @@ $.ajax({
         },
     })
 
+
+    // Go Login page
     $("#button-create-card").click(function(){
         $("#popup-layer-navbar").fadeIn(function(){
             $("#popup-login").slideToggle()
@@ -294,6 +334,8 @@ $.ajax({
         }).css("display", "flex")
     })
 
+
+    // Card click for detail
     $("#cards").on("click", ".card-user", function(){
         $("#popup").fadeIn(function(){
             $("body").addClass('no-scroll');
@@ -302,12 +344,29 @@ $.ajax({
 
         const ID = $(this).find(".id").text()
         $.get(`/api/v1/users/${ID}`, function(userData){
+            let SHOW_PHONE
+
             userData = decrypt(userData.r)
+
+            let paragraph = userData.summary.split("\n").join("</br>")
+
+            // CHACK CONFIGURATION
+            if(userData.config){
+                if(userData.config.show_phone == true){
+                    $("#popup-mobile").text(userData.mobile ? userData.mobile : "-")
+                }else{
+                    $("#popup-mobile").text("Tersembunyi")
+                }
+            }
+
+            $("#popup-headline").text(userData.headline)
+            $("#popup-summary").html(paragraph.length < 250 ? paragraph : paragraph.substring(0,250)+"..")
             $("#popup-username").text(`${userData.firstname} ${userData.lastname}`)
             $("#popup-domicile").text(userData.domicile ? userData.domicile : "-")
-            $("#popup-mobile").text(userData.mobile ? userData.mobile : "-")
             $("#popup-view").prop("href", `/profile/${userData.id}`)
             $("#popup-profile-pic").prop("src", userData.profile_picture)
+            $("#popup-yoe").text(`${userData.YoE} bulan`)
+            $("#popup-salary").text(userData.salary=="0" ? "Negotiable" : userData.salary)
 
             if(userData.socials){
                 if(userData.socials.twitter){
@@ -345,6 +404,54 @@ $.ajax({
     const decrypt = (data, keys='<%= process.env.AES_KEYS %>') => {
         let bytes = CryptoJS.AES.decrypt(data, keys)
         return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+    }
+
+
+
+    function getActiveUserCard(QUERY){
+        $.get(`/api/v1/users/active?keyword=${QUERY.keyword}&domicile=${QUERY.domicile}&YoE=${QUERY.YoE}&departement=${QUERY.departement}&university=${QUERY.university}&edu_type=${QUERY.edu_type}`, function(usersData){
+            usersData = decrypt(usersData.r)
+            console.log(usersData);
+            $("#cards").html("")
+            usersData.forEach(user => {
+                let SHOW_BIRTHDAY
+                let SHOW_PHONE
+                let SKILLS = user.skills.map(function(skill){
+                    return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill.length >= 14 ? skill.skill.substring(0,14)+".." : skill.skill}</button>`
+                })
+
+                let ACTIVE_SKILL = SKILLS.slice(0,3)
+                let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
+                $("#cards").append(`
+                    <div class="card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
+                        <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                            <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
+                        </div>
+                        <div class="w-full">
+                            <div class="mb-2 text-center lg:text-left">
+                                <p class="id" style="display:none">${user.id}</p>
+                                <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : user.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
+                                <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">${user.headline}</p>
+                            </div>
+                            <hr>
+                            <div class="pt-2">
+                                <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${user.YoE}</span>Bulan Pengalaman</p>
+                                <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag me-2"></i>${user.experiences.length > 0 ? user.experiences[0].exp_position + " di " + user.experiences[0].exp_orgname : "no experiences"}</p>
+                                <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_type + " - " + user.educations[0].edu_program : "No Education Added"}</span></p>
+                                <div class="flex gap-2 mt-3 flex-wrap">
+                                    ${ACTIVE_SKILL.join("")}
+                                    ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `)
+            });
+        })
+    }
+
+    function removeFromArray(arr, valueToRemove) {
+        return arr.filter(item => item !== valueToRemove);
     }
 
     function filterDataById(dataArray, excludeId) {

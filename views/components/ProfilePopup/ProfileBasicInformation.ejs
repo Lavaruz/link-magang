@@ -92,7 +92,7 @@
 
                 <div class="p-5 pb-40 lg:pb-6">
                     <p class="font-bold text-xl lg:text-lg text-main mb-3">Prefrensi Pekerjaan</p>
-                    <div class="lg:flex gap-5 mb-14">
+                    <div class="lg:flex gap-5">
                         <label class="block">
                             <span class="text-white-60 tracking-[1.4px] font-normal text-sm">STATUS PEKERJAAN*</span>
                             <select required id="popup-pref-status" name="work_pref_status" class="block border-2 border-gray-300 w-full lg:w-[300px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/40 text-black/80 focus:ring-white">
@@ -100,6 +100,12 @@
                                 <option value="WFH">Work From Home (WFH)</option>
                                 <option value="WFA">Work From Anywhere (WFA)</option>
                             </select>
+                        </label>
+                    </div>
+                    <div class="lg:flex gap-5 mb-14 pt-4">
+                        <label class="block">
+                            <span class="text-white-60 tracking-[1.4px] font-normal text-sm">EKSPEKTASI GAJI*</span>
+                            <input id="popup-salary" type="text" value="0" name="salary" class="block border-2 border-gray-300 w-full lg:w-[280px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder:text-black/40 text-black/80"/>
                         </label>
                     </div>
                     <div class="fixed lg:static left-0 bottom-0 flex gap-3 w-full lg:w-max lg:ms-auto lg:justify-end mt-8 lg:p-0 lg:pe-0 bg-[#2A2A2A] lg:bg-transparent">
@@ -151,6 +157,12 @@
         $("#image-input").addClass("hidden")
         $("#basic-input").removeClass("hidden")
     })
+
+    $('#popup-salary').on('input', function(e) {
+        let value = e.target.value.replace(/\D/g, ''); // Hanya menerima angka
+        value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'); // Format ribuan
+        $(this).val(value);
+    });
 
 
     $.get("/api/v1/users/pictures", function(picturesData){

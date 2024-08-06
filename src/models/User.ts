@@ -106,6 +106,10 @@ User.init(
       type: DataTypes.STRING,
       defaultValue: "WFO"
     },
+    salary: {
+      type: DataTypes.STRING,
+      defaultValue: "0"
+    },
   },
   {
     sequelize, // Instance Sequelize yang digunakan

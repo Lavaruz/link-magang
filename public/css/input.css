@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.invisible-scroll {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.invisible-scroll::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
