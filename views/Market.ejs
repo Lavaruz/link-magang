@@ -13,12 +13,12 @@
                         <button class="text-sm text-main/70 font-medium">CLEAR</button>
                     </div> 
                     <!-- <label for="" class="">SEARCH</label> -->
-                    <p class="ps-4 text-sm font-medium">BY BASIC INFORMATION ---</p>
+                    <p class="ps-4 text-sm font-medium">BY INFORMASI BASIC ---</p>
                     <input type="search" id="input-search" value="" class="block w-full px-4 py-3 rounded-lg font-medium text-sm text-gray-900 border border-gray-300 bg-white focus:ring-main focus:border-main" placeholder="Cari nama atau posisi" />
 
                     <!-- LOCATIONS -->
                     <div class="flex flex-col">
-                        <button type="button" id="dropdown-location" data-dropdown-toggle="dropdown-location-dd" data-dropdown-placement="bottom" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Lokasi <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <button type="button" id="dropdown-location" data-dropdown-toggle="dropdown-location-dd" data-dropdown-placement="right" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Lokasi <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                             </svg>
                         </button>
@@ -32,7 +32,7 @@
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                         </svg>
                                     </div>
-                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari lokadi">
+                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari institusi">
                                 </div>
                             </div>
                             <ul id="list-locations" class="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location">
@@ -42,37 +42,48 @@
                     </div>
                 </div>
                 <div class="pt-4 flex flex-col gap-4 w-full">
-                    <p class="ps-4 text-sm font-medium">BY EXPERIENCES ---</p>
+                    <p class="ps-4 text-sm font-medium">BY PENGALAMAN ---</p>
                     <select name="" id="" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
-                        <option value="" selected>YoE</option>
+                        <option value="" selected>Jumlah Pengalaman</option>
                         <option value="0">Tidak ada pengalaman</option>
                         <option value="12">Dibawah 12 bulan</option>
                         <option value="60">Dibawah 60 bulan/5 tahun</option>
                         <option value="999">Diatas 5 tahun</option>
                     </select>
-                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
-                        <option value="" selected>Departement</option>
-                    </select>
                 </div>
                 <div class="pt-4 flex flex-col gap-4 w-full">
-                    <p class="ps-4 text-sm font-medium">BY EDUCATIONS ---</p>
-                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-full border py-3 border-gray-300 focus:ring-main focus:border-main">
-                        <option value="" selected>University</option>
-                        <option value="Jobstreet">Jobstreet</option>
-                        <option value="Glints">Glints</option>
-                        <option value="Indeed">Indeed</option>
-                        <option value="Kalibrr">Kalibrr</option>
-                        <option value="Linkedin">Linkedin</option>
-                        <option value="Lainnya">Lainnya</option>
-                    </select>
-                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-full border py-3 border-gray-300 focus:ring-main focus:border-main">
-                        <option value="" selected>Education Type</option>
-                        <option value="Jobstreet">Jobstreet</option>
-                        <option value="Glints">Glints</option>
-                        <option value="Indeed">Indeed</option>
-                        <option value="Kalibrr">Kalibrr</option>
-                        <option value="Linkedin">Linkedin</option>
-                        <option value="Lainnya">Lainnya</option>
+                    <p class="ps-4 text-sm font-medium">BY PENDIDIKAN ---</p>
+                    <div class="flex flex-col">
+                        <button type="button" id="dropdown-institution" data-dropdown-toggle="dropdown-institution-dd" data-dropdown-placement="right" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Institusi <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="dropdown-institution-dd" class="border z-10 hidden bg-white rounded-lg shadow w-1/4 dark:bg-gray-700">
+                            <div class="p-3">
+                                <label for="input-group-search" class="sr-only">Search</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
+                                    </div>
+                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari institusi">
+                                </div>
+                            </div>
+                            <ul id="list-institutions" class="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location">
+                                <!-- HERE -->
+                            </ul>
+                        </div>
+                    </div>
+                    <select name="edu_type" id="" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                        <option value="" selected>Tingkat Pendidikan</option>
+                        <option value="s2">Pacasarjana (S2)</option>
+                        <option value="s1">Sarjana (S1)</option>
+                        <option value="sma">Sekolah Menengah Atas</option>
+                        <option value="smp">Sekolah Menengah Pertama</option>
+                        <option value="sd">Sekolah Dasar</option>
+                        <option value="bootcamp">Bootcamp</option>
                     </select>
                 </div>
             </form>
@@ -193,6 +204,9 @@
     $("body").addClass("overflow-hidden")
 
     let LOCATIONS = []
+    let INSTITUTION = []
+    let EDU_TYPE = []
+
     let QUERY = {
         keyword: ""
     }
@@ -242,6 +256,34 @@
             LOCATIONS.push(THIS_VAL)
         }else{
             LOCATIONS = removeFromArray(LOCATIONS, THIS_VAL)
+        }
+    })
+
+
+    $.get("/api/v1/users/info/educations", function(educationsData){
+        educationsData = decrypt(educationsData.r)
+        const allEducations = Array.from(new Set(educationsData.map(education => {
+            return education.edu_institution
+        })))
+        
+        allEducations.forEach(education => {
+            $("#list-institutions").append(`
+                <li>
+                    <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                        <input id="checkbox-${education}" type="checkbox" value="${education.toLowerCase()}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="checkbox-${education}" class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">${education}</label>
+                    </div>
+                </li>
+            `)
+        })
+    })
+
+    $("#dropdown-institution-dd").on("change", "input", function(){
+        const THIS_VAL = $(this).val()
+        if($(this).is(":checked")){
+            INSTITUTION.push(THIS_VAL)
+        }else{
+            INSTITUTION = removeFromArray(INSTITUTION, THIS_VAL)
         }
     })
 

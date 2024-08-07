@@ -347,6 +347,18 @@ export async function AddNewEducation(req:Request, res: Response){
     })
 }
 
+export async function GetAllUserEducations(req:Request, res: Response){
+    try {
+        const LOCATIONS = await Education.findAll({attributes: ["edu_institution"]})
+        
+        const encryptedData = encrypt(LOCATIONS)
+        return res.status(200).json(encryptedData)
+    } catch (error) {
+        console.error(error)
+        return res.status(200).json({message: error.message})
+    }
+}
+
 export async function UpdateEducationById(req:Request, res: Response){
     const userData = req.body
     const ID = req.params.id
