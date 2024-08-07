@@ -1,15 +1,16 @@
-<nav class="backdrop-blur-md bg-white/70 sticky top-0 z-20 noise">
-    <div class="w-[1100px] mx-auto flex items-center justify-between">
+<nav class="backdrop-blur-md bg-white/70 sticky top-0 z-20 noise py-6 px-[5%] lg:p-0">
+    <div class="lg:w-[1100px] mx-auto flex items-center justify-between">
         <div class="flex gap-20 items-center">
             <a href="/" class="font-bold text-2xl text-main flex items-center gap-2 tracking-wide">INSHIT</a>
-            <div class="flex items-center gap-10">
+            <div class="hidden lg:flex items-center gap-10">
                 <a href="/community" class="text-sm font-medium text-thrid hover:text-main">Community</a>
                 <a href="/market" class="text-sm font-medium text-thrid hover:text-main">Talent Hunt</a>
                 <a target="_blank" href="https://saweria.co/internshits" class="text-sm font-medium text-thrid hover:text-main">Donate us</a>
             </div>
         </div>
     
-        <div class="flex gap-4">
+        <!-- ON DESKTOP -->
+        <div class="hidden lg:flex gap-4">
             <div id="nav-profile" class="hidden flex items-center gap-8">
                 <a href="/profile/bookmark" title="Bookmark" class="group rounded-full flex items-center justify-center"><i class="group-hover:text-main uil uil-bookmark text-black/80 text-2xl"></i></a>
                 <a id="add-post" href="/posts/create" title="Add Post" class="hidden group rounded-full flex items-center justify-center"><i class="group-hover:text-main uil uil-file-plus-alt text-black/80 text-2xl"></i></a>
@@ -23,10 +24,13 @@
             </div>
             <button id="button-login" class="my-6 hover:shadow-md duration-300 py-1 px-6 text-main text-lg rounded-md font-medium hover:bg-main hover:text-background">Login</button>
         </div>
+
+        <!-- ON MOBILE -->
+        <i id="navbar-burger" class="uil uil-bars font-bold text-2xl lg:hidden cursor-pointer"></i>
     </div>
 </nav>
 
-<div id="popup-layer-navbar" class="hidden fixed top-0 bottom-0 right-0 left-0 bg-black/60 z-30 flex items-center justify-center">
+<div id="popup-layer-navbar" class="hidden fixed top-0 bottom-0 right-0 left-0 bg-black/60 z-30 flex items-end lg:items-center justify-center">
     <div id="popup-login" class="hidden w-1/3 bg-background noise rounded-md py-8 px-12 relative">
         <div class="text-center ">
             <p class="text-4xl font-bold text-main">Internshits</p>
@@ -45,6 +49,24 @@
         <button id="close-login" class="rounded-full w-10 h-10 flex items-center justify-center absolute top-0 right-0">
             <i class="uil uil-times text-xl"></i>
         </button>
+    </div>
+
+    <div id="popup-navbar" class="hidden w-full bg-background noise rounded-t-lg py-8 pb-12 px-12 relative">
+        <div class="">
+            <a href="/profile/me" class="my-4 flex flex-col text-center items-center gap-4 bg-white shadow-md py-3 noise rounded-lg px-4">
+                <div class="rounded-full w-9 h-9 bg-main flex items-center justify-center"><i class="uil uil-user-md text-xl text-white"></i></div>
+                <div class="">
+                    <p id="navbar-fullname" class="text-sm font-medium">Assami Muzaki</p>
+                    <p class="text-xs">Visit Profile</p>
+                </div>
+            </a>
+            <hr class="my-4">
+            <div class="flex flex-col gap-6 items-center pt-6">
+                <a href="" class="font-medium text-xl hover:text-main"><i class="uil uil-users-alt"></i> Community</a>
+                <a href="" class="font-medium text-xl hover:text-main"><i class="uil uil-hunting"></i> Talent Hunt</a>
+                <a href="" class="font-medium text-xl hover:text-main"><i class="uil uil-money-insert"></i> Donate Us</a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -121,6 +143,22 @@
                 $("#popup-login").slideToggle();
                 $("body").css("overflow", "hidden");
             }).css("display", "flex");
+        });
+
+        $("#navbar-burger").click(function(){
+            $("#popup-layer-navbar").fadeIn(function() {
+                $("#popup-navbar").slideToggle();
+                $("body").css("overflow", "hidden");
+            }).css("display", "flex");
+        })
+
+        $(document).on("click", function(event) {
+            // Jika yang diklik bukan bagian dari popup-navbar atau navbar-burger
+            if (!$(event.target).closest('#popup-navbar').length && !$(event.target).closest('#navbar-burger').length) {
+                $("#popup-navbar").slideUp();
+                $("#popup-layer-navbar").fadeOut();
+                $("body").css("overflow", "auto");
+            }
         });
 
         $("#close-login").click(function() {

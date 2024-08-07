@@ -200,7 +200,6 @@ export async function GoogleLoginHandler(req:Request, res: Response){
     if(!USER){
         const NEW_USER = await User.create({
             email: userData.email,
-            profile_picture: userData.picture,
             firstname: userData.given_name,
             lastname: userData.family_name
         })
