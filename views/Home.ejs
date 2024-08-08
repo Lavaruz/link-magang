@@ -2,12 +2,12 @@
 <%- include('./layouts/navbar-all'); -%>
 
 <main class="noise">
-    <div class="min-h-screen w-[1100px] mx-auto py-10 pb-20">
+    <div class="min-h-screen lg:w-[1100px] mx-auto py-10 pb-20 px-[5%] lg:px-0">
 
         <!-- HERO -->
-        <div class="my-6 grid grid-cols-6 items-center">
+        <div class="my-6 lg:grid grid-cols-6 items-center">
             <div class="col-span-4">
-                <p class="text-thrid text-[55px] font-bold">Cari <span class="text-main">Internship</span>mu</p>
+                <p class="text-thrid leading-tight text-[50px] lg:text-[55px] font-bold">Cari <span class="text-main">Internship</span>mu</p>
                 <p class="font-medium text-second/80 text-lg">dari semua penjuru platform</p>
                 <div class="flex items-center gap-4 mt-6 py-2 rounded-lg w-max">
                     <a href="https://glints.com/id/en"><img src="/img/Glints.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
@@ -30,12 +30,12 @@
         <!-- SEARCH BAR -->
         <div id="search-bar" class="mt-12">
             <form id="form-search-job" class="flex items-center gap-4">   
-                <div class="w-[32%] relative">
+                <div class="w-full lg:w-[32%] relative">
                     <input type="search" id="input-search" value="" class="block w-full p-4 py-3 ps-6 font-medium text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-main focus:border-main" placeholder="Cari posisi, perusahaan..." />
                     <button type="submit" class="text-white absolute end-2.5 bottom-2 bg-main hover:bg-main/90 focus:outline-none focus:ring-main font-medium rounded-full text-sm px-4 py-1.5"><i class="uil uil-search"></i></button>
                 </div>
                 <!-- <button class="text-2xl bg-white rounded-xl w-12 h-12 border-gray-300 border text-thrid"><i class="uil uil-sliders-v"></i></button> -->
-                <div class=" flex gap-2 ms-6">
+                <div class="hidden lg:flex gap-2 ms-6">
                     <div class="flex flex-col">
                         <button id="dropdown-type" data-dropdown-toggle="dropdown-type-dd" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">Filter Tipe <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
@@ -115,6 +115,9 @@
     
                     </div>
                 </div>
+
+                <!-- ON MOBILE -->
+                <i class="uil uil-sliders-v text-2xl lg:hidden cursor-pointer"></i>
             </form>
         </div>
 

@@ -289,6 +289,8 @@
         },
         success: async function (userData) {
             const data = decrypt(userData.r);
+            console.log(data);
+            
 
             // ACTIVE SEARCH VISIBILITY
             InitActivesearch(data)
@@ -671,6 +673,7 @@
         $("#popup-domicile").val(data.domicile ? data.domicile : "")
         $(`input[name=sex][value=${data.sex}]`).prop("checked",true);
         $("#popup-pref-status").val(data.work_pref_status)
+        $("#popup-salary").val(data.salary)
     }
 
     function InitSummary(data){
