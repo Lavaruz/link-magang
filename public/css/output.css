@@ -968,6 +968,10 @@ input[type="range"]::-ms-fill-lower {
   z-index: 40;
 }
 
+.z-\[999\] {
+  z-index: 999;
+}
+
 .col-span-2 {
   grid-column: span 2 / span 2;
 }
@@ -1339,10 +1343,6 @@ input[type="range"]::-ms-fill-lower {
   width: 1100px;
 }
 
-.w-\[32\%\] {
-  width: 32%;
-}
-
 .w-\[44px\] {
   width: 44px;
 }
@@ -1613,6 +1613,11 @@ input[type="range"]::-ms-fill-lower {
   border-radius: 0.75rem;
 }
 
+.rounded-b-2xl {
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
 .rounded-b-lg {
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
@@ -1641,16 +1646,6 @@ input[type="range"]::-ms-fill-lower {
 .rounded-t-2xl {
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-}
-
-.rounded-t-md {
-  border-top-left-radius: 0.375rem;
-  border-top-right-radius: 0.375rem;
-}
-
-.rounded-t-lg {
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
 }
 
 .border {
@@ -1830,10 +1825,6 @@ input[type="range"]::-ms-fill-lower {
   padding: 1.5rem;
 }
 
-.p-0 {
-  padding: 0px;
-}
-
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
@@ -1882,6 +1873,11 @@ input[type="range"]::-ms-fill-lower {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+.px-\[5\%\] {
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .py-0 {
@@ -1964,9 +1960,8 @@ input[type="range"]::-ms-fill-lower {
   padding-bottom: 2px;
 }
 
-.px-\[5\%\] {
-  padding-left: 5%;
-  padding-right: 5%;
+.pb-12 {
+  padding-bottom: 3rem;
 }
 
 .pb-20 {
@@ -2048,10 +2043,6 @@ input[type="range"]::-ms-fill-lower {
   padding-top: 1.25rem;
 }
 
-.pb-12 {
-  padding-bottom: 3rem;
-}
-
 .pt-6 {
   padding-top: 1.5rem;
 }
@@ -2091,8 +2082,8 @@ input[type="range"]::-ms-fill-lower {
   font-size: 32px;
 }
 
-.text-\[55px\] {
-  font-size: 55px;
+.text-\[50px\] {
+  font-size: 50px;
 }
 
 .text-base {
@@ -2118,14 +2109,6 @@ input[type="range"]::-ms-fill-lower {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-\[40px\] {
-  font-size: 40px;
-}
-
-.text-\[50px\] {
-  font-size: 50px;
 }
 
 .font-bold {
@@ -2158,10 +2141,6 @@ input[type="range"]::-ms-fill-lower {
 
 .leading-tight {
   line-height: 1.25;
-}
-
-.leading-none {
-  line-height: 1;
 }
 
 .tracking-\[1\.4px\] {
@@ -2507,6 +2486,11 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
   background-color: rgb(71 169 146 / 0.9);
 }
 
+.hover\:bg-red-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(224 36 36 / var(--tw-bg-opacity));
+}
+
 .hover\:text-background:hover {
   --tw-text-opacity: 1;
   color: rgb(238 238 238 / var(--tw-text-opacity));
@@ -2793,10 +2777,6 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
     position: static;
   }
 
-  .lg\:m-0 {
-    margin: 0px;
-  }
-
   .lg\:mx-0 {
     margin-left: 0px;
     margin-right: 0px;
@@ -2815,12 +2795,12 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
     margin-top: 0px;
   }
 
-  .lg\:mt-3 {
-    margin-top: 0.75rem;
-  }
-
   .lg\:mt-2 {
     margin-top: 0.5rem;
+  }
+
+  .lg\:mt-3 {
+    margin-top: 0.75rem;
   }
 
   .lg\:block {
@@ -2859,6 +2839,10 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
     width: 1036px;
   }
 
+  .lg\:w-\[1100px\] {
+    width: 1100px;
+  }
+
   .lg\:w-\[140px\] {
     width: 140px;
   }
@@ -2877,6 +2861,10 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
 
   .lg\:w-\[300px\] {
     width: 300px;
+  }
+
+  .lg\:w-\[32\%\] {
+    width: 32%;
   }
 
   .lg\:w-\[360px\] {
@@ -2904,20 +2892,12 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
     width: max-content;
   }
 
-  .lg\:w-\[1100px\] {
-    width: 1100px;
-  }
-
-  .lg\:w-\[32\%\] {
-    width: 32%;
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .lg\:grid-cols-\[1fr_\.6fr\] {
     grid-template-columns: 1fr .6fr;
-  }
-
-  .lg\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .lg\:flex-col {
@@ -2956,10 +2936,6 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
     --tw-divide-y-reverse: 0;
     border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
     border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
-  }
-
-  .lg\:justify-self-end {
-    justify-self: end;
   }
 
   .lg\:rounded-2xl {
@@ -3082,12 +3058,12 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
     text-align: right;
   }
 
+  .lg\:text-\[55px\] {
+    font-size: 55px;
+  }
+
   .lg\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
-  }
-
-  .lg\:text-\[55px\] {
-    font-size: 55px;
   }
 }
