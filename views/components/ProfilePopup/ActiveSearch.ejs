@@ -9,40 +9,40 @@
         <form id="form-edit-active-information" class="relative">
             <div class="divide-y divide-header pb-40 lg:pb-0">
                 <div class="p-5">
-                    <button type="button" class="lg:hidden my-4 mb-6 flex items-center gap-2 close-x text-teal-100 font-second text-base"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <mask id="mask0_50_1377" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
-                          <rect width="24" height="24" fill="#D9D9D9"/>
-                        </mask>
-                        <g mask="url(#mask0_50_1377)">
-                          <path d="M7.825 13L13.425 18.6L12 20L4 12L12 4L13.425 5.4L7.825 11H20V13H7.825Z" fill="#3DD1DB"/>
-                        </g>
-                      </svg> Back to Your Profie
+                    <button type="button" class="lg:hidden my-4 mb-6 flex items-center gap-2 close-x text-main font-medium font-second text-base">
+                        <i class="uil uil-arrow-left"></i> Kembali ke Profil
                     </button>
                     <p class="font-bold text-lg text-main mb-1">Visibilitas Talent Hunt</p>
                     <p class="text-black/80 text-sm font-second font-medium">Mendeklarasikan dirimu aktif di talent hunt artinya profilmu akan dapat dikunjungi, dan dilihat oleh orang lain.</p>
                     <p class="text-red-500 text-xs font-second font-medium mt-2">*Visbilitas akan menjadi nonaktif, setiap kamu melakukan update profile</p>
                 </div>
-                <div class="divide-y divide-header px-5 pb-6 flex flex-col items-center">
+                <div class="lg:hidden gap-6 p-5">
+                    <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i id="active-profile-picture" class="uil uil-times text-lg text-red-500"></i>Tambahkan Foto Profile</button>
+                    <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i id="active-profile-skills" class="uil uil-times text-lg text-red-500"></i>Tambahkan Keahlian</button>
+                    <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i id="active-educations" class="uil uil-times text-lg text-red-500"></i>Tambahkan Pendidikan</button>
+                    <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i id="active-cv" class="uil uil-times text-lg text-red-500"></i>Tambahkan Curriculum Vitae (CV)</button>
+                </div>
+                <div class="divide-y divide-header px-5 pb-6 flex flex-col lg:items-center">
                     <div class="my-6">
-                        <div class="flex flex-col items-center">
+                        <div class="flex flex-col lg:items-center">
                             <label class="relative block inline-flex items-center cursor-pointer">
                                 <input id="show-birthday" name="show_birthday" type="checkbox" value="" class="sr-only peer">
                                 <div class="w-11 h-6 bg-red-500 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                                 <span id="active-search-status" class="ml-2 text-green-500 font-second text-sm font-semibold">Perlihatkan <span class="font-bold text-red-500">Tanggal Lahir</span>.</span>
                             </label>
                         </div>
-                        <div class="flex flex-col items-center mt-4">
+                        <div class="flex flex-col lg:items-center mt-4">
                             <label class="relative block inline-flex items-center cursor-pointer">
                                 <input id="show-phone" name="show_phone" type="checkbox" value="" class="sr-only peer">
                                 <div class="w-11 h-6 bg-red-500 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                                 <span id="active-search-status" class="ml-2 text-green-500 font-second text-sm font-semibold">Perlihatkan <span class="font-bold text-red-500">Nomor Handphone</span>.</span>
                             </label>
                         </div>
-                        <button id="declare-active-search" disabled class="disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 mt-6">Aktifkan kartu Talent Hunt</button>
-                        <button id="stop-active-search" class="disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-red-600 text-white rounded-lg text-sm py-2 px-4 mt-6">Berhenti menampilkan kartu</button>
+                        <button id="declare-active-search" disabled class="w-full lg:w-max disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-main text-white rounded-lg text-sm py-4 lg:py-2 px-4 mt-6">Aktifkan kartu Talent Hunt</button>
+                        <button id="stop-active-search" class="w-full lg:w-max disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-red-600 text-white rounded-lg text-sm py-4 lg:py-2 px-4 mt-6">Berhenti menampilkan kartu</button>
                         <p id="visibilitas-desc" class="text-black/60 text-xs mt-1 text-center">*Lengkapi profilmu untuk sebelum mengaktifkan visibilitas</p>
                     </div>
-                    <div class="flex gap-6 pt-5">
+                    <div class="hidden lg:flex gap-6 pt-5">
                         <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i id="active-profile-picture" class="uil uil-times text-lg text-red-500"></i>Tambahkan Foto Profile</button>
                         <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i id="active-profile-skills" class="uil uil-times text-lg text-red-500"></i>Tambahkan Keahlian</button>
                         <button class="text-main text-sm font-medium text-left flex items-center gap-2"><i id="active-educations" class="uil uil-times text-lg text-red-500"></i>Tambahkan Pendidikan</button>
