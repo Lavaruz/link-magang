@@ -1,11 +1,11 @@
 <%- include('./layouts/header'); -%>
 <%- include('./layouts/navbar-all'); -%>
 
-<main class="noise pb-20">
-    <div class="w-full grid grid-cols-10">
+<main class="noise">
+    <div class="w-full grid lg:grid-cols-10">
 
         <!-- SIDEBAR -->
-        <div class="col-span-2 border-r-2 pb-28 overflow-y-scroll h-screen">
+        <div class="lg:col-span-2 border-r-2 pb-28 lg:overflow-y-scroll lg:h-screen hidden lg:block">
             <form id="form-market-filter" class="flex flex-col items-center gap-4 divide-y divide-gray-300 py-6 px-4">
                 <div class="w-full flex flex-col gap-4 w-full">
                     <div class="pb-4 flex justify-between w-full">
@@ -35,7 +35,7 @@
                                     <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari institusi">
                                 </div>
                             </div>
-                            <ul id="list-locations" class="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location">
+                            <ul class="list-locations h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location">
                                 <!-- HERE -->
                             </ul>
                         </div>
@@ -71,7 +71,7 @@
                                     <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari institusi">
                                 </div>
                             </div>
-                            <ul id="list-institutions" class="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location">
+                            <ul class="list-institutions h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location">
                                 <!-- HERE -->
                             </ul>
                         </div>
@@ -90,14 +90,14 @@
         </div>
 
         <!-- CARDS -->
-        <div class="col-span-8 px-14 pb-40 overflow-y-scroll h-screen">
+        <div class="lg:col-span-8 px-[5%] lg:px-14 pb-40 overflow-y-scroll h-screen">
             <div id="on-login" class="hidden">
                 <div class="py-4">
                     <p class="text-2xl font-medium text-main">Kartu Kamu</p>
                 </div>
                 <hr class="border-gray-300 pt-4 pb-4">
                 <!-- CARD -->
-                <div class="grid grid-cols-2 gap-6">
+                <div class="grid lg:grid-cols-2 gap-6">
 
                     <div id="my-profile">
                         <!-- HERE -->
@@ -121,13 +121,13 @@
             </div>
 
             
-            <div class="flex justify-between items-center py-4">
+            <div class="flex justify-between items-center py-4 mt-10 lg:mt-0">
                 <p class="text-2xl font-medium text-main">Menampilkan 40 Talent</p>
-                <button class="shadow-md w-10 rounded-full h-10 bg-main text-white font-medium"><i class="uil uil-sliders-v"></i></button>
+                <button id="button-filter" class="shadow-md w-10 rounded-full h-10 bg-main text-white font-medium"><i class="uil uil-sliders-v"></i></button>
             </div>
             <hr class="border-gray-300">
             <!-- <p class="text-2xl font-medium">Showing 40 Talent</p> -->
-            <div id="cards" class="grid grid-cols-2 gap-4 mt-8">
+            <div id="cards" class="grid lg:grid-cols-2 gap-4 mt-8">
                 <!-- CARD -->
             </div>
         </div>
@@ -135,9 +135,9 @@
 </main>
 
 <!-- POPUP USER -->
-<div id="popup" class="hidden fixed top-0 bottom-0 right-0 left-0 bg-black/60 z-30 flex items-center justify-center">
-    <div id="popup-user" class="hidden w-1/3 bg-background noise rounded-2xl relative overflow-hidden">
-        <div class="h-[90vh] overflow-y-scroll w-full px-12 py-8">
+<div id="popup" class="hidden fixed top-0 bottom-0 right-0 left-0 bg-black/60 z-30 flex items-end lg:items-center justify-center">
+    <div id="popup-user" class="hidden popup w-full lg:w-1/3 bg-background noise rounded-2xl relative overflow-hidden">
+        <div class="h-[90vh] overflow-y-scroll w-full px-[5%] lg:px-12 py-8">
             <div class="text-center flex flex-col items-center justify-center">
                 <div class="w-[90px] h-[90px] min-w-[90px] min-h-[90px] rounded-full overflow-hidden mx-auto lg:mx-0">
                     <img id="popup-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
@@ -184,6 +184,10 @@
                         <p id="popup-yoe" class="font-bold text-sm mt-2 text-black/70"></p>
                     </div>
                 </div>
+                <div class="text-center mt-4">
+                    <p class="text-xs text-black/60 font-medium">PREFRENSI PEKERJAAN</p>
+                    <p id="popup-work-pref" class="font-bold text-sm mt-2 text-black/70">Work From Office</p>
+                </div>
             </div>
     
             <hr class="my-4">
@@ -192,6 +196,97 @@
                 <a id="popup-view" class="text-sm text-white font-medium bg-main mx-auto w-full py-2.5 rounded-lg flex justify-center">View More Detail</a>
                 <button class="close-x text-sm text-main font-medium mx-auto w-full py-2 rounded-lg">Tutup</button>
             </div>
+        </div>
+    </div>
+
+    <div id="popup-filter" class="hidden popup w-full rounded-t-2xl bg-background overflow-hidden">
+        <div class="h-[88vh] p-5 overflow-y-scroll">
+            <button type="button" class="lg:hidden my-4 mb-6 flex items-center gap-2 close-x text-main font-medium text-base">
+                <i class="uil uil-arrow-left"></i> Kembali ke Talent Hunt
+            </button>
+    
+            <div class="flex justify-between">
+                <p class="text-main font-bold text-2xl mt-4">Filter Talent</p>
+                <button class="text-sm text-main/70 font-medium">CLEAR</button>
+            </div>
+    
+            <form id="form-market-filter" class="flex flex-col items-center gap-4 divide-y divide-gray-300 py-6">
+                <div class="w-full flex flex-col gap-4 w-full">
+                    <!-- <label for="" class="">SEARCH</label> -->
+                    <p class="ps-4 text-sm font-medium">BY INFORMASI BASIC ---</p>
+                    <input type="search" id="input-search" value="" class="block w-full px-4 py-3 rounded-lg font-medium text-sm text-gray-900 border border-gray-300 bg-white focus:ring-main focus:border-main" placeholder="Cari nama atau posisi" />
+    
+                    <!-- LOCATIONS -->
+                    <div class="flex flex-col">
+                        <button type="button" id="dropdown-location-mobile" data-dropdown-toggle="dropdown-location-dd-mobile" data-dropdown-placement="bottom" class="justify-between bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Lokasi <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="dropdown-location-dd-mobile" class="w-[88%] border z-10 hidden bg-white rounded-lg shadow w-1/4 dark:bg-gray-700">
+                            <div class="p-3">
+                                <label for="input-group-search" class="sr-only">Search</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
+                                    </div>
+                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari lokasi">
+                                </div>
+                            </div>
+                            <ul class="list-locations h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location-mobile">
+                                <!-- HERE -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-4 flex flex-col gap-4 w-full">
+                    <p class="ps-4 text-sm font-medium">BY PENGALAMAN ---</p>
+                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                        <option value="" selected>Jumlah Pengalaman</option>
+                        <option value="0">Tidak ada pengalaman</option>
+                        <option value="12">Dibawah 12 bulan</option>
+                        <option value="60">Dibawah 60 bulan/5 tahun</option>
+                        <option value="999">Diatas 5 tahun</option>
+                    </select>
+                </div>
+                <div class="pt-4 flex flex-col gap-4 w-full">
+                    <p class="ps-4 text-sm font-medium">BY PENDIDIKAN ---</p>
+                    <div class="flex flex-col">
+                        <button type="button" id="dropdown-institution-mobile" data-dropdown-toggle="dropdown-institution-dd-mobile" data-dropdown-placement="bottom" class="justify-between bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Institusi <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="dropdown-institution-dd-mobile" class="w-[88%] border z-10 hidden bg-white rounded-lg shadow w-1/4 dark:bg-gray-700">
+                            <div class="p-3">
+                                <label for="input-group-search" class="sr-only">Search</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                        </svg>
+                                    </div>
+                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari institusi">
+                                </div>
+                            </div>
+                            <ul class="list-institutions h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-institution-mobile">
+                                <!-- HERE -->
+                            </ul>
+                        </div>
+                    </div>
+                    <select name="edu_type" id="" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                        <option value="" selected>Tingkat Pendidikan</option>
+                        <option value="Pacasarjana (S2)">Pacasarjana (S2)</option>
+                        <option value="Sarjana (S1)">Sarjana (S1)</option>
+                        <option value="Sekolah Menengah Atas">Sekolah Menengah Atas</option>
+                        <option value="Sekolah Menengah Pertama">Sekolah Menengah Pertama</option>
+                        <option value="Sekolah Dasar">Sekolah Dasar</option>
+                        <option value="Bootcamp">Bootcamp</option>
+                    </select>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -239,7 +334,7 @@
             return location.domicile
         })))
         allLocation.forEach(location => {
-            $("#list-locations").append(`
+            $(".list-locations").append(`
                 <li>
                     <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                         <input id="checkbox-${location}" type="checkbox" value="${location.toLowerCase()}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
@@ -250,7 +345,7 @@
         })
     })
 
-    $("#dropdown-location-dd").on("change", "input", function(){
+    $("#dropdown-location-dd, #dropdown-location-dd-mobile").on("change", "input", function(){
         const THIS_VAL = $(this).val()
         if($(this).is(":checked")){
             LOCATIONS.push(THIS_VAL)
@@ -267,7 +362,7 @@
         })))
         
         allEducations.forEach(education => {
-            $("#list-institutions").append(`
+            $(".list-institutions").append(`
                 <li>
                     <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                         <input id="checkbox-${education}" type="checkbox" value="${education.toLowerCase()}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
@@ -278,7 +373,7 @@
         })
     })
 
-    $("#dropdown-institution-dd").on("change", "input", function(){
+    $("#dropdown-institution-dd, #dropdown-institution-dd-mobile").on("change", "input", function(){
         const THIS_VAL = $(this).val()
         if($(this).is(":checked")){
             INSTITUTION.push(THIS_VAL)
@@ -326,12 +421,12 @@
                     let isActive = userData.active_search == false ? `<p class="bg-red-500/90 text-xs px-4 text-white py-0.5">INACTIVE</p>` : `<p class="bg-green-500/90 text-xs px-4 text-white py-0.5">ACTIVE</p>`
 
                     $("#my-profile").append(`
-                        <div class="card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
+                        <div class="card-user flex flex-col lg:flex-row self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
                             <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
                                 <img id="basic-profile-pic" src="${userData.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
                             </div>
                             <div class="w-full">
-                                <div class="flex items-start justify-between">
+                                <div class="flex items-center lg:items-start flex-col-reverse lg:flex-row justify-between">
                                     <div class="mb-2 text-center lg:text-left">
                                         <p class="id" style="display:none">${userData.id}</p>
                                         <p id="basic-fullname" class="font-bold text-xl text-main">${userData.firstname} ${userData.lastname} ${userData.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : userData.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
@@ -376,6 +471,12 @@
         }).css("display", "flex")
     })
 
+    $("#button-filter").click(function(){
+        $("#popup").fadeIn(function(){
+            $("#popup-filter").slideToggle()
+            $("body").addClass('no-scroll');
+        }).css("display", "flex")
+    })
 
     // Card click for detail
     $("#cards").on("click", ".card-user", function(){
@@ -436,10 +537,10 @@
     })
 
     $(".close-x").click(function(){
-        $("#popup-user").slideToggle(function(){
-            $("body").removeClass('no-scroll');
-            $("#popup").fadeOut()
+        $(this).closest('.popup').slideToggle(function(){
+            $(this).closest('#popup').fadeOut()
         })
+        $("body").removeClass('no-scroll');
     })
 
     
@@ -453,7 +554,6 @@
     function getActiveUserCard(QUERY){
         $.get(`/api/v1/users/active?keyword=${QUERY.keyword}&domicile=${QUERY.domicile}&YoE=${QUERY.YoE}&departement=${QUERY.departement}&university=${QUERY.university}&edu_type=${QUERY.edu_type}`, function(usersData){
             usersData = decrypt(usersData.r)
-            console.log(usersData);
             $("#cards").html("")
             usersData.forEach(user => {
                 let SHOW_BIRTHDAY
@@ -465,15 +565,20 @@
                 let ACTIVE_SKILL = SKILLS.slice(0,3)
                 let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
                 $("#cards").append(`
-                    <div class="card-user flex self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
-                        <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                    <div class="card-user flex flex-col lg:flex-row self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
+                        <div class="hidden lg:block w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
                             <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
                         </div>
                         <div class="w-full">
-                            <div class="mb-2 text-center lg:text-left">
-                                <p class="id" style="display:none">${user.id}</p>
-                                <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : user.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
-                                <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">${user.headline}</p>
+                            <div class="flex items-center gap-2 pb-4">
+                                <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                                    <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
+                                </div>
+                                <div class="mb-2">
+                                    <p class="id" style="display:none">${user.id}</p>
+                                    <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : user.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
+                                    <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">${user.headline}</p>
+                                </div>
                             </div>
                             <hr>
                             <div class="pt-2">
