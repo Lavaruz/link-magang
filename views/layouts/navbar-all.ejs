@@ -145,6 +145,8 @@
         });
 
         $.when(userInfoRequest).done(function(userData) {
+            userData = decrypt(userData.r);
+            
             if (userData && userData.role < 2) {
                 $("#add-post").removeClass("hidden");
             }

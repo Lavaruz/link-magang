@@ -2,14 +2,14 @@
 <%- include('./layouts/navbar-all'); -%>
 
 <main class="noise">
-    <div class="min-h-screen lg:w-[1100px] mx-auto py-10 pb-20 px-[5%] lg:px-0">
+    <div class="min-h-screen lg:w-[1100px] mx-auto py-6 lg:py-10 pb-20 px-[5%] lg:px-0">
 
         <!-- HERO -->
         <div class="my-6 lg:grid grid-cols-6 items-center">
             <div class="col-span-4">
-                <p class="text-thrid leading-tight text-[50px] lg:text-[55px] font-bold">Cari <span class="text-main">Internship</span>mu</p>
-                <p class="font-medium text-second/80 text-lg">dari semua penjuru platform</p>
-                <div class="flex items-center gap-4 mt-6 py-2 rounded-lg w-max">
+                <p class="text-thrid leading-tight text-[40px] text-center lg:text-left lg:text-[55px] font-bold">Cari <span class="text-main">Internship</span>mu</p>
+                <p class="font-medium text-second/80 text-lg text-center lg:text-left">dari semua penjuru platform</p>
+                <div class="flex items-center mx-auto lg:mx-0 gap-4 mt-6 py-2 rounded-lg w-max">
                     <a href="https://glints.com/id/en"><img src="/img/Glints.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
                     <a href="https://id.indeed.com/"><img src="/img/Indeed.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
                     <a href="https://www.jobstreet.co.id/"><img src="/img/Jobstreet.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <div class="col-span-2 mt-8 gap-4">
+            <div class="hidden lg:block col-span-2 mt-8 gap-4">
                 <div class="bg-white/80 w-max ms-auto px-6 py-6 text-thrid border-2 shadow-md rounded-2xl font-medium">
                     <p class="flex items-center gap-3"><i class="uil uil-postcard text-2xl"></i><span class="total-post text-2xl font-semibold">0</span>pekerjaan ditemukan</p>
                 </div>
@@ -122,7 +122,7 @@
         </div>
 
         <!-- Kalau post lebih dari 0, AKA ada post di list -->
-        <div id="cards" class="grid grid-cols-3 mt-8 gap-4">
+        <div id="cards" class="grid lg:grid-cols-3 mt-8 gap-4">
             <!-- CARD HERE -->
         </div>
 
@@ -229,7 +229,6 @@
 
                 if(postData.overview !== null){
                     let paragraph = postData.overview.split("\n")
-                    console.log(paragraph);
                     $("#popup-overview").html(paragraph.join("</br>"))
                 }else{
                     $("#popup-overview").text("Tidak ada overview ditampilkan ~")
