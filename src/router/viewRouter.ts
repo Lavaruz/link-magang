@@ -23,6 +23,14 @@ router.get("/profile/me", (req: Request, res: Response, next) => {
   }
 });
 
+router.get("/profile/:id", (req: Request, res: Response, next) => {
+  try {
+    return res.render("Profile-Guest", {AES_KEYS: process.env.AES_KEYS})
+  } catch (error) {
+    return res.send(error);
+  }
+});
+
 router.get("/profile/bookmark", (req: Request, res: Response, next) => {
   try {
     return res.render("Bookmark", {AES_KEYS: process.env.AES_KEYS})

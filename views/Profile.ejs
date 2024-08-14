@@ -315,6 +315,8 @@
         },
         success: async function (userData) {
             const data = decrypt(userData.r);
+            document.title = `Profile ${data.firstname} ${data?.lastname}`            
+
 
             // ACTIVE SEARCH VISIBILITY
             InitActivesearch(data)

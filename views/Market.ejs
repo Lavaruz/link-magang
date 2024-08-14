@@ -122,7 +122,7 @@
 
             
             <div class="flex justify-between items-center py-4 mt-10 lg:mt-0">
-                <p class="text-2xl font-medium text-main">Menampilkan 40 Talent</p>
+                <p class="text-2xl font-medium text-main">Menampilkan <span id="total-active-user">0</span> Talent</p>
                 <button id="button-filter" class="shadow-md w-10 rounded-full h-10 bg-main text-white font-medium"><i class="uil uil-sliders-v"></i></button>
             </div>
             <hr class="border-gray-300">
@@ -193,7 +193,7 @@
             <hr class="my-4">
     
             <div class="flex flex-col gap-2">
-                <a id="popup-view" class="text-sm text-white font-medium bg-main mx-auto w-full py-2.5 rounded-lg flex justify-center">View More Detail</a>
+                <a id="popup-view" target="_blank" class="text-sm text-white font-medium bg-main mx-auto w-full py-2.5 rounded-lg flex justify-center gap-2"><i class="uil uil-external-link-alt"></i> View More Detail</a>
                 <button class="close-x text-sm text-main font-medium mx-auto w-full py-2 rounded-lg">Tutup</button>
             </div>
         </div>
@@ -297,6 +297,7 @@
 <script>
 
     $("body").addClass("overflow-hidden")
+    document.title = `Talent Hunting di Internshits!`            
 
     let LOCATIONS = []
     let INSTITUTION = []
@@ -554,6 +555,9 @@
     function getActiveUserCard(QUERY){
         $.get(`/api/v1/users/active?keyword=${QUERY.keyword}&domicile=${QUERY.domicile}&YoE=${QUERY.YoE}&departement=${QUERY.departement}&university=${QUERY.university}&edu_type=${QUERY.edu_type}`, function(usersData){
             usersData = decrypt(usersData.r)
+
+            $("#total-active-user").text(usersData.length)
+
             $("#cards").html("")
             usersData.forEach(user => {
                 let SHOW_BIRTHDAY
@@ -571,7 +575,7 @@
                         </div>
                         <div class="w-full">
                             <div class="flex items-center gap-2 pb-4">
-                                <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                                <div class="lg:hidden w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
                                     <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
                                 </div>
                                 <div class="mb-2">
