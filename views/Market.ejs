@@ -451,8 +451,8 @@
                                 <hr>
                                 <div class="pt-2">
                                     <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${userData.YoE}</span>Bulan Pengalaman Kerja</p>
-                                    <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag me-2"></i>${userData.experiences.length > 0 ? userData.experiences[0].exp_position + " di " + userData.experiences[0].exp_orgname : "no experiences"}</p>
-                                    <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${userData.educations.length > 0 ? userData.educations[0].edu_type + " - " + userData.educations[0].edu_program : "No Education Added"}</span></p>
+                                    <p class="text-sm flex items-center"><i class="uil uil-bag"></i><span class="ms-2">${userData.educations.length > 0 ? userData.educations[0].edu_type + " - " + userData.educations[0].edu_program : "No Education Added"}</span></p>
+                                <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${userData.educations.length > 0 ? userData.educations[0].edu_institution : "No Education Added"}</span></p>
                                     <div class="flex gap-2 mt-3 flex-wrap">
                                         ${ACTIVE_SKILL.join("")}
                                         ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
@@ -606,8 +606,8 @@
                             <hr>
                             <div class="pt-2">
                                 <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${user.YoE}</span>Bulan Pengalaman Kerja</p>
-                                <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag me-2"></i>${user.experiences.length > 0 ? user.experiences[0].exp_position + " di " + user.experiences[0].exp_orgname : "no experiences"}</p>
-                                <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_type + " - " + user.educations[0].edu_program : "No Education Added"}</span></p>
+                                <p class="text-sm flex items-center"><i class="uil uil-bag"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_type + " - " + user.educations[0].edu_program : "No Education Added"}</span></p>
+                                <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_institution : "No Education Added"}</span></p>
                             </div>
                         </div>
                     </div>
