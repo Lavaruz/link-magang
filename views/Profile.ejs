@@ -187,6 +187,10 @@
 
         <div class="hidden lg:flex flex-col gap-3">
 
+            <div class="">
+                <a href="" target="_blank" class="preview block flex items-center justify-center bg-main text-white font-medium text-sm py-3 w-full rounded-lg gap-2"><i class="uil uil-external-link-alt"></i> Lihat profil dipublik</a>
+            </div>
+
             <!-- ATTACHMENT -->
             <div class="attachments bg-white border-main border-2 noise rounded-2xl p-4 pb-6 shadow-md">
                 <div class="w-100 flex items-center justify-between rounded-t-2xl">
@@ -315,7 +319,8 @@
         },
         success: async function (userData) {
             const data = decrypt(userData.r);
-            document.title = `Profile ${data.firstname} ${data?.lastname}`            
+            document.title = `Profil saya di Internshits`   
+            $(".preview").prop("href", `/profile/${data.id}`)         
 
 
             // ACTIVE SEARCH VISIBILITY
@@ -949,6 +954,7 @@
 
     function InitSkills(data){
         if(data.length > 0){
+            $("#active-skills").html("")
             $("#on-skills").removeClass("hidden")
             $("#on-skills").html("")
             $("#off-skills").addClass("hidden")

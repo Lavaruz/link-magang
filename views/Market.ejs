@@ -90,10 +90,10 @@
         </div>
 
         <!-- CARDS -->
-        <div class="lg:col-span-8 px-[5%] lg:px-14 pb-40 overflow-y-scroll h-screen">
+        <div class="lg:col-span-8 px-[5%] lg:px-10 pb-40 overflow-y-scroll h-screen">
             <div id="on-login" class="hidden">
                 <div class="py-4">
-                    <p class="text-2xl font-medium text-main">Kartu Kamu</p>
+                    <p class="text-2xl font-medium text-main"><i class="uil uil-card-atm"></i> Kartu Kamu</p>
                 </div>
                 <hr class="border-gray-300 pt-4 pb-4">
                 <!-- CARD -->
@@ -122,12 +122,12 @@
 
             
             <div class="flex justify-between items-center py-4 mt-10 lg:mt-0">
-                <p class="text-2xl font-medium text-main">Menampilkan <span id="total-active-user">0</span> Talent</p>
-                <button id="button-filter" class="shadow-md w-10 rounded-full h-10 bg-main text-white font-medium"><i class="uil uil-sliders-v"></i></button>
+                <p class="text-2xl font-medium text-main"><i class="uil uil-user-md"></i> Menampilkan <span id="total-active-user">0</span> Talent</p>
+                <button id="button-filter" class="lg:hidden shadow-md w-10 rounded-full h-10 bg-main text-white font-medium"><i class="uil uil-sliders-v"></i></button>
             </div>
             <hr class="border-gray-300">
             <!-- <p class="text-2xl font-medium">Showing 40 Talent</p> -->
-            <div id="cards" class="grid lg:grid-cols-2 gap-4 mt-8">
+            <div id="cards" class="grid lg:grid-cols-3 gap-4 mt-8">
                 <!-- CARD -->
             </div>
         </div>
@@ -566,22 +566,23 @@
                     return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill.length >= 14 ? skill.skill.substring(0,14)+".." : skill.skill}</button>`
                 })
 
-                let ACTIVE_SKILL = SKILLS.slice(0,3)
+                let ACTIVE_SKILL = SKILLS.slice(0,2)
                 let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
                 $("#cards").append(`
                     <div class="card-user flex flex-col lg:flex-row self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
-                        <div class="hidden lg:block w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                            <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
-                        </div>
                         <div class="w-full">
-                            <div class="flex items-center gap-2 pb-4">
-                                <div class="lg:hidden w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                            <div class="flex items-center gap-2 pb-2.5">
+                                <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
                                     <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
                                 </div>
                                 <div class="mb-2">
                                     <p class="id" style="display:none">${user.id}</p>
                                     <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : user.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
                                     <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">${user.headline}</p>
+                                    <div class="flex gap-2 mt-3 flex-wrap">
+                                        ${ACTIVE_SKILL.join("")}
+                                        ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -589,10 +590,6 @@
                                 <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${user.YoE}</span>Bulan Pengalaman</p>
                                 <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag me-2"></i>${user.experiences.length > 0 ? user.experiences[0].exp_position + " di " + user.experiences[0].exp_orgname : "no experiences"}</p>
                                 <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_type + " - " + user.educations[0].edu_program : "No Education Added"}</span></p>
-                                <div class="flex gap-2 mt-3 flex-wrap">
-                                    ${ACTIVE_SKILL.join("")}
-                                    ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
-                                </div>
                             </div>
                         </div>
                     </div>

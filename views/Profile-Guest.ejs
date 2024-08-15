@@ -57,10 +57,7 @@
                 </div>
                 <div id="profile-summary" class="w-full p-5 pb-6 noise bg-white border-2 lg:border-0 border-header lg:rounded-b-2xl">
                     <div id="off-summary" class="text-center">
-                        <p class="font-bold text-base text-main mb-3">Tulis ringkasan profil kamu disini!</p>
-                        <p class="font-second text-black/80 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2">Ini kesempatan bagus untuk menunjukan siapa diri kamu secara ringkas, sehingga orang lain mendapatkan gambaran tentang dirimu.</p>
-                        <button id="button-profile-summary" class="flex items-center gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 m-auto mt-4">Tambahkan ringkasan profil
-                        </button>
+                        <p class="font-second text-black/80 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2 italic">User ini belum menambahkan ringkasan profile.</p>
                     </div>
                     <div id="on-summary" class="">
                         <p id="profile-summary-text"></p>
@@ -107,9 +104,7 @@
                 </div>
                 <div id="experiences" class="w-full px-5 bg-white noise lg:rounded-none lg:rounded-2xl lg:rounded-b-2xl border-2 lg:border-0 border-header">
                     <div id="off-experiences" class="py-5 pb-6 text-center">
-                        <p class="font-bold text-base text-main mb-3">Tambahkan pengalaman kamu disini!</p>
-                        <p class="font-second text-black/80 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2">Pengalaman merupakan jantung dari portfoliomu. Kamu dapat menambahkan pengalaman internship, parttime, fulltime, hingga pengalaman organisasi!</p>
-                        <button id="button-experiences" class="flex items-center gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 m-auto mt-4">Tambahkan Pengalaman</button>
+                        <p class="font-second text-black/80 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2 italic">User ini belum menambahkan pengalaman miliknya</p>
                     </div>
                     <div id="on-experiences" class="hidden flex flex-col gap-4 pb-4 divide-y divide-gray-300">
                         
@@ -124,9 +119,7 @@
                 </div>
                 <div id="educations" class="w-full px-5 bg-white noise lg:rounded-none lg:rounded-2xl lg:rounded-b-2xl border-2 lg:border-0 border-header">
                     <div id="off-educations" class="text-center py-5">
-                        <p class="font-bold text-base text-main mb-3">Tambahkan pendidikanmu disini!</p>
-                        <p class="font-second text-black/80 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2">Pendidikan dapat meningkatkan kapabilitas kamu di mata orang lain, beri tau semua orang apa yang kamu bisa!</p>
-                        <button id="button-education" class="flex items-center gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 m-auto mt-4">Tambahkan pendidikan</button>
+                        <p class="font-second text-black/80 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2 italic">User ini belum menambahkan pendidikan miliknya!</p>
                     </div>
                     <div id="on-educations" class="hidden flex flex-col gap-4 pb-4 divide-y divide-gray-300">
                         
@@ -143,10 +136,9 @@
                     <p class="text-main flex items-center gap-2"><i class="uil uil-basketball"></i> KEAHLIAN</p>
                 </div>
                 <div id="profile-skills" class="w-full px-4 pb-6 noise bg-white border-2 lg:border-0 border-header lg:rounded-b-2xl">
-                    <div id="off-skills" class="text-center">
-                        <p class="font-bold text-base text-main mb-3">Tambahkan keahlian terbaikmu disini!</p>
-                        <p class="font-second text-black/80 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2">Keahlian yang kamu tambahkan, dapat membantu kami memberikan rekomondasi post yang mungkin cocok dengan profilmu</p>
-                        <button id="button-profile-skills" class="flex items-center gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 m-auto mt-4">Tambahkan Keahlian</button>
+                    <div id="off-skills" class="">
+                        <!-- <p class="font-bold text-base text-main mb-3">Tambahkan keahlian terbaikmu disini!</p> -->
+                        <p class="font-second text-black/80 text-sm font-medium mb-5 lg:mb-2 italic">User ini belum menambhakan skill yang dia kuasai</p>
                     </div>
                     <div id="on-skills" class="">
                         <!-- HERE -->
@@ -207,7 +199,7 @@
         },
         success: async function (userData) {
             const data = decrypt(userData.r);
-            document.title = `Menampilkan profile ${data.firstname} ${data?.lastname}`            
+            document.title = `Profil ${data.firstname} ${data?.lastname}`            
 
             // Inisialisasi Attachment
             InitAttachment(data.attachments)
@@ -354,9 +346,9 @@
         $("#basic-fullname").text(`${data.firstname ? data.firstname : ""} ${data.lastname ? data.lastname : ""}`)
         $("#basic-email").text(data.email)
         $("#basic-headline").text(data.headline)
-        $("#basic-mobile").html(data.config.show_phone == true ? data.mobile ? data.mobile : "no data" : "<p class='text-red-500 italic'>disembunyikan</p>")
+        $("#basic-mobile").html(data.config?.show_phone == true ? data.mobile ? data.mobile : "no data" : "<p class='text-red-500 italic'>disembunyikan</p>")
         $("#basic-sex").text(data.sex ? data.sex : "no data")
-        $("#basic-birthdate").html(data.config.show_birthday == true ? data.date_of_birth ? data.date_of_birth : "no data" : "<p class='text-red-500 italic'>disembunyikan</p>")
+        $("#basic-birthdate").html(data.config?.show_birthday == true ? data.date_of_birth ? data.date_of_birth : "no data" : "<p class='text-red-500 italic'>disembunyikan</p>")
         $("#basic-domicile").text(data.domicile ? data.domicile : "no data")
     }
 
