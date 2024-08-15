@@ -41,35 +41,65 @@ export function UserLogout(req:Request, res:Response){
 
 export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
     let keyword = req.query.keyword ? req.query.keyword : ""
-    let domicile = req.query.domicile
-    let YoE = req.query.YoE
-    let departement = req.query.departement
-    let university = req.query.university
+    let university:any = req.query.university || "[]"
     let edu_type = req.query.edu_type
+    let work_pref = req.query.work_pref
+    let gpa:any = req.query.gpa
+    let gender:any = req.query.gender
+
+    console.log(gpa);
+    
+    let universitys = JSON.parse(university)
+    if (!Array.isArray(universitys)) {
+        universitys = [];
+    }
 
     try {
         const USERS = await User.findAll({
-            where:{
-                active_search: true, 
+            where: {
+                active_search: true,
+                ...(gender ? { sex: gender } : {}),
+                ...(work_pref ? { work_pref_status: work_pref } : {}),
                 [Op.or]: [
                     { firstname: { [Op.like]: `%${keyword}%` } },
                     { lastname: { [Op.like]: `%${keyword}%` } },
-                    {
-                        '$experiences.exp_position$': {
-                            [Op.like]: `%${keyword}%`
-                        }
-                    }
+                    { headline: { [Op.like]: `%${keyword}%` } },
+                    { '$experiences.exp_position$': {[Op.like]: `%${keyword}%`}},
+                    { '$experiences.exp_orgname$': {[Op.like]: `%${keyword}%`}}
                 ]
-            }, 
+            },
             include: [
-                {model: Experience, as: "experiences"},
-                {model: Education, as: "educations"},
-                {model: Attachment, as: "attachments"},
-                {model: Socials, as: "socials"},
-                {model: Skills, as: "skills"},
-                {model: Config, as: "config"}
-            ]
-        })
+                {
+                    model: Experience,
+                    as: "experiences",
+                },
+                {
+                    model: Education,
+                    as: "educations",
+                    where: {
+                        ...(edu_type ? { edu_type } : {}),
+                        ...(gpa ? { edu_gpa: {[Op.gte] : gpa} } : {}),
+                        ...(universitys.length > 0 ? { edu_institution: { [Op.in]: universitys } } : {})
+                    }
+                },
+                {
+                    model: Attachment,
+                    as: "attachments"
+                },
+                {
+                    model: Socials,
+                    as: "socials"
+                },
+                {
+                    model: Skills,
+                    as: "skills"
+                },
+                {
+                    model: Config,
+                    as: "config"
+                }
+            ],
+        });
 
         const updatedUsers = await Promise.all(USERS.map(async user => {
             const userExperience = user.toJSON().experiences;

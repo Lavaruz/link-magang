@@ -14,41 +14,17 @@
                     </div> 
                     <!-- <label for="" class="">SEARCH</label> -->
                     <p class="ps-4 text-sm font-medium">BY INFORMASI BASIC ---</p>
-                    <input type="search" id="input-search" value="" class="block w-full px-4 py-3 rounded-lg font-medium text-sm text-gray-900 border border-gray-300 bg-white focus:ring-main focus:border-main" placeholder="Cari nama atau posisi" />
-
-                    <!-- LOCATIONS -->
-                    <div class="flex flex-col">
-                        <button type="button" id="dropdown-location" data-dropdown-toggle="dropdown-location-dd" data-dropdown-placement="right" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Lokasi <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                            </svg>
-                        </button>
-                        <!-- Dropdown menu -->
-                        <div id="dropdown-location-dd" class="border z-10 hidden bg-white rounded-lg shadow w-1/4 dark:bg-gray-700">
-                            <div class="p-3">
-                                <label for="input-group-search" class="sr-only">Search</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                        </svg>
-                                    </div>
-                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari institusi">
-                                </div>
-                            </div>
-                            <ul class="list-locations h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location">
-                                <!-- HERE -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="pt-4 flex flex-col gap-4 w-full">
-                    <p class="ps-4 text-sm font-medium">BY PENGALAMAN ---</p>
-                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
-                        <option value="" selected>Jumlah Pengalaman</option>
-                        <option value="0">Tidak ada pengalaman</option>
-                        <option value="12">Dibawah 12 bulan</option>
-                        <option value="60">Dibawah 60 bulan/5 tahun</option>
-                        <option value="999">Diatas 5 tahun</option>
+                    <input type="search" id="input-search" value="" class="block w-full px-4 py-3 rounded-lg font-medium text-sm text-gray-900 border border-gray-300 bg-white focus:ring-main focus:border-main" placeholder="Cari nama atau pekerjaan" />
+                    <select name="" id="select-gender" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                        <option value="" selected>Jenis Kelamin</option>
+                        <option value="Male">Laki Laki</option>
+                        <option value="Female">Perempuan</option>
+                    </select>
+                    <select name="" id="select-work_pref" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                        <option value="" selected>Prefrensi Pekerjaan</option>
+                        <option value="WFO">Work From Office (WFO)</option>
+                        <option value="WFH">Work From Home (WFH)</option>
+                        <option value="WFA">Work From Anywhere (WFA)</option>
                     </select>
                 </div>
                 <div class="pt-4 flex flex-col gap-4 w-full">
@@ -76,7 +52,7 @@
                             </ul>
                         </div>
                     </div>
-                    <select name="edu_type" id="" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                    <select name="" id="select-edu_type" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
                         <option value="" selected>Tingkat Pendidikan</option>
                         <option value="Pacasarjana (S2)">Pacasarjana (S2)</option>
                         <option value="Sarjana (S1)">Sarjana (S1)</option>
@@ -84,6 +60,16 @@
                         <option value="Sekolah Menengah Pertama">Sekolah Menengah Pertama</option>
                         <option value="Sekolah Dasar">Sekolah Dasar</option>
                         <option value="Bootcamp">Bootcamp</option>
+                    </select>
+                    <select name="" id="select-gpa" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                        <option value="" selected>Nilai atau IPK</option>
+                        <option value="3.50">> IPK 3.50</option>
+                        <option value="3.00">> IPK 3.00</option>
+                        <option value="2.00">> IPK 2.00</option>
+                        <option value="90">> Raport 90</option>
+                        <option value="80">> Raport 80</option>
+                        <option value="70">> Raport 70</option>
+                        <option value="60">> Raport 60</option>
                     </select>
                 </div>
             </form>
@@ -304,7 +290,12 @@
     let EDU_TYPE = []
 
     let QUERY = {
-        keyword: ""
+        keyword: "",
+        university: [],
+        education: "",
+        work_pref: "",
+        gpa: "",
+        gender: "",
     }
 
     getActiveUserCard(QUERY)
@@ -328,32 +319,34 @@
 
     
 
-    // Get All Locations Registered
-    $.get("/api/v1/users/info/domicile", function(locationData){
-        locationData = decrypt(locationData.r)
-        const allLocation = Array.from(new Set(locationData.map(location => {
-            return location.domicile
-        })))
-        allLocation.forEach(location => {
-            $(".list-locations").append(`
-                <li>
-                    <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                        <input id="checkbox-${location}" type="checkbox" value="${location.toLowerCase()}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="checkbox-${location}" class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">${location}</label>
-                    </div>
-                </li>
-            `)
-        })
-    })
+    // // Get All Locations Registered
+    // $.get("/api/v1/users/info/domicile", function(locationData){
+    //     locationData = decrypt(locationData.r)
+    //     const allLocation = Array.from(new Set(locationData.map(location => {
+    //         return location.domicile
+    //     })))
+    //     allLocation.forEach(location => {
+    //         $(".list-locations").append(`
+    //             <li>
+    //                 <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+    //                     <input id="checkbox-${location}" type="checkbox" value="${location.toLowerCase()}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+    //                     <label for="checkbox-${location}" class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">${location}</label>
+    //                 </div>
+    //             </li>
+    //         `)
+    //     })
+    // })
 
-    $("#dropdown-location-dd, #dropdown-location-dd-mobile").on("change", "input", function(){
-        const THIS_VAL = $(this).val()
-        if($(this).is(":checked")){
-            LOCATIONS.push(THIS_VAL)
-        }else{
-            LOCATIONS = removeFromArray(LOCATIONS, THIS_VAL)
-        }
-    })
+    // $("#dropdown-location-dd, #dropdown-location-dd-mobile").on("change", "input", function(){
+    //     const THIS_VAL = $(this).val()
+    //     if($(this).is(":checked")){
+    //         LOCATIONS.push(THIS_VAL)
+    //     }else{
+    //         LOCATIONS = removeFromArray(LOCATIONS, THIS_VAL)
+    //     }
+    //     QUERY.domicile = LOCATIONS
+    //     getActiveUserCard(QUERY)
+    // })
 
 
     $.get("/api/v1/users/info/educations", function(educationsData){
@@ -381,9 +374,29 @@
         }else{
             INSTITUTION = removeFromArray(INSTITUTION, THIS_VAL)
         }
+        QUERY.university = INSTITUTION
+        getActiveUserCard(QUERY)
     })
 
+    $("#select-edu_type").change(function(){
+        QUERY.education = $(this).val()
+        getActiveUserCard(QUERY)
+    })
 
+    $("#select-work_pref").change(function(){
+        QUERY.work_pref = $(this).val()
+        getActiveUserCard(QUERY)
+    })
+
+    $("#select-gpa").change(function(){
+        QUERY.gpa = $(this).val()
+        getActiveUserCard(QUERY)
+    })
+
+    $("#select-gender").change(function(){
+        QUERY.gender = $(this).val()
+        getActiveUserCard(QUERY)
+    })
 
 
 
@@ -437,7 +450,7 @@
                                 </div>
                                 <hr>
                                 <div class="pt-2">
-                                    <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${userData.YoE}</span>Bulan Pengalaman</p>
+                                    <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${userData.YoE}</span>Bulan Pengalaman Kerja</p>
                                     <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag me-2"></i>${userData.experiences.length > 0 ? userData.experiences[0].exp_position + " di " + userData.experiences[0].exp_orgname : "no experiences"}</p>
                                     <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${userData.educations.length > 0 ? userData.educations[0].edu_type + " - " + userData.educations[0].edu_program : "No Education Added"}</span></p>
                                     <div class="flex gap-2 mt-3 flex-wrap">
@@ -553,7 +566,12 @@
 
 
     function getActiveUserCard(QUERY){
-        $.get(`/api/v1/users/active?keyword=${QUERY.keyword}&domicile=${QUERY.domicile}&YoE=${QUERY.YoE}&departement=${QUERY.departement}&university=${QUERY.university}&edu_type=${QUERY.edu_type}`, function(usersData){
+        if(QUERY.university.length > 0){
+            QUERY.university = JSON.stringify(QUERY.university) 
+        }else{
+            QUERY.university = ""
+        }
+        $.get(`/api/v1/users/active?keyword=${QUERY.keyword}&university=${QUERY.university}&edu_type=${QUERY.education}&work_pref=${QUERY.work_pref}&gpa=${QUERY.gpa}&gender=${QUERY.gender}`, function(usersData){
             usersData = decrypt(usersData.r)
 
             $("#total-active-user").text(usersData.length)
@@ -587,7 +605,7 @@
                             </div>
                             <hr>
                             <div class="pt-2">
-                                <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${user.YoE}</span>Bulan Pengalaman</p>
+                                <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${user.YoE}</span>Bulan Pengalaman Kerja</p>
                                 <p class="text-sm flex items-center text-black/80"><i class="uil uil-bag me-2"></i>${user.experiences.length > 0 ? user.experiences[0].exp_position + " di " + user.experiences[0].exp_orgname : "no experiences"}</p>
                                 <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_type + " - " + user.educations[0].edu_program : "No Education Added"}</span></p>
                             </div>
