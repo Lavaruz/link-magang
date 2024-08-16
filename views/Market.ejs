@@ -122,65 +122,84 @@
 
 <!-- POPUP USER -->
 <div id="popup" class="hidden fixed top-0 bottom-0 right-0 left-0 bg-black/60 z-30 flex items-end lg:items-center justify-center">
-    <div id="popup-user" class="hidden popup w-full lg:w-1/3 bg-background noise rounded-2xl relative overflow-hidden">
+    <div id="popup-user" class="hidden popup w-full lg:w-1/2 bg-background noise rounded-2xl relative overflow-hidden">
         <div class="h-[90vh] overflow-y-scroll w-full px-[5%] lg:px-12 py-8">
-            <div class="text-center flex flex-col items-center justify-center">
-                <div class="w-[90px] h-[90px] min-w-[90px] min-h-[90px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                    <img id="popup-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
+
+            <!-- BASIC INFO -->
+            <div class="grid grid-cols-2 justify-between">
+                <div class="flex gap-4 items-center">
+                    <div class="w-[90px] h-[90px] min-w-[90px] min-h-[90px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                        <img id="popup-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
+                    </div>
+                    <div class="">
+                        <p id="popup-username" class="text-2xl font-bold text-main"><i class="uil uil-mars text-blue-500"></i> Assami Muzaki</p>
+                        <p id="popup-headline" class="font-medium text-black/60 text-sm">Founder of Internshits</p>
+                        <div class="flex items-center gap-3 mt-2">
+                            <a href="" class="px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-envelope-edit"></i> Hubungi Email</a>
+                            <a href="" class="px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-envelope-edit"></i> Hubungi Whatsapp</a>
+                        </div>
+                    </div>
                 </div>
-                <p id="popup-username" class="text-2xl font-bold text-main">Assami Muzaki</p>
-                <p id="popup-headline" class="font-medium text-black/60 text-sm">Founder of Internshits</p>
+                <div class="justify-self-end flex divide-x divide-gray-400 items-center justify-center">
+                    <div class="text-center px-4">
+                        <p class="font-semibold leading-tight text-lg text-black/80">WFO</p>
+                        <small class="text-black/60">Prefrensi Pekerjaan</small>
+                    </div>
+                    <div class="text-center px-4">
+                        <p class="font-semibold leading-tight text-lg text-black/80">Citayam</p>
+                        <small class="text-black/60">Domisili</small>
+                    </div>
+                </div>
             </div>
     
             <hr class="my-4">
     
-            <div id="popup-socials" class="flex items-center gap-6 text-thrid/80 text-xl justify-center">
-                <a id="link-twitter" href="" target="_blank" class="hidden link-social"><i class="uil uil-twitter"></i></a>
-                <a id="link-instagram" href="" target="_blank" class="hidden link-social"><i class="uil uil-instagram-alt"></i></a>
-                <a id="link-linkedin" href="" target="_blank" class="hidden link-social"><i class="uil uil-linkedin"></i></a>
-                <a id="link-behance" href="" target="_blank" class="hidden link-social"><i class="uil uil-behance"></i></a>
-                <a id="link-github" href="" target="_blank" class="hidden link-social"><i class="uil uil-github"></i></a>
-                <a id="link-youtube" href="" target="_blank" class="hidden link-social"><i class="uil uil-youtube"></i></a>
+            <!-- SKILL USER -->
+            <div id="popup-skills" class="flex items-center justify-center flex-wrap gap-3">
+                <!-- HERE SKILL -->
             </div>
     
             <hr class="my-4">
             
+            <!-- PROFILE SUMMARY -->
             <p id="popup-summary" class="text-black/80 text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime repudiandae inventore dolores dolorum earum aliquid tempora sequi esse, omnis rem nam delectus reprehenderit itaque distinctio architecto deserunt harum illo ullam.</p>
             
             <hr class="my-4">
 
-            <div class="py-6 flex flex-col gap-4">
-                <div class="grid grid-cols-2 text-center">
-                    <div class="">
-                        <p class="text-xs text-black/60 font-medium">LOCATION</p>
-                        <p id="popup-domicile" class="font-bold text-sm mt-2 text-black/70"></p>
-                    </div>
-                    <div class="">
-                        <p class="text-xs text-black/60 font-medium">PHONE NUMBER</p>
-                        <p id="popup-mobile" class="font-bold text-sm mt-2 text-black/70"></p>
-                    </div>
+            <!-- EDUCATION USER -->
+            <div class="flex flex-col gap-4">
+                <p class="font-semibold text-xl text-main flex items-center gap-2"><i class="uil uil-university"></i>Pendidikan</p>
+                <div id="popup-educations">
+
                 </div>
-                <div class="grid grid-cols-2 mt-4 text-center">
-                    <div class="">
-                        <p class="text-xs text-black/60 font-medium">SALARY RANGE</p>
-                        <p id="popup-salary" class="font-bold text-sm mt-2 text-black/70"></p>
-                    </div>
-                    <div class="">
-                        <p class="text-xs text-black/60 font-medium">YOE (month)</p>
-                        <p id="popup-yoe" class="font-bold text-sm mt-2 text-black/70"></p>
-                    </div>
-                </div>
-                <div class="text-center mt-4">
-                    <p class="text-xs text-black/60 font-medium">PREFRENSI PEKERJAAN</p>
-                    <p id="popup-work-pref" class="font-bold text-sm mt-2 text-black/70">Work From Office</p>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- EXPERIENCE USER -->
+            <div class="flex flex-col gap-4">
+                <p class="font-semibold text-xl text-main flex items-center gap-2"><i class="uil uil-bag-alt"></i>Pengalaman</p>
+                <div id="popup-experiences">
+                    <!-- HERE -->
                 </div>
             </div>
     
             <hr class="my-4">
+
+            <!-- SOCIAL MEDIA USER -->
+            <div id="popup-socials" class="flex items-center gap-6 text-thrid/80 text-xl justify-center">
+                <a id="link-twitter" href="" target="_blank" class="hidden link-social text-3xl"><i class="uil uil-twitter"></i></a>
+                <a id="link-instagram" href="" target="_blank" class="hidden link-social text-3xl"><i class="uil uil-instagram-alt"></i></a>
+                <a id="link-linkedin" href="" target="_blank" class="hidden link-social text-3xl"><i class="uil uil-linkedin"></i></a>
+                <a id="link-behance" href="" target="_blank" class="hidden link-social text-3xl"><i class="uil uil-behance"></i></a>
+                <a id="link-github" href="" target="_blank" class="hidden link-social text-3xl"><i class="uil uil-github"></i></a>
+                <a id="link-youtube" href="" target="_blank" class="hidden link-social text-3xl"><i class="uil uil-youtube"></i></a>
+            </div>
     
-            <div class="flex flex-col gap-2">
-                <a id="popup-view" target="_blank" class="text-sm text-white font-medium bg-main mx-auto w-full py-2.5 rounded-lg flex justify-center gap-2"><i class="uil uil-external-link-alt"></i> View More Detail</a>
-                <button class="close-x text-sm text-main font-medium mx-auto w-full py-2 rounded-lg">Tutup</button>
+            <div class="flex flex-col gap-3 mt-8">
+                <a href="" target="_blank" class="popup-resume text-white font-medium bg-main mx-auto w-full py-3 rounded-lg flex justify-center gap-2"><i class="uil uil-external-link-alt"></i> Lihat Curriculum Vitae (CV)</a>
+                <a href="" target="_blank" class="popup-portfolio text-white font-medium bg-main mx-auto w-full py-3 rounded-lg flex justify-center gap-2"><i class="uil uil-external-link-alt"></i> Lihat Portfolio</a>
+                <button class="close-x text-sm text-main font-medium mx-auto w-full py-3 rounded-lg">Tutup</button>
             </div>
         </div>
     </div>
@@ -308,45 +327,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-    
-
-    // // Get All Locations Registered
-    // $.get("/api/v1/users/info/domicile", function(locationData){
-    //     locationData = decrypt(locationData.r)
-    //     const allLocation = Array.from(new Set(locationData.map(location => {
-    //         return location.domicile
-    //     })))
-    //     allLocation.forEach(location => {
-    //         $(".list-locations").append(`
-    //             <li>
-    //                 <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-    //                     <input id="checkbox-${location}" type="checkbox" value="${location.toLowerCase()}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-    //                     <label for="checkbox-${location}" class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">${location}</label>
-    //                 </div>
-    //             </li>
-    //         `)
-    //     })
-    // })
-
-    // $("#dropdown-location-dd, #dropdown-location-dd-mobile").on("change", "input", function(){
-    //     const THIS_VAL = $(this).val()
-    //     if($(this).is(":checked")){
-    //         LOCATIONS.push(THIS_VAL)
-    //     }else{
-    //         LOCATIONS = removeFromArray(LOCATIONS, THIS_VAL)
-    //     }
-    //     QUERY.domicile = LOCATIONS
-    //     getActiveUserCard(QUERY)
-    // })
 
 
     $.get("/api/v1/users/info/educations", function(educationsData){
@@ -525,6 +505,83 @@
             $("#popup-yoe").text(`${userData.YoE} bulan`)
             $("#popup-salary").text(userData.salary=="0" ? "Negotiable" : userData.salary)
 
+            if(userData.skills.length > 0){
+                $("#popup-skills").html("")
+                userData.skills.forEach(function(skill){
+                    $("#popup-skills").append(`<button class="text-sm bg-main text-white px-2.5 py-1.5 rounded-lg">${skill.skill}</button>`)
+                })
+            }
+
+            if(userData.educations.length > 0){
+                $("#popup-educations").html("")
+                userData.educations.forEach(function(education){
+                    let paragraph = education.edu_description.substring(0,200).split('\n')
+                    $("#popup-educations").append(`
+                        <div class="card-education bg-white p-5 py-4 rounded-lg">
+                            <div class="relative flex gap-4">
+                                <div class="w-full">
+                                    <div class="head lg:flex justify-between">
+                                        <div class="">
+                                            <div class="flex items-center gap-2">
+                                                <p class="text-white bg-main/60 py-[2px] px-2 inline cursor-default text-xs font-second font-medium">${education.edu_type.toUpperCase()}</p>
+                                                <p class="text-white bg-white/30 py-[2px] px-2 inline cursor-default text-xs font-second font-medium">GPA ${education.edu_gpa}</p>
+                                            </div>
+                                            <p class="font-bold text-lg text-main">${education.edu_program}</p>
+                                            <p class="font-semibold text-sm text-white-80 font-second">${education.edu_institution} • ${education.edu_status} (${education.edu_location}) </p>
+                                        </div>
+                                        <div class="text-left mt-1 lg:mt-0 lg:text-right flex gap-2 lg:block">
+                                            <p class="font-second text-xs font-normal text-black/80">${formatDateMonth(education.edu_startdate)} - ${formatDateMonth(education.edu_enddate)}</p>
+                                            <p class="text-xs font-semibold text-[#A5A5A5]">${calculateMonthDifference(education.edu_startdate, education.edu_enddate).toUpperCase()}</p>
+                                        </div>
+                                    </div>
+                                    <div class="body flex">
+                                        <p class="font-second text-sm text-white-60 font-normal mt-3">${paragraph.join("</br>")}...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                })
+
+            }
+            
+            if(userData.experiences.length > 0){
+                $("#popup-experiences").html("")
+                userData.experiences.forEach((experienceData) => {
+                    let paragraph = experienceData.exp_description.substring(0,200).split('\n')
+                    $("#popup-experiences").append(`
+                        <div class="card-experience bg-white p-5 py-4 rounded-lg">
+                            <div class="relative flex gap-4">
+                                <div class="w-full">
+                                    <div class="head lg:flex justify-between">
+                                        <div class="">
+                                            <p class="text-white bg-main/60 py-[2px] px-2 inline cursor-default text-xs font-second font-medium">${experienceData.exp_type.toUpperCase()}</p>
+                                            <p class="font-bold text-lg text-main mt-2 lg:mt-0">${experienceData.exp_position}</p>
+                                            <p class="font-semibold text-sm text-black/80 font-second">${experienceData.exp_orgname} • ${experienceData.exp_time} • ${experienceData.exp_status} (${experienceData.exp_location}) </p>
+                                        </div>
+                                        <div class="text-left mt-1 lg:mt-0 lg:text-right flex gap-2 lg:block">
+                                            <p class="font-second text-xs font-normal text-black/80">${formatDateMonth(experienceData.exp_startdate)} - ${experienceData.exp_enddate?formatDateMonth(experienceData.exp_enddate):"Now"}</p>
+                                            <p class="text-xs font-semibold text-[#A5A5A5]">${calculateMonthDifference(experienceData.exp_startdate, experienceData.exp_enddate?experienceData.exp_enddate:getFormattedDate()).toUpperCase()}</p>
+                                        </div>
+                                    </div>
+                                    <div <div class="body flex">
+                                        <p class="font-second text-sm text-white-60 font-normal mt-3">${paragraph.join("</br>")}...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                })
+            }
+
+            if(userData.attachments){
+                if(!userData.attachments.atc_resume) $(".popup-resume").remove()
+                if(!userData.attachments.atc_portfolio) $(".popup-portfolio").remove()
+                $(".popup-resume").prop("href", userData.attachments.atc_resume)
+                $(".popup-portfolio").prop("href", userData.attachments.atc_attachment)
+            }
+
+
             if(userData.socials){
                 if(userData.socials.twitter){
                     $("#link-twitter").removeClass("hidden").prop("href",userData.socials.twitter)
@@ -624,4 +681,58 @@
         console.log(dataArray);
         return dataArray.filter(item => item.id !== excludeId);
     }
+
+    function calculateMonthDifference(startDate, endDate) {
+        let start = new Date(startDate);
+        let end = new Date(endDate);
+
+        let yearDiff = end.getFullYear() - start.getFullYear();
+        let monthDiff = end.getMonth() - start.getMonth();
+
+        if (monthDiff < 0) {
+            yearDiff -= 1;
+            monthDiff += 12;
+        }
+
+        if (yearDiff === 0) {
+            return `${monthDiff} Bulan`;
+        } else if (yearDiff === 1) {
+            return `1 Tahun ${monthDiff} Bulan`;
+        } else {
+            return `${yearDiff} Tahun ${monthDiff} Bulan`;
+        }
+    }
+
+    function formatDateMonth(inputDate) {
+        // Parse tanggal dalam format "YYYY-MM-DD"
+        const dateParts = inputDate.split('-');
+        const year = dateParts[0];
+        const month = dateParts[1];
+    
+        // Daftar nama bulan
+        const monthNames = [
+            'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+            'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'
+        ];
+    
+        // Konversi komponen bulan ke nama bulan
+        const formattedMonth = monthNames[parseInt(month, 10) - 1];
+    
+        // Gabungkan komponen-komponen dalam format yang diinginkan
+        const formattedDate = `${formattedMonth} ${year}`;
+    
+        return formattedDate;
+    }
+
+    function getFormattedDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Dapat ditambahkan 1 karena bulan dimulai dari 0.
+        const day = String(today.getDate()).padStart(2, '0');
+    
+        const formattedDate = `${year}-${month}-${day}`;
+        return formattedDate;
+    }
+
+
 </script>
