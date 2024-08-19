@@ -30,6 +30,9 @@
                     <option value="PART-TIME">Part-Time</option>
                 </select>
             </div>
+
+
+            <!-- LOCATION -->
             <div class="">
                 <label for="" class="block text-sm font-medium text-black/70 mb-2">LOCATION*</label>
                 <button type="button" id="select-location" data-dropdown-toggle="dropdown-location" data-dropdown-placement="bottom" class="w-1/3 shadow border-2 border-gray-300 text-black/80 bg-white focus:ring-1 focus:outline-none focus:ring-gray-300 rounded-lg px-3 py-2.5 text-center flex justify-between items-center">Search Location <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -46,7 +49,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                             </svg>
                         </div>
-                        <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search location">
+                        <input type="text" class="locations-input block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search location">
                         </div>
                     </div>
                     <ul id="list-locations" class="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSearchButton">
@@ -58,10 +61,16 @@
                     </div>
                 </div>
             </div>
+
+
+
             <div class="">
                 <label for="" class="block text-sm font-medium text-black/70 mb-2">POST LINK*</label>
                 <input type="text" name="link" class="w-2/3 rounded-lg border-2 border-gray-300 placeholder-black/30" placeholder="Ex. https://internshits.com/posts/create" name="" id="">
             </div>
+
+
+            <!-- SKILLS -->
             <div class="">
                 <label for="" class="block text-sm font-medium text-black/70 mb-2">SKILLS</label>
                 <button type="button" id="dropdownSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" class="shadow border-2 border-gray-300 text-white bg-main hover:bg-main/80 focus:ring-1 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center w-full">Search some skill <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -69,7 +78,7 @@
                     </svg>
                 </button>
                 <!-- Dropdown menu -->
-                <div id="dropdownSearch" class="border-2 border-main z-10 hidden bg-white rounded-lg shadow w-1/3 dark:bg-gray-700">
+                <div id="dropdownSearch" class="w-[50vw] border-2 border-main z-10 hidden bg-white rounded-lg shadow w-1/3 dark:bg-gray-700">
                     <div class="p-3">
                         <label for="input-group-search" class="sr-only">Search</label>
                         <div class="relative">
@@ -78,7 +87,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                             </svg>
                         </div>
-                        <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search user">
+                        <input type="text" class="skills-input block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search user">
                         </div>
                     </div>
                     <ul id="list-skills" class="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSearchButton">
@@ -94,6 +103,11 @@
             <div id="active-skills" class="w-full p-5 rounded-lg bg-background noise">
                 <!-- HERE -->
             </div>
+
+
+
+
+
             <div class="">
                 <label for="" class="block text-sm font-medium text-black/70 mb-2">POSTED DATE*</label>
                 <div class="relative max-w-sm">
@@ -127,6 +141,9 @@
 <%- include('./layouts/footer'); -%>
 
 <script>
+
+    let checkedStatusSkills = {}
+    let checkedStatusLocations = {}
     const quill = new Quill('#create-post-editor', {
         theme: 'snow'
     });
@@ -140,7 +157,6 @@
 
     $.get("/api/v1/users/skills", function(skillData){
         skillData = decrypt(skillData.r)
-        console.log(skillData);
         skillData.forEach(skill => {
             $("#list-skills").append(`
                 <li>
@@ -151,6 +167,30 @@
                     </div>
                 </li>
             `)
+        });
+
+        $(".skills-input").on("input", function(){
+            const INPUT = $(this).val().toLowerCase(); // Ambil nilai input dalam lowercase
+            $("#list-skills").html(""); // Kosongkan daftar institusi
+
+            // Filter institusi berdasarkan nilai input
+            const filteredSkills = skillData.filter(skill => {
+                return skill.skill.toLowerCase().includes(INPUT);
+            });
+
+            // Tampilkan hasil filter
+            filteredSkills.forEach(skill => {
+                const isChecked = checkedStatusSkills[skill.skill.toLowerCase()] ? 'checked' : ''; // Cek apakah checkbox harus dicentang
+                $("#list-skills").append(`
+                    <li>
+                        <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <p style="display:none">${skill.id}</p>
+                            <input id="checkbox-${skill.id}" type="checkbox" ${isChecked} value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="checkbox-${skill.id}" class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">${skill.skill}</label>
+                        </div>
+                    </li>
+                `);
+            });
         });
     })
 
@@ -203,25 +243,55 @@
             $(`#button-${SKILL_ID}`).remove()
             removeFromArray(SKILL_ID)
         }
+        checkedStatusSkills[LABEL.toLowerCase()] = $(this).prop("checked");
     })
+    
 
-    
-    
+
+
+
+
+
+
+
     // ------------------ LOCATION -------------------
 
     $.get("/api/v1/users/locations", function(locationsData){
         locationsData = decrypt(locationsData.r)
-        console.log(locationsData);
-        locationsData.forEach(skill => {
+        locationsData.forEach(location => {
             $("#list-locations").append(`
                 <li>
                     <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                        <p style="display:none">${skill.id}</p>
-                        <input id="radio-${skill.id}" name="location" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="radio-${skill.id}" class="w-full py-2 ms-2 font-medium text-gray-900 rounded dark:text-gray-300">${skill.location}</label>
+                        <p style="display:none">${location.id}</p>
+                        <input id="radio-${location.id}" name="location" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="radio-${location.id}" class="w-full py-2 ms-2 font-medium text-gray-900 rounded dark:text-gray-300">${location.location}</label>
                     </div>
                 </li>
             `)
+        });
+
+        $(".locations-input").on("input", function(){
+            const INPUT = $(this).val().toLowerCase(); // Ambil nilai input dalam lowercase
+            $("#list-locations").html(""); // Kosongkan daftar institusi
+
+            // Filter institusi berdasarkan nilai input
+            const filteredLocations = locationsData.filter(location => {
+                return location.location.toLowerCase().includes(INPUT);
+            });
+
+            // Tampilkan hasil filter
+            filteredLocations.forEach(location => {
+                const isChecked = checkedStatusLocations[location.location.toLowerCase()] ? 'checked' : ''; // Cek apakah checkbox harus dicentang
+                $("#list-locations").append(`
+                    <li>
+                        <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <p style="display:none">${location.id}</p>
+                            <input id="radio-${location.id}" ${isChecked} name="location" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="checkbox-${location.id}" class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">${location.location}</label>
+                        </div>
+                    </li>
+                `);
+            });
         });
     })
 
@@ -268,8 +338,13 @@
 
         $("#select-location").html(`${LABEL} <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                    </svg>`)
+        </svg>`)
+        checkedStatusLocations[LABEL.toLowerCase()] = $(this).prop("checked");
     })
+
+
+
+
     
     
     function removeFromArray(valueToRemove) {

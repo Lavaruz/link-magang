@@ -4,7 +4,7 @@
         <p class="close-x cursor-pointer font-second font-medium text-sm text-teal-100">Close x</p>
     </div>
     <div class="body bg-background noise lg:bg-body h-[88vh] lg:h-[400px] overflow-y-scroll">
-        <form id="form-edit-skills" class="relative">
+        <form id="form-edit-skills" class="">
             <div class="divide-y divide-header lg:pb-0">
                 <div class="p-5">
                     <p class="font-bold text-lg text-main mb-1">Keahlian</p>
@@ -19,7 +19,7 @@
                         </button>
                         
                         <!-- Dropdown menu -->
-                        <div id="dropdownSearch" class="border-2 border-main z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+                        <div id="dropdownSearch" class="lg:w-[600px] border-2 border-main z-10 hidden bg-white rounded-lg shadow w-60 dark:bg-gray-700">
                             <div class="p-3">
                                 <label for="input-group-search" class="sr-only">Cari</label>
                                 <div class="relative">
@@ -28,7 +28,7 @@
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                     </svg>
                                 </div>
-                                <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari keahlian">
+                                <input type="text" class="skills-input block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari keahlian">
                                 </div>
                             </div>
                             <ul id="list-skills" class="h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSearchButton">
@@ -56,6 +56,7 @@
 <script>
 
     let CHECKED_CHECKBOX = []
+    let checkedStatus = {}
 
 
     $("#edit-profile-skills, #button-profile-skills ,#completion-resume").click(function(){
@@ -77,6 +78,30 @@
                     </div>
                 </li>
             `)
+        });
+
+        $(".skills-input").on("input", function(){
+            const INPUT = $(this).val().toLowerCase(); // Ambil nilai input dalam lowercase
+            $("#list-skills").html(""); // Kosongkan daftar institusi
+
+            // Filter institusi berdasarkan nilai input
+            const filteredSkills = skillData.filter(skill => {
+                return skill.skill.toLowerCase().includes(INPUT);
+            });
+
+            // Tampilkan hasil filter
+            filteredSkills.forEach(skill => {
+                const isChecked = checkedStatus[skill.skill.toLowerCase()] ? 'checked' : ''; // Cek apakah checkbox harus dicentang
+                $("#list-skills").append(`
+                    <li>
+                        <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <p style="display:none">${skill.id}</p>
+                            <input id="checkbox-${skill.id}" type="checkbox" ${isChecked} value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="checkbox-${skill.id}" class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">${skill.skill}</label>
+                        </div>
+                    </li>
+                `);
+            });
         });
     })
 
@@ -129,9 +154,9 @@
             $(`#button-${SKILL_ID}`).remove()
             removeFromArray(SKILL_ID)
         }
-    })
 
-    
+        checkedStatus[LABEL.toLowerCase()] = $(this).prop("checked");
+    })
     
     
     

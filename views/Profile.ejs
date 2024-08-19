@@ -648,6 +648,13 @@
         })
     })
     
+
+
+
+
+
+
+
     function PutUserData(formName, url, callback = () => {}){
         $(`#${formName}`).submit(function(e){
             e.preventDefault();
@@ -959,6 +966,8 @@
             $("#on-skills").html("")
             $("#off-skills").addClass("hidden")
             data.forEach(skill => {
+                checkedStatus[skill.skill.toLowerCase()] = true;
+                
                 CHECKED_CHECKBOX.push(skill.id)
                 $(`#checkbox-${skill.id}`).prop("checked", true)
                 $("#active-skills").append(`<button id="button-${skill.id}" type="button" class="m-1 text-black/80 px-4 py-1 rounded-lg bg-main text-white">${skill.skill}</button>`)

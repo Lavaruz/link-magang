@@ -10,7 +10,7 @@
                 <div class="w-full flex flex-col gap-4 w-full">
                     <div class="pb-4 flex justify-between w-full">
                         <p class="ps-4 text-sm text-black/70 font-medium">FILTER</p>
-                        <button class="text-sm text-main/70 font-medium">CLEAR</button>
+                        <button id="clear-filter" class="text-sm text-main/70 font-medium">CLEAR</button>
                     </div> 
                     <!-- <label for="" class="">SEARCH</label> -->
                     <p class="ps-4 text-sm font-medium">BY INFORMASI BASIC ---</p>
@@ -44,7 +44,7 @@
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                         </svg>
                                     </div>
-                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari institusi">
+                                    <input type="text" class="university-input block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari institusi">
                                 </div>
                             </div>
                             <ul class="list-institutions h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location">
@@ -107,7 +107,7 @@
             </div>
 
             
-            <div class="flex justify-between items-center py-4 mt-10 lg:mt-0">
+            <div class="flex justify-between items-center py-4 mt-10 lg:mt-6">
                 <p class="text-2xl font-medium text-main"><i class="uil uil-user-md"></i> Menampilkan <span id="total-active-user">0</span> Talent</p>
                 <button id="button-filter" class="lg:hidden shadow-md w-10 rounded-full h-10 bg-main text-white font-medium"><i class="uil uil-sliders-v"></i></button>
             </div>
@@ -135,18 +135,18 @@
                         <p id="popup-username" class="text-2xl font-bold text-main"><i class="uil uil-mars text-blue-500"></i> Assami Muzaki</p>
                         <p id="popup-headline" class="font-medium text-black/60 text-sm">Founder of Internshits</p>
                         <div class="flex items-center gap-3 mt-2">
-                            <a href="" class="px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-envelope-edit"></i> Hubungi Email</a>
-                            <a href="" class="px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-envelope-edit"></i> Hubungi Whatsapp</a>
+                            <a href="" class="px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-envelope"></i> Hubungi Email</a>
+                            <a href="" class="px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-whatsapp"></i> Hubungi Whatsapp</a>
                         </div>
                     </div>
                 </div>
                 <div class="justify-self-end flex divide-x divide-gray-400 items-center justify-center">
                     <div class="text-center px-4">
-                        <p class="font-semibold leading-tight text-lg text-black/80">WFO</p>
+                        <p id="popup-work-pref" class="font-semibold leading-tight text-lg text-black/80">WFO</p>
                         <small class="text-black/60">Prefrensi Pekerjaan</small>
                     </div>
                     <div class="text-center px-4">
-                        <p class="font-semibold leading-tight text-lg text-black/80">Citayam</p>
+                        <p id="popup-domicile" class="font-semibold leading-tight text-lg text-black/80">Citayam</p>
                         <small class="text-black/60">Domisili</small>
                     </div>
                 </div>
@@ -203,97 +203,6 @@
             </div>
         </div>
     </div>
-
-    <div id="popup-filter" class="hidden popup w-full rounded-t-2xl bg-background overflow-hidden">
-        <div class="h-[88vh] p-5 overflow-y-scroll">
-            <button type="button" class="lg:hidden my-4 mb-6 flex items-center gap-2 close-x text-main font-medium text-base">
-                <i class="uil uil-arrow-left"></i> Kembali ke Talent Hunt
-            </button>
-    
-            <div class="flex justify-between">
-                <p class="text-main font-bold text-2xl mt-4">Filter Talent</p>
-                <button class="text-sm text-main/70 font-medium">CLEAR</button>
-            </div>
-    
-            <form id="form-market-filter" class="flex flex-col items-center gap-4 divide-y divide-gray-300 py-6">
-                <div class="w-full flex flex-col gap-4 w-full">
-                    <!-- <label for="" class="">SEARCH</label> -->
-                    <p class="ps-4 text-sm font-medium">BY INFORMASI BASIC ---</p>
-                    <input type="search" id="input-search" value="" class="block w-full px-4 py-3 rounded-lg font-medium text-sm text-gray-900 border border-gray-300 bg-white focus:ring-main focus:border-main" placeholder="Cari nama atau posisi" />
-    
-                    <!-- LOCATIONS -->
-                    <div class="flex flex-col">
-                        <button type="button" id="dropdown-location-mobile" data-dropdown-toggle="dropdown-location-dd-mobile" data-dropdown-placement="bottom" class="justify-between bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Lokasi <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                            </svg>
-                        </button>
-                        <!-- Dropdown menu -->
-                        <div id="dropdown-location-dd-mobile" class="w-[88%] border z-10 hidden bg-white rounded-lg shadow w-1/4 dark:bg-gray-700">
-                            <div class="p-3">
-                                <label for="input-group-search" class="sr-only">Search</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                        </svg>
-                                    </div>
-                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari lokasi">
-                                </div>
-                            </div>
-                            <ul class="list-locations h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location-mobile">
-                                <!-- HERE -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="pt-4 flex flex-col gap-4 w-full">
-                    <p class="ps-4 text-sm font-medium">BY PENGALAMAN ---</p>
-                    <select name="" id="" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
-                        <option value="" selected>Jumlah Pengalaman</option>
-                        <option value="0">Tidak ada pengalaman</option>
-                        <option value="12">Dibawah 12 bulan</option>
-                        <option value="60">Dibawah 60 bulan/5 tahun</option>
-                        <option value="999">Diatas 5 tahun</option>
-                    </select>
-                </div>
-                <div class="pt-4 flex flex-col gap-4 w-full">
-                    <p class="ps-4 text-sm font-medium">BY PENDIDIKAN ---</p>
-                    <div class="flex flex-col">
-                        <button type="button" id="dropdown-institution-mobile" data-dropdown-toggle="dropdown-institution-dd-mobile" data-dropdown-placement="bottom" class="justify-between bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Institusi <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                            </svg>
-                        </button>
-                        <!-- Dropdown menu -->
-                        <div id="dropdown-institution-dd-mobile" class="w-[88%] border z-10 hidden bg-white rounded-lg shadow w-1/4 dark:bg-gray-700">
-                            <div class="p-3">
-                                <label for="input-group-search" class="sr-only">Search</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                        </svg>
-                                    </div>
-                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari institusi">
-                                </div>
-                            </div>
-                            <ul class="list-institutions h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-institution-mobile">
-                                <!-- HERE -->
-                            </ul>
-                        </div>
-                    </div>
-                    <select name="edu_type" id="" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
-                        <option value="" selected>Tingkat Pendidikan</option>
-                        <option value="Pacasarjana (S2)">Pacasarjana (S2)</option>
-                        <option value="Sarjana (S1)">Sarjana (S1)</option>
-                        <option value="Sekolah Menengah Atas">Sekolah Menengah Atas</option>
-                        <option value="Sekolah Menengah Pertama">Sekolah Menengah Pertama</option>
-                        <option value="Sekolah Dasar">Sekolah Dasar</option>
-                        <option value="Bootcamp">Bootcamp</option>
-                    </select>
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
 
 
@@ -307,6 +216,8 @@
     let LOCATIONS = []
     let INSTITUTION = []
     let EDU_TYPE = []
+    let allEducations
+    let checkedStatus = {};
 
     let QUERY = {
         keyword: "",
@@ -325,13 +236,68 @@
         getActiveUserCard(QUERY)
     })
 
+    $("#select-edu_type").change(function(){
+        QUERY.education = $(this).val()
+        getActiveUserCard(QUERY)
+    })
+
+    $("#select-work_pref").change(function(){
+        QUERY.work_pref = $(this).val()
+        getActiveUserCard(QUERY)
+    })
+
+    $("#select-gpa").change(function(){
+        QUERY.gpa = $(this).val()
+        getActiveUserCard(QUERY)
+    })
+
+    $("#select-gender").change(function(){
+        QUERY.gender = $(this).val()
+        getActiveUserCard(QUERY)
+    })
+
+    $("#clear-filter").click(function(){
+        $("#form-market-filter")[0].reset();
+        QUERY = {
+            keyword: "",
+            university: [],
+            education: "",
+            work_pref: "",
+            gpa: "",
+            gender: "",
+        }
+        getActiveUserCard(QUERY)
+    })
+
+    $("#button-create-card").click(function(){
+        $("#popup-layer-navbar").fadeIn(function(){
+            $("#popup-login").slideToggle()
+            $("body").css("overflow", "hidden")
+        }).css("display", "flex")
+    })
+
+    $("#button-filter").click(function(){
+        $("#popup").fadeIn(function(){
+            $("#popup-filter").slideToggle()
+            $("body").addClass('no-scroll');
+        }).css("display", "flex")
+    })
+
+    $(".close-x").click(function(){
+        $(this).closest('.popup').slideToggle(function(){
+            $(this).closest('#popup').fadeOut()
+        })
+        $("body").removeClass('no-scroll');
+    })
 
 
 
+
+    // EDUCATION SIDEBAR HANDLER
 
     $.get("/api/v1/users/info/educations", function(educationsData){
         educationsData = decrypt(educationsData.r)
-        const allEducations = Array.from(new Set(educationsData.map(education => {
+        allEducations = Array.from(new Set(educationsData.map(education => {
             return education.edu_institution
         })))
         
@@ -358,25 +324,35 @@
         getActiveUserCard(QUERY)
     })
 
-    $("#select-edu_type").change(function(){
-        QUERY.education = $(this).val()
-        getActiveUserCard(QUERY)
-    })
+    $(".university-input").on("input", function(){
+        const INPUT = $(this).val().toLowerCase(); // Ambil nilai input dalam lowercase
+        $(".list-institutions").html(""); // Kosongkan daftar institusi
 
-    $("#select-work_pref").change(function(){
-        QUERY.work_pref = $(this).val()
-        getActiveUserCard(QUERY)
-    })
+        // Filter institusi berdasarkan nilai input
+        const filteredEducations = allEducations.filter(education => {
+            return education.toLowerCase().includes(INPUT);
+        });
 
-    $("#select-gpa").change(function(){
-        QUERY.gpa = $(this).val()
-        getActiveUserCard(QUERY)
-    })
+        // Tampilkan hasil filter
+        filteredEducations.forEach(education => {
+            const isChecked = checkedStatus[education.toLowerCase()] ? 'checked' : ''; // Cek apakah checkbox harus dicentang
+            $(".list-institutions").append(`
+                <li>
+                    <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                        <input id="checkbox-${education}" type="checkbox" value="${education.toLowerCase()}" ${isChecked} class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="checkbox-${education}" class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">${education}</label>
+                    </div>
+                </li>
+            `);
+        });
+    });
 
-    $("#select-gender").change(function(){
-        QUERY.gender = $(this).val()
-        getActiveUserCard(QUERY)
-    })
+    $(".list-institutions").on("change", "input[type='checkbox']", function() {
+        const institution = $(this).val(); // Ambil nilai institusi
+        checkedStatus[institution] = $(this).prop("checked"); // Simpan status checkbox
+    });
+
+
 
 
 
@@ -457,20 +433,7 @@
     })
 
 
-    // Go Login page
-    $("#button-create-card").click(function(){
-        $("#popup-layer-navbar").fadeIn(function(){
-            $("#popup-login").slideToggle()
-            $("body").css("overflow", "hidden")
-        }).css("display", "flex")
-    })
-
-    $("#button-filter").click(function(){
-        $("#popup").fadeIn(function(){
-            $("#popup-filter").slideToggle()
-            $("body").addClass('no-scroll');
-        }).css("display", "flex")
-    })
+    
 
     // Card click for detail
     $("#cards").on("click", ".card-user", function(){
@@ -503,7 +466,7 @@
             $("#popup-view").prop("href", `/profile/${userData.id}`)
             $("#popup-profile-pic").prop("src", userData.profile_picture)
             $("#popup-yoe").text(`${userData.YoE} bulan`)
-            $("#popup-salary").text(userData.salary=="0" ? "Negotiable" : userData.salary)
+            $("#popup-work-pref").text(userData.work_pref_status)
 
             if(userData.skills.length > 0){
                 $("#popup-skills").html("")
@@ -578,7 +541,7 @@
                 if(!userData.attachments.atc_resume) $(".popup-resume").remove()
                 if(!userData.attachments.atc_portfolio) $(".popup-portfolio").remove()
                 $(".popup-resume").prop("href", userData.attachments.atc_resume)
-                $(".popup-portfolio").prop("href", userData.attachments.atc_attachment)
+                $(".popup-portfolio").prop("href", userData.attachments.atc_portfolio)
             }
 
 
@@ -607,18 +570,7 @@
         })
     })
 
-    $(".close-x").click(function(){
-        $(this).closest('.popup').slideToggle(function(){
-            $(this).closest('#popup').fadeOut()
-        })
-        $("body").removeClass('no-scroll');
-    })
-
     
-    const decrypt = (data, keys='<%= process.env.AES_KEYS %>') => {
-        let bytes = CryptoJS.AES.decrypt(data, keys)
-        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
-    }
 
 
 
@@ -722,6 +674,11 @@
         const formattedDate = `${formattedMonth} ${year}`;
     
         return formattedDate;
+    }
+
+    const decrypt = (data, keys='<%= process.env.AES_KEYS %>') => {
+        let bytes = CryptoJS.AES.decrypt(data, keys)
+        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
     }
 
     function getFormattedDate() {
