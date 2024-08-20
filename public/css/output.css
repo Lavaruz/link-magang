@@ -1346,6 +1346,10 @@ input[type="range"]::-ms-fill-lower {
   width: 44px;
 }
 
+.w-\[50vw\] {
+  width: 50vw;
+}
+
 .w-\[70px\] {
   width: 70px;
 }
@@ -1373,30 +1377,6 @@ input[type="range"]::-ms-fill-lower {
 .w-max {
   width: -moz-max-content;
   width: max-content;
-}
-
-.w-\[700px\] {
-  width: 700px;
-}
-
-.w-\[500px\] {
-  width: 500px;
-}
-
-.w-\[600px\] {
-  width: 600px;
-}
-
-.w-3\/4 {
-  width: 75%;
-}
-
-.w-\[80vw\] {
-  width: 80vw;
-}
-
-.w-\[50vw\] {
-  width: 50vw;
 }
 
 .min-w-\[70px\] {
@@ -2302,10 +2282,6 @@ input[type="range"]::-ms-fill-lower {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-white\/80 {
-  color: rgb(255 255 255 / 0.8);
-}
-
 .text-white\/90 {
   color: rgb(255 255 255 / 0.9);
 }
@@ -2418,6 +2394,84 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
 
 .no-scroll{
   overflow: hidden;
+}
+
+.no-tailwind h1 {
+  font-size: 2.25rem;
+  /* 36px */
+  line-height: 2.5rem;
+  /* 40px */
+  font-weight: 700;
+}
+
+.no-tailwind h2 {
+  font-size: 1.875rem;
+  /* 30px */
+  line-height: 2.25rem;
+  /* 36px */
+  font-weight: 700;
+}
+
+.no-tailwind h3 {
+  font-size: 1.5rem;
+  /* 24px */
+  line-height: 2rem;
+  /* 32px */
+  font-weight: 700;
+}
+
+.no-tailwind h4 {
+  font-size: 1.25rem;
+  /* 20px */
+  line-height: 1.75rem;
+  /* 28px */
+  font-weight: 700;
+}
+
+.no-tailwind h5 {
+  font-size: 1rem;
+  /* 16px */
+  line-height: 1.5rem;
+  /* 24px */
+  font-weight: 700;
+}
+
+.no-tailwind h6 {
+  font-size: 0.875rem;
+  /* 14px */
+  line-height: 1.25rem;
+  /* 20px */
+  font-weight: 700;
+}
+
+.no-tailwind a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.no-tailwind a:hover {
+  text-decoration: underline;
+}
+
+.no-tailwind ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+}
+
+.no-tailwind ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+}
+
+.no-tailwind li {
+  margin-bottom: 0.5rem;
+}
+
+.no-tailwind p {
+  display: block;
+  margin: 1em 0;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .placeholder\:text-black\/40::-moz-placeholder {
@@ -2967,6 +3021,10 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
     width: 380px;
   }
 
+  .lg\:w-\[600px\] {
+    width: 600px;
+  }
+
   .lg\:w-\[720px\] {
     width: 720px;
   }
@@ -2982,10 +3040,6 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
   .lg\:w-max {
     width: -moz-max-content;
     width: max-content;
-  }
-
-  .lg\:w-\[600px\] {
-    width: 600px;
   }
 
   .lg\:grid-cols-10 {

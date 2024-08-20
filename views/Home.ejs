@@ -1,6 +1,12 @@
 <%- include('./layouts/header'); -%>
 <%- include('./layouts/navbar-all'); -%>
 
+<style>
+    #popup-overview *{
+        background-color: transparent !important;
+    }
+</style>
+
 <main class="noise">
     <div class="min-h-screen lg:w-[1100px] mx-auto py-6 lg:py-10 pb-20 px-[5%] lg:px-0">
 
@@ -81,7 +87,7 @@
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                         </svg>
                                     </div>
-                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari lokasi">
+                                    <input type="text" class="locations-input block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari lokasi">
                                 </div>
                             </div>
                             <ul class="list-locations h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location">
@@ -105,7 +111,7 @@
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                         </svg>
                                     </div>
-                                    <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari keahilan">
+                                    <input type="text" class="skills-input block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari keahilan">
                                 </div>
                             </div>
                             <ul class="list-skills h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-skills">
@@ -189,7 +195,7 @@
                     <p class="flex flex-col"><i class="text-xl font-bold text-black/80 uil uil-map-marker-alt"></i> <span id="popup-location">Surabaya</span></p>
                 </div>
                 <div class="mt-6 flex flex-col lg:flex-row gap-4 justify-center">
-                    <a id="popup-link" href="#" target="_blank" class="w-full px-8 py-2 self-start rounded-lg text-sm font-medium bg-main text-white shadow-md hover:scale-[1.01]"><i class="uil uil-external-link-alt"></i> More Detail</a>
+                    <a id="popup-link" href="#" target="_blank" class="w-full lg:w-max px-8 py-2 self-start rounded-lg text-sm font-medium bg-main text-white shadow-md hover:scale-[1.01]"><i class="uil uil-external-link-alt"></i> More Detail</a>
                     <div class="text-right">
                         <button disabled class="w-full disabled:opacity-70 px-8 py-2 rounded-lg text-sm font-medium bg-main text-white shadow-md hover:scale-[1.01]"><i class="uil uil-bookmark"></i> Bookmark</button>
                         <p class="text-xs text-black/60 mt-1">*login needed</p>
@@ -198,7 +204,7 @@
             </div>
             <div class="">
                 <p class="text-black/70 font-bold mt-4 text-xl">Overview</p>
-                <p id="popup-overview" class="mt-4 text-black/70">Tidak ada overview ditampilkan ~</p>
+                <p id="popup-overview" class="mt-4 text-black/70 no-tailwind">Tidak ada overview ditampilkan ~</p>
             </div>
 
             <button id="close-detail-job" class="hidden lg:block absolute top-[1rem] right-[2rem] text-2xl"><i class="uil uil-multiply"></i></button>
@@ -283,7 +289,7 @@
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                 </svg>
                             </div>
-                            <input type="text" id="input-group-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari keahilan">
+                            <input type="text" class="skills-input block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari keahilan">
                         </div>
                     </div>
                     <ul class="list-skills h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-skills-mobile">
@@ -309,6 +315,11 @@
     let TYPE = []
     let LOCATIONS = []
     let SKILLS = []
+
+    let SELECTED_LOCATION = []
+    let checkedStatusLocations = {}
+    let checkedStatusSkills = {}
+
 
     CountAllPlatform()
     GetPosts("", LIMIT, PAGE)
@@ -384,6 +395,34 @@
                 </li>
             `)
         })
+
+        $(".locations-input").on("input", function(){
+            const INPUT = $(this).val().toLowerCase(); // Ambil nilai input dalam lowercase
+            $(".list-locations").html(""); // Kosongkan daftar institusi
+
+            const filteredLocations = locationData.filter(location => {
+                return location.location.toLowerCase().includes(INPUT);
+            });
+
+            filteredLocations.forEach(location => {
+                const isChecked = checkedStatusLocations[location.location.toLowerCase()] ? 'checked' : ''; // Cek apakah checkbox harus dicentang
+                $(".list-locations").append(`
+                    <li>
+                        <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <p style="display:none">${location.id}</p>
+                            <input id="radio-${location.id}" ${isChecked} name="location" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="checkbox-${location.id}" class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">${location.location}</label>
+                        </div>
+                    </li>
+                `);
+            });
+        });
+    
+        $(".list-locations").on("change", "input[type=checkbox]", function(){
+            const SKILL_ID = $(this).prev().text();
+            const LABEL = $(this).next().text();
+            checkedStatusLocations[LABEL.toLowerCase()] = $(this).prop("checked");
+        })
     })
     
     $.get("/api/v1/users/skills", function(skillsData){
@@ -398,6 +437,39 @@
                     </div>
                 </li>
             `)
+        })
+
+        $(".skills-input").on("input", function(){
+            const INPUT = $(this).val().toLowerCase(); // Ambil nilai input dalam lowercase
+            $(".list-skills").html(""); // Kosongkan daftar institusi
+
+            // Filter institusi berdasarkan nilai input
+            const filteredSkills = skillsData.filter(skill => {
+                return skill.skill.toLowerCase().includes(INPUT);
+            });
+
+            // Tampilkan hasil filter
+            filteredSkills.forEach(skill => {
+                const isChecked = checkedStatusSkills[skill.skill.toLowerCase()] ? 'checked' : ''; // Cek apakah checkbox harus dicentang
+                $(".list-skills").append(`
+                    <li>
+                        <div class="flex items-center ps-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <p style="display:none">${skill.id}</p>
+                            <input id="checkbox-${skill.id}" type="checkbox" ${isChecked} value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                            <label for="checkbox-${skill.id}" class="w-full py-2 ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">${skill.skill}</label>
+                        </div>
+                    </li>
+                `);
+            });
+        });
+
+        $(".list-skills").on("change", "input[type=checkbox]", function(){
+            const SKILL_ID = $(this).prev().text();
+            const LABEL = $(this).next().text();
+
+            checkedStatusSkills[LABEL.toLowerCase()] = $(this).prop("checked");
+            console.log(checkedStatusSkills);
+            
         })
     })
 
