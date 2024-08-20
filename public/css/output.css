@@ -1023,6 +1023,11 @@ input[type="range"]::-ms-fill-lower {
   margin-bottom: 2rem;
 }
 
+.mx-\[5\%\] {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -1397,6 +1402,10 @@ input[type="range"]::-ms-fill-lower {
 
 .max-w-sm {
   max-width: 24rem;
+}
+
+.max-w-\[70px\] {
+  max-width: 70px;
 }
 
 .origin-\[0\] {
@@ -1972,6 +1981,11 @@ input[type="range"]::-ms-fill-lower {
   padding-bottom: 2px;
 }
 
+.py-20 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
 .pb-12 {
   padding-bottom: 3rem;
 }
@@ -2056,6 +2070,10 @@ input[type="range"]::-ms-fill-lower {
 
 .pt-5 {
   padding-top: 1.25rem;
+}
+
+.pb-14 {
+  padding-bottom: 3.5rem;
 }
 
 .text-left {
@@ -3108,6 +3126,10 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
     border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
   }
 
+  .lg\:justify-self-end {
+    justify-self: end;
+  }
+
   .lg\:overflow-y-scroll {
     overflow-y: scroll;
   }
@@ -3212,6 +3234,21 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
   .lg\:py-\[10px\] {
     padding-top: 10px;
     padding-bottom: 10px;
+  }
+
+  .lg\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .lg\:py-12 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .lg\:px-2 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 
   .lg\:pb-0 {

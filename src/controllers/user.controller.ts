@@ -65,7 +65,8 @@ export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
                     { lastname: { [Op.like]: `%${keyword}%` } },
                     { headline: { [Op.like]: `%${keyword}%` } },
                     { '$experiences.exp_position$': {[Op.like]: `%${keyword}%`}},
-                    { '$experiences.exp_orgname$': {[Op.like]: `%${keyword}%`}}
+                    { '$experiences.exp_orgname$': {[Op.like]: `%${keyword}%`}},
+                    { '$educations.edu_program$': {[Op.like]: `%${keyword}%`}},
                 ]
             },
             include: [

@@ -14,13 +14,13 @@
                     </div> 
                     <!-- <label for="" class="">SEARCH</label> -->
                     <p class="ps-4 text-sm font-medium">BY INFORMASI BASIC ---</p>
-                    <input type="search" id="input-search" value="" class="block w-full px-4 py-3 rounded-lg font-medium text-sm text-gray-900 border border-gray-300 bg-white focus:ring-main focus:border-main" placeholder="Cari nama atau pekerjaan" />
-                    <select name="" id="select-gender" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                    <input type="search" value="" class="input-search block w-full px-4 py-3 rounded-lg font-medium text-sm text-gray-900 border border-gray-300 bg-white focus:ring-main focus:border-main" placeholder="Cari nama atau pekerjaan" />
+                    <select class="select-gender px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
                         <option value="" selected>Jenis Kelamin</option>
                         <option value="Male">Laki Laki</option>
                         <option value="Female">Perempuan</option>
                     </select>
-                    <select name="" id="select-work_pref" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                    <select class="select-work_pref px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
                         <option value="" selected>Prefrensi Pekerjaan</option>
                         <option value="WFO">Work From Office (WFO)</option>
                         <option value="WFH">Work From Home (WFH)</option>
@@ -29,6 +29,7 @@
                 </div>
                 <div class="pt-4 flex flex-col gap-4 w-full">
                     <p class="ps-4 text-sm font-medium">BY PENDIDIKAN ---</p>
+                    <input type="search" value="" class="input-pendidikan block w-full px-4 py-3 rounded-lg font-medium text-sm text-gray-900 border border-gray-300 bg-white focus:ring-main focus:border-main" placeholder="Cari jurusan / program" />
                     <div class="flex flex-col">
                         <button type="button" id="dropdown-institution" data-dropdown-toggle="dropdown-institution-dd" data-dropdown-placement="right" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Institusi <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
@@ -52,7 +53,7 @@
                             </ul>
                         </div>
                     </div>
-                    <select name="" id="select-edu_type" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                    <select class="select-edu_type px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
                         <option value="" selected>Tingkat Pendidikan</option>
                         <option value="Pacasarjana (S2)">Pacasarjana (S2)</option>
                         <option value="Sarjana (S1)">Sarjana (S1)</option>
@@ -61,7 +62,7 @@
                         <option value="Sekolah Dasar">Sekolah Dasar</option>
                         <option value="Bootcamp">Bootcamp</option>
                     </select>
-                    <select name="" id="select-gpa" class="px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                    <select class="select-gpa px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
                         <option value="" selected>Nilai atau IPK</option>
                         <option value="3.50">> IPK 3.50</option>
                         <option value="3.00">> IPK 3.00</option>
@@ -123,10 +124,10 @@
 <!-- POPUP USER -->
 <div id="popup" class="hidden fixed top-0 bottom-0 right-0 left-0 bg-black/60 z-30 flex items-end lg:items-center justify-center">
     <div id="popup-user" class="hidden popup w-full lg:w-1/2 bg-background noise rounded-2xl relative overflow-hidden">
-        <div class="h-[90vh] overflow-y-scroll w-full px-[5%] lg:px-12 py-8">
+        <div id="popup-user-s" class="h-[90vh] overflow-y-scroll w-full px-[5%] lg:px-12 py-8">
 
             <!-- BASIC INFO -->
-            <div class="grid grid-cols-2 justify-between">
+            <div class="grid lg:grid-cols-2 justify-between">
                 <div class="flex gap-4 items-center">
                     <div class="w-[90px] h-[90px] min-w-[90px] min-h-[90px] rounded-full overflow-hidden mx-auto lg:mx-0">
                         <img id="popup-profile-pic" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
@@ -135,12 +136,12 @@
                         <p id="popup-username" class="text-2xl font-bold text-main"><i class="uil uil-mars text-blue-500"></i> Assami Muzaki</p>
                         <p id="popup-headline" class="font-medium text-black/60 text-sm">Founder of Internshits</p>
                         <div class="flex items-center gap-3 mt-2">
-                            <a href="" class="px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-envelope"></i> Hubungi Email</a>
-                            <a href="" class="px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-whatsapp"></i> Hubungi Whatsapp</a>
+                            <a href="" class="px-4 lg:px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-envelope"></i> <span class="hidden lg:block">Hubungi Email</span></a>
+                            <a href="" class="px-4 lg:px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-whatsapp"></i> <span class="hidden lg:block">Hubungi Whatsapp</span></a>
                         </div>
                     </div>
                 </div>
-                <div class="justify-self-end flex divide-x divide-gray-400 items-center justify-center">
+                <div class="lg:justify-self-end mt-8 lg:mt-0 flex divide-x divide-gray-400 items-center justify-center">
                     <div class="text-center px-4">
                         <p id="popup-work-pref" class="font-semibold leading-tight text-lg text-black/80">WFO</p>
                         <small class="text-black/60">Prefrensi Pekerjaan</small>
@@ -169,7 +170,7 @@
             <!-- EDUCATION USER -->
             <div class="flex flex-col gap-4">
                 <p class="font-semibold text-xl text-main flex items-center gap-2"><i class="uil uil-university"></i>Pendidikan</p>
-                <div id="popup-educations">
+                <div id="popup-educations" class="flex flex-col gap-4">
 
                 </div>
             </div>
@@ -178,8 +179,8 @@
 
             <!-- EXPERIENCE USER -->
             <div class="flex flex-col gap-4">
-                <p class="font-semibold text-xl text-main flex items-center gap-2"><i class="uil uil-bag-alt"></i>Pengalaman</p>
-                <div id="popup-experiences">
+                <p class="font-semibold text-xl text-main flex items-center gap-2"><i class="uil uil-bag-alt"></i>Pengalaman - (<span id="popup-yoe"></span>)</p>
+                <div id="popup-experiences" class="flex flex-col gap-4">
                     <!-- HERE -->
                 </div>
             </div>
@@ -202,6 +203,81 @@
                 <button class="close-x text-sm text-main font-medium mx-auto w-full py-3 rounded-lg">Tutup</button>
             </div>
         </div>
+    </div>
+
+    <div id="popup-filter" class="popup hidden w-full rounded-t-2xl bg-background h-[88vh] p-5 overflow-y-scroll pb-14">
+        <button type="button" class="lg:hidden my-4 mb-6 flex items-center gap-2 close-x text-main font-medium text-base">
+            <i class="uil uil-arrow-left"></i> Kembali ke Talent Hunt
+        </button>
+        <p class="text-main font-bold text-2xl mt-4">Filter Talent</p>
+
+        <div class="flex flex-col gap-4 mt-6">
+            <div class="flex flex-col gap-4">
+                <p class="ps-4 text-sm font-medium">BY INFORMASI BASIC ---</p>
+                <form id="form-market-filter-mobile">
+                    <input type="search" value="" class="input-search block w-full px-4 py-3 rounded-lg font-medium text-sm text-gray-900 border border-gray-300 bg-white focus:ring-main focus:border-main" placeholder="Cari nama atau pekerjaan" />
+                </form>
+                <select class="select-gender px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                    <option value="" selected>Jenis Kelamin</option>
+                    <option value="Male">Laki Laki</option>
+                    <option value="Female">Perempuan</option>
+                </select>
+                <select class="select-work_pref px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                    <option value="" selected>Prefrensi Pekerjaan</option>
+                    <option value="WFO">Work From Office (WFO)</option>
+                    <option value="WFH">Work From Home (WFH)</option>
+                    <option value="WFA">Work From Anywhere (WFA)</option>
+                </select>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <p class="ps-4 text-sm font-medium">BY PENDIDIKAN ---</p>
+                <input type="search" value="" class="input-search block w-full px-4 py-3 rounded-lg font-medium text-sm text-gray-900 border border-gray-300 bg-white focus:ring-main focus:border-main" placeholder="Cari nama atau pekerjaan" />
+                <div class="flex flex-col">
+                    <button type="button" id="dropdown-institution-mobile" data-dropdown-toggle="dropdown-institution-dd-mobile" data-dropdown-placement="bottom" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Institusi <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </button>
+                    <!-- Dropdown menu -->
+                    <div id="dropdown-institution-dd-mobile" class="w-[90%] border z-10 hidden bg-white rounded-lg shadow w-1/4 dark:bg-gray-700">
+                        <div class="p-3">
+                            <label for="input-group-search" class="sr-only">Search</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                    </svg>
+                                </div>
+                                <input type="text" class="university-input block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari institusi">
+                            </div>
+                        </div>
+                        <ul class="list-institutions h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-institution-mobile">
+                            <!-- HERE -->
+                        </ul>
+                    </div>
+                </div>
+                <select class="select-edu_type px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                    <option value="" selected>Tingkat Pendidikan</option>
+                    <option value="Pacasarjana (S2)">Pacasarjana (S2)</option>
+                    <option value="Sarjana (S1)">Sarjana (S1)</option>
+                    <option value="Sekolah Menengah Atas">Sekolah Menengah Atas</option>
+                    <option value="Sekolah Menengah Pertama">Sekolah Menengah Pertama</option>
+                    <option value="Sekolah Dasar">Sekolah Dasar</option>
+                    <option value="Bootcamp">Bootcamp</option>
+                </select>
+                <select class="select-gpa px-4 w-full text-sm font-medium rounded-lg border py-3 border-gray-300 focus:ring-main focus:border-main">
+                    <option value="" selected>Nilai atau IPK</option>
+                    <option value="3.50">> IPK 3.50</option>
+                    <option value="3.00">> IPK 3.00</option>
+                    <option value="2.00">> IPK 2.00</option>
+                    <option value="90">> Raport 90</option>
+                    <option value="80">> Raport 80</option>
+                    <option value="70">> Raport 70</option>
+                    <option value="60">> Raport 60</option>
+                </select>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -230,28 +306,29 @@
 
     getActiveUserCard(QUERY)
 
-    $("#form-market-filter").submit(function(e){
-        e.preventDefault()
-        QUERY.keyword = $("#input-search").val()
+    $(".input-search, .input-pendidikan").on("input", function(){
+        QUERY.keyword = $(this).val()
+        console.log(QUERY.keyword);
+        
         getActiveUserCard(QUERY)
     })
 
-    $("#select-edu_type").change(function(){
+    $(".select-edu_type").change(function(){
         QUERY.education = $(this).val()
         getActiveUserCard(QUERY)
     })
 
-    $("#select-work_pref").change(function(){
+    $(".select-work_pref").change(function(){
         QUERY.work_pref = $(this).val()
         getActiveUserCard(QUERY)
     })
 
-    $("#select-gpa").change(function(){
+    $(".select-gpa").change(function(){
         QUERY.gpa = $(this).val()
         getActiveUserCard(QUERY)
     })
 
-    $("#select-gender").change(function(){
+    $(".select-gender").change(function(){
         QUERY.gender = $(this).val()
         getActiveUserCard(QUERY)
     })
@@ -288,6 +365,7 @@
             $(this).closest('#popup').fadeOut()
         })
         $("body").removeClass('no-scroll');
+        document.getElementById("popup-user-s").scrollTo(0, 0);
     })
 
 
@@ -352,11 +430,17 @@
         checkedStatus[institution] = $(this).prop("checked"); // Simpan status checkbox
     });
 
+    $("#popup-educations, #popup-experiences").on("click", ".button-readmore", function(){
+        const content = $(this).closest(".content")
+        content.addClass("hidden")
+        content.prev().removeClass("hidden")
+    })
 
 
 
 
-    // If User Login
+
+    // Init user data
     $.ajax({
         url: "/api/v1/users/verify-token",
         type: "GET",
@@ -432,9 +516,6 @@
         },
     })
 
-
-    
-
     // Card click for detail
     $("#cards").on("click", ".card-user", function(){
         $("#popup").fadeIn(function(){
@@ -444,6 +525,7 @@
 
         const ID = $(this).find(".id").text()
         $.get(`/api/v1/users/${ID}`, function(userData){
+            document.getElementById("popup-user-s").scrollTo(0, 0);
             let SHOW_PHONE
 
             userData = decrypt(userData.r)
@@ -468,6 +550,9 @@
             $("#popup-yoe").text(`${userData.YoE} bulan`)
             $("#popup-work-pref").text(userData.work_pref_status)
 
+            console.log(userData);
+            
+
             if(userData.skills.length > 0){
                 $("#popup-skills").html("")
                 userData.skills.forEach(function(skill){
@@ -490,16 +575,16 @@
                                                 <p class="text-white bg-white/30 py-[2px] px-2 inline cursor-default text-xs font-second font-medium">GPA ${education.edu_gpa}</p>
                                             </div>
                                             <p class="font-bold text-lg text-main">${education.edu_program}</p>
-                                            <p class="font-semibold text-sm text-white-80 font-second">${education.edu_institution} • ${education.edu_status} (${education.edu_location}) </p>
+                                            <p class="font-semibold text-sm text-white-80 font-second">${education.edu_institution}</p>
+                                            <p class="text-sm text-black/60 font-second">${education.edu_status} (${education.edu_location})</p>
                                         </div>
                                         <div class="text-left mt-1 lg:mt-0 lg:text-right flex gap-2 lg:block">
                                             <p class="font-second text-xs font-normal text-black/80">${formatDateMonth(education.edu_startdate)} - ${formatDateMonth(education.edu_enddate)}</p>
                                             <p class="text-xs font-semibold text-[#A5A5A5]">${calculateMonthDifference(education.edu_startdate, education.edu_enddate).toUpperCase()}</p>
                                         </div>
                                     </div>
-                                    <div class="body flex">
-                                        <p class="font-second text-sm text-white-60 font-normal mt-3">${paragraph.join("</br>")}...</p>
-                                    </div>
+                                    <p class="mt-3 hidden">${education.edu_description.replace(/\n/g, '<br/>')}</p>
+                                    <p class="mt-3 content">${education.edu_description.length > 210 ? `${education.edu_description.replace(/\n/g, '<br/>').substring(0,210)}... <button class="button-readmore text-sm text-main">Read More</button>` : education.edu_description.replace(/\n/g, '<br/>')}</p>
                                 </div>
                             </div>
                         </div>
@@ -520,16 +605,16 @@
                                         <div class="">
                                             <p class="text-white bg-main/60 py-[2px] px-2 inline cursor-default text-xs font-second font-medium">${experienceData.exp_type.toUpperCase()}</p>
                                             <p class="font-bold text-lg text-main mt-2 lg:mt-0">${experienceData.exp_position}</p>
-                                            <p class="font-semibold text-sm text-black/80 font-second">${experienceData.exp_orgname} • ${experienceData.exp_time} • ${experienceData.exp_status} (${experienceData.exp_location}) </p>
+                                            <p class="font-semibold text-sm text-black/80 font-second">${experienceData.exp_orgname}</p>
+                                            <p class="text-sm text-black/60 font-second">${experienceData.exp_time} • ${experienceData.exp_status} (${experienceData.exp_location})</p>
                                         </div>
                                         <div class="text-left mt-1 lg:mt-0 lg:text-right flex gap-2 lg:block">
                                             <p class="font-second text-xs font-normal text-black/80">${formatDateMonth(experienceData.exp_startdate)} - ${experienceData.exp_enddate?formatDateMonth(experienceData.exp_enddate):"Now"}</p>
                                             <p class="text-xs font-semibold text-[#A5A5A5]">${calculateMonthDifference(experienceData.exp_startdate, experienceData.exp_enddate?experienceData.exp_enddate:getFormattedDate()).toUpperCase()}</p>
                                         </div>
                                     </div>
-                                    <div <div class="body flex">
-                                        <p class="font-second text-sm text-white-60 font-normal mt-3">${paragraph.join("</br>")}...</p>
-                                    </div>
+                                    <p class="mt-3 hidden">${experienceData.exp_description.replace(/\n/g, '<br/>')}</p>
+                                    <p class="mt-3 content">${experienceData.exp_description.length > 210 ? `${experienceData.exp_description.replace(/\n/g, '<br/>').substring(0,210)}... <button class="button-readmore text-sm text-main">Read More</button>` : experienceData.exp_description.replace(/\n/g, '<br/>')}</p>
                                 </div>
                             </div>
                         </div>
@@ -543,7 +628,6 @@
                 $(".popup-resume").prop("href", userData.attachments.atc_resume)
                 $(".popup-portfolio").prop("href", userData.attachments.atc_portfolio)
             }
-
 
             if(userData.socials){
                 if(userData.socials.twitter){
@@ -590,7 +674,7 @@
                 let SHOW_BIRTHDAY
                 let SHOW_PHONE
                 let SKILLS = user.skills.map(function(skill){
-                    return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill.length >= 14 ? skill.skill.substring(0,14)+".." : skill.skill}</button>`
+                    return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill.length >= 10 ? skill.skill.substring(0,10)+".." : skill.skill}</button>`
                 })
 
                 let ACTIVE_SKILL = SKILLS.slice(0,2)
@@ -599,7 +683,7 @@
                     <div class="card-user flex flex-col lg:flex-row self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
                         <div class="w-full">
                             <div class="flex items-center gap-2 pb-2.5">
-                                <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                                <div class="w-[70px] max-w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
                                     <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
                                 </div>
                                 <div class="mb-2">
