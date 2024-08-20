@@ -11,23 +11,18 @@
     <div class="min-h-screen lg:w-[1100px] mx-auto py-6 lg:py-10 pb-20 px-[5%] lg:px-0">
 
         <!-- HERO -->
-        <div class="my-6 lg:grid grid-cols-6 items-center">
-            <div class="col-span-4">
-                <p class="text-thrid leading-tight text-[35px] text-center lg:text-left lg:text-[55px] font-bold">Cari <span class="text-main">Internship</span>mu</p>
-                <p class="font-medium text-second/80 text-lg text-center lg:text-left">dari semua penjuru platform</p>
-                <div class="flex items-center mx-auto lg:mx-0 gap-4 mt-6 py-2 rounded-lg w-max">
+        <div class="my-6 grid items-center justify-center text-center">
+            <div class="">
+                <p class="text-thrid leading-tight text-[35px] text-center lg:text-[55px] font-bold">Cari <span class="text-main">Lowongan</span>mu</p>
+                <p class="font-medium text-second/80 text-lg text-center">dari semua penjuru platform</p>
+                <div class="flex items-center mx-auto gap-4 mt-6 py-2 rounded-lg w-max">
+                    <p class="font-medium text-xl"><i class="uil uil-arrow-left"></i></p>
                     <a href="https://glints.com/id/en"><img src="/img/Glints.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
                     <a href="https://id.indeed.com/"><img src="/img/Indeed.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
                     <a href="https://www.jobstreet.co.id/"><img src="/img/Jobstreet.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
                     <a href="https://www.kalibrr.com/home"><img src="/img/Kalibrr.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
                     <a href="https://www.linkedin.com/jobs/"><img src="/img/Linkedin.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
-                    <p class="text-sm font-medium self-end">dll.</p>
-                </div>
-            </div>
-
-            <div class="hidden lg:block col-span-2 mt-8 gap-4">
-                <div class="bg-white/80 w-max ms-auto px-6 py-6 text-thrid border-2 shadow-md rounded-2xl font-medium">
-                    <p class="flex items-center gap-3"><i class="uil uil-postcard text-2xl"></i><span class="total-post text-2xl font-semibold">0</span>pekerjaan ditemukan</p>
+                    <p class="font-medium text-xl"><i class="uil uil-arrow-right"></i></p>
                 </div>
             </div>
         </div>
@@ -36,94 +31,10 @@
         <!-- SEARCH BAR -->
         <div id="search-bar" class="mt-12">
             <form id="form-search-job" class="flex items-center gap-4">   
-                <div class="w-full lg:w-[32%] relative">
-                    <input type="search" id="input-search" value="" class="block w-full p-4 py-3 ps-6 font-medium text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-main focus:border-main" placeholder="Cari posisi, perusahaan..." />
-                    <button type="submit" class="text-white absolute end-2.5 bottom-2 bg-main hover:bg-main/90 focus:outline-none focus:ring-main font-medium rounded-full text-sm px-4 py-1.5"><i class="uil uil-search"></i></button>
+                <div class="w-full relative">
+                    <input type="search" id="input-search" value="" class="hover:shadow-lg focus:shadow-lg block w-full p-4 py-3 ps-6 font-medium text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 focus:ring-main focus:border-main" placeholder="Super search, cari lowongan.." />
+                    <button type="submit" class="text-main absolute end-2.5 bottom-2 focus:outline-none focus:ring-main font-medium rounded-full text-sm px-5 py-2"><i class="uil uil-search"></i></button>
                 </div>
-                <!-- <button class="text-2xl bg-white rounded-xl w-12 h-12 border-gray-300 border text-thrid"><i class="uil uil-sliders-v"></i></button> -->
-                <div class="hidden lg:flex gap-2 ms-6">
-                    <div class="flex flex-col">
-                        <button id="dropdown-type" data-dropdown-toggle="dropdown-type-dd" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">Filter Tipe <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                            </svg>
-                        </button>
-                            
-                            <!-- Dropdown menu -->
-                        <div id="dropdown-type-dd" class="z-10 border hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
-                            <ul class="p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-type">
-                                <li>
-                                    <div class="flex items-center">
-                                        <input id="type-internship" type="checkbox" value="internship" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="type-internship" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Internship</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="flex items-center">
-                                        <input id="type-parttime" type="checkbox" value="parttime" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="type-parttime" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Part-Time</label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="flex items-center">
-                                        <input id="type-fulltime" type="checkbox" value="fulltime" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="type-fulltime" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full-Time</label>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="flex flex-col">
-                        <button type="button" id="dropdown-location" data-dropdown-toggle="dropdown-location-dd" data-dropdown-placement="bottom" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Lokasi <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                            </svg>
-                        </button>
-                        <!-- Dropdown menu -->
-                        <div id="dropdown-location-dd" class="border z-10 hidden bg-white rounded-lg shadow w-1/4 dark:bg-gray-700">
-                            <div class="p-3">
-                                <label for="input-group-search" class="sr-only">Search</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                        </svg>
-                                    </div>
-                                    <input type="text" class="locations-input block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari lokasi">
-                                </div>
-                            </div>
-                            <ul class="list-locations h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-location">
-                                <!-- HERE -->
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="flex flex-col">
-                        
-                        <button type="button" id="dropdown-skills" data-dropdown-toggle="dropdown-skills-dd" data-dropdown-placement="bottom" class="bg-white border border-gray-300 focus:ring-1 focus:outline-none focus:ring-main font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">Filter Keahlian <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                            </svg>
-                        </button>
-                        <!-- Dropdown menu -->
-                        <div id="dropdown-skills-dd" class="border z-10 hidden bg-white rounded-lg shadow w-1/4 dark:bg-gray-700">
-                            <div class="p-3">
-                                <label for="input-group-search" class="sr-only">Search</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                        </svg>
-                                    </div>
-                                    <input type="text" class="skills-input block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cari keahilan">
-                                </div>
-                            </div>
-                            <ul class="list-skills h-28 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-skills">
-                                <!-- HERE -->
-                            </ul>
-                        </div>
-    
-                    </div>
-                </div>
-
-                <!-- ON MOBILE -->
-                <i id="button-filter" class="uil uil-sliders-v text-2xl lg:hidden cursor-pointer"></i>
             </form>
         </div>
 
@@ -559,19 +470,57 @@
         })
     }
 
+    
+
     function GetCard(post){
+        console.log(post);
+        
+        let platform = getPlatformImage(post)
+        console.log(platform);
+        
+        let SKILLS = post.skills.map(function(skill){
+            return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill.length >= 18 ? skill.skill.substring(0,18)+".." : skill.skill}</button>`
+        })
+        let ACTIVE_SKILL = SKILLS.slice(0,4)
+        let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
         $("#cards").append(`
             <div class="job-detail cursor-pointer hover:scale-[1.005] duration-100 shadow-md border border-main bg-white p-4 rounded-2xl self-start">
                 <p class="id" style="display:none">${post.id}</p>
-                <p class="font-bold text-black">${post.title.length > 33 ? post.title.substring(0,33)+"..." : post.title}</p>
-                <p class="text-sm text-black">${post.company}</p>
-                <p class="text-xs px-2 bg-main w-max mt-2 rounded-sm mb-4 text-background">INTERNSHIP</p>
+                <p class="font-bold text-black mb-2">${post.title.length > 33 ? post.title.substring(0,33)+"..." : post.title}</p>
+                <div class="flex gap-2 flex-wrap">
+                    ${ACTIVE_SKILL.join("")}
+                    ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
+                </div>
+                <p class="text-sm flex items-center gap-2 mt-4"><i class="uil uil-building"></i>${post.company.length > 38 ? post.company.substring(0,38) + ".." : post.company}</p>
+                <p class="text-sm flex items-center gap-2 mt-1"><i class="uil uil-location-point"></i> ${post.type} • ${post.location}</p>
                 <hr class="my-2">
-                <p class="text-sm flex items-center gap-2"><i class="uil uil-location-point"></i> ${post.location}</p>
-                <p class="text-sm flex items-center gap-2"><i class="uil uil-bag"></i>in ${post.platform}</p>
-                <p class="text-sm flex items-center gap-2 mt-2"><i class="uil uil-upload"></i><span class="text-xs font-medium">${timeAgo(post.post_date)}</span></p>
+                <div class="flex items-center justify-between gap-3 mt-4">
+                    <span class="text-white text-xs font-medium bg-orange-500 px-2 py-1">kamu banget</span>
+                    <div class="flex items-center gap-2">
+                        <p class="text-sm flex items-center gap-2"><span class="text-xs font-medium">muncul di</span></p>
+                        ${platform}
+                        <p class="text-sm flex items-center gap-2"><span class="text-xs font-medium">${timeAgo(post.post_date)}</span></p>
+                    </div>
+                </div>
             </div>
         `)
+    }
+
+    function getPlatformImage(post){
+        switch (post.platform) {
+            case 'Glints':
+                return '<img class="w-6 h-6 rounded-lg" src="/img/Glints.png" alt="Glints">';
+            case 'LinkedIn':
+                return '<img class="w-6 h-6 rounded-lg" src="/img/Linkedin.png" alt="LinkedIn">';
+            case 'Kalibrr':
+                return '<img class="w-6 h-6 rounded-lg" src="/img/Kalibrr.png" alt="Kalibrr">';
+            case 'JobStreet':
+                return '<img class="w-6 h-6 rounded-lg" src="/img/Jobstreet.png" alt="JobStreet">';
+            case 'Indeed':
+                return '<img class="w-6 h-6 rounded-lg" src="/img/Indeed.png" alt="Indeed">';
+            default:
+                return '<img class="w-6 h-6 rounded-lg" src="/img/Default.png" alt="Default">';
+        }
     }
 
     function CountAllPlatform(){
@@ -608,11 +557,11 @@
         const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
 
         if (diffInDays < 7) {
-            return `Postingan minggu ini`;
+            return `minggu ini`;
         } else if (diffInDays < 14) {
-            return `Postingan minggu lalu`;
+            return `minggu lalu`;
         } else {
-            return `Postingan beberapa minggu lalu`;
+            return `beberapa minggu lalu`;
         } 
     }
 </script>

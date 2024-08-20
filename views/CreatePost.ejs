@@ -25,9 +25,9 @@
             <div class="">
                 <label for="" class="block text-sm font-medium text-black/70 mb-2">JOB TYPE*</label>
                 <select type="text" name="type" class="w-1/3 rounded-lg border-2 border-gray-300 placeholder-black/30" placeholder="Ex. Internshits Corporation" name="" id="">
-                    <option value="INTERNSHIP">Internship</option>
-                    <option value="FULL-TIME">Full-Time</option>
-                    <option value="PART-TIME">Part-Time</option>
+                    <option value="Internship">Internship</option>
+                    <option value="Full-Time">Full-Time</option>
+                    <option value="Part-Time">Part-Time</option>
                 </select>
             </div>
 
@@ -375,7 +375,7 @@
                 location.reload()
             },
             error: function (request, status, error) {
-                return request
+                alert(request.responseJSON.message)
             },
         });
     })

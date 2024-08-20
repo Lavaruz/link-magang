@@ -111,8 +111,7 @@ export const getPostCount = async (req: Request, res: Response) => {
 
 export const addPost = async (req: Request, res: Response) => {
   const postData = req.body; // Data pembaruan pengguna dari permintaan PUT  
-  const skillBody = req.body.skills
-  
+  const skillBody = req.body.skills.split(",")
 
   try {
     let POST = await Post.findOne({ where: { link: postData.link } })

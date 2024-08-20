@@ -674,13 +674,13 @@
                 let SHOW_BIRTHDAY
                 let SHOW_PHONE
                 let SKILLS = user.skills.map(function(skill){
-                    return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill.length >= 10 ? skill.skill.substring(0,10)+".." : skill.skill}</button>`
+                    return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill.length >= 16 ? skill.skill.substring(0,16)+".." : skill.skill}</button>`
                 })
 
-                let ACTIVE_SKILL = SKILLS.slice(0,2)
+                let ACTIVE_SKILL = SKILLS.slice(0,5)
                 let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
                 $("#cards").append(`
-                    <div class="card-user flex flex-col lg:flex-row self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
+                    <div class="card-user flex flex-col lg:flex-row gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
                         <div class="w-full">
                             <div class="flex items-center gap-2 pb-2.5">
                                 <div class="w-[70px] max-w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
@@ -690,17 +690,16 @@
                                     <p class="id" style="display:none">${user.id}</p>
                                     <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : user.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
                                     <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">${user.headline}</p>
-                                    <div class="flex gap-2 mt-3 flex-wrap">
-                                        ${ACTIVE_SKILL.join("")}
-                                        ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
                                     </div>
                                 </div>
-                            </div>
                             <hr>
+                            <div class="flex gap-2 mt-3 flex-wrap">
+                                ${ACTIVE_SKILL.join("")}
+                                ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
+                            </div>
                             <div class="pt-2">
-                                <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${user.YoE}</span>Bulan Pengalaman Kerja</p>
-                                <p class="text-sm flex items-center"><i class="uil uil-bag"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_type + " - " + user.educations[0].edu_program : "No Education Added"}</span></p>
-                                <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_institution : "No Education Added"}</span></p>
+                                <p class="text-sm flex items-center mt-2"><i class="uil uil-university"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_type + " • " + user.educations[0].edu_program : "No Education Added"} • ${user.educations.length > 0 ? user.educations[0].edu_institution : "No Education Added"}</span></p>
+                                <p class="text-sm flex items-center mt-2"><i class="uil uil-bag-alt"></i><span class="ms-2">${user.experiences.length > 0 ? user.experiences[0].exp_position + " • " + user.experiences[0].exp_orgname : "Pengalaman belum ditambahkan"}</span></p>
                             </div>
                         </div>
                     </div>
