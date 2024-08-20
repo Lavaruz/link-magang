@@ -32,49 +32,9 @@ const path_1 = __importDefault(require("path"));
 const multer_1 = __importDefault(require("multer"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
-const passport_1 = __importDefault(require("passport"));
-const passport_google_oauth20_1 = require("passport-google-oauth20");
 const dotenv = __importStar(require("dotenv"));
-const JWT_1 = require("./config/JWT");
-const User_1 = __importDefault(require("./models/User"));
 dotenv.config();
 const app = (0, express_1.default)();
-// Konfigurasi Google OAuth
-passport_1.default.use(new passport_google_oauth20_1.Strategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: `/api/google/callback`,
-}, async (accessToken, refreshToken, profile, done) => {
-    // Lakukan sesuatu dengan data profil pengguna, seperti menyimpan di database
-    const email = profile.emails[0].value;
-    if (!email)
-        throw new Error('Login failed');
-    const existingUser = await User_1.default.findOne({ where: { email } });
-    if (existingUser) {
-        const accessToken = (0, JWT_1.createToken)(existingUser);
-        Object.assign(profile, { accessToken });
-        return done(null, profile);
-    }
-    else {
-        let USER = await User_1.default.create({
-            email: email,
-            profile_picture: profile.photos[0].value,
-            name: profile.name.givenName,
-        });
-        const accessToken = (0, JWT_1.createToken)(USER);
-        Object.assign(profile, { accessToken });
-        return done(null, profile);
-    }
-}));
-app.use(passport_1.default.initialize());
-app.get('/api/google', passport_1.default.authenticate('google', { scope: ['profile', 'email'] }));
-app.get('/api/google/callback', passport_1.default.authenticate('google', { failureRedirect: '/', session: false }), (req, res) => {
-    // Di sini, Anda dapat mengarahkan pengguna atau melakukan sesuatu setelah otentikasi sukses
-    res.cookie("access-token", req.user.accessToken, {
-        maxAge: 360000000,
-    });
-    return res.redirect("/");
-});
 // for image upload
 if (!fs_1.default.existsSync("public/files/uploads")) {
     if (!fs_1.default.existsSync("public/files")) {

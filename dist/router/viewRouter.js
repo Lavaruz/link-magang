@@ -38,6 +38,54 @@ router.get("/", (req, res, next) => {
         return res.send(error);
     }
 });
+router.get("/profile/me", (req, res, next) => {
+    try {
+        return res.render("Profile", { AES_KEYS: process.env.AES_KEYS });
+    }
+    catch (error) {
+        return res.send(error);
+    }
+});
+router.get("/profile/bookmark", (req, res, next) => {
+    try {
+        return res.render("Bookmark", { AES_KEYS: process.env.AES_KEYS });
+    }
+    catch (error) {
+        return res.send(error);
+    }
+});
+router.get("/profile/:id", (req, res, next) => {
+    try {
+        return res.render("Profile-Guest", { AES_KEYS: process.env.AES_KEYS });
+    }
+    catch (error) {
+        return res.send(error);
+    }
+});
+router.get("/community", (req, res, next) => {
+    try {
+        return res.render("Community", { AES_KEYS: process.env.AES_KEYS });
+    }
+    catch (error) {
+        return res.send(error);
+    }
+});
+router.get("/posts/create", (req, res, next) => {
+    try {
+        return res.render("CreatePost", { AES_KEYS: process.env.AES_KEYS });
+    }
+    catch (error) {
+        return res.send(error);
+    }
+});
+router.get("/market", (req, res, next) => {
+    try {
+        return res.render("Market", { AES_KEYS: process.env.AES_KEYS });
+    }
+    catch (error) {
+        return res.send(error);
+    }
+});
 router.get("/create", (req, res, next) => {
     try {
         return res.render("Create");
