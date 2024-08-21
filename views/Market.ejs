@@ -78,16 +78,16 @@
 
         <!-- CARDS -->
         <div class="lg:col-span-8 px-[5%] lg:px-10 pb-40 overflow-y-scroll h-screen">
-            <div id="on-login" class="hidden">
+            <!-- <div id="on-login" class="hidden">
                 <div class="py-4">
                     <p class="text-2xl font-medium text-main"><i class="uil uil-card-atm"></i> Kartu Kamu</p>
                 </div>
                 <hr class="border-gray-300 pt-4 pb-4">
-                <!-- CARD -->
+                CARD
                 <div class="grid lg:grid-cols-2 gap-6">
 
                     <div id="my-profile">
-                        <!-- HERE -->
+                        HERE
                     </div>
                     
                     <div id="how-to" class="">
@@ -101,14 +101,14 @@
                         <a href="/profile/me" class="block w-max mt-4 rounded-lg px-6 py-2 text-white font-medium text-sm bg-main">Ayo coba aktifkan</a>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div id="off-login" class="hidden my-4">
                 <p class="text-black/60">Pamerkan betapa kerennya dirimu, untuk membuat <b>orang lain</b> & <b>recruiter</b> tertarik terhadap profilemu</p>
                 <button id="button-create-card" class="text-white font-medium text-sm bg-main rounded-lg mt-4 px-6 py-2">Buat kartu kamu sendiri !</button>
             </div>
 
             
-            <div class="flex justify-between items-center py-4 mt-10 lg:mt-6">
+            <div class="flex justify-between items-center py-4 mt-10 lg:mt-0">
                 <p class="text-2xl font-medium text-main"><i class="uil uil-user-md"></i> Menampilkan <span id="total-active-user">0</span> Talent</p>
                 <button id="button-filter" class="lg:hidden shadow-md w-10 rounded-full h-10 bg-main text-white font-medium"><i class="uil uil-sliders-v"></i></button>
             </div>
@@ -304,7 +304,55 @@
         gender: "",
     }
 
-    getActiveUserCard(QUERY)
+
+
+
+
+
+    // Init user data
+    $.ajax({
+        url: "/api/v1/users/verify-token",
+        type: "GET",
+        headers: {
+            "Authorization": window.USER_TOKEN,
+        },
+        success: (isVerified) => {
+            if(isVerified){
+                $("#off-login").addClass("hidden")
+            }else{
+                $("#off-login").removeClass("hidden")
+            }
+
+            $.ajax({
+                url: '/api/v1/users/info',
+                type: 'get',
+                dataType: 'json',
+                headers: {
+                    "Authorization": window.USER_TOKEN,
+                },
+                success: async function (userData) {
+                    userData = decrypt(userData.r)
+                    getActiveUserCard(QUERY, userData)
+                },
+                error: function(xhr){
+                    getActiveUserCard(QUERY)
+                }
+            });
+
+        },
+        error: function (request, status, error) {
+            $("#nav-profile").addClass("hidden")
+            $("#button-login").removeClass("hidden")
+            return request
+        },
+    })
+
+
+
+
+
+
+
 
     $(".input-search, .input-pendidikan").on("input", function(){
         QUERY.keyword = $(this).val()
@@ -437,84 +485,6 @@
     })
 
 
-
-
-
-    // Init user data
-    $.ajax({
-        url: "/api/v1/users/verify-token",
-        type: "GET",
-        headers: {
-            "Authorization": window.USER_TOKEN,
-        },
-        success: (isVerified) => {
-            if(isVerified){
-                $("#on-login").removeClass("hidden")
-                $("#off-login").addClass("hidden")
-                $("#how-to").addClass("hidden")
-            }else{
-                $("#on-login").addClass("hidden")
-                $("#off-login").removeClass("hidden")
-            }
-
-            $.ajax({
-                url: '/api/v1/users/info',
-                type: 'get',
-                dataType: 'json',
-                headers: {
-                    "Authorization": window.USER_TOKEN,
-                },
-                success: async function (userData) {
-                    userData = decrypt(userData.r)
-                    let SKILLS = userData.skills.map(function(skill){
-                        return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill.length >= 14 ? skill.skill.substring(0,14)+".." : skill.skill}</button>`
-                    })
-                    let ACTIVE_SKILL = SKILLS.slice(0,3)
-                    let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
-
-                    let isActive = userData.active_search == false ? `<p class="bg-red-500/90 text-xs px-4 text-white py-0.5">INACTIVE</p>` : `<p class="bg-green-500/90 text-xs px-4 text-white py-0.5">ACTIVE</p>`
-
-                    $("#my-profile").append(`
-                        <div class="card-user flex flex-col lg:flex-row self-start gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
-                            <div class="w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                                <img id="basic-profile-pic" src="${userData.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
-                            </div>
-                            <div class="w-full">
-                                <div class="flex items-center lg:items-start flex-col-reverse lg:flex-row justify-between">
-                                    <div class="mb-2 text-center lg:text-left">
-                                        <p class="id" style="display:none">${userData.id}</p>
-                                        <p id="basic-fullname" class="font-bold text-xl text-main">${userData.firstname} ${userData.lastname} ${userData.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : userData.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
-                                        <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">${userData.headline}</p>
-                                    </div>
-                                    ${isActive}
-                                </div>
-                                <hr>
-                                <div class="pt-2">
-                                    <p class="text-sm flex items-center text-black/80"><i class="uil uil-award-alt"></i><span class="font-medium ms-2 me-1">${userData.YoE}</span>Bulan Pengalaman Kerja</p>
-                                    <p class="text-sm flex items-center"><i class="uil uil-bag"></i><span class="ms-2">${userData.educations.length > 0 ? userData.educations[0].edu_type + " - " + userData.educations[0].edu_program : "No Education Added"}</span></p>
-                                <p class="text-sm flex items-center"><i class="uil uil-building"></i><span class="ms-2">${userData.educations.length > 0 ? userData.educations[0].edu_institution : "No Education Added"}</span></p>
-                                    <div class="flex gap-2 mt-3 flex-wrap">
-                                        ${ACTIVE_SKILL.join("")}
-                                        ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `)
-            
-                },
-                error: function(xhr){
-                    // window.location.href = "/"
-                }
-            });
-
-        },
-        error: function (request, status, error) {
-            $("#nav-profile").addClass("hidden")
-            $("#button-login").removeClass("hidden")
-            return request
-        },
-    })
 
     // Card click for detail
     $("#cards").on("click", ".card-user", function(){
@@ -658,7 +628,7 @@
 
 
 
-    function getActiveUserCard(QUERY){
+    function getActiveUserCard(QUERY, userDataLogin=null){
         if(QUERY.university.length > 0){
             QUERY.university = JSON.stringify(QUERY.university) 
         }else{
@@ -668,13 +638,51 @@
             usersData = decrypt(usersData.r)
 
             $("#total-active-user").text(usersData.length)
-
             $("#cards").html("")
-            usersData.forEach(user => {
-                let SHOW_BIRTHDAY
-                let SHOW_PHONE
+
+            if(userDataLogin){
+                let isActive = userDataLogin.active_search == false ? `<p class="rounded bg-red-500/90 text-xs px-4 text-white py-0.5 w-max">INACTIVE</p>` : `<p class="rounded bg-orange-500 text-xs px-4 text-white py-0.5 w-max">ACTIVE</p>`
+                let SKILLS = userDataLogin.skills.map(function(skill){
+                    return `<button class="text-xs bg-main text-white px-2 py-1 rounded">${skill.skill.length >= 14 ? skill.skill.substring(0,14)+".." : skill.skill}</button>`
+                })
+
+                let ACTIVE_SKILL = SKILLS.slice(0,5)
+                let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
+                $("#cards").append(`
+                    <div class="card-user flex flex-col lg:flex-row gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
+                        <div class="w-full">
+                            <div class="flex items-center gap-2 pb-2.5">
+                                <div class="w-[70px] max-w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                                    <img id="basic-profile-pic" src="${userDataLogin.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
+                                </div>
+                                <div class="mb-2 w-full">
+                                    <p class="id" style="display:none">${userDataLogin.id}</p>
+                                    <p id="basic-fullname" class="font-bold text-xl text-main">${userDataLogin.firstname} ${userDataLogin.lastname} ${userDataLogin.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : userDataLogin.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
+                                    <p id="basic-current-position" class="text-sm text-thrid/60 font-medium mb-1">${userDataLogin.headline}</p>
+                                    ${isActive}
+                                    </div>
+                                </div>
+                            <hr>
+                            <div class="flex gap-2 mt-3 flex-wrap">
+                                ${ACTIVE_SKILL.join("")}
+                                ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
+                            </div>
+                            <div class="pt-2">
+                                <p class="text-sm flex items-center mt-2"><i class="uil uil-university"></i><span class="ms-2">${userDataLogin.educations.length > 0 ? userDataLogin.educations[0].edu_type + " • " + userDataLogin.educations[0].edu_program : "No Education Added"} • ${userDataLogin.educations.length > 0 ? userDataLogin.educations[0].edu_institution : "No Education Added"}</span></p>
+                                <p class="text-sm flex items-center mt-2"><i class="uil uil-bag-alt"></i><span class="ms-2">${userDataLogin.experiences.length > 0 ? userDataLogin.experiences[0].exp_position + " • " + userDataLogin.experiences[0].exp_orgname : "Pengalaman belum ditambahkan"}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                `)   
+            }
+
+            const filteredUserData = usersData.filter(activeUser => {
+                return activeUser.id != userDataLogin.id
+            })
+
+            filteredUserData.forEach(user => {
                 let SKILLS = user.skills.map(function(skill){
-                    return `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">${skill.skill.length >= 16 ? skill.skill.substring(0,16)+".." : skill.skill}</button>`
+                    return `<button class="text-xs bg-main text-white px-2 py-1 rounded">${skill.skill.length >= 14 ? skill.skill.substring(0,14)+".." : skill.skill}</button>`
                 })
 
                 let ACTIVE_SKILL = SKILLS.slice(0,5)
