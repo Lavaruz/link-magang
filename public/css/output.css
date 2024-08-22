@@ -948,10 +948,6 @@ input[type="range"]::-ms-fill-lower {
   right: 0px;
 }
 
-.right-\[2rem\] {
-  right: 2rem;
-}
-
 .start-0 {
   inset-inline-start: 0px;
 }
@@ -962,10 +958,6 @@ input[type="range"]::-ms-fill-lower {
 
 .top-3 {
   top: 0.75rem;
-}
-
-.top-\[1rem\] {
-  top: 1rem;
 }
 
 .z-10 {
@@ -1067,11 +1059,6 @@ input[type="range"]::-ms-fill-lower {
   margin-bottom: 1.5rem;
 }
 
-.me-1 {
-  -webkit-margin-end: 0.25rem;
-          margin-inline-end: 0.25rem;
-}
-
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -1135,15 +1122,6 @@ input[type="range"]::-ms-fill-lower {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.mt-auto {
-  margin-top: auto;
-}
-
-.ms-auto {
-  -webkit-margin-start: auto;
-          margin-inline-start: auto;
 }
 
 .block {
@@ -1411,10 +1389,6 @@ input[type="range"]::-ms-fill-lower {
   max-width: 24rem;
 }
 
-.flex-grow {
-  flex-grow: 1;
-}
-
 .origin-\[0\] {
   transform-origin: 0;
 }
@@ -1474,10 +1448,6 @@ input[type="range"]::-ms-fill-lower {
 
 .flex-col {
   flex-direction: column;
-}
-
-.flex-col-reverse {
-  flex-direction: column-reverse;
 }
 
 .flex-wrap {
@@ -1579,18 +1549,6 @@ input[type="range"]::-ms-fill-lower {
 
 .self-start {
   align-self: flex-start;
-}
-
-.self-end {
-  align-self: flex-end;
-}
-
-.self-center {
-  align-self: center;
-}
-
-.justify-self-start {
-  justify-self: start;
 }
 
 .justify-self-end {
@@ -1758,10 +1716,6 @@ input[type="range"]::-ms-fill-lower {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
-.bg-green-500\/90 {
-  background-color: rgb(14 159 110 / 0.9);
-}
-
 .bg-main {
   --tw-bg-opacity: 1;
   background-color: rgb(71 169 146 / var(--tw-bg-opacity));
@@ -1805,11 +1759,6 @@ input[type="range"]::-ms-fill-lower {
 
 .bg-white\/70 {
   background-color: rgb(255 255 255 / 0.7);
-}
-
-.bg-orange-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 138 76 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-b {
@@ -2026,10 +1975,6 @@ input[type="range"]::-ms-fill-lower {
 
 .pb-6 {
   padding-bottom: 1.5rem;
-}
-
-.pb-8 {
-  padding-bottom: 2rem;
 }
 
 .pe-0 {
@@ -2722,10 +2667,6 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
 
 .disabled\:opacity-60:disabled {
   opacity: 0.6;
-}
-
-.disabled\:opacity-70:disabled {
-  opacity: 0.7;
 }
 
 .group:hover .group-hover\:text-main {

@@ -78,7 +78,11 @@ export const getAllPost = async (req: Request, res: Response) => {
 export const getPostById = async (req: Request, res: Response) => {
   const postId = req.params.id
   try {
-    const POST = await Post.findByPk(postId)
+    const POST = await Post.findByPk(postId, {
+      include: [
+        {model: Skills, as: "skills"}
+      ]
+    })
     const encryptedData = encrypt(POST)
     return res.status(200).json(encryptedData)
   } catch (error) {
