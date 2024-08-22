@@ -1442,6 +1442,10 @@ input[type="range"]::-ms-fill-lower {
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
+.flex-row {
+  flex-direction: row;
+}
+
 .flex-row-reverse {
   flex-direction: row-reverse;
 }
@@ -1549,6 +1553,10 @@ input[type="range"]::-ms-fill-lower {
 
 .self-start {
   align-self: flex-start;
+}
+
+.justify-self-start {
+  justify-self: start;
 }
 
 .justify-self-end {

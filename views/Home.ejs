@@ -94,21 +94,25 @@
             </button>
 
             <!-- MAIN INFO -->
-            <div class="grid grid-cols-2 items-start justify-between gap-4">
-                <div class="">
-                    <p id="popup-title" class="text-2xl font-bold text-main mb-4">Backend Developer</p>
-                    <p class="flex gap-2 items-center text-black/70"><i class="uil uil-building"></i><span id="popup-company">PT Enviromate Technology International</span></p>
-                    <p class="flex gap-2 items-center text-black/70 mt-1"><i class="uil uil-map-marker-alt"></i> <span id="popup-location">Surabaya</span></p>
-                    <div class="flex gap-4 items-center mt-4 ">
-                        <a id="popup-link" href="#" target="_blank" class="w-full lg:w-max px-8 block py-2.5 self-start rounded-lg text-sm font-medium bg-main text-white shadow-md hover:scale-[1.01]"><i class="uil uil-external-link-alt"></i> Buka di <span id="popup-platform">Jobstreet</span></a>
-                        <button id="close-detail-job" class="px-8 hidden lg:block text-main font-medium">Close</button>
-                    </div>
+            <div class="w-full">
+                <div class="grid grid-cols-3 items-start">
+                    <p id="popup-title" class="col-span-2 text-2xl font-bold text-main mb-4">Backend Developer</p>
+                    <button id="close-detail-job" class="justify-self-end font-medium text-2xl"><i class="uil uil-multiply"></i></button>
                 </div>
-                <div id="skills-need" class="hidden justify-self-end">
-                    <p class="text-right font-medium text-black/70">Keahlian yang dibutuhkan</p>
-                    <div id="skills" class="flex gap-3 mt-4 flex-wrap flex-row-reverse">
-                        <!-- HERE -->
-                    </div>
+                <p class="flex gap-2 items-center text-black/70"><i class="uil uil-building"></i><span id="popup-company">PT Enviromate Technology International</span></p>
+                <p class="flex gap-2 items-center text-black/70 mt-1"><i class="uil uil-map-marker-alt"></i> <span id="popup-location">Surabaya</span></p>
+                <div class="flex gap-4 items-center mt-4 ">
+                    <a id="popup-link" href="#" target="_blank" class="w-full lg:w-max px-8 block py-2.5 self-start rounded-lg text-sm font-medium bg-main text-white shadow-md hover:scale-[1.01]"><i class="uil uil-external-link-alt"></i> Buka di <span id="popup-platform">Jobstreet</span></a>
+                    <!-- <button id="close-detail-job" class="px-8 hidden lg:block text-main font-medium">Close</button> -->
+                </div>
+            </div>
+
+            
+            <div id="skills-need" class="hidden justify-self-start">
+                <hr class="my-4">
+                <p class="font-medium text-black/70">Keahlian yang dibutuhkan</p>
+                <div id="skills" class="flex gap-3 mt-4 flex-wrap flex-row">
+                    <!-- HERE -->
                 </div>
             </div>
             
@@ -271,9 +275,13 @@
 
                 if(postData.skills.length > 0){
                     $("#skills-need").removeClass("hidden")
+                    $("#skills").html(``)
                     postData.skills.forEach(function(skill){
                         $("#skills").append(`<button class="text-sm self-start bg-main text-white px-2.5 py-1.5 rounded-md">${skill.skill}</button>`)
                     })
+                }else{
+                    $("#skills-need").addClass("hidden")
+                    $("#skills").html(``)
                 }
             })
 
