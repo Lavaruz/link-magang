@@ -76,8 +76,8 @@
             </div>
             <div class="lg:py-12 lg:px-6 lg:p-5 mt-4 lg:mt-0 text-main">
                 <p class="text-2xl font-semibold">Bergabung di Talent Hunt Internshits!</p>
-                <p class="text-main/90 mt-3">Tempat para recruiter keren bisa nemuin kamu. Daftar sekarang, dan tunjukin semua keahlian kamu!</p>
-                <a href="/market" class="flex font-medium items-center justify-center py-3 rounded-md w-full bg-main text-white mt-8 lg:mt-6 flex items-center gap-2"><i class="uil uil-arrow-left"></i> Gabung jadi talent</a>
+                <p class="text-black/70 mt-3">Tempat para recruiter keren bisa nemuin kamu. Daftar sekarang, dan tunjukin semua keahlian kamu!</p>
+                <a href="/talent" class="flex font-medium items-center justify-center py-3 rounded-md w-full bg-main text-white mt-8 lg:mt-6 flex items-center gap-2"><i class="uil uil-arrow-left"></i> Gabung jadi talent</a>
             </div>
         </div>
     </div>
@@ -88,7 +88,7 @@
 <div class="hidden fixed top-0 bottom-0 right-0 left-0 bg-black/50 flex items-end lg:items-center justify-end lg:justify-center z-30" id="popup-home">
     
     <div id="popup-detail-job" class="hidden popup lg:w-1/2 bg-background noise rounded-t-2xl lg:rounded-3xl overflow-hidden">
-        <div class="h-[500px] overflow-y-scroll lg:px-8 p-5 pb-20 py-8 relative">
+        <div class="h-[85vh] lg:h-[500px] overflow-y-scroll lg:px-8 p-5 pb-20 py-8 relative">
             <button type="button" class="lg:hidden my-4 mb-6 flex items-center gap-2 close-x text-main font-medium text-base">
                 <i class="uil uil-arrow-left"></i> Kembali ke Beranda
             </button>
@@ -97,12 +97,12 @@
             <div class="w-full">
                 <div class="grid grid-cols-3 items-start">
                     <p id="popup-title" class="col-span-2 text-2xl font-bold text-main mb-4">Backend Developer</p>
-                    <button id="close-detail-job" class="justify-self-end font-medium text-2xl"><i class="uil uil-multiply"></i></button>
+                    <button id="close-detail-job" class="hidden lg:block justify-self-end font-medium text-2xl"><i class="uil uil-multiply"></i></button>
                 </div>
                 <p class="flex gap-2 items-center text-black/70"><i class="uil uil-building"></i><span id="popup-company">PT Enviromate Technology International</span></p>
                 <p class="flex gap-2 items-center text-black/70 mt-1"><i class="uil uil-map-marker-alt"></i> <span id="popup-location">Surabaya</span></p>
                 <div class="flex gap-4 items-center mt-4 ">
-                    <a id="popup-link" href="#" target="_blank" class="w-full lg:w-max px-8 block py-2.5 self-start rounded-lg text-sm font-medium bg-main text-white shadow-md hover:scale-[1.01]"><i class="uil uil-external-link-alt"></i> Buka di <span id="popup-platform">Jobstreet</span></a>
+                    <a id="popup-link" href="#" target="_blank" class="w-max px-8 block py-2.5 self-start rounded-lg text-sm font-medium bg-main text-white shadow-md hover:scale-[1.01]"><i class="uil uil-external-link-alt"></i> Buka di <span id="popup-platform">Jobstreet</span></a>
                     <!-- <button id="close-detail-job" class="px-8 hidden lg:block text-main font-medium">Close</button> -->
                 </div>
             </div>
@@ -126,7 +126,7 @@
         </div>
     </div>
 
-    <div id="popup-filter" class="popup hidden w-full rounded-t-2xl bg-background h-[88vh] p-5 overflow-y-scroll">
+    <div id="popup-filter" class="popup hidden w-full rounded-t-2xl bg-background h-[85vh] p-5 overflow-y-scroll">
         <button type="button" class="lg:hidden my-4 mb-6 flex items-center gap-2 close-x text-main font-medium text-base">
             <i class="uil uil-arrow-left"></i> Kembali ke Beranda
         </button>
@@ -265,11 +265,12 @@
                 $("#popup-location").text(postData.location)
                 $("#popup-platform").text(postData.platform)
                 $("#popup-link").prop("href", postData.link)
+                
 
-                if(postData.overview !== null){
+                if(postData.overview !== "<p></p>"){
                     let paragraph = postData.overview.split("\n")
                     $("#popup-overview").html(paragraph.join("</br>"))
-                }else{
+                }else if (postData.overview == "<p></p>"){
                     $("#popup-overview").text("Tidak ada overview ditampilkan ~")
                 }
 

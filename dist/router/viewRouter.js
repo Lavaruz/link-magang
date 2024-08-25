@@ -78,9 +78,9 @@ router.get("/posts/create", (req, res, next) => {
         return res.send(error);
     }
 });
-router.get("/market", (req, res, next) => {
+router.get("/talent", (req, res, next) => {
     try {
-        return res.render("Market", { AES_KEYS: process.env.AES_KEYS });
+        return res.render("Talent", { AES_KEYS: process.env.AES_KEYS });
     }
     catch (error) {
         return res.send(error);

@@ -7,7 +7,7 @@
     </div>
     <div class="body bg-background noise lg:bg-body h-[92vh] lg:h-[350px] overflow-y-scroll">
         <form id="form-edit-active-information" class="relative">
-            <div class="divide-y divide-header pb-40 lg:pb-0">
+            <div class="divide-y divide-header pb-12 lg:pb-0">
                 <div class="p-5">
                     <button type="button" class="lg:hidden my-4 mb-6 flex items-center gap-2 close-x text-main font-medium font-second text-base">
                         <i class="uil uil-arrow-left"></i> Kembali ke Profil
@@ -24,18 +24,11 @@
                 </div>
                 <div class="divide-y divide-header px-5 pb-6 flex flex-col lg:items-center">
                     <div class="my-6">
-                        <div class="flex flex-col lg:items-center">
-                            <label class="relative block inline-flex items-center cursor-pointer">
-                                <input id="show-birthday" name="show_birthday" type="checkbox" value="" class="sr-only peer">
-                                <div class="w-11 h-6 bg-red-500 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
-                                <span id="active-search-status" class="ml-2 text-green-500 font-second text-sm font-semibold">Perlihatkan <span class="font-bold text-red-500">Tanggal Lahir</span>.</span>
-                            </label>
-                        </div>
                         <div class="flex flex-col lg:items-center mt-4">
                             <label class="relative block inline-flex items-center cursor-pointer">
                                 <input id="show-phone" name="show_phone" type="checkbox" value="" class="sr-only peer">
                                 <div class="w-11 h-6 bg-red-500 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
-                                <span id="active-search-status" class="ml-2 text-green-500 font-second text-sm font-semibold">Perlihatkan <span class="font-bold text-red-500">Nomor Handphone</span>.</span>
+                                <span id="active-search-status" class="ml-2 text-green-500 font-second text-sm font-semibold">Sembunyikan <span class="font-bold text-red-500">Nomor Handphone</span>.</span>
                             </label>
                         </div>
                         <button id="declare-active-search" disabled class="w-full lg:w-max disabled:opacity-60 shadow-md mx-auto flex items-start gap-1 bg-main text-white rounded-lg text-sm py-4 lg:py-2 px-4 mt-6">Aktifkan kartu Talent Hunt</button>

@@ -1,6 +1,12 @@
 <%- include('./layouts/header'); -%>
 <%- include('./layouts/navbar-all'); -%>
 
+<style>
+    .grid-market{
+        grid-template-columns: max-content 1fr;
+    }
+</style>
+
 <main class="noise">
     <div class="w-full grid lg:grid-cols-10">
 
@@ -124,7 +130,7 @@
 <!-- POPUP USER -->
 <div id="popup" class="hidden fixed top-0 bottom-0 right-0 left-0 bg-black/60 z-30 flex items-end lg:items-center justify-center">
     <div id="popup-user" class="hidden popup w-full lg:w-1/2 bg-background noise rounded-2xl relative overflow-hidden">
-        <div id="popup-user-s" class="h-[90vh] overflow-y-scroll w-full px-[5%] lg:px-12 py-8">
+        <div id="popup-user-s" class="h-[85vh] overflow-y-scroll w-full px-[5%] lg:px-12 py-8">
 
             <!-- BASIC INFO -->
             <div class="grid lg:grid-cols-2 justify-between">
@@ -136,8 +142,8 @@
                         <p id="popup-username" class="text-2xl font-bold text-main"><i class="uil uil-mars text-blue-500"></i> Assami Muzaki</p>
                         <p id="popup-headline" class="font-medium text-black/60 text-sm">Founder of Internshits</p>
                         <div class="flex items-center gap-3 mt-2">
-                            <a href="" class="px-4 lg:px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-envelope"></i> <span class="hidden lg:block">Hubungi Email</span></a>
-                            <a href="" class="px-4 lg:px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-whatsapp"></i> <span class="hidden lg:block">Hubungi Whatsapp</span></a>
+                            <a id="popup-email" target="_blank" href="" class="px-4 lg:px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-envelope"></i> <span class="hidden lg:block">Hubungi Email</span></a>
+                            <a id="popup-whatsapp" target="_blank" href="" class="px-4 lg:px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-whatsapp"></i> <span class="hidden lg:block">Hubungi Whatsapp</span></a>
                         </div>
                     </div>
                 </div>
@@ -205,7 +211,7 @@
         </div>
     </div>
 
-    <div id="popup-filter" class="popup hidden w-full rounded-t-2xl bg-background h-[88vh] p-5 overflow-y-scroll pb-14">
+    <div id="popup-filter" class="popup hidden w-full rounded-t-2xl bg-background h-[85vh] p-5 overflow-y-scroll pb-14">
         <button type="button" class="lg:hidden my-4 mb-6 flex items-center gap-2 close-x text-main font-medium text-base">
             <i class="uil uil-arrow-left"></i> Kembali ke Talent Hunt
         </button>
@@ -285,7 +291,7 @@
 <%- include('./layouts/footer'); -%>
 
 <script>
-
+    $("footer").addClass("hidden")
     $("body").addClass("overflow-hidden")
     document.title = `Talent Hunting di Internshits!`            
 
@@ -319,25 +325,26 @@
         success: (isVerified) => {
             if(isVerified){
                 $("#off-login").addClass("hidden")
+                $.ajax({
+                    url: '/api/v1/users/info',
+                    type: 'get',
+                    dataType: 'json',
+                    headers: {
+                        "Authorization": window.USER_TOKEN,
+                    },
+                    success: async function (userData) {
+                        userData = decrypt(userData.r)
+                        getActiveUserCard(QUERY, userData)
+                    },
+                    error: function(xhr){
+                        getActiveUserCard(QUERY)
+                    }
+                });
             }else{
                 $("#off-login").removeClass("hidden")
+                getActiveUserCard(QUERY)
             }
 
-            $.ajax({
-                url: '/api/v1/users/info',
-                type: 'get',
-                dataType: 'json',
-                headers: {
-                    "Authorization": window.USER_TOKEN,
-                },
-                success: async function (userData) {
-                    userData = decrypt(userData.r)
-                    getActiveUserCard(QUERY, userData)
-                },
-                error: function(xhr){
-                    getActiveUserCard(QUERY)
-                }
-            });
 
         },
         error: function (request, status, error) {
@@ -501,13 +508,16 @@
             userData = decrypt(userData.r)
 
             let paragraph = userData.summary.split("\n").join("</br>")
+            
 
             // CHACK CONFIGURATION
             if(userData.config){
+                $("#popup-email").prop("href", `mailto:${userData.email}`)
                 if(userData.config.show_phone == true){
-                    $("#popup-mobile").text(userData.mobile ? userData.mobile : "-")
+                    $("#popup-whatsapp").removeClass("hidden")
+                    $("#popup-whatsapp").prop("href", `https://wa.me/+62${userData.mobile}`)
                 }else{
-                    $("#popup-mobile").text("Tersembunyi")
+                    $("#popup-whatsapp").addClass("hidden")
                 }
             }
 
@@ -519,17 +529,20 @@
             $("#popup-profile-pic").prop("src", userData.profile_picture)
             $("#popup-yoe").text(`${userData.YoE} bulan`)
             $("#popup-work-pref").text(userData.work_pref_status)
+            $("#popup-educations").html("")
+            $("#popup-experiences").html("")
+            $("#popup-skills").html("")
+
+
 
 
             if(userData.skills.length > 0){
-                $("#popup-skills").html("")
                 userData.skills.forEach(function(skill){
                     $("#popup-skills").append(`<button class="text-sm bg-main text-white px-2.5 py-1.5 rounded-lg">${skill.skill}</button>`)
                 })
             }
 
             if(userData.educations.length > 0){
-                $("#popup-educations").html("")
                 userData.educations.forEach(function(education){
                     let paragraph = education.edu_description.substring(0,200).split('\n')
                     $("#popup-educations").append(`
@@ -562,7 +575,6 @@
             }
             
             if(userData.experiences.length > 0){
-                $("#popup-experiences").html("")
                 userData.experiences.forEach((experienceData) => {
                     let paragraph = experienceData.exp_description.substring(0,200).split('\n')
                     $("#popup-experiences").append(`
@@ -588,6 +600,8 @@
                         </div>
                     `)
                 })
+            }else{
+                $("#popup-experiences").append(`<p class="text-black/80">pengalaman belum ditambahkan</p>`)
             }
 
             if(userData.attachments){
@@ -617,7 +631,9 @@
                     $("#link-youtube").removeClass("hidden").prop("href",userData.socials.youtube)
                 }
             }else{
-                $("#popup-socials").html("-")
+                $(".link-social").each(function(){
+                    $(this).addClass("hidden")
+                })
             }
         })
     })
@@ -672,45 +688,79 @@
                         </div>
                     </div>
                 `)   
-            }
-
-            const filteredUserData = usersData.filter(activeUser => {
-                return activeUser.id != userDataLogin.id
-            })
-
-            filteredUserData.forEach(user => {
-                let SKILLS = user.skills.map(function(skill){
-                    return `<button class="text-xs bg-main text-white px-2 py-1 rounded">${skill.skill.length >= 14 ? skill.skill.substring(0,14)+".." : skill.skill}</button>`
+            
+                const filteredUserData = usersData.filter(activeUser => {
+                    return activeUser.id != userDataLogin.id
                 })
 
-                let ACTIVE_SKILL = SKILLS.slice(0,5)
-                let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
-                $("#cards").append(`
-                    <div class="card-user flex flex-col lg:flex-row gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
-                        <div class="w-full">
-                            <div class="flex items-center gap-2 pb-2.5">
-                                <div class="w-[70px] max-w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                                    <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
-                                </div>
-                                <div class="mb-2">
-                                    <p class="id" style="display:none">${user.id}</p>
-                                    <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : user.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
-                                    <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">${user.headline}</p>
+                filteredUserData.forEach(user => {
+                    let SKILLS = user.skills.map(function(skill){
+                        return `<button class="text-xs bg-main text-white px-2 py-1 rounded">${skill.skill.length >= 14 ? skill.skill.substring(0,14)+".." : skill.skill}</button>`
+                    })
+
+                    let ACTIVE_SKILL = SKILLS.slice(0,5)
+                    let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
+                    $("#cards").append(`
+                        <div class="card-user flex flex-col lg:flex-row gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
+                            <div class="w-full">
+                                <div class="grid grid-market items-center gap-2 pb-2.5">
+                                    <div class="w-[70px] max-w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                                        <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
                                     </div>
+                                    <div class="mb-2">
+                                        <p class="id" style="display:none">${user.id}</p>
+                                        <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : user.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
+                                        <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">${user.headline}</p>
+                                        </div>
+                                    </div>
+                                <hr>
+                                <div class="flex gap-2 mt-3 flex-wrap">
+                                    ${ACTIVE_SKILL.join("")}
+                                    ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
                                 </div>
-                            <hr>
-                            <div class="flex gap-2 mt-3 flex-wrap">
-                                ${ACTIVE_SKILL.join("")}
-                                ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
-                            </div>
-                            <div class="pt-2">
-                                <p class="text-sm flex items-center mt-2"><i class="uil uil-university"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_type + " • " + user.educations[0].edu_program : "No Education Added"} • ${user.educations.length > 0 ? user.educations[0].edu_institution : "No Education Added"}</span></p>
-                                <p class="text-sm flex items-center mt-2"><i class="uil uil-bag-alt"></i><span class="ms-2">${user.experiences.length > 0 ? user.experiences[0].exp_position + " • " + user.experiences[0].exp_orgname : "Pengalaman belum ditambahkan"}</span></p>
+                                <div class="pt-2">
+                                    <p class="text-sm flex items-center mt-2"><i class="uil uil-university"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_type + " • " + user.educations[0].edu_program : "No Education Added"} • ${user.educations.length > 0 ? user.educations[0].edu_institution : "No Education Added"}</span></p>
+                                    <p class="text-sm flex items-center mt-2"><i class="uil uil-bag-alt"></i><span class="ms-2">${user.experiences.length > 0 ? user.experiences[0].exp_position + " • " + user.experiences[0].exp_orgname : "Pengalaman belum ditambahkan"}</span></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `)
-            });
+                    `)
+                });
+            }else{
+                usersData.forEach(user => {
+                    let SKILLS = user.skills.map(function(skill){
+                        return `<button class="text-xs bg-main text-white px-2 py-1 rounded">${skill.skill.length >= 14 ? skill.skill.substring(0,14)+".." : skill.skill}</button>`
+                    })
+
+                    let ACTIVE_SKILL = SKILLS.slice(0,5)
+                    let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
+                    $("#cards").append(`
+                        <div class="card-user flex flex-col lg:flex-row gap-5 rounded-2xl border border-main p-5 bg-white shadow-md hover:scale-[1.005] duration-100 cursor-pointer">
+                            <div class="w-full">
+                                <div class="grid grid-market items-center gap-2 pb-2.5">
+                                    <div class="w-[70px] max-w-[70px] h-[70px] min-w-[70px] min-h-[70px] rounded-full overflow-hidden mx-auto lg:mx-0">
+                                        <img id="basic-profile-pic" src="${user.profile_picture}" onerror="src='/img/no-profile.jpg'" alt="profile-picture" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="mb-2">
+                                        <p class="id" style="display:none">${user.id}</p>
+                                        <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : user.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
+                                        <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">${user.headline}</p>
+                                        </div>
+                                    </div>
+                                <hr>
+                                <div class="flex gap-2 mt-3 flex-wrap">
+                                    ${ACTIVE_SKILL.join("")}
+                                    ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
+                                </div>
+                                <div class="pt-2">
+                                    <p class="text-sm flex items-center mt-2"><i class="uil uil-university"></i><span class="ms-2">${user.educations.length > 0 ? user.educations[0].edu_type + " • " + user.educations[0].edu_program : "No Education Added"} • ${user.educations.length > 0 ? user.educations[0].edu_institution : "No Education Added"}</span></p>
+                                    <p class="text-sm flex items-center mt-2"><i class="uil uil-bag-alt"></i><span class="ms-2">${user.experiences.length > 0 ? user.experiences[0].exp_position + " • " + user.experiences[0].exp_orgname : "Pengalaman belum ditambahkan"}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                });
+            }
         })
     }
 
