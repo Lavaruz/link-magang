@@ -67,7 +67,11 @@ exports.getAllPost = getAllPost;
 const getPostById = async (req, res) => {
     const postId = req.params.id;
     try {
-        const POST = await Post_1.default.findByPk(postId);
+        const POST = await Post_1.default.findByPk(postId, {
+            include: [
+                { model: Skills_1.default, as: "skills" }
+            ]
+        });
         const encryptedData = (0, crypto_1.encrypt)(POST);
         return res.status(200).json(encryptedData);
     }
@@ -103,7 +107,7 @@ const getPostCount = async (req, res) => {
 exports.getPostCount = getPostCount;
 const addPost = async (req, res) => {
     const postData = req.body; // Data pembaruan pengguna dari permintaan PUT  
-    const skillBody = req.body.skills;
+    const skillBody = req.body.skills.split(",");
     try {
         let POST = await Post_1.default.findOne({ where: { link: postData.link } });
         if (POST)

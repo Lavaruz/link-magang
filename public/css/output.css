@@ -948,10 +948,6 @@ input[type="range"]::-ms-fill-lower {
   right: 0px;
 }
 
-.right-\[2rem\] {
-  right: 2rem;
-}
-
 .start-0 {
   inset-inline-start: 0px;
 }
@@ -962,10 +958,6 @@ input[type="range"]::-ms-fill-lower {
 
 .top-3 {
   top: 0.75rem;
-}
-
-.top-\[1rem\] {
-  top: 1rem;
 }
 
 .z-10 {
@@ -1065,11 +1057,6 @@ input[type="range"]::-ms-fill-lower {
 
 .mb-6 {
   margin-bottom: 1.5rem;
-}
-
-.me-1 {
-  -webkit-margin-end: 0.25rem;
-          margin-inline-end: 0.25rem;
 }
 
 .ml-2 {
@@ -1213,20 +1200,16 @@ input[type="range"]::-ms-fill-lower {
   height: 70px;
 }
 
+.h-\[85vh\] {
+  height: 85vh;
+}
+
 .h-\[88px\] {
   height: 88px;
 }
 
-.h-\[88vh\] {
-  height: 88vh;
-}
-
 .h-\[90px\] {
   height: 90px;
-}
-
-.h-\[90vh\] {
-  height: 90vh;
 }
 
 .h-\[92vh\] {
@@ -1239,10 +1222,6 @@ input[type="range"]::-ms-fill-lower {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[85vh\] {
-  height: 85vh;
 }
 
 .max-h-\[88px\] {
@@ -1469,10 +1448,6 @@ input[type="range"]::-ms-fill-lower {
 
 .flex-col {
   flex-direction: column;
-}
-
-.flex-col-reverse {
-  flex-direction: column-reverse;
 }
 
 .flex-wrap {
@@ -1745,10 +1720,6 @@ input[type="range"]::-ms-fill-lower {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
-.bg-green-500\/90 {
-  background-color: rgb(14 159 110 / 0.9);
-}
-
 .bg-main {
   --tw-bg-opacity: 1;
   background-color: rgb(71 169 146 / var(--tw-bg-opacity));
@@ -2010,10 +1981,6 @@ input[type="range"]::-ms-fill-lower {
   padding-bottom: 1.5rem;
 }
 
-.pb-8 {
-  padding-bottom: 2rem;
-}
-
 .pe-0 {
   -webkit-padding-end: 0px;
           padding-inline-end: 0px;
@@ -2062,10 +2029,6 @@ input[type="range"]::-ms-fill-lower {
 
 .text-center {
   text-align: center;
-}
-
-.text-right {
-  text-align: right;
 }
 
 .text-2xl {
@@ -2284,10 +2247,6 @@ input[type="range"]::-ms-fill-lower {
   color: rgb(255 255 255 / 0.9);
 }
 
-.text-main\/90 {
-  color: rgb(71 169 146 / 0.9);
-}
-
 .placeholder-black\/30::-moz-placeholder {
   color: rgb(0 0 0 / 0.3);
 }
@@ -2474,6 +2433,10 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
   margin: 1em 0;
   font-size: 16px;
   line-height: 1.5;
+}
+
+.grid-market{
+  grid-template-columns: max-content 1fr;
 }
 
 .placeholder\:text-black\/40::-moz-placeholder {
@@ -2708,6 +2671,10 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
 
 .disabled\:opacity-60:disabled {
   opacity: 0.6;
+}
+
+.disabled\:opacity-80:disabled {
+  opacity: 0.8;
 }
 
 .disabled\:opacity-70:disabled {

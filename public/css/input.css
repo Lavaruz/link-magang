@@ -103,3 +103,7 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
   font-size: 16px;
   line-height: 1.5;
 }
+
+.grid-market{
+  grid-template-columns: max-content 1fr;
+}

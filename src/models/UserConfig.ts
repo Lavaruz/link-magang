@@ -28,7 +28,7 @@ Config.init(
     },
     show_phone: {
         type: DataTypes.BOOLEAN,
-        defaultValue: true
+        defaultValue: false
     },
 
     // timestamps

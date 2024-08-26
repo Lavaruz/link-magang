@@ -51,6 +51,11 @@
                 </div>
             </div>
 
+            <div class="">
+                <button id="preview-profile" class="disabled:opacity-70 button-preview block flex items-center justify-center bg-main text-white font-medium text-sm py-4 w-full rounded-xl gap-2"><i class="uil uil-external-link-alt"></i> Lihat kartu profil kamu</button>
+                <small class="preview-warning text-red-500 hidden">*lengkapi profil untuk melihat kartu kamu</small>
+            </div>
+
             <!-- PROFILE SUMMARY -->
             <div class="profile-summary rounded-2xl overflow-hidden shadow-md border-2 border-main">
                 <div class="w-100 bg-main flex items-center justify-between px-5 py-3">
@@ -97,6 +102,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="lg:hidden">
+                <button id="preview-profile" class="disabled:opacity-70 button-preview block flex items-center justify-center bg-main text-white font-medium text-sm py-4 w-full rounded-lg gap-2"><i class="uil uil-external-link-alt"></i> Lihat kartu profil kamu</button>
+                <small class="preview-warning text-red-500 hidden">*lengkapi profil untuk melihat kartu kamu</small>
             </div>
 
             <!-- PROFILE SKILLS -->
@@ -186,10 +196,6 @@
         </div>
 
         <div class="hidden lg:flex flex-col gap-3">
-
-            <div class="">
-                <button id="preview-profile" class="preview block flex items-center justify-center bg-main text-white font-medium text-sm py-4 w-full rounded-lg gap-2"><i class="uil uil-external-link-alt"></i> Lihat profil dipublik</button>
-            </div>
 
             <!-- ATTACHMENT -->
             <div class="attachments bg-white border-main border-2 noise rounded-2xl p-4 pb-6 shadow-md">
@@ -305,17 +311,17 @@
         <div id="popup-user-s" class="h-[85vh] overflow-y-scroll w-full px-[5%] lg:px-12 py-8">
 
             <!-- BASIC INFO -->
-            <div class="grid lg:grid-cols-2 justify-between">
-                <div class="flex gap-4 items-center">
+            <div class="lg:grid lg:grid-cols-2 justify-between">
+                <div class="grid grid-market items-center gap-4">
                     <div class="w-[90px] h-[90px] min-w-[90px] min-h-[90px] rounded-full overflow-hidden mx-auto lg:mx-0">
-                        <img id="basic-profile-pic-preview" src="/img/no-profile.jpg" alt="profile-picture" class="w-full h-full object-cover">
+                        <img id="basic-profile-pic-preview" src="/img/no-profile.jpg" alt="profile-picture" onerror="src='/img/no-profile.jpg'" class="w-full h-full object-cover">
                     </div>
                     <div class="">
                         <p id="basic-fullname-preview" class="text-2xl font-bold text-main"><i class="uil uil-mars text-blue-500"></i> Assami Muzaki</p>
                         <p id="basic-headline-preview" class="font-medium text-black/60 text-sm">Founder of Internshits</p>
                         <div class="flex items-center gap-3 mt-2">
-                            <a href="" class="px-4 lg:px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-envelope"></i> <span class="hidden lg:block">Hubungi Email</span></a>
-                            <a href="" class="px-4 lg:px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-whatsapp"></i> <span class="hidden lg:block">Hubungi Whatsapp</span></a>
+                            <a href="#" id="preview-email" target="_blank" class="px-4 lg:px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-envelope"></i> <span class="hidden lg:block">Hubungi Email</span></a>
+                            <a href="#" id="preview-whatsapp" target="_blank" class="px-4 lg:px-2 py-1 bg-blue-500 text-xs block w-max text-white/90 rounded flex items-center gap-2"><i class="uil uil-whatsapp"></i> <span class="hidden lg:block">Hubungi Whatsapp</span></a>
                         </div>
                     </div>
                 </div>
@@ -341,7 +347,7 @@
             <hr class="my-4">
             
             <!-- PROFILE SUMMARY -->
-            <p id="basic-summary-preview" class="text-black/80 text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime repudiandae inventore dolores dolorum earum aliquid tempora sequi esse, omnis rem nam delectus reprehenderit itaque distinctio architecto deserunt harum illo ullam.</p>
+            <p id="basic-summary-preview" class="text-black/80 text-center">-</p>
             
             <hr class="my-4">
 
@@ -429,11 +435,26 @@
             // Inisialisasi Skills
             InitSkills(data.skills)
 
+            if(!data?.attachments?.atc_resume || data.educations.length == 0 || !data.profile_picture || data.skills.length < 3){
+                $(".button-preview").prop("disabled", true)
+                $(".preview-warning").removeClass("hidden")
+            }
+
             $("#preview-profile").click(function(){
                 $("#popup").fadeIn(function(){
                     $("body").addClass('no-scroll');
                     $(".popup-preview").slideToggle()
                 }).css("display", "flex")
+
+                if(data.config){
+                    $("#preview-email").prop("href", `mailto:${data.email}`)
+                    if(data.config.show_phone == true){
+                        $("#preview-whatsapp").removeClass("hidden")
+                        $("#preview-whatsapp").prop("href", `https://wa.me/+62${userData.mobile}`)
+                    }else{
+                        $("#preview-whatsapp").addClass("hidden")
+                    }
+                }
 
                 if(!data.socials){
                     $("#popup-socials").html("-")
@@ -808,6 +829,7 @@
         $("#basic-pref-status, #basic-work-pref-preview").text(data.work_pref_status)
         $("#popup-pref-status").val(data.work_pref_status)
         $("#popup-salary").val(data.salary)
+        $("#profile-viewers").text(data.profile_viewers)
     }
 
     function InitSummary(data){
@@ -834,8 +856,9 @@
             $("#popup-body-portfolio").val(data.atc_portfolio ? data.atc_portfolio : "")
             $("#popup-body-resume").val(data.atc_resume ? data.atc_resume : "")
 
-            if(!data.atc_resume) $(".preview-resume").remove()
-            if(!data.atc_portfolio) $(".preview-portfolio").remove()
+            $(".preview-resume").removeClass("hidden")
+            $(".preview-portfolio").removeClass("hidden")
+
             $(".preview-resume").prop("href", data.atc_resume)
             $(".preview-portfolio").prop("href", data.atc_portfolio)
         }else{
@@ -843,6 +866,9 @@
             $(".resume").text("-")
             $(".portfolio").parent().removeAttr('href');
             $(".resume").parent().removeAttr('href');
+
+            $(".preview-resume").addClass("hidden")
+            $(".preview-portfolio").addClass("hidden")
         }
     }
 
@@ -928,6 +954,7 @@
         if(data.length <= 0){
             $("#on-experiences").addClass("hidden")
             $("#off-experiences").removeClass("hidden")
+            $("#basic-experiences-preview").html("Pengalaman belum ditambahkan")
         }else{
             $("#off-experiences").addClass("hidden")
             $("#on-experiences").removeClass("hidden")
@@ -1018,6 +1045,7 @@
         if(data.length <= 0){
             $("#on-educations").addClass("hidden")
             $("#off-educations").removeClass("hidden")
+            $("#basic-educations-preview").html("Pendidikan belum ditambahkan")
         }else{
             $("#off-educations").addClass("hidden")
             $("#on-educations").removeClass("hidden")

@@ -143,6 +143,30 @@ export async function GetUserById(req:Request, res: Response){
     }
 }
 
+export async function AddViewsUser(req:Request, res: Response){
+    const userId = req.params.id
+    const userAuth = req.headers.authorization
+    try {
+        jwt.verify(userAuth, process.env.ACCESS_TOKEN_SECRET, async function (err, user:any){
+            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+            if(err) return res.status(400).json(err.message)
+            const USER = await User.findByPk(userId)
+            if(!USER) return res.status(404).json({message: "user not found"})
+
+            if(USER.id !== user.id){
+                USER.increment('profile_viewers', { by: 1 })
+            }else{
+                console.log("lihat diri sendiri");
+            }
+                
+            return res.sendStatus(200)
+        })
+    } catch (error) {
+        console.error(error)
+        return res.status(200).json({message: error.message})
+    }
+}
+
 export async function GetUserByToken(req:Request, res: Response){
     const userToken:any = req.headers.authorization;
 

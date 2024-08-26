@@ -1,12 +1,6 @@
 <%- include('./layouts/header'); -%>
 <%- include('./layouts/navbar-all'); -%>
 
-<style>
-    .grid-market{
-        grid-template-columns: max-content 1fr;
-    }
-</style>
-
 <main class="noise">
     <div class="w-full grid lg:grid-cols-10">
 
@@ -501,6 +495,25 @@
         }).css("display", "flex")
 
         const ID = $(this).find(".id").text()
+        $.ajax({
+            url: `/api/v1/users/${ID}/views`,
+            type: "PUT",
+            async: false,
+            cache: false,
+            contentType: false,
+            encrypt: "multipart/form-data",
+            processData: false,
+            headers: {
+                "Authorization": window.USER_TOKEN,
+            },
+            success: (response) => {
+                return
+            },
+            error: function (request, status, error) {
+                return request
+            },
+        });
+
         $.get(`/api/v1/users/${ID}`, function(userData){
             document.getElementById("popup-user-s").scrollTo(0, 0);
             let SHOW_PHONE
@@ -523,7 +536,7 @@
 
             $("#popup-headline").text(userData.headline)
             $("#popup-summary").html(paragraph.length < 250 ? paragraph : paragraph.substring(0,250)+"..")
-            $("#popup-username").text(`${userData.firstname} ${userData.lastname}`)
+            $("#popup-username").text(`${userData.firstname} ${userData.lastname ? userData.lastname : ""}`)
             $("#popup-domicile").text(userData.domicile ? userData.domicile : "-")
             $("#popup-view").prop("href", `/profile/${userData.id}`)
             $("#popup-profile-pic").prop("src", userData.profile_picture)
@@ -671,7 +684,7 @@
                                 </div>
                                 <div class="mb-2 w-full">
                                     <p class="id" style="display:none">${userDataLogin.id}</p>
-                                    <p id="basic-fullname" class="font-bold text-xl text-main">${userDataLogin.firstname} ${userDataLogin.lastname} ${userDataLogin.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : userDataLogin.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
+                                    <p id="basic-fullname" class="font-bold text-xl text-main">${userDataLogin.firstname} ${userDataLogin.lastname  ? userDataLogin.lastname : ""} ${userDataLogin.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : userDataLogin.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
                                     <p id="basic-current-position" class="text-sm text-thrid/60 font-medium mb-1">${userDataLogin.headline}</p>
                                     ${isActive}
                                     </div>
@@ -682,7 +695,7 @@
                                 ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded-lg">+${REMAIN.length}</button>` : ""}
                             </div>
                             <div class="pt-2">
-                                <p class="text-sm flex items-center mt-2"><i class="uil uil-university"></i><span class="ms-2">${userDataLogin.educations.length > 0 ? userDataLogin.educations[0].edu_type + " • " + userDataLogin.educations[0].edu_program : "No Education Added"} • ${userDataLogin.educations.length > 0 ? userDataLogin.educations[0].edu_institution : "No Education Added"}</span></p>
+                                <p class="text-sm flex items-center mt-2"><i class="uil uil-university"></i><span class="ms-2">${userDataLogin.educations.length > 0 ? userDataLogin.educations[0].edu_type + " • " + userDataLogin.educations[0].edu_program + " • " + userDataLogin.educations[0].edu_institution : "Pendidikan belum ditambahkan"}</span></p>
                                 <p class="text-sm flex items-center mt-2"><i class="uil uil-bag-alt"></i><span class="ms-2">${userDataLogin.experiences.length > 0 ? userDataLogin.experiences[0].exp_position + " • " + userDataLogin.experiences[0].exp_orgname : "Pengalaman belum ditambahkan"}</span></p>
                             </div>
                         </div>
@@ -709,7 +722,7 @@
                                     </div>
                                     <div class="mb-2">
                                         <p class="id" style="display:none">${user.id}</p>
-                                        <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : user.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
+                                        <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname ? user.lastname : ""} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : user.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
                                         <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">${user.headline}</p>
                                         </div>
                                     </div>
@@ -743,7 +756,7 @@
                                     </div>
                                     <div class="mb-2">
                                         <p class="id" style="display:none">${user.id}</p>
-                                        <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : user.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
+                                        <p id="basic-fullname" class="font-bold text-xl text-main">${user.firstname} ${user.lastname ? user.lastname : ""} ${user.sex == 'Male' ? `<i class="uil uil-mars text-blue-500"></i>` : user.sex == "Female" ? `<i class="uil uil-venus text-pink-500"></i>` : ""}</p>
                                         <p id="basic-current-position" class="text-sm text-thrid/60 font-medium">${user.headline}</p>
                                         </div>
                                     </div>

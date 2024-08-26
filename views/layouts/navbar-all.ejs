@@ -146,7 +146,7 @@
 
         $.when(userInfoRequest).done(function(userData) {
             userData = decrypt(userData.r);
-            $(".navbar-fullname").text(`${userData.firstname} ${userData?.lastname}`)
+            $(".navbar-fullname").text(`${userData.firstname} ${userData.lastname ? userData.lastname : ""}`)
             
             if (userData && userData.role < 2) {
                 $("#add-post").removeClass("hidden");

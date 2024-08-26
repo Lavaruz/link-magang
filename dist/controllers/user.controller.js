@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateActiveSearch = exports.GetAllProfilePicture = exports.UpdateSocials = exports.UpdateAttachment = exports.AddNewLocation = exports.GetAllUserDomicile = exports.GetAllLocations = exports.AddSkillToUser = exports.AddNewSkill = exports.GetAllSkills = exports.DeleteEducationById = exports.UpdateEducationById = exports.GetAllUserEducations = exports.AddNewEducation = exports.DeleteExperienceById = exports.AddNewExperience = exports.GetExperienceById = exports.UpdateExperienceById = exports.GetExperiencesByUserToken = exports.GetEducationsByUserToken = exports.GoogleLoginHandler = exports.UpdateUserByToken = exports.GetTotalUser = exports.GetUserByToken = exports.GetUserById = exports.GetAllUserWhereActiveSearch = exports.UserLogout = exports.VerifyJWT = void 0;
+exports.UpdateActiveSearch = exports.GetAllProfilePicture = exports.UpdateSocials = exports.UpdateAttachment = exports.AddNewLocation = exports.GetAllUserDomicile = exports.GetAllLocations = exports.AddSkillToUser = exports.AddNewSkill = exports.GetAllSkills = exports.DeleteEducationById = exports.UpdateEducationById = exports.GetAllUserEducations = exports.AddNewEducation = exports.DeleteExperienceById = exports.AddNewExperience = exports.GetExperienceById = exports.UpdateExperienceById = exports.GetExperiencesByUserToken = exports.GetEducationsByUserToken = exports.GoogleLoginHandler = exports.UpdateUserByToken = exports.GetTotalUser = exports.GetUserByToken = exports.AddViewsUser = exports.GetUserById = exports.GetAllUserWhereActiveSearch = exports.UserLogout = exports.VerifyJWT = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../models/User"));
 const JWT_1 = require("../config/JWT");
@@ -146,6 +146,32 @@ async function GetUserById(req, res) {
     }
 }
 exports.GetUserById = GetUserById;
+async function AddViewsUser(req, res) {
+    const userId = req.params.id;
+    const userAuth = req.headers.authorization;
+    try {
+        jsonwebtoken_1.default.verify(userAuth, process.env.ACCESS_TOKEN_SECRET, async function (err, user) {
+            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+            if (err)
+                return res.status(400).json(err.message);
+            const USER = await User_1.default.findByPk(userId);
+            if (!USER)
+                return res.status(404).json({ message: "user not found" });
+            if (USER.id !== user.id) {
+                USER.increment('profile_viewers', { by: 1 });
+            }
+            else {
+                console.log("lihat diri sendiri");
+            }
+            return res.sendStatus(200);
+        });
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(200).json({ message: error.message });
+    }
+}
+exports.AddViewsUser = AddViewsUser;
 async function GetUserByToken(req, res) {
     const userToken = req.headers.authorization;
     try {

@@ -34,5 +34,6 @@ userRouter.post("/logout", user_controller_1.UserLogout);
 userRouter.post("/auth/google", user_controller_1.GoogleLoginHandler);
 userRouter.put("/", user_controller_1.UpdateUserByToken);
 userRouter.get("/:id", user_controller_1.GetUserById);
+userRouter.put("/:id/views", user_controller_1.AddViewsUser);
 exports.default = userRouter;
 //# sourceMappingURL=user.router.js.map

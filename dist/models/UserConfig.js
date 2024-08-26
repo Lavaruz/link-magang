@@ -18,7 +18,7 @@ Config.init({
     },
     show_phone: {
         type: sequelize_1.DataTypes.BOOLEAN,
-        defaultValue: true
+        defaultValue: false
     },
     // timestamps
     createdAt: sequelize_1.DataTypes.DATE,
