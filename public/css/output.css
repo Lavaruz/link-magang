@@ -2439,6 +2439,10 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
   grid-template-columns: max-content 1fr;
 }
 
+#popup-overview *{
+  background-color: transparent !important;
+}
+
 .placeholder\:text-black\/40::-moz-placeholder {
   color: rgb(0 0 0 / 0.4);
 }
@@ -2661,20 +2665,12 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
   background-color: rgb(71 169 146 / 0.6);
 }
 
-.disabled\:text-slate-100\/50:disabled {
-  color: rgb(241 245 249 / 0.5);
-}
-
 .disabled\:opacity-50:disabled {
   opacity: 0.5;
 }
 
 .disabled\:opacity-60:disabled {
   opacity: 0.6;
-}
-
-.disabled\:opacity-80:disabled {
-  opacity: 0.8;
 }
 
 .disabled\:opacity-70:disabled {

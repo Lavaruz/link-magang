@@ -51,8 +51,8 @@
                 </div>
             </div>
 
-            <div class="">
-                <button id="preview-profile" class="disabled:opacity-70 button-preview block flex items-center justify-center bg-main text-white font-medium text-sm py-4 w-full rounded-xl gap-2"><i class="uil uil-external-link-alt"></i> Lihat kartu profil kamu</button>
+            <div class="lg:hidden">
+                <button id="preview-profile" class="disabled:opacity-70 shadow-md button-preview block flex items-center justify-center bg-main text-white font-medium text-sm py-4 w-full rounded-xl gap-2"><i class="uil uil-external-link-alt"></i> Lihat kartu profil kamu</button>
                 <small class="preview-warning text-red-500 hidden">*lengkapi profil untuk melihat kartu kamu</small>
             </div>
 
@@ -102,11 +102,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="lg:hidden">
-                <button id="preview-profile" class="disabled:opacity-70 button-preview block flex items-center justify-center bg-main text-white font-medium text-sm py-4 w-full rounded-lg gap-2"><i class="uil uil-external-link-alt"></i> Lihat kartu profil kamu</button>
-                <small class="preview-warning text-red-500 hidden">*lengkapi profil untuk melihat kartu kamu</small>
             </div>
 
             <!-- PROFILE SKILLS -->
@@ -196,6 +191,11 @@
         </div>
 
         <div class="hidden lg:flex flex-col gap-3">
+
+            <div class="hidden lg:block">
+                <button id="preview-profile" class="disabled:opacity-70 shadow-md button-preview block flex items-center justify-center bg-main text-white font-medium text-sm py-4 w-full rounded-xl gap-2"><i class="uil uil-external-link-alt"></i> Lihat kartu profil kamu</button>
+                <small class="preview-warning text-red-500 hidden">*lengkapi profil untuk melihat kartu kamu</small>
+            </div>
 
             <!-- ATTACHMENT -->
             <div class="attachments bg-white border-main border-2 noise rounded-2xl p-4 pb-6 shadow-md">
@@ -440,7 +440,7 @@
                 $(".preview-warning").removeClass("hidden")
             }
 
-            $("#preview-profile").click(function(){
+            $(".button-preview").click(function(){
                 $("#popup").fadeIn(function(){
                     $("body").addClass('no-scroll');
                     $(".popup-preview").slideToggle()
@@ -1002,7 +1002,7 @@
                 `)
                 
                 $("#basic-experiences-preview").append(`
-                     <div class="card-experience bg-white p-5 py-4 rounded-lg">
+                     <div class="card-experience bg-white p-5 py-4 rounded-lg border border-main">
                         <div class="relative flex gap-4">
                             <div class="w-full">
                                 <div class="head lg:flex justify-between">
@@ -1096,7 +1096,7 @@
 
                 $("#basic-educations-preview").html("")
                 $("#basic-educations-preview").append(`
-                    <div class="card-education bg-white p-5 py-4 rounded-lg">
+                    <div class="card-education bg-white p-5 py-4 rounded-lg border border-main">
                         <div class="relative flex gap-4">
                             <div class="w-full">
                                 <div class="head lg:flex justify-between">

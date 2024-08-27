@@ -107,3 +107,7 @@ html::-webkit-scrollbar-thumb:hover, div::-webkit-scrollbar-thumb:hover {
 .grid-market{
   grid-template-columns: max-content 1fr;
 }
+
+#popup-overview *{
+  background-color: transparent !important;
+}

@@ -64,14 +64,6 @@ router.get("/talent", (req: Request, res: Response, next) => {
   }
 });
 
-router.get("/create", (req: Request, res: Response, next) => {
-  try {
-    return res.render("Create")
-  } catch (error) {
-    return res.send(error);
-  }
-});
-
 router.get("/privacy-policy", (req: Request, res: Response, next) => {
   try {
     return res.render("PrivacyPolicy")
