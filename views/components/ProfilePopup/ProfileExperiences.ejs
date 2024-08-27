@@ -66,7 +66,7 @@
                                 <!-- Using form state modifiers, the classes can be identical for every input -->
                                 <input id="popup-firstname" type="month" placeholder="" name="exp_enddate" class="block border-2 border-gray-300 w-full lg:w-[200px] px-4 lg:px-3 py-4 lg:py-[10px] bg-header rounded-lg text-base placeholder-black/30 text-black/80
                                 focus:outline-none focus:border-white-60 focus:ring-1 focus:ring-white-60
-                                focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:bg-header/50 disabled:text-slate-100/50 disabled:placeholder-text-black/80/50
+                                focus:invalid:border-red-500 focus:invalid:ring-red-500 disabled:opacity-50
                                 "/>
                             </label>
                             <div class="flex items-center mt-5">
@@ -96,7 +96,7 @@
                     </div>
                     <div class="pt-4">
                         <label class="block mb-1 text-black/80 tracking-[1.4px] font-normal text-sm">DESKRIPSI PEKERJAAN</label>
-                        <textarea id="" rows="4" name="exp_description" class="block border-2 border-gray-300 resize-none px-4 lg:px-3 py-4 lg:py-[10px] w-full h-[240px] font-second text-sm text-black/80 bg-header rounded-lg focus:ring-white-60" placeholder="Tuliaskan deskripsi pekerjaanmu disini..."></textarea>
+                        <textarea id="" rows="4" name="exp_description" class="block border-2 border-gray-300 resize-none px-4 lg:px-3 py-4 lg:py-[10px] w-full h-[240px] font-second text-sm text-black/80 bg-header rounded-lg focus:ring-white-60" placeholder="Tuliskan deskripsi pekerjaanmu disini..."></textarea>
                     </div>
                 </div>
                 <div class="fixed lg:mx-5 lg:mb-6 lg:static left-0 bottom-0 flex gap-3 w-full lg:w-max lg:ms-auto lg:justify-end mt-8 lg:p-0 lg:pe-0 border-t-2 lg:border-none border-main bg-background lg:bg-transparent">
@@ -269,6 +269,15 @@
                     alert("Error")
                 }
             });
+        }
+    })
+
+    $("#adding-new-experience input[type=checkbox]").change(function(){
+        if($(this).is(":checked")){
+            $("#adding-new-experience input[name=exp_enddate]").prop("disabled", true)
+            $("#adding-new-experience input[name=exp_enddate]").val("")
+        }else{
+            $("#adding-new-experience input[name=exp_enddate]").prop("disabled", false)
         }
     })
 

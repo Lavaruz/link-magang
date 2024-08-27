@@ -505,14 +505,7 @@
 
                     // UPDATE
                     PutUserData("form-editing-experience", `/api/v1/users/info/experiences/${ID}`, function(dis, response){
-                        $("#editing-experience").addClass("hidden")
-                        $("#registered-experience").removeClass("hidden")
-                        $(dis).closest('.popup').slideToggle(function(){
-                            $(dis).closest('#popup').fadeOut()
-                        })
-                        InitExperiences(response)
-                        $(`#form-editing-experience`).trigger("reset");
-                        $("body").removeClass('no-scroll');
+                        location.reload()
                     })
                 })
             }
@@ -545,14 +538,7 @@
                     
                     // UPDATE
                     PutUserData("form-editing-education", `/api/v1/users/info/educations/${CARD_EDUCATION_ID}`, function(dis, response){
-                        $("#adding-new-educations").addClass("hidden")
-                        $("#registered-educations").removeClass("hidden")
-                        $(dis).closest('.popup').slideToggle(function(){
-                            $(dis).closest('#popup').fadeOut()
-                        })
-                        InitEducations(response)
-                        $(`#form-editing-education`).trigger("reset");
-                        $("body").removeClass('no-scroll');
+                        location.reload()
                     })
                 })
             }
@@ -569,7 +555,7 @@
         $("body").removeClass('no-scroll');
     })
 
-    $(".experiences, .educations").on("click", ".button-readmore", function(){
+    $(".experiences, .educations, .popup-experiences, .popup-education").on("click", ".button-readmore", function(){
         const content = $(this).closest(".content")
         content.addClass("hidden")
         content.prev().removeClass("hidden")
@@ -999,16 +985,15 @@
                                         <p class="text-xs font-semibold text-[#A5A5A5]">${calculateMonthDifference(experienceData.exp_startdate, experienceData.exp_enddate?experienceData.exp_enddate:getFormattedDate()).toUpperCase()}</p>
                                     </div>
                                 </div>
-                                <div <div class="body flex">
-                                    <p class="font-second text-sm text-white-60 font-normal mt-3">${paragraph.join("</br>")}...</p>
-                                </div>
+                                <p class="mt-3 hidden">${experienceData.exp_description.replace(/\n/g, '<br/>')}</p>
+                                <p class="mt-3 content">${experienceData.exp_description.length > 210 ? `${experienceData.exp_description.replace(/\n/g, '<br/>').substring(0,210)}... <button class="button-readmore text-sm text-main">Read More</button>` : experienceData.exp_description.replace(/\n/g, '<br/>')}</p>
                             </div>
                             <div class="flex absolute lg:static right-0 lg:flex-col flex-row-reverse gap-4 lg:gap-2">
-                                <svg class="cursor-pointer update-experience-button" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <svg class="cursor-pointer update-experience-button" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none">
                                     <path d="M19.3 8.925L15.05 4.725L16.45 3.325C16.8333 2.94167 17.3042 2.75 17.8625 2.75C18.4208 2.75 18.8917 2.94167 19.275 3.325L20.675 4.725C21.0583 5.10833 21.2583 5.57083 21.275 6.1125C21.2917 6.65417 21.1083 7.11667 20.725 7.5L19.3 8.925ZM4 21C3.71667 21 3.47917 20.9042 3.2875 20.7125C3.09583 20.5208 3 20.2833 3 20V17.175C3 17.0417 3.025 16.9125 3.075 16.7875C3.125 16.6625 3.2 16.55 3.3 16.45L13.6 6.15L17.85 10.4L7.55 20.7C7.45 20.8 7.3375 20.875 7.2125 20.925C7.0875 20.975 6.95833 21 6.825 21H4Z" fill="#A5A5A5"/>
                                 </svg>
                                 <p class="id" style="display: none;">${experienceData.id}</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer delete-experience-button" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer delete-experience-button" width="26" height="26" viewBox="0 0 24 24" fill="none">
                                     <path d="M6.525 21C6.125 21 5.775 20.85 5.475 20.55C5.175 20.25 5.025 19.9 5.025 19.5V5.25H4.75C4.53333 5.25 4.35417 5.17917 4.2125 5.0375C4.07083 4.89583 4 4.71667 4 4.5C4 4.28333 4.07083 4.10417 4.2125 3.9625C4.35417 3.82083 4.53333 3.75 4.75 3.75H8.7C8.7 3.53333 8.77083 3.35417 8.9125 3.2125C9.05417 3.07083 9.23333 3 9.45 3H14.55C14.7667 3 14.9458 3.07083 15.0875 3.2125C15.2292 3.35417 15.3 3.53333 15.3 3.75H19.25C19.4667 3.75 19.6458 3.82083 19.7875 3.9625C19.9292 4.10417 20 4.28333 20 4.5C20 4.71667 19.9292 4.89583 19.7875 5.0375C19.6458 5.17917 19.4667 5.25 19.25 5.25H18.975V19.5C18.975 19.9 18.825 20.25 18.525 20.55C18.225 20.85 17.875 21 17.475 21H6.525ZM9.175 16.6C9.175 16.8167 9.24583 16.9958 9.3875 17.1375C9.52917 17.2792 9.70833 17.35 9.925 17.35C10.1417 17.35 10.3208 17.2792 10.4625 17.1375C10.6042 16.9958 10.675 16.8167 10.675 16.6V8.125C10.675 7.90833 10.6042 7.72917 10.4625 7.5875C10.3208 7.44583 10.1417 7.375 9.925 7.375C9.70833 7.375 9.52917 7.44583 9.3875 7.5875C9.24583 7.72917 9.175 7.90833 9.175 8.125V16.6ZM13.325 16.6C13.325 16.8167 13.3958 16.9958 13.5375 17.1375C13.6792 17.2792 13.8583 17.35 14.075 17.35C14.2917 17.35 14.4708 17.2792 14.6125 17.1375C14.7542 16.9958 14.825 16.8167 14.825 16.6V8.125C14.825 7.90833 14.7542 7.72917 14.6125 7.5875C14.4708 7.44583 14.2917 7.375 14.075 7.375C13.8583 7.375 13.6792 7.44583 13.5375 7.5875C13.3958 7.72917 13.325 7.90833 13.325 8.125V16.6Z" fill="#A5A5A5"/>
                                 </svg>
                             </div>
@@ -1093,9 +1078,8 @@
                                         <p class="text-xs font-semibold text-[#A5A5A5]">${calculateMonthDifference(educationsData.edu_startdate, educationsData.edu_enddate).toUpperCase()}</p>
                                     </div>
                                 </div>
-                                <div class="body flex">
-                                    <p class="font-second text-sm text-white-60 font-normal mt-3">${paragraph.join("</br>")}...</p>
-                                </div>
+                                <p class="mt-3 hidden">${educationsData.edu_description.replace(/\n/g, '<br/>')}</p>
+                                <p class="mt-3 content">${educationsData.edu_description.length > 210 ? `${educationsData.edu_description.replace(/\n/g, '<br/>').substring(0,210)}... <button class="button-readmore text-sm text-main">Read More</button>` : educationsData.edu_description.replace(/\n/g, '<br/>')}</p>
                             </div>
                             <div class="absolute lg:static right-0 flex lg:flex-col flex-row-reverse gap-4 lg:gap-2">
                                 <svg class="cursor-pointer update-education-button" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

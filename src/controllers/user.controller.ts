@@ -209,6 +209,9 @@ export async function UpdateUserByToken(req:Request, res: Response){
     const userToken = req.headers.authorization;
     const userData = req.body
 
+    console.log(userData);
+    
+
     delete userData.email
     
     try {
@@ -310,7 +313,7 @@ export async function UpdateExperienceById(req:Request, res: Response){
     const userData = req.body
     const ID = req.params.id
     const userToken = req.headers.authorization
-    
+
     try {
         if(!userToken) return res.status(400).json({message: "token is required"})
 
@@ -320,6 +323,9 @@ export async function UpdateExperienceById(req:Request, res: Response){
             const USER = await User.findOne({where:{id: decoded.id}})
             if(!USER) return res.status(404).json({message: "user not found"})
             const EXPERIENCE = await Experience.findByPk(ID)
+
+            if(!userData.exp_enddate) userData.exp_enddate = null
+
             await EXPERIENCE.update(userData)
             const EXPERIENCES = await USER.getExperiences({order: [["createdAt", "DESC"]]})
 

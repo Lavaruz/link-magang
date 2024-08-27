@@ -242,13 +242,11 @@
     $("#pagination-back").click(function(){ 
         PAGE -= 1
         GetPosts(INPUT, LIMIT, PAGE)
-        document.getElementById("search-bar").scrollIntoView();
         CountAllPlatform()
     })
     $("#pagination-forward").click(function(){ 
         PAGE += 1
         GetPosts(INPUT, LIMIT, PAGE)
-        document.getElementById("search-bar").scrollIntoView();
         CountAllPlatform()
     })
     $("#cards").on("click", ".job-detail", function(){
