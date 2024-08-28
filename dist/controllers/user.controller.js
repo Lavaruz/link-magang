@@ -214,6 +214,7 @@ exports.GetTotalUser = GetTotalUser;
 async function UpdateUserByToken(req, res) {
     const userToken = req.headers.authorization;
     const userData = req.body;
+    console.log(userData);
     delete userData.email;
     try {
         if (!userToken)
@@ -325,6 +326,8 @@ async function UpdateExperienceById(req, res) {
             if (!USER)
                 return res.status(404).json({ message: "user not found" });
             const EXPERIENCE = await UserExperience_1.default.findByPk(ID);
+            if (!userData.exp_enddate)
+                userData.exp_enddate = null;
             await EXPERIENCE.update(userData);
             const EXPERIENCES = await USER.getExperiences({ order: [["createdAt", "DESC"]] });
             return res.status(200).json(EXPERIENCES);
