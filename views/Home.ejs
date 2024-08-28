@@ -7,9 +7,9 @@
         <!-- HERO -->
         <div class="my-6 grid items-center justify-center text-center">
             <div class="">
-                <p class="text-thrid leading-tight text-[35px] text-center lg:text-[55px] font-bold">Cari <span class="text-main">Lowongan</span>mu</p>
-                <p class="font-medium text-second/80 text-lg text-center">dari semua penjuru platform</p>
-                <div class="flex items-center mx-auto gap-4 mt-6 py-2 rounded-lg w-max">
+                <p class="text-thrid leading-tight text-[40px] text-center lg:text-[55px] font-bold">Cari <span class="text-main">Internshit</span></p>
+                <p class="font-medium text-second/80 lg:text-lg text-center pt-2 lg:pt-4">dari semua penjuru platform</p>
+                <div class="flex items-center mx-auto gap-4 mt-3 py-2 rounded-lg w-max">
                     <p class="font-medium text-xl"><i class="uil uil-arrow-left"></i></p>
                     <a href="https://glints.com/id/en"><img src="/img/Glints.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
                     <a href="https://id.indeed.com/"><img src="/img/Indeed.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
@@ -518,11 +518,11 @@
                         <p class="text-sm flex items-center gap-2 mt-1"><i class="uil uil-location-point"></i> ${post.type} • ${post.location}</p>
                         <hr class="my-2">
                         <div class="flex items-center justify-between gap-3 mt-4">
-                            <span class="${matchingSkills ? '' : 'invisible'} text-white text-xs font-medium bg-orange-500 px-2 py-1">kamu banget</span>
-                            <div class="flex items-center gap-2">
-                                <p class="text-sm flex items-center gap-2"><span class="text-xs font-medium">muncul di</span></p>
+                            <span class="${matchingSkills ? '' : 'hidden'} text-white text-xs font-medium bg-orange-500 px-2 py-1">Kamu banget!</span>
+                            <div class="flex items-center gap-2 ms-auto">
+                                <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">Muncul di</span></p>
                                 ${platform}
-                                <p class="text-sm flex items-center gap-2"><span class="text-xs font-medium">${timeAgo(post.post_date)}</span></p>
+                                <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">${timeAgo(post.post_date)}</span></p>
                             </div>
                         </div>
                     </div>
@@ -548,11 +548,11 @@
                         <p class="text-sm flex items-center gap-2 mt-1"><i class="uil uil-location-point"></i> ${post.type} • ${post.location}</p>
                         <hr class="my-2">
                         <div class="flex items-center justify-between gap-3 mt-4">
-                            <span class="invisible text-white text-xs font-medium bg-orange-500 px-2 py-1">kamu banget</span>
-                            <div class="flex items-center gap-2">
-                                <p class="text-sm flex items-center gap-2"><span class="text-xs font-medium">muncul di</span></p>
+                            <span class="hidden text-white text-xs font-medium bg-orange-500 px-2 py-1">kamu banget</span>
+                            <div class="flex items-center gap-2 ms-auto">
+                                <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">muncul di</span></p>
                                 ${platform}
-                                <p class="text-sm flex items-center gap-2"><span class="text-xs font-medium">${timeAgo(post.post_date)}</span></p>
+                                <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">${timeAgo(post.post_date)}</span></p>
                             </div>
                         </div>
                     </div>
@@ -564,17 +564,17 @@
     function getPlatformImage(post){
         switch (post.platform) {
             case 'Glints':
-                return '<img class="w-6 h-6 rounded-lg" src="/img/Glints.png" alt="Glints">';
+                return '<img class="w-5 h-5 rounded-lg" src="/img/Glints.png" alt="Glints">';
             case 'Linkedin':
-                return '<img class="w-6 h-6 rounded-lg" src="/img/Linkedin.png" alt="LinkedIn">';
+                return '<img class="w-5 h-5 rounded-lg" src="/img/Linkedin.png" alt="LinkedIn">';
             case 'Kalibrr':
-                return '<img class="w-6 h-6 rounded-lg" src="/img/Kalibrr.png" alt="Kalibrr">';
+                return '<img class="w-5 h-5 rounded-lg" src="/img/Kalibrr.png" alt="Kalibrr">';
             case 'Jobstreet':
-                return '<img class="w-6 h-6 rounded-lg" src="/img/Jobstreet.png" alt="JobStreet">';
+                return '<img class="w-5 h-5 rounded-lg" src="/img/Jobstreet.png" alt="JobStreet">';
             case 'Indeed':
-                return '<img class="w-6 h-6 rounded-lg" src="/img/Indeed.png" alt="Indeed">';
+                return '<img class="w-5 h-5 rounded-lg" src="/img/Indeed.png" alt="Indeed">';
             default:
-                return '<img class="w-6 h-6 rounded-lg" src="/img/Default.png" alt="Default">';
+                return '<img class="w-5 h-5 rounded-lg" src="/img/Default.png" alt="Default">';
         }
     }
 
