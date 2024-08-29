@@ -86,14 +86,6 @@ router.get("/talent", (req, res, next) => {
         return res.send(error);
     }
 });
-router.get("/create", (req, res, next) => {
-    try {
-        return res.render("Create");
-    }
-    catch (error) {
-        return res.send(error);
-    }
-});
 router.get("/privacy-policy", (req, res, next) => {
     try {
         return res.render("PrivacyPolicy");

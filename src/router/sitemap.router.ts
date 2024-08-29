@@ -15,22 +15,42 @@ sitemapRouter.get("/", function(req,res){
 
         <url>
         <loc>https://internshits.com/</loc>
-        <lastmod>2024-06-16T01:09:28+00:00</lastmod>
+        <lastmod>2024-08-28T08:59:57+00:00</lastmod>
         <priority>1.00</priority>
         </url>
         <url>
-        <loc>https://internshits.com/create</loc>
-        <lastmod>2024-06-16T01:09:28+00:00</lastmod>
+        <loc>https://internshits.com/community</loc>
+        <lastmod>2024-08-28T08:59:57+00:00</lastmod>
+        <priority>0.80</priority>
+        </url>
+        <url>
+        <loc>https://internshits.com/talent</loc>
+        <lastmod>2024-08-28T08:59:57+00:00</lastmod>
+        <priority>0.80</priority>
+        </url>
+        <url>
+        <loc>https://internshits.com/profile/bookmark</loc>
+        <lastmod>2024-08-28T08:59:57+00:00</lastmod>
+        <priority>0.80</priority>
+        </url>
+        <url>
+        <loc>https://internshits.com/posts/create</loc>
+        <lastmod>2024-08-28T08:59:57+00:00</lastmod>
+        <priority>0.80</priority>
+        </url>
+        <url>
+        <loc>https://internshits.com/profile/me</loc>
+        <lastmod>2024-08-28T08:59:57+00:00</lastmod>
         <priority>0.80</priority>
         </url>
         <url>
         <loc>https://internshits.com/terms-of-service</loc>
-        <lastmod>2024-06-16T01:09:28+00:00</lastmod>
+        <lastmod>2024-08-28T08:59:57+00:00</lastmod>
         <priority>0.80</priority>
         </url>
         <url>
         <loc>https://internshits.com/privacy-policy</loc>
-        <lastmod>2024-06-16T01:09:28+00:00</lastmod>
+        <lastmod>2024-08-28T08:59:57+00:00</lastmod>
         <priority>0.80</priority>
         </url>
 
