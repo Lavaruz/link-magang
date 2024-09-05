@@ -9,11 +9,12 @@ const crypto_1 = require("../config/crypto");
 const Skills_1 = __importDefault(require("../models/Skills"));
 const getAllPost = async (req, res) => {
     try {
+        console.log(req.query);
         const search = req.query.search || "";
         const post_date = req.query.post_date || "DESC";
-        let skills = req.query.skills;
-        let type = req.query.type;
-        let locations = req.query.locations;
+        let skills = req.query.skills || "[]";
+        let type = req.query.type || "[]";
+        let locations = req.query.locations || "[]";
         let db_page = req.query.page || 1;
         let db_limit = req.query.limit || 20;
         locations = JSON.parse(locations);
@@ -34,20 +35,7 @@ const getAllPost = async (req, res) => {
         let filtered_data = POST.filter(post => {
             let post_json = post.toJSON();
             const matchesSearch = post_json.title.toLowerCase().includes(search.toString().toLowerCase()) || post_json.company.toLowerCase().includes(search.toString().toLowerCase());
-            let matchesLocation = true;
-            if (locations.length > 0) {
-                matchesLocation = locations.includes(post_json.location.toLowerCase());
-            }
-            let matchesType = true;
-            if (type.length > 0) {
-                matchesType = type.includes(post_json.type.toLowerCase());
-            }
-            let matchesSkills = true;
-            if (skills.length > 0) {
-                const postSkills = post_json.skills.map(skill => skill.skill.toLowerCase());
-                matchesSkills = skills.some(skill => postSkills.includes(skill.toLowerCase()));
-            }
-            return matchesSearch && matchesLocation && matchesSkills && matchesType;
+            return matchesSearch;
         });
         const total_entries = filtered_data.length;
         const total_pages = Math.ceil(total_entries / +db_limit);

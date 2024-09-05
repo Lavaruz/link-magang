@@ -517,22 +517,27 @@
                 
                 
                 $("#cards").append(`
-                    <div class="job-detail cursor-pointer hover:scale-[1.005] duration-100 shadow-md border border-main bg-white p-4 rounded-2xl self-start">
-                        <p class="id" style="display:none">${post.id}</p>
-                        <p class="font-medium text-black mb-2">${post.title.length > 33 ? post.title.substring(0,33)+"..." : post.title}</p>
-                        <div class="flex gap-2 flex-wrap">
-                            ${ACTIVE_SKILL.join("")}
-                            ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded">+${REMAIN.length}</button>` : ""}
+                    <div class="job-detail cursor-pointer hover:scale-[1.005] duration-100 shadow-md border border-main bg-white p-4 rounded-2xl flex flex-col justify-between">
+                        <div class="">
+                            <p class="id" style="display:none">${post.id}</p>
+                            <p class="font-medium text-black mb-2">${post.title.length > 33 ? post.title.substring(0,33)+"..." : post.title}</p>
+                            <div class="flex gap-2 flex-wrap">
+                                ${ACTIVE_SKILL.join("")}
+                                ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded">+${REMAIN.length}</button>` : ""}
+                            </div>
+                            <p class="text-sm flex items-center gap-2 mt-4"><i class="uil uil-building"></i>${post.company.length > 38 ? post.company.substring(0,38) + ".." : post.company}</p>
+                            <p class="text-sm flex items-center gap-2 mt-1"><i class="uil uil-location-point"></i> ${post.type} • ${post.location}</p>    
                         </div>
-                        <p class="text-sm flex items-center gap-2 mt-4"><i class="uil uil-building"></i>${post.company.length > 38 ? post.company.substring(0,38) + ".." : post.company}</p>
-                        <p class="text-sm flex items-center gap-2 mt-1"><i class="uil uil-location-point"></i> ${post.type} • ${post.location}</p>
-                        <hr class="my-2">
-                        <div class="flex items-center justify-between gap-3 mt-4">
-                            <span class="${matchingSkills ? '' : 'hidden'} text-white text-xs font-medium bg-orange-500 px-2 py-1">Kamu banget!</span>
-                            <div class="flex items-center gap-2 ms-auto">
-                                <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">Muncul di</span></p>
-                                ${platform}
-                                <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">${timeAgo(post.post_date)}</span></p>
+
+                        <div class="">
+                            <hr class="my-2">
+                            <div class="flex items-center justify-between gap-3 mt-4">
+                                <span class="${matchingSkills ? '' : 'hidden'} text-white text-xs font-medium bg-orange-500 px-2 py-1">Kamu banget!</span>
+                                <div class="flex items-center gap-2 ms-auto">
+                                    <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">Muncul di</span></p>
+                                    ${platform}
+                                    <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">${timeAgo(post.post_date)}</span></p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -547,22 +552,27 @@
                 let ACTIVE_SKILL = SKILLS.slice(0,4)
                 let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
                 $("#cards").append(`
-                    <div class="job-detail cursor-pointer hover:scale-[1.005] duration-100 shadow-md border border-main bg-white p-4 rounded-2xl self-start">
-                        <p class="id" style="display:none">${post.id}</p>
-                        <p class="font-medium text-black mb-2">${post.title.length > 33 ? post.title.substring(0,33)+"..." : post.title}</p>
-                        <div class="flex gap-2 flex-wrap">
-                            ${ACTIVE_SKILL.join("")}
-                            ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded">+${REMAIN.length}</button>` : ""}
+                    <div class="job-detail cursor-pointer hover:scale-[1.005] duration-100 shadow-md border border-main bg-white p-4 rounded-2xl flex flex-col justify-between">
+                        <div class="">
+                            <p class="id" style="display:none">${post.id}</p>
+                            <p class="font-medium text-black mb-2">${post.title.length > 33 ? post.title.substring(0,33)+"..." : post.title}</p>
+                            <div class="flex gap-2 flex-wrap">
+                                ${ACTIVE_SKILL.join("")}
+                                ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded">+${REMAIN.length}</button>` : ""}
+                            </div>
+                            <p class="text-sm flex items-center gap-2 mt-4"><i class="uil uil-building"></i>${post.company.length > 38 ? post.company.substring(0,38) + ".." : post.company}</p>
+                            <p class="text-sm flex items-center gap-2 mt-1"><i class="uil uil-location-point"></i> ${post.type} • ${post.location}</p>    
                         </div>
-                        <p class="text-sm flex items-center gap-2 mt-4"><i class="uil uil-building"></i>${post.company.length > 38 ? post.company.substring(0,38) + ".." : post.company}</p>
-                        <p class="text-sm flex items-center gap-2 mt-1"><i class="uil uil-location-point"></i> ${post.type} • ${post.location}</p>
-                        <hr class="my-2">
-                        <div class="flex items-center justify-between gap-3 mt-4">
-                            <span class="hidden text-white text-xs font-medium bg-orange-500 px-2 py-1">kamu banget</span>
-                            <div class="flex items-center gap-2 ms-auto">
-                                <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">muncul di</span></p>
-                                ${platform}
-                                <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">${timeAgo(post.post_date)}</span></p>
+
+                        <div class="">
+                            <hr class="my-2">
+                            <div class="flex items-center justify-between gap-3 mt-4">
+                                <span class="hidden text-white text-xs font-medium bg-orange-500 px-2 py-1">Kamu banget!</span>
+                                <div class="flex items-center gap-2 ms-auto">
+                                    <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">Muncul di</span></p>
+                                    ${platform}
+                                    <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">${timeAgo(post.post_date)}</span></p>
+                                </div>
                             </div>
                         </div>
                     </div>

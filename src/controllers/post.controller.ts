@@ -9,9 +9,9 @@ export const getAllPost = async (req: Request, res: Response) => {
     try {
       const search = req.query.search || ""
       const post_date = req.query.post_date || "DESC"
-      let skills:any = req.query.skills
-      let type:any = req.query.type
-      let locations:any = req.query.locations
+      let skills:any = req.query.skills || "[]"
+      let type:any = req.query.type || "[]"
+      let locations:any = req.query.locations || "[]"
 
       let db_page = req.query.page || 1
       let db_limit = req.query.limit || 20
@@ -22,7 +22,6 @@ export const getAllPost = async (req: Request, res: Response) => {
       if (search !== "" || locations.length > 0 || skills.length > 0 || type.length > 0) {
         db_limit = 999;
       }
-      
 
       const POST = await Post.findAll({
         attributes:{exclude:[ "updatedAt"]},
@@ -33,29 +32,12 @@ export const getAllPost = async (req: Request, res: Response) => {
           {model: Skills, as:"skills"},
         ]
       })
-      
 
       let filtered_data = POST.filter(post => {
         let post_json = post.toJSON();
         const matchesSearch = post_json.title.toLowerCase().includes(search.toString().toLowerCase()) || post_json.company.toLowerCase().includes(search.toString().toLowerCase());
   
-        let matchesLocation = true;
-        if (locations.length > 0) {
-          matchesLocation = locations.includes(post_json.location.toLowerCase());
-        }
-
-        let matchesType = true;
-        if (type.length > 0) {
-          matchesType = type.includes(post_json.type.toLowerCase());
-        }
-  
-        let matchesSkills = true;
-        if (skills.length > 0) {
-          const postSkills = post_json.skills.map(skill => skill.skill.toLowerCase());
-          matchesSkills = skills.some(skill => postSkills.includes(skill.toLowerCase()));
-        }
-  
-        return matchesSearch && matchesLocation && matchesSkills && matchesType;
+        return matchesSearch;
       })
       
 
