@@ -1,6 +1,7 @@
 import express from "express";
 import { AddNewEducation, AddNewExperience, AddNewLocation, AddNewSkill, AddSkillToUser, AddViewsUser, DeleteEducationById, DeleteExperienceById, GetAllLocations, GetAllProfilePicture, GetAllSkills, GetAllUserDomicile, GetAllUserEducations, GetAllUserWhereActiveSearch, GetEducationsByUserToken, GetExperienceById, GetExperiencesByUserToken, GetTotalUser, GetUserById, GetUserByToken, GoogleLoginHandler, UpdateActiveSearch, UpdateAttachment, UpdateEducationById, UpdateExperienceById, UpdateSocials, UpdateUserByToken, UserLogout, VerifyJWT } from "../controllers/user.controller";
-    
+import { decrypt } from "../config/crypto";    
+
 const userRouter = express.Router();
 
 userRouter.get("/active", GetAllUserWhereActiveSearch)
@@ -35,11 +36,17 @@ userRouter.get("/verify-token", VerifyJWT)
 userRouter.get("/total-user", GetTotalUser)
 userRouter.get("/pictures", GetAllProfilePicture)
 userRouter.post("/logout", UserLogout)
-userRouter.post("/auth/google", GoogleLoginHandler)
+userRouter.post("/auth/google", decodeMiddleware, GoogleLoginHandler)
 userRouter.put("/", UpdateUserByToken)
 
 userRouter.get("/:id", GetUserById)
 userRouter.put("/:id/views", AddViewsUser)
+
+
+function decodeMiddleware(req, res, next){
+    req.body = decrypt(req.body.d)
+    next()
+}
     
 export default userRouter;
     

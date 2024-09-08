@@ -27,7 +27,7 @@ export const getAllPost = async (req: Request, res: Response) => {
         attributes:{exclude:[ "updatedAt"]},
         limit: +db_limit,
         offset: (+db_page - 1) * +db_limit,
-        order: [["createdAt", post_date.toString()]],
+        order: [["post_date", post_date.toString()]],
         include: [
           {model: Skills, as:"skills"},
         ]

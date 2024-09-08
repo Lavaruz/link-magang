@@ -177,6 +177,8 @@ export async function AddViewsUser(req:Request, res: Response){
 }
 
 export async function GetUserByToken(req:Request, res: Response){
+    console.log(req.headers.authorization);
+    
     const userToken:any = req.headers.authorization;
 
     try {
@@ -260,15 +262,12 @@ export async function UpdateUserByToken(req:Request, res: Response){
 
 export async function GoogleLoginHandler(req:Request, res: Response){
     let data = req.body  
-    let userData:any = jwtDecode(data.token);
+    let userData:any = jwtDecode(data);
 
     const USER = await User.findOne({where: { email: userData.email }})
 
     if(USER){
         const accessToken = createToken(USER)
-        res.cookie("userAuthenticate", accessToken, {
-            maxAge: 360000000,
-        });
         return res.status(200).json(accessToken)
     }
     if(!USER){
@@ -277,23 +276,20 @@ export async function GoogleLoginHandler(req:Request, res: Response){
             firstname: userData.given_name,
             lastname: userData.family_name
         })
-        transporter.sendMail({
-            from: `"Tim Kece Internshit" <${process.env.MAILER_EMAIL}>`, // sender address
-            to: userData.email,
-            subject: `Selamat Datang di Internshit!`,
-            html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Welcome Member Baru</title><style>.header{font-size:20px;font-weight:800;margin:2rem 0;color:#47A992}.body{padding:2rem;background-color:#e0e0e0}.email-container{padding:2rem;width:45%;margin:0 auto;background-color:#fff;border-radius:16px}@media only screen and (max-width:800px){.email-container{width:100%;border-radius:0;padding:1rem}.body{padding:0}}</style><link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"><script src="https://cdn.tailwindcss.com"></script></head><body class="body"><div class="email-container"><img src="cid:logo" alt="Logo Website" width="60px"><h3 class="header">Haiii! Selamat datang di Internshit!</h3><p>Wah,kamu baru aja join ya? Keren banget nih!</p><p style="margin-top: 1.5rem;">Kalo ada pertanyaan atau butuh bantuan,jangan sungkan buat hubungi kita ya! Bisa kirim email ke <a href="mailto:internshit.id@gmail.com" style="color: #47A992;">internshit.id@gmail.com</a> atau DM di X kita.</p><p style="font-weight: 700; margin-top: 1.5rem;">Jangan lupa follow X kita buat update seru lainnya! </p><a href="https://x.com/internshit_id"><button style="padding: .75rem 1.5rem; border-radius: 8px; background-color: #47A992; color: white; margin: 1rem 0; font-weight: 700; font-size: .8rem; cursor: pointer; display: flex; align-items: center; gap: .5rem;">Cek X Kita! <i class="uil uil-arrow-right"></i></button></a><p><span style="font-weight: 500; color: #343434;">Salam hangat,</span><br><span style="font-weight: 700; color: #343434;">Tim Kece Internshit</span></p></div></body></html>`,
-            attachments:[{
-              filename:"Logo.png",
-              path: './public/img/Logo.png',
-              cid: 'logo',
-              contentDisposition:"inline"
-            }]
-        });
+        // transporter.sendMail({
+        //     from: `"Tim Kece Internshit" <${process.env.MAILER_EMAIL}>`, // sender address
+        //     to: userData.email,
+        //     subject: `Selamat Datang di Internshit!`,
+        //     html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Welcome Member Baru</title><style>.header{font-size:20px;font-weight:800;margin:2rem 0;color:#47A992}.body{padding:2rem;background-color:#e0e0e0}.email-container{padding:2rem;width:45%;margin:0 auto;background-color:#fff;border-radius:16px}@media only screen and (max-width:800px){.email-container{width:100%;border-radius:0;padding:1rem}.body{padding:0}}</style><link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"><script src="https://cdn.tailwindcss.com"></script></head><body class="body"><div class="email-container"><img src="cid:logo" alt="Logo Website" width="60px"><h3 class="header">Haiii! Selamat datang di Internshit!</h3><p>Wah,kamu baru aja join ya? Keren banget nih!</p><p style="margin-top: 1.5rem;">Kalo ada pertanyaan atau butuh bantuan,jangan sungkan buat hubungi kita ya! Bisa kirim email ke <a href="mailto:internshit.id@gmail.com" style="color: #47A992;">internshit.id@gmail.com</a> atau DM di X kita.</p><p style="font-weight: 700; margin-top: 1.5rem;">Jangan lupa follow X kita buat update seru lainnya! </p><a href="https://x.com/internshit_id"><button style="padding: .75rem 1.5rem; border-radius: 8px; background-color: #47A992; color: white; margin: 1rem 0; font-weight: 700; font-size: .8rem; cursor: pointer; display: flex; align-items: center; gap: .5rem;">Cek X Kita! <i class="uil uil-arrow-right"></i></button></a><p><span style="font-weight: 500; color: #343434;">Salam hangat,</span><br><span style="font-weight: 700; color: #343434;">Tim Kece Internshit</span></p></div></body></html>`,
+        //     attachments:[{
+        //       filename:"Logo.png",
+        //       path: './public/img/Logo.png',
+        //       cid: 'logo',
+        //       contentDisposition:"inline"
+        //     }]
+        // });
         NEW_USER.createConfig()
         const accessToken = createToken(NEW_USER)
-        res.cookie("userAuthenticate", accessToken, {
-            maxAge: 360000000,
-        });
         return res.status(200).json(accessToken)
     }
 }
