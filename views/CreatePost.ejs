@@ -10,18 +10,15 @@
 </script>
 <%- include('./layouts/navbar-all'); -%>
 
-<section id="main" class="w-[1100px] lg:px-0 m-auto pb-28">
-    <p id="header-firstname" class="lg:pt-8 text-main text-xl font-bold">Hi, Assami.</p>
-    <p class="lg:pb-8 text-main font-medium">Let's create new post <span class="text-xs font-normal text-black/60">*the more you post the more you got benefit</span></p>
-
-    <form id="form-create-post" class="min-h-[50vh] border-2 border-main rounded shadow-md py-12 px-20 bg-white noise">
+<section id="main" class="lg:w-[1100px] px-[5%] lg:px-0 m-auto pb-28">
+    <form id="form-create-post" class="mt-10 min-h-[50vh] border-2 border-main rounded-xl shadow-md py-12 px-5 lg:px-20 bg-white noise">
         <div class="flex justify-between gap-4 items-center">
-            <div class="relative w-1/2">
+            <div class="relative w-full lg:w-1/2">
                 <input type="text" name="title" id="floating-phone-number" class="block py-2.5 pe-0 w-full text-gray-900 font-medium bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                 <label for="floating-phone-number" class="absolute text-sm text-main duration-300 transform -translate-y-6 z-10 scale-75 top-3 origin-[0] peer-placeholder-shown:start-4 peer-focus:start-0 peer-focus:text-main peer-focus:dark:text-main peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Job Position*</label>
             </div>
 
-            <button class="px-6 py-2 bg-main text-white rounded-lg shadow-md text-sm font-medium">Post this Job !</button>
+            <button type="submit" class="hidden lg:block px-6 py-2 bg-main text-white rounded-lg shadow-md text-sm font-medium">Post this Job !</button>
         </div>
 
         <hr class="my-8">
@@ -29,11 +26,11 @@
         <div class="mt-6 flex flex-col gap-4">
             <div class="">
                 <label for="" class="block text-sm font-medium text-black/70 mb-2">COMPANY NAME*</label>
-                <input type="text" name="company" class="w-1/2 rounded-lg border-2 border-gray-300 placeholder-black/30" placeholder="Ex. Internshit Corporation" name="" id="">
+                <input type="text" name="company" class="w-full lg:w-1/2 rounded-lg border-2 border-gray-300 placeholder-black/30" placeholder="Ex. Internshit Corporation" name="" id="">
             </div>
             <div class="">
                 <label for="" class="block text-sm font-medium text-black/70 mb-2">JOB TYPE*</label>
-                <select type="text" name="type" class="w-1/3 rounded-lg border-2 border-gray-300 placeholder-black/30" placeholder="Ex. Internshit Corporation" name="" id="">
+                <select type="text" name="type" class="w-full lg:w-1/3 rounded-lg border-2 border-gray-300 placeholder-black/30" placeholder="Ex. Internshit Corporation" name="" id="">
                     <option value="Internship">Internship</option>
                     <option value="Full-Time">Full-Time</option>
                     <option value="Part-Time">Part-Time</option>
@@ -44,12 +41,12 @@
             <!-- LOCATION -->
             <div class="">
                 <label for="" class="block text-sm font-medium text-black/70 mb-2">LOCATION*</label>
-                <button type="button" id="select-location" data-dropdown-toggle="dropdown-location" data-dropdown-placement="bottom" class="w-1/3 shadow border-2 border-gray-300 text-black/80 bg-white focus:ring-1 focus:outline-none focus:ring-gray-300 rounded-lg px-3 py-2.5 text-center flex justify-between items-center">Search Location <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <button type="button" id="select-location" data-dropdown-toggle="dropdown-location" data-dropdown-placement="bottom" class="w-full lg:w-1/3 shadow border-2 border-gray-300 text-black/80 bg-white focus:ring-1 focus:outline-none focus:ring-gray-300 rounded-lg px-3 py-2.5 text-center flex justify-between items-center">Search Location <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                     </svg>
                 </button>
                 <!-- Dropdown menu -->
-                <div id="dropdown-location" class="border-2 border-main z-10 hidden bg-white rounded-lg shadow w-1/5 dark:bg-gray-700">
+                <div id="dropdown-location" class="border-2 border-main z-10 hidden bg-white rounded-lg shadow w-full lg:w-1/5 dark:bg-gray-700">
                     <div class="p-3">
                         <label for="input-group-search" class="sr-only">Search</label>
                         <div class="relative">
@@ -75,7 +72,7 @@
 
             <div class="">
                 <label for="" class="block text-sm font-medium text-black/70 mb-2">POST LINK*</label>
-                <input type="text" name="link" class="w-2/3 rounded-lg border-2 border-gray-300 placeholder-black/30" placeholder="Ex. https://internshit.com/posts/create" name="" id="">
+                <input type="text" name="link" class="w-full lg:w-2/3 rounded-lg border-2 border-gray-300 placeholder-black/30" placeholder="Ex. https://internshit.com/posts/create" name="" id="">
             </div>
 
 
@@ -87,7 +84,7 @@
                     </svg>
                 </button>
                 <!-- Dropdown menu -->
-                <div id="dropdownSearch" class="w-[50vw] border-2 border-main z-10 hidden bg-white rounded-lg shadow w-1/3 dark:bg-gray-700">
+                <div id="dropdownSearch" class="w-[50vw] border-2 border-main z-10 hidden bg-white rounded-lg shadow w-full lg:w-1/3 dark:bg-gray-700">
                     <div class="p-3">
                         <label for="input-group-search" class="sr-only">Search</label>
                         <div class="relative">
@@ -130,7 +127,7 @@
             </div>
             <div class="">
                 <label for="" class="block text-sm font-medium text-black/70 mb-2">PLATFORM*</label>
-                <select name="platform" type="text" class="w-1/4 rounded-lg border-2 border-gray-300 placeholder-black/30" placeholder="Ex. Internshit Corporation" name="" id="">
+                <select name="platform" type="text" class="w-full lg:w-1/4 rounded-lg border-2 border-gray-300 placeholder-black/30" placeholder="Ex. Internshit Corporation" name="" id="">
                     <option value="Jobstreet">Jobstreet</option>
                     <option value="Kalibrr">Kalibrr</option>
                     <option value="Glints">Glints</option>
@@ -146,6 +143,9 @@
                 <div id="create-post-editor" class="w-full rounded-b-lg bg-white"></div>
             </div>
         </div>
+
+        <button type="submit" class="lg:hidden w-full px-6 py-4 mt-10 bg-red-500 text-white rounded-lg shadow-md text-sm font-medium">Post this Job !</button>
+
     </form>
 </section>
 

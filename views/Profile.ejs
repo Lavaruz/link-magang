@@ -192,7 +192,7 @@
                         <p class="font-second text-black/80 text-sm font-medium px-2 lg:px-24 mb-5 lg:mb-2">Pendidikan dapat meningkatkan kapabilitas kamu di mata orang lain, beri tau semua orang apa yang kamu bisa!</p>
                         <button id="button-education" class="flex items-center gap-1 bg-main text-white rounded-lg text-sm py-2 px-4 m-auto mt-4">Tambahkan pendidikan</button>
                     </div>
-                    <div id="on-educations" class="hidden flex flex-col gap-4 pb-4 divide-y divide-gray-300">
+                    <div id="on-educations" class="hidden flex flex-col pb-4 divide-y divide-gray-300">
                         
                     </div>
                 </div>
@@ -417,8 +417,8 @@
         success: async function (userData) {
             const data = decrypt(userData.r);
             document.title = `Profil saya di Internshit`   
-            $(".preview").prop("href", `/profile/${data.id}`)         
-
+            $(".preview").prop("href", `/profile/${data.id}`)    
+            
 
             // ACTIVE SEARCH VISIBILITY
             InitActivesearch(data)
@@ -1103,7 +1103,6 @@
                     </div>
                 `)
 
-                $("#basic-educations-preview").html("")
                 $("#basic-educations-preview").append(`
                     <div class="card-education bg-white p-5 py-4 rounded-lg border border-main">
                         <div class="relative flex gap-4">
@@ -1115,7 +1114,7 @@
                                             <p class="text-white bg-white/30 py-[2px] px-2 inline cursor-default text-xs font-second font-medium">GPA ${educationsData.edu_gpa}</p>
                                         </div>
                                         <p class="font-bold text-lg text-main">${educationsData.edu_program}</p>
-                                        <p class="font-semibold text-sm text-white-80 font-second">${educationsData.edu_institution} • ${educationsData.edu_status} (${educationsData.edu_location}) </p>
+                                        <p class="font-semibold text-sm text-white-80 font-second">${educationsData.edu_institution} • Nilai: ${educationsData.edu_gpa}</p>
                                     </div>
                                     <div class="text-left mt-1 lg:mt-0 lg:text-right flex gap-2 lg:block">
                                         <p class="font-second text-xs font-normal text-black/80">${formatDateMonth(educationsData.edu_startdate)} - ${formatDateMonth(educationsData.edu_enddate)}</p>
