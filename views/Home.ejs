@@ -12,21 +12,23 @@
 <%- include('./layouts/navbar-all'); -%>
 
 <main class="noise">
-    <div class="min-h-screen lg:w-[1100px] mx-auto py-6 lg:py-10 pb-20 px-[5%] lg:px-0">
+    <div class="min-h-screen lg:w-[1200px] mx-auto py-6 lg:py-10 pb-20 px-[5%] lg:px-0">
 
         <!-- HERO -->
         <div class="my-6 grid items-center justify-center text-center">
             <div class="">
                 <p class="text-thrid leading-tight text-[40px] text-center lg:text-[55px] font-bold">Cari <span class="text-main">Internshit</span></p>
                 <p class="font-medium text-second/80 lg:text-lg text-center pt-2 lg:pt-4">dari semua penjuru platform</p>
-                <div class="flex items-center mx-auto gap-4 mt-3 py-2 rounded-lg w-max">
-                    <p class="font-medium text-xl"><i class="uil uil-arrow-left"></i></p>
+                <div class="flex flex-wrap items-center mx-auto gap-4 mt-3 py-2 rounded-lg w-full justify-center">
+                    <!-- <p class="font-medium text-xl"><i class="uil uil-arrow-left"></i></p> -->
                     <a href="https://glints.com/id/en"><img src="/img/Glints.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
                     <a href="https://id.indeed.com/"><img src="/img/Indeed.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
                     <a href="https://www.jobstreet.co.id/"><img src="/img/Jobstreet.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
                     <a href="https://www.kalibrr.com/home"><img src="/img/Kalibrr.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
                     <a href="https://www.linkedin.com/jobs/"><img src="/img/Linkedin.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
-                    <p class="font-medium text-xl"><i class="uil uil-arrow-right"></i></p>
+                    <a href="https://www.linkedin.com/jobs/"><img src="/img/Dealls.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
+                    <a href="https://www.linkedin.com/jobs/"><img src="/img/Kitalulus.png" class="rounded-lg hover:scale-[1.1] duration-300" width="30px" alt=""></a>
+                    <!-- <p class="font-medium text-xl"><i class="uil uil-arrow-right"></i></p> -->
                 </div>
             </div>
         </div>
@@ -36,14 +38,14 @@
         <div id="search-bar" class="mt-12">
             <form id="form-search-job" class="flex items-center gap-4">   
                 <div class="w-full relative">
-                    <input type="text" id="input-search" value="" class="hover:shadow-lg focus:shadow-lg block w-full p-4 py-3 ps-6 font-medium text-gray-900 border border-gray-300 rounded-2xl bg-gray-50 focus:ring-main focus:border-main" placeholder="Super search, cari lowongan.." />
+                    <input type="text" id="input-search" value="" class="hover:shadow-lg focus:shadow-lg block w-full p-4 py-3 ps-6 font-medium text-gray-900 border border-gray-300 rounded-2xl bg-white focus:ring-main focus:border-main" placeholder="Super search, cari lowongan.." />
                     <button type="submit" class="text-main absolute end-2.5 bottom-2 focus:outline-none focus:ring-main font-medium rounded-full text-sm px-5 py-2"><i class="uil uil-search"></i></button>
                 </div>
             </form>
         </div>
 
         <!-- Kalau post lebih dari 0, AKA ada post di list -->
-        <div id="cards" class="grid lg:grid-cols-3 mt-8 gap-4">
+        <div id="cards" class="grid lg:grid-cols-3 mt-8 gap-6">
             <!-- CARD HERE -->
         </div>
 
@@ -517,22 +519,27 @@
                 
                 
                 $("#cards").append(`
-                    <div class="job-detail cursor-pointer hover:scale-[1.005] duration-100 shadow-md border border-main bg-white p-4 rounded-2xl self-start">
-                        <p class="id" style="display:none">${post.id}</p>
-                        <p class="font-medium text-black mb-2">${post.title.length > 33 ? post.title.substring(0,33)+"..." : post.title}</p>
-                        <div class="flex gap-2 flex-wrap">
-                            ${ACTIVE_SKILL.join("")}
-                            ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded">+${REMAIN.length}</button>` : ""}
+                    <div class="job-detail cursor-pointer hover:scale-[1.005] duration-200 shadow-lg border hover:border-main bg-white p-4 rounded-2xl flex flex-col justify-between">
+                        <div class="">
+                            <p class="id" style="display:none">${post.id}</p>
+                            <p class="font-medium text-black mb-2">${post.title.length > 33 ? post.title.substring(0,33)+"..." : post.title}</p>
+                            <div class="flex gap-2 flex-wrap">
+                                ${ACTIVE_SKILL.join("")}
+                                ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded">+${REMAIN.length}</button>` : ""}
+                            </div>
+                            <p class="text-sm flex items-center gap-2 mt-4"><i class="uil uil-building"></i>${post.company.length > 38 ? post.company.substring(0,38) + ".." : post.company}</p>
+                            <p class="text-sm flex items-center gap-2 mt-1"><i class="uil uil-location-point"></i> ${post.type} • ${post.location}</p>    
                         </div>
-                        <p class="text-sm flex items-center gap-2 mt-4"><i class="uil uil-building"></i>${post.company.length > 38 ? post.company.substring(0,38) + ".." : post.company}</p>
-                        <p class="text-sm flex items-center gap-2 mt-1"><i class="uil uil-location-point"></i> ${post.type} • ${post.location}</p>
-                        <hr class="my-2">
-                        <div class="flex items-center justify-between gap-3 mt-4">
-                            <span class="${matchingSkills ? '' : 'hidden'} text-white text-xs font-medium bg-orange-500 px-2 py-1">Kamu banget!</span>
-                            <div class="flex items-center gap-2 ms-auto">
-                                <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">Muncul di</span></p>
-                                ${platform}
-                                <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">${timeAgo(post.post_date)}</span></p>
+
+                        <div class="">
+                            <hr class="my-2">
+                            <div class="flex items-center justify-between gap-3 mt-4">
+                                <span class="${matchingSkills ? '' : 'hidden'} text-white text-xs font-medium bg-orange-500 px-2 py-1">Kamu banget!</span>
+                                <div class="flex items-center gap-2 ms-auto">
+                                    <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">Muncul di</span></p>
+                                    ${platform}
+                                    <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">${timeAgo(post.post_date)}</span></p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -547,22 +554,27 @@
                 let ACTIVE_SKILL = SKILLS.slice(0,4)
                 let REMAIN = SKILLS.slice(ACTIVE_SKILL.length)
                 $("#cards").append(`
-                    <div class="job-detail cursor-pointer hover:scale-[1.005] duration-100 shadow-md border border-main bg-white p-4 rounded-2xl self-start">
-                        <p class="id" style="display:none">${post.id}</p>
-                        <p class="font-medium text-black mb-2">${post.title.length > 33 ? post.title.substring(0,33)+"..." : post.title}</p>
-                        <div class="flex gap-2 flex-wrap">
-                            ${ACTIVE_SKILL.join("")}
-                            ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded">+${REMAIN.length}</button>` : ""}
+                    <div class="job-detail cursor-pointer hover:scale-[1.005] duration-200 shadow-lg border hover:border-main bg-white p-4 rounded-2xl flex flex-col justify-between">
+                        <div class="">
+                            <p class="id" style="display:none">${post.id}</p>
+                            <p class="font-medium text-black mb-2">${post.title.length > 33 ? post.title.substring(0,33)+"..." : post.title}</p>
+                            <div class="flex gap-2 flex-wrap">
+                                ${ACTIVE_SKILL.join("")}
+                                ${REMAIN.length != 0 ? `<button class="text-xs bg-main text-white px-2 py-1 rounded">+${REMAIN.length}</button>` : ""}
+                            </div>
+                            <p class="text-sm flex items-center gap-2 mt-4"><i class="uil uil-building"></i>${post.company.length > 38 ? post.company.substring(0,38) + ".." : post.company}</p>
+                            <p class="text-sm flex items-center gap-2 mt-1"><i class="uil uil-location-point"></i> ${post.type} • ${post.location}</p>    
                         </div>
-                        <p class="text-sm flex items-center gap-2 mt-4"><i class="uil uil-building"></i>${post.company.length > 38 ? post.company.substring(0,38) + ".." : post.company}</p>
-                        <p class="text-sm flex items-center gap-2 mt-1"><i class="uil uil-location-point"></i> ${post.type} • ${post.location}</p>
-                        <hr class="my-2">
-                        <div class="flex items-center justify-between gap-3 mt-4">
-                            <span class="hidden text-white text-xs font-medium bg-orange-500 px-2 py-1">kamu banget</span>
-                            <div class="flex items-center gap-2 ms-auto">
-                                <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">muncul di</span></p>
-                                ${platform}
-                                <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">${timeAgo(post.post_date)}</span></p>
+
+                        <div class="">
+                            <hr class="my-2">
+                            <div class="flex items-center justify-between gap-3 mt-4">
+                                <span class="hidden text-white text-xs font-medium bg-orange-500 px-2 py-1">Kamu banget!</span>
+                                <div class="flex items-center gap-2 ms-auto">
+                                    <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">Muncul di</span></p>
+                                    ${platform}
+                                    <p class="text-sm flex items-center gap-2"><span class="text-[11px] font-medium">${timeAgo(post.post_date)}</span></p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -574,17 +586,21 @@
     function getPlatformImage(post){
         switch (post.platform) {
             case 'Glints':
-                return '<img class="w-5 h-5 rounded-lg" src="/img/Glints.png" alt="Glints">';
+                return '<img class="w-5 h-5 rounded" src="/img/Glints.png" alt="Glints">';
             case 'Linkedin':
-                return '<img class="w-5 h-5 rounded-lg" src="/img/Linkedin.png" alt="LinkedIn">';
+                return '<img class="w-5 h-5 rounded" src="/img/Linkedin.png" alt="LinkedIn">';
             case 'Kalibrr':
-                return '<img class="w-5 h-5 rounded-lg" src="/img/Kalibrr.png" alt="Kalibrr">';
+                return '<img class="w-5 h-5 rounded" src="/img/Kalibrr.png" alt="Kalibrr">';
             case 'Jobstreet':
-                return '<img class="w-5 h-5 rounded-lg" src="/img/Jobstreet.png" alt="JobStreet">';
+                return '<img class="w-5 h-5 rounded" src="/img/Jobstreet.png" alt="JobStreet">';
             case 'Indeed':
-                return '<img class="w-5 h-5 rounded-lg" src="/img/Indeed.png" alt="Indeed">';
+                return '<img class="w-5 h-5 rounded" src="/img/Indeed.png" alt="Indeed">';
+            case 'Dealls':
+                return '<img class="w-5 h-5 rounded" src="/img/Dealls.png" alt="Dealls">';
+            case 'Kitalulus':
+                return '<img class="w-5 h-5 rounded" src="/img/Kitalulus.png" alt="Kitalulus">';
             default:
-                return '<img class="w-5 h-5 rounded-lg" src="/img/Default.png" alt="Default">';
+                return '<img class="w-5 h-5 rounded" src="/img/Other.webp" alt="Other">';
         }
     }
 
