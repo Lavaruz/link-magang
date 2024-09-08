@@ -9,7 +9,6 @@ const crypto_1 = require("../config/crypto");
 const Skills_1 = __importDefault(require("../models/Skills"));
 const getAllPost = async (req, res) => {
     try {
-        console.log(req.query);
         const search = req.query.search || "";
         const post_date = req.query.post_date || "DESC";
         let skills = req.query.skills || "[]";
@@ -27,7 +26,7 @@ const getAllPost = async (req, res) => {
             attributes: { exclude: ["updatedAt"] },
             limit: +db_limit,
             offset: (+db_page - 1) * +db_limit,
-            order: [["createdAt", post_date.toString()]],
+            order: [["post_date", post_date.toString()]],
             include: [
                 { model: Skills_1.default, as: "skills" },
             ]
