@@ -13,14 +13,14 @@ userRouter.post("/info/skills", AddSkillToUser)
 userRouter.put("/info/config", UpdateActiveSearch)
 
 userRouter.get("/info/educations", GetEducationsByUserToken)
-userRouter.post("/info/educations", AddNewEducation)
-userRouter.put("/info/educations/:id", UpdateEducationById)
+userRouter.post("/info/educations", decodeMiddleware, AddNewEducation)
+userRouter.put("/info/educations/:id", decodeMiddleware, UpdateEducationById)
 userRouter.delete("/info/educations/:id", DeleteEducationById)
 
 userRouter.get("/info/experience/:id", GetExperienceById)
 userRouter.get("/info/experiences", GetExperiencesByUserToken)
-userRouter.post("/info/experiences", AddNewExperience)
-userRouter.put("/info/experiences/:id", UpdateExperienceById)
+userRouter.post("/info/experiences", decodeMiddleware, AddNewExperience)
+userRouter.put("/info/experiences/:id", decodeMiddleware, UpdateExperienceById)
 userRouter.delete("/info/experiences/:id", DeleteExperienceById)
 
 
@@ -29,22 +29,22 @@ userRouter.get("/locations", GetAllLocations)
 userRouter.post("/skills", AddNewSkill)
 userRouter.post("/locations", AddNewLocation)
 
-userRouter.put("/info/attachments", UpdateAttachment)
-userRouter.put("/info/socials", UpdateSocials)
+userRouter.put("/info/attachments", decodeMiddleware, UpdateAttachment)
+userRouter.put("/info/socials", decodeMiddleware, UpdateSocials)
 
 userRouter.get("/verify-token", VerifyJWT)
 userRouter.get("/total-user", GetTotalUser)
 userRouter.get("/pictures", GetAllProfilePicture)
 userRouter.post("/logout", UserLogout)
 userRouter.post("/auth/google", decodeMiddleware, GoogleLoginHandler)
-userRouter.put("/", UpdateUserByToken)
+userRouter.put("/", decodeMiddleware, UpdateUserByToken)
 
 userRouter.get("/:id", GetUserById)
 userRouter.put("/:id/views", AddViewsUser)
 
 
 function decodeMiddleware(req, res, next){
-    req.body = decrypt(req.body.d)
+    req.body = JSON.parse(decrypt(req.body.d))
     next()
 }
     
