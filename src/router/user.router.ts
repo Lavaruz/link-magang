@@ -10,7 +10,7 @@ userRouter.get("/info/domicile", GetAllUserDomicile)
 userRouter.get("/info/educations", GetAllUserEducations)
 
 userRouter.post("/info/skills", AddSkillToUser)
-userRouter.put("/info/config", UpdateActiveSearch)
+userRouter.put("/info/config", decodeMiddleware, UpdateActiveSearch)
 
 userRouter.get("/info/educations", GetEducationsByUserToken)
 userRouter.post("/info/educations", decodeMiddleware, AddNewEducation)
@@ -44,7 +44,10 @@ userRouter.put("/:id/views", AddViewsUser)
 
 
 function decodeMiddleware(req, res, next){
-    req.body = JSON.parse(decrypt(req.body.d))
+    req.body = decrypt(req.body.d)
+    if(req.body[0] == "{" || req.body[0] == "["){
+        req.body = JSON.parse(req.body)
+    }
     next()
 }
     

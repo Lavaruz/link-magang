@@ -35,7 +35,6 @@ export function UserLogout(req:Request, res:Response){
         res.clearCookie("userAuthenticate");
         res.redirect("/");
       } catch (error) {
-        console.log(error.message);
         return res.status(500).json({ error: error.message });
       }
 }
@@ -177,8 +176,6 @@ export async function AddViewsUser(req:Request, res: Response){
 }
 
 export async function GetUserByToken(req:Request, res: Response){
-    console.log(req.headers.authorization);
-    
     const userToken:any = req.headers.authorization;
 
     try {
@@ -262,7 +259,7 @@ export async function UpdateUserByToken(req:Request, res: Response){
 
 export async function GoogleLoginHandler(req:Request, res: Response){
     let data = req.body  
-    let userData:any = jwtDecode(data);
+    let userData:any = jwtDecode(data);    
 
     const USER = await User.findOne({where: { email: userData.email }})
 
@@ -289,6 +286,7 @@ export async function GoogleLoginHandler(req:Request, res: Response){
         //     }]
         // });
         NEW_USER.createConfig()
+        NEW_USER.createSocials()
         const accessToken = createToken(NEW_USER)
         return res.status(200).json(accessToken)
     }
@@ -672,6 +670,8 @@ export async function UpdateActiveSearch(req:Request, res: Response){
 
         const USER_CONFIG = await USER.getConfig()
         if(!USER_CONFIG) return res.status(400).json({message: "user config not found"})
+        console.log(USER_CONFIG);
+        
         await USER_CONFIG.update(configData)
         
         return res.status(200).json(await USER.getConfig())
