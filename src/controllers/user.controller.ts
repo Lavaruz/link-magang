@@ -106,6 +106,8 @@ export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
             ]
         });
 
+        const POST_COUNT = await User.count({where: {active_search: 1}})
+
         const updatedUsers = await Promise.all(USERS.map(async user => {
             const userExperience = user.toJSON().experiences;
             const YoE = calculateTotalExperienceMonth(userExperience);
@@ -114,8 +116,12 @@ export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
                 YoE: YoE
             };
         }));
+
         
-        const encryptedData = encrypt(updatedUsers)
+        const encryptedData = encrypt({
+            total_post: POST_COUNT,
+            datas: updatedUsers
+        })
         return res.status(200).json(encryptedData)
     } catch (error) {
         console.error(error)
