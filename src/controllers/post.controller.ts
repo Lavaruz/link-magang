@@ -12,46 +12,45 @@ export const getAllPost = async (req: Request, res: Response) => {
     try {
       const search = req.query.search || ""
       const post_date = req.query.post_date || "DESC"
-      let skills:any = req.query.skills || "[]"
-      let type:any = req.query.type || "[]"
-      let locations:any = req.query.locations || "[]"
+      let skills:any = req.query.skills || ""
+      let type:any = req.query.type || ""
+      let locations:any = req.query.locations || ""
 
       let db_page = req.query.page || 1
       let db_limit = req.query.limit || 20
       let db_offset:any = req.query.offset
-      locations = JSON.parse(locations)
-      type = JSON.parse(type)
-      skills = JSON.parse(skills)
-
-      if (search !== "" || locations.length > 0 || skills.length > 0 || type.length > 0) {
-        db_limit = 999;
-      }
+      locations = locations.length > 0 ? locations.split(";") : []
+      type = type.length > 0 ? type.split(";") : []
+      skills = skills.length > 0 ? skills.split(";") : []
 
       const POST = await Post.findAll({
         attributes:{exclude:[ "updatedAt"]},
         limit: +db_limit,
         offset: +db_offset || (+db_page - 1) * +db_limit,
         order: [["post_date", post_date.toString()]],
+        where: {
+          ...(type.length > 0 ? {type: {[Op.in] : type}} : {}),
+          ...(locations.length > 0 ? {location: {[Op.in] : locations}} : {}),
+          [Op.or]:[
+            { title: { [Op.like]: `%${search}%` } },
+            { company: { [Op.like]: `%${search}%` } },
+          ]
+        },
         include: [
-          {model: Skills, as:"skills"},
+          {model: Skills, as:"skills", where: {
+            ...(skills.length > 0 ? {skill: {[Op.in]: skills}} : {})
+          }},
         ]
       })
 
-      let filtered_data = POST.filter(post => {
-        let post_json = post.toJSON();
-        const matchesSearch = post_json.title.toLowerCase().includes(search.toString().toLowerCase()) || post_json.company.toLowerCase().includes(search.toString().toLowerCase());
-  
-        return matchesSearch;
-      })
-
-      const total_entries = filtered_data.length;
+      const total_entries = POST.length;
       const total_pages = Math.ceil(total_entries / +db_limit);
 
       let encryptedData = encrypt({
         limit: db_limit,
         page: db_page,
         total_page: total_pages,
-        datas: filtered_data,
+        datas: POST,
         total_entries
       }, process.env.AES_KEYS)
 
@@ -64,19 +63,12 @@ export const getAllPost = async (req: Request, res: Response) => {
 export const getAllMatchPost = async (req: Request, res: Response) => {
   const search = req.query.search || ""
   const post_date = req.query.post_date || "DESC"
-  let skills:any = req.query.skills || "[]"
-  let type:any = req.query.type || "[]"
-  let locations:any = req.query.locations || "[]"
 
   let db_page = req.query.page || 1
   let db_limit = req.query.limit || 20
-  locations = JSON.parse(locations)
-  type = JSON.parse(type)
-  skills = JSON.parse(skills)
 
-  if (search !== "" || locations.length > 0 || skills.length > 0 || type.length > 0) {
-    db_limit = 999;
-  }
+  console.log(search);
+  
 
   try {
     const userAuth = req.headers.authorization
@@ -96,31 +88,32 @@ export const getAllMatchPost = async (req: Request, res: Response) => {
               limit: +db_limit,
               offset: (+db_page - 1) * +db_limit,
               order: [["post_date", post_date.toString()]],
+              where: {
+                [Op.or]:[
+                  { title: { [Op.like]: `%${search}%` } },
+                  { company: { [Op.like]: `%${search}%` } },
+                ]
+              },
               include: [
                 {
-                    model: Skills,
-                    as: "skills",
+                  model: Skills,
+                  as: "skills",
+                  where: {
+                    skill: { [Op.in]: skillNames },  // Filter langsung pada skills sesuai skillNames
+                  },
                 }
-            ]
+              ]
             });
-
-            let filtered_data = POST.filter(post => {
-              let post_json = post.toJSON();
-              const matchesSearch = post_json.title.toLowerCase().includes(search.toString().toLowerCase()) || post_json.company.toLowerCase().includes(search.toString().toLowerCase());
-              const matchesSkills = post_json.skills.some(skill => skillNames.includes(skill.skill));
-              return matchesSearch && matchesSkills;
-            })
-            
-            
       
-            const total_entries = filtered_data.length;
+            const total_entries = POST.length;
             const total_pages = Math.ceil(total_entries / +db_limit);
       
             let encryptedData = encrypt({
               limit: db_limit,
               page: db_page,
               total_page: total_pages,
-              datas: filtered_data
+              datas: POST,
+              total_entries
             }, process.env.AES_KEYS)
                 
             return res.status(200).json(encryptedData)
