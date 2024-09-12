@@ -18,6 +18,7 @@ export const getAllPost = async (req: Request, res: Response) => {
 
       let db_page = req.query.page || 1
       let db_limit = req.query.limit || 20
+      let db_offset:any = req.query.offset
       locations = JSON.parse(locations)
       type = JSON.parse(type)
       skills = JSON.parse(skills)
@@ -29,7 +30,7 @@ export const getAllPost = async (req: Request, res: Response) => {
       const POST = await Post.findAll({
         attributes:{exclude:[ "updatedAt"]},
         limit: +db_limit,
-        offset: (+db_page - 1) * +db_limit,
+        offset: +db_offset || (+db_page - 1) * +db_limit,
         order: [["post_date", post_date.toString()]],
         include: [
           {model: Skills, as:"skills"},
@@ -42,7 +43,6 @@ export const getAllPost = async (req: Request, res: Response) => {
   
         return matchesSearch;
       })
-      
 
       const total_entries = filtered_data.length;
       const total_pages = Math.ceil(total_entries / +db_limit);
@@ -51,7 +51,8 @@ export const getAllPost = async (req: Request, res: Response) => {
         limit: db_limit,
         page: db_page,
         total_page: total_pages,
-        datas: filtered_data
+        datas: filtered_data,
+        total_entries
       }, process.env.AES_KEYS)
 
       return res.status(200).json(encryptedData)

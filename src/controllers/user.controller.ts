@@ -39,6 +39,106 @@ export function UserLogout(req:Request, res:Response){
       }
 }
 
+export async function GetAllUsers(req:Request, res: Response){
+    let keyword = req.query.keyword ? req.query.keyword : ""
+    let university:any = req.query.university || "[]"
+    let edu_type = req.query.edu_type || ""
+    let work_pref = req.query.work_pref || ""
+    let gpa:any = req.query.gpa || ""
+    let gender:any = req.query.gender || ""
+
+    let db_page = req.query.page || 1
+    let db_limit = req.query.limit || 20
+    let db_offset:any = req.query.offset
+
+    console.log(req.query);
+    
+
+
+    let universitys = JSON.parse(university)
+    if (!Array.isArray(universitys)) {
+        universitys = [];
+    }
+
+    try {
+        const USERS = await User.findAll({
+            limit: +db_limit,
+            offset: +db_offset || (+db_page - 1) * +db_limit,
+            where: {
+                active_search: true,
+                ...(gender ? { sex: gender } : {}),
+                ...(work_pref ? { work_pref_status: work_pref } : {}),
+                [Op.or]: [
+                    { firstname: { [Op.like]: `%${keyword}%` } },
+                    { lastname: { [Op.like]: `%${keyword}%` } },
+                    { headline: { [Op.like]: `%${keyword}%` } },
+                    { '$experiences.exp_position$': {[Op.like]: `%${keyword}%`}},
+                    { '$experiences.exp_orgname$': {[Op.like]: `%${keyword}%`}},
+                    { '$educations.edu_program$': {[Op.like]: `%${keyword}%`}},
+                ]
+            },
+            include: [
+                {
+                    model: Experience,
+                    as: "experiences",
+                },
+                {
+                    model: Education,
+                    as: "educations",
+                    where: {
+                        ...(edu_type ? { edu_type } : {}),
+                        ...(gpa ? { edu_gpa: {[Op.gte] : gpa} } : {}),
+                        ...(universitys.length > 0 ? { edu_institution: { [Op.in]: universitys } } : {})
+                    }
+                },
+                {
+                    model: Attachment,
+                    as: "attachments"
+                },
+                {
+                    model: Socials,
+                    as: "socials"
+                },
+                {
+                    model: Skills,
+                    as: "skills"
+                },
+                {
+                    model: Config,
+                    as: "config"
+                }
+            ],
+            order: [
+                [Sequelize.literal('CASE WHEN `experiences`.`exp_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
+                ['experiences', 'exp_enddate', 'DESC'],
+                [Sequelize.literal('CASE WHEN `educations`.`edu_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
+                ['educations', 'edu_enddate', 'DESC']
+            ]
+        });
+
+        const USER_COUNT = await User.count()
+
+        const updatedUsers = await Promise.all(USERS.map(async user => {
+            const userExperience = user.toJSON().experiences;
+            const YoE = calculateTotalExperienceMonth(userExperience);
+            return {
+                ...user.toJSON(),
+                YoE: YoE
+            };
+        }));
+
+        
+        const encryptedData = encrypt({
+            total_post: USER_COUNT,
+            datas: updatedUsers
+        })
+        return res.status(200).json(encryptedData)
+    } catch (error) {
+        console.error(error)
+        return res.status(200).json({message: error.message})
+    }
+}
+
 export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
     let keyword = req.query.keyword ? req.query.keyword : ""
     let university:any = req.query.university || "[]"
