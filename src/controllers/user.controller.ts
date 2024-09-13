@@ -219,7 +219,7 @@ export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
 
         
         const encryptedData = encrypt({
-            total_post: POST_COUNT,
+            total_entries: POST_COUNT,
             datas: updatedUsers
         })
         return res.status(200).json(encryptedData)
