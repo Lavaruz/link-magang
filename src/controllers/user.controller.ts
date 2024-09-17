@@ -51,45 +51,26 @@ export async function GetAllUsers(req:Request, res: Response){
     let db_limit = req.query.limit || 20
     let db_offset:any = req.query.offset
 
-    console.log(req.query);
-    
-
-
-    let universitys = JSON.parse(university)
-    if (!Array.isArray(universitys)) {
-        universitys = [];
-    }
-
     try {
         const USERS = await User.findAll({
             limit: +db_limit,
             offset: +db_offset || (+db_page - 1) * +db_limit,
-            where: {
-                active_search: true,
-                ...(gender ? { sex: gender } : {}),
-                ...(work_pref ? { work_pref_status: work_pref } : {}),
-                [Op.or]: [
-                    { firstname: { [Op.like]: `%${keyword}%` } },
-                    { lastname: { [Op.like]: `%${keyword}%` } },
-                    { headline: { [Op.like]: `%${keyword}%` } },
-                    { '$experiences.exp_position$': {[Op.like]: `%${keyword}%`}},
-                    { '$experiences.exp_orgname$': {[Op.like]: `%${keyword}%`}},
-                    { '$educations.edu_program$': {[Op.like]: `%${keyword}%`}},
-                ]
-            },
             include: [
                 {
                     model: Experience,
                     as: "experiences",
+                    order: [
+                        [Sequelize.literal('CASE WHEN `exp_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
+                        ['exp_enddate', 'DESC']
+                    ]
                 },
                 {
                     model: Education,
                     as: "educations",
-                    where: {
-                        ...(edu_type ? { edu_type } : {}),
-                        ...(gpa ? { edu_gpa: {[Op.gte] : gpa} } : {}),
-                        ...(universitys.length > 0 ? { edu_institution: { [Op.in]: universitys } } : {})
-                    }
+                    order: [
+                        [Sequelize.literal('CASE WHEN `edu_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
+                        ['edu_enddate', 'DESC']
+                    ]
                 },
                 {
                     model: Attachment,
@@ -107,12 +88,6 @@ export async function GetAllUsers(req:Request, res: Response){
                     model: Config,
                     as: "config"
                 }
-            ],
-            order: [
-                [Sequelize.literal('CASE WHEN `experiences`.`exp_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
-                ['experiences', 'exp_enddate', 'DESC'],
-                [Sequelize.literal('CASE WHEN `educations`.`edu_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
-                ['educations', 'edu_enddate', 'DESC']
             ]
         });
 
@@ -129,7 +104,7 @@ export async function GetAllUsers(req:Request, res: Response){
 
         
         const encryptedData = encrypt({
-            total_post: USER_COUNT,
+            total_entries: USER_COUNT,
             datas: updatedUsers
         })
         return res.status(200).json(encryptedData)
@@ -140,32 +115,46 @@ export async function GetAllUsers(req:Request, res: Response){
 }
 
 export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
-    let keyword = req.query.keyword ? req.query.keyword : ""
-    let university:any = req.query.university || "[]"
-    let edu_type = req.query.edu_type
-    let work_pref = req.query.work_pref
-    let gpa:any = req.query.gpa
-    let gender:any = req.query.gender
+    let search_person:any = req.query.search_person ? req.query.search_person : ""
+    let search_eduexp:any = req.query.search_eduexp ? req.query.search_eduexp : ""
 
-    let universitys = JSON.parse(university)
-    if (!Array.isArray(universitys)) {
-        universitys = [];
-    }
+    let db_page = req.query.page || 1
+    let db_limit = req.query.limit || 20
+    let db_offset:any = req.query.offset
+    
+    
+    let gender:any = req.query.gender || ""
+    let work_pref:any = req.query.work_pref || ""
+    let institute:any = req.query.institute || ""
+    let edu_type:any = req.query.edu_type || ""
+    let gpa:any = req.query.gpa || ""
+    
+    gender = gender.length > 0 ? gender.split(";") : []
+    work_pref = work_pref.length > 0 ? work_pref.split(";") : []
+    institute = institute.length > 0 ? institute.split(";") : []
+    edu_type = edu_type.length > 0 ? edu_type.split(";") : []
+    gpa = gpa.length > 0 ? gpa.split(";") : []
+    
 
     try {
         const USERS = await User.findAll({
+            // limit: +db_limit,
+            // offset: +db_offset || (+db_page - 1) * +db_limit,
             where: {
                 active_search: true,
-                ...(gender ? { sex: gender } : {}),
-                ...(work_pref ? { work_pref_status: work_pref } : {}),
+                ...(gender.length > 0 ? { sex: {[Op.in]:gender} } : {}),
+                ...(work_pref.length > 0 ? { work_pref_status: {[Op.in]:work_pref} } : {}),
                 [Op.or]: [
-                    { firstname: { [Op.like]: `%${keyword}%` } },
-                    { lastname: { [Op.like]: `%${keyword}%` } },
-                    { headline: { [Op.like]: `%${keyword}%` } },
-                    { '$experiences.exp_position$': {[Op.like]: `%${keyword}%`}},
-                    { '$experiences.exp_orgname$': {[Op.like]: `%${keyword}%`}},
-                    { '$educations.edu_program$': {[Op.like]: `%${keyword}%`}},
-                ]
+                    { firstname: { [Op.like]: `%${search_person}%` } },
+                    { lastname: { [Op.like]: `%${search_person}%` } },
+                    { headline: { [Op.like]: `%${search_person}%` } },
+                    { '$skills.skill$': {[Op.like]: `%${search_person}%` } }, // Kondisi skill disini
+                    { '$experiences.exp_position$': {[Op.like]: `%${search_eduexp}%`}},
+                    { '$experiences.exp_orgname$': {[Op.like]: `%${search_eduexp}%`}},
+                    { '$experiences.exp_description$': {[Op.like]: `%${search_eduexp}%`}},
+                    { '$educations.edu_program$': {[Op.like]: `%${search_eduexp}%`}},
+                    { '$educations.edu_institution$': {[Op.like]: `%${search_eduexp}%`}},
+                ],
             },
             include: [
                 {
@@ -176,9 +165,9 @@ export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
                     model: Education,
                     as: "educations",
                     where: {
-                        ...(edu_type ? { edu_type } : {}),
-                        ...(gpa ? { edu_gpa: {[Op.gte] : gpa} } : {}),
-                        ...(universitys.length > 0 ? { edu_institution: { [Op.in]: universitys } } : {})
+                        ...(gpa.length > 0 ? { edu_gpa: {[Op.gte] : gpa} } : {}),
+                        ...(edu_type.length > 0 ? { edu_type: { [Op.in]: edu_type } } : {}),
+                        ...(institute.length > 0 ? { edu_institution: { [Op.in]: institute } } : {})
                     }
                 },
                 {
@@ -191,7 +180,7 @@ export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
                 },
                 {
                     model: Skills,
-                    as: "skills"
+                    as: "skills",
                 },
                 {
                     model: Config,
