@@ -27,7 +27,7 @@ userRouter.delete("/info/experiences/:id", DeleteExperienceById)
 
 userRouter.get("/skills", GetAllSkills)
 userRouter.get("/locations", GetAllLocations)
-userRouter.post("/skills", AddNewSkill)
+userRouter.post("/skills", decodeMiddleware, AddNewSkill)
 userRouter.post("/locations", AddNewLocation)
 
 userRouter.put("/info/attachments", decodeMiddleware, UpdateAttachment)

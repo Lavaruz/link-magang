@@ -167,7 +167,7 @@ export const getPostCount = async (req: Request, res: Response) => {
 
 export const addPost = async (req: Request, res: Response) => {
   const postData = req.body; // Data pembaruan pengguna dari permintaan PUT  
-  const skillBody = req.body.skills.split(",")
+  const skillBody = req.body.skills.split(";")
 
   try {
     let POST = await Post.findOne({ where: { link: postData.link } })
@@ -177,7 +177,7 @@ export const addPost = async (req: Request, res: Response) => {
     const SKILLS = await Skills.findAll({where: { id: skillBody}})
     await NEW_POST.setSkills(SKILLS)
      
-    return res.sendStatus(201)
+    return res.status(201).json({message: "success adding new post"})
   } catch (error) {
     console.error(error)
     return res.status(500).json({ error: error.message });
