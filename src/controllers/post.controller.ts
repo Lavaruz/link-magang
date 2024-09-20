@@ -67,9 +67,6 @@ export const getAllMatchPost = async (req: Request, res: Response) => {
   let db_page = req.query.page || 1
   let db_limit = req.query.limit || 20
 
-  console.log(search);
-  
-
   try {
     const userAuth = req.headers.authorization
     try {
@@ -104,8 +101,21 @@ export const getAllMatchPost = async (req: Request, res: Response) => {
                 }
               ]
             });
+
+            const POST_COUNT = await Post.findAll({
+              attributes: ["id"],
+              include: [
+                {
+                  model: Skills,
+                  as: "skills",
+                  where: {
+                    skill: { [Op.in]: skillNames },  // Filter langsung pada skills sesuai skillNames
+                  },
+                }
+              ]
+            });
       
-            const total_entries = POST.length;
+            const total_entries = POST_COUNT.length;
             const total_pages = Math.ceil(total_entries / +db_limit);
       
             let encryptedData = encrypt({
