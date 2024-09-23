@@ -56,7 +56,6 @@ const storage = multer_1.default.diskStorage({
 });
 // Router import
 const models_1 = require("./models");
-const viewRouter_1 = __importDefault(require("./router/viewRouter"));
 const post_router_1 = __importDefault(require("./router/post.router"));
 const user_router_1 = __importDefault(require("./router/user.router"));
 const sitemap_router_1 = __importDefault(require("./router/sitemap.router"));
@@ -70,6 +69,7 @@ app.enable("trust proxy");
 app.use(wwwRedirect);
 // konfigurasi static item dalam public folder
 app.use("/", express_1.default.static(path_1.default.join(__dirname, "../public")));
+app.use(express_1.default.static(path_1.default.join(__dirname, '../public/app')));
 // konfigurasi view engine "EJS"
 app.set("view engine", "ejs");
 app.set("views", path_1.default.join(__dirname, "../views"));
@@ -79,10 +79,10 @@ let PORT = process.env.PORT || 8090;
     .then(() => {
     // set router
     const VERSION_API = "v1";
-    app.use("/", viewRouter_1.default);
     app.use(`/sitemap.xml`, sitemap_router_1.default);
     app.use(`/api/${VERSION_API}/posts`, post_router_1.default);
     app.use(`/api/${VERSION_API}/users`, user_router_1.default);
+    app.get('/*', (req, res) => { res.sendFile(path_1.default.join(__dirname, '../public/app/index.html')); });
     app.listen(PORT, () => {
         console.log(`Server berjalan di http://localhost:${PORT}`);
     });

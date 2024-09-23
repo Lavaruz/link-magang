@@ -6,7 +6,7 @@ export default {
   development: {
     username: "root",
     password: "181001",
-    database: "link-magang",
+    database: "internshit",
     host: "127.0.0.1",
     dialect: "mysql",
     logging: false,

@@ -23,10 +23,11 @@ export const getAllPost = async (req: Request, res: Response) => {
       type = type.length > 0 ? type.split(";") : []
       skills = skills.length > 0 ? skills.split(";") : []
 
-      const POST = await Post.findAll({
+      const POST = await Post.findAndCountAll({
         attributes:{exclude:[ "updatedAt"]},
         limit: +db_limit,
         offset: +db_offset || (+db_page - 1) * +db_limit,
+        distinct: true,
         order: [["post_date", post_date.toString()]],
         where: {
           ...(type.length > 0 ? {type: {[Op.in] : type}} : {}),
@@ -43,15 +44,14 @@ export const getAllPost = async (req: Request, res: Response) => {
         ]
       })
 
-      const total_entries = POST.length;
-      const total_pages = Math.ceil(total_entries / +db_limit);
+      const total_pages = Math.ceil(POST.count / +db_limit);
 
       let encryptedData = encrypt({
         limit: db_limit,
         page: db_page,
         total_page: total_pages,
-        datas: POST,
-        total_entries
+        datas: POST.rows,
+        total_entries: POST.count
       }, process.env.AES_KEYS)
 
       return res.status(200).json(encryptedData)
@@ -77,13 +77,13 @@ export const getAllMatchPost = async (req: Request, res: Response) => {
             if(!USER) return res.status(404).json({message: "user not found"})
 
             const SKILLS = await USER.getSkills()
-            if (SKILLS.length === 0) return res.status(200).json([]);
             const skillNames = SKILLS.map(skill => skill.dataValues.skill);
 
-            const POST = await Post.findAll({
+            const POST = await Post.findAndCountAll({
               attributes: { exclude: ["updatedAt"] },
               limit: +db_limit,
               offset: (+db_page - 1) * +db_limit,
+              distinct: true,
               order: [["post_date", post_date.toString()]],
               where: {
                 [Op.or]:[
@@ -101,29 +101,16 @@ export const getAllMatchPost = async (req: Request, res: Response) => {
                 }
               ]
             });
-
-            const POST_COUNT = await Post.findAll({
-              attributes: ["id"],
-              include: [
-                {
-                  model: Skills,
-                  as: "skills",
-                  where: {
-                    skill: { [Op.in]: skillNames },  // Filter langsung pada skills sesuai skillNames
-                  },
-                }
-              ]
-            });
       
-            const total_entries = POST_COUNT.length;
+            const total_entries = POST.count;
             const total_pages = Math.ceil(total_entries / +db_limit);
       
             let encryptedData = encrypt({
               limit: db_limit,
               page: db_page,
               total_page: total_pages,
-              datas: POST,
-              total_entries
+              datas: POST.rows,
+              total_entries: POST.count
             }, process.env.AES_KEYS)
                 
             return res.status(200).json(encryptedData)
@@ -213,13 +200,14 @@ export const updatePosts = async (req: Request, res: Response) => {
 };
 
 export const DeletePost = async (req: Request, res: Response) => {
-  const postId = req.params.id
-  const POST = await Post.findByPk(postId)
+  let postId:any = req.query.ids || ""
+  postId = postId.split(";")
   
   try{
-    if (POST) {
-      POST.destroy()
-      return res.sendStatus(200)
+    const POST = await Post.findAll({where: {id: postId}})
+    if (POST.length > 0) {
+      POST.forEach(async post => {await post.destroy()})
+      return res.status(200).json({message: "succes delete post"})
     } else {
       return res.status(404).json({ error: "Pengguna tidak ditemukan" });
     }

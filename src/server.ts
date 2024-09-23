@@ -4,11 +4,7 @@ import path from "path";
 import multer from 'multer';
 import cookieParser from "cookie-parser"
 import cors from "cors"
-import passport from "passport";
-import {Strategy as GoogleStrategy} from "passport-google-oauth20"
 import * as dotenv from "dotenv";
-import { createToken } from "./config/JWT";
-import User from "./models/User"
 dotenv.config();
 
 const app = express();
@@ -57,6 +53,7 @@ app.use(wwwRedirect);
 
 // konfigurasi static item dalam public folder
 app.use("/", express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, '../public/app')));
 
 // konfigurasi view engine "EJS"
 app.set("view engine", "ejs");
@@ -68,10 +65,10 @@ connectToDatabase()
   .then(() => {
     // set router
     const VERSION_API = "v1";
-    app.use("/", viewRouter);
     app.use(`/sitemap.xml`, sitemapRouter);
     app.use(`/api/${VERSION_API}/posts`, postRouter);
     app.use(`/api/${VERSION_API}/users`, userRouter);
+    app.get('/*', (req, res) => {res.sendFile(path.join(__dirname, '../public/app/index.html'));});
     app.listen(PORT, () => {
       console.log(`Server berjalan di http://localhost:${PORT}`);
     });

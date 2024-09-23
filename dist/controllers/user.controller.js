@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateActiveSearch = exports.GetAllProfilePicture = exports.UpdateSocials = exports.UpdateAttachment = exports.AddNewLocation = exports.GetAllUserDomicile = exports.GetAllLocations = exports.AddSkillToUser = exports.AddNewSkill = exports.GetAllSkills = exports.DeleteEducationById = exports.UpdateEducationById = exports.GetAllUserEducations = exports.AddNewEducation = exports.DeleteExperienceById = exports.AddNewExperience = exports.GetExperienceById = exports.UpdateExperienceById = exports.GetExperiencesByUserToken = exports.GetEducationsByUserToken = exports.GoogleLoginHandler = exports.UpdateUserByToken = exports.GetTotalUser = exports.GetUserByToken = exports.AddViewsUser = exports.GetUserById = exports.GetAllUserWhereActiveSearch = exports.UserLogout = exports.VerifyJWT = void 0;
+exports.UpdateActiveSearch = exports.GetAllProfilePicture = exports.UpdateSocials = exports.UpdateAttachment = exports.AddNewLocation = exports.GetAllUserDomicile = exports.GetAllLocations = exports.AddSkillToUser = exports.AddNewSkill = exports.GetAllSkills = exports.DeleteEducationById = exports.UpdateEducationById = exports.GetAllUserEducations = exports.AddNewEducation = exports.DeleteExperienceById = exports.AddNewExperience = exports.GetExperienceById = exports.UpdateExperienceById = exports.GetExperiencesByUserToken = exports.GetEducationsByUserToken = exports.GoogleLoginHandler = exports.UpdateUserByToken = exports.GetTotalUser = exports.GetUserByToken = exports.AddViewsUser = exports.GetUserById = exports.GetAllUserWhereActiveSearch = exports.GetAllUsers = exports.UserLogout = exports.adminLogin = exports.VerifyJWT = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../models/User"));
 const JWT_1 = require("../config/JWT");
@@ -19,7 +19,6 @@ const path_1 = __importDefault(require("path"));
 const UserConfig_1 = __importDefault(require("../models/UserConfig"));
 const Locations_1 = __importDefault(require("../models/Locations"));
 const sequelize_1 = require("sequelize");
-const Mailer_1 = __importDefault(require("../config/Mailer"));
 function VerifyJWT(req, res) {
     const accessToken = req.headers.authorization;
     try {
@@ -37,56 +36,64 @@ function VerifyJWT(req, res) {
     }
 }
 exports.VerifyJWT = VerifyJWT;
+function adminLogin(req, res) {
+    const adminCredentials = req.body.credentials;
+    try {
+        if (!adminCredentials)
+            return res.status(400).send("not autorized");
+        if (adminCredentials == process.env.ADMIN_CREDENTIALS) {
+            return res.status(200).json({ message: "Success login admin" });
+        }
+        else {
+            return res.status(400).json({ message: "Who are you?" });
+        }
+    }
+    catch (error) {
+        console.error(error.message);
+        return res.status(500).json({ message: error.message });
+    }
+}
+exports.adminLogin = adminLogin;
 function UserLogout(req, res) {
     try {
         res.clearCookie("userAuthenticate");
         res.redirect("/");
     }
     catch (error) {
-        console.log(error.message);
         return res.status(500).json({ error: error.message });
     }
 }
 exports.UserLogout = UserLogout;
-async function GetAllUserWhereActiveSearch(req, res) {
+async function GetAllUsers(req, res) {
     let keyword = req.query.keyword ? req.query.keyword : "";
     let university = req.query.university || "[]";
-    let edu_type = req.query.edu_type;
-    let work_pref = req.query.work_pref;
-    let gpa = req.query.gpa;
-    let gender = req.query.gender;
-    let universitys = JSON.parse(university);
-    if (!Array.isArray(universitys)) {
-        universitys = [];
-    }
+    let edu_type = req.query.edu_type || "";
+    let work_pref = req.query.work_pref || "";
+    let gpa = req.query.gpa || "";
+    let gender = req.query.gender || "";
+    let db_page = req.query.page || 1;
+    let db_limit = req.query.limit || 20;
+    let db_offset = req.query.offset;
     try {
         const USERS = await User_1.default.findAll({
-            where: {
-                active_search: true,
-                ...(gender ? { sex: gender } : {}),
-                ...(work_pref ? { work_pref_status: work_pref } : {}),
-                [sequelize_1.Op.or]: [
-                    { firstname: { [sequelize_1.Op.like]: `%${keyword}%` } },
-                    { lastname: { [sequelize_1.Op.like]: `%${keyword}%` } },
-                    { headline: { [sequelize_1.Op.like]: `%${keyword}%` } },
-                    { '$experiences.exp_position$': { [sequelize_1.Op.like]: `%${keyword}%` } },
-                    { '$experiences.exp_orgname$': { [sequelize_1.Op.like]: `%${keyword}%` } },
-                    { '$educations.edu_program$': { [sequelize_1.Op.like]: `%${keyword}%` } },
-                ]
-            },
+            limit: +db_limit,
+            offset: +db_offset || (+db_page - 1) * +db_limit,
             include: [
                 {
                     model: UserExperience_1.default,
                     as: "experiences",
+                    order: [
+                        [sequelize_1.Sequelize.literal('CASE WHEN `exp_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
+                        ['exp_enddate', 'DESC']
+                    ]
                 },
                 {
                     model: UserEducation_1.default,
                     as: "educations",
-                    where: {
-                        ...(edu_type ? { edu_type } : {}),
-                        ...(gpa ? { edu_gpa: { [sequelize_1.Op.gte]: gpa } } : {}),
-                        ...(universitys.length > 0 ? { edu_institution: { [sequelize_1.Op.in]: universitys } } : {})
-                    }
+                    order: [
+                        [sequelize_1.Sequelize.literal('CASE WHEN `edu_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
+                        ['edu_enddate', 'DESC']
+                    ]
                 },
                 {
                     model: UserAttachment_1.default,
@@ -104,14 +111,9 @@ async function GetAllUserWhereActiveSearch(req, res) {
                     model: UserConfig_1.default,
                     as: "config"
                 }
-            ],
-            order: [
-                [sequelize_1.Sequelize.literal('CASE WHEN `experiences`.`exp_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
-                ['experiences', 'exp_enddate', 'DESC'],
-                [sequelize_1.Sequelize.literal('CASE WHEN `educations`.`edu_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
-                ['educations', 'edu_enddate', 'DESC']
             ]
         });
+        const USER_COUNT = await User_1.default.count();
         const updatedUsers = await Promise.all(USERS.map(async (user) => {
             const userExperience = user.toJSON().experiences;
             const YoE = calculateTotalExperienceMonth(userExperience);
@@ -120,7 +122,108 @@ async function GetAllUserWhereActiveSearch(req, res) {
                 YoE: YoE
             };
         }));
-        const encryptedData = (0, crypto_1.encrypt)(updatedUsers);
+        const encryptedData = (0, crypto_1.encrypt)({
+            total_entries: USER_COUNT,
+            datas: updatedUsers
+        });
+        return res.status(200).json(encryptedData);
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(200).json({ message: error.message });
+    }
+}
+exports.GetAllUsers = GetAllUsers;
+async function GetAllUserWhereActiveSearch(req, res) {
+    let search_person = req.query.search_person ? req.query.search_person : "";
+    let db_page = req.query.page || 1;
+    let db_limit = req.query.limit || 20;
+    let db_offset = db_limit * (db_page - 1);
+    let gender = req.query.gender || "";
+    let work_pref = req.query.work_pref || "";
+    let institute = req.query.institute || "";
+    let edu_type = req.query.edu_type || "";
+    let gpa = req.query.gpa || "";
+    gender = gender.length > 0 ? gender.split(";") : [];
+    work_pref = work_pref.length > 0 ? work_pref.split(";") : [];
+    institute = institute.length > 0 ? institute.split(";") : [];
+    edu_type = edu_type.length > 0 ? edu_type.split(";") : [];
+    gpa = gpa.length > 0 ? gpa.split(";") : [];
+    try {
+        const USERS = await User_1.default.findAll({
+            // limit: +db_limit,
+            // offset: +db_offset || (+db_page - 1) * +db_limit,
+            // subQuery: false,
+            where: {
+                active_search: true,
+                ...(gender.length > 0 ? { sex: { [sequelize_1.Op.in]: gender } } : {}),
+                ...(work_pref.length > 0 ? { work_pref_status: { [sequelize_1.Op.in]: work_pref } } : {}),
+                [sequelize_1.Op.or]: [
+                    { firstname: { [sequelize_1.Op.like]: `%${search_person}%` } },
+                    { lastname: { [sequelize_1.Op.like]: `%${search_person}%` } },
+                    { headline: { [sequelize_1.Op.like]: `%${search_person}%` } },
+                    { '$skills.skill$': { [sequelize_1.Op.like]: `%${search_person}%` } },
+                    { '$experiences.exp_position$': { [sequelize_1.Op.like]: `%${search_person}%` } },
+                    { '$experiences.exp_orgname$': { [sequelize_1.Op.like]: `%${search_person}%` } },
+                    { '$experiences.exp_description$': { [sequelize_1.Op.like]: `%${search_person}%` } },
+                    { '$educations.edu_program$': { [sequelize_1.Op.like]: `%${search_person}%` } },
+                    { '$educations.edu_institution$': { [sequelize_1.Op.like]: `%${search_person}%` } },
+                ],
+            },
+            include: [
+                {
+                    model: UserExperience_1.default,
+                    as: "experiences",
+                },
+                {
+                    model: UserEducation_1.default,
+                    as: "educations",
+                    where: {
+                        ...(gpa.length > 0 ? { edu_gpa: { [sequelize_1.Op.gte]: gpa } } : {}),
+                        ...(edu_type.length > 0 ? { edu_type: { [sequelize_1.Op.in]: edu_type } } : {}),
+                        ...(institute.length > 0 ? { edu_institution: { [sequelize_1.Op.in]: institute } } : {}),
+                    }
+                },
+                {
+                    model: UserAttachment_1.default,
+                    as: "attachments"
+                },
+                {
+                    model: UserSocial_1.default,
+                    as: "socials"
+                },
+                {
+                    model: Skills_1.default,
+                    as: "skills",
+                },
+                {
+                    model: UserConfig_1.default,
+                    as: "config"
+                }
+            ],
+            order: [
+            // [Sequelize.literal('CASE WHEN `experiences`.`exp_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
+            // ['experiences', 'exp_enddate', 'DESC'],
+            // [Sequelize.literal('CASE WHEN `educations`.`edu_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
+            // ['educations', 'edu_enddate', 'DESC']
+            ]
+        });
+        const USERS_COUNT = await User_1.default.count({ where: { active_search: 1 } });
+        const USERS_FILTER = USERS.slice(db_offset, db_offset + db_limit);
+        const updatedUsers = await Promise.all(USERS_FILTER.map(async (user) => {
+            const userExperience = user.toJSON().experiences;
+            const YoE = calculateTotalExperienceMonth(userExperience);
+            return {
+                ...user.toJSON(),
+                YoE: YoE
+            };
+        }));
+        const encryptedData = (0, crypto_1.encrypt)({
+            total_entries: USERS_COUNT,
+            datas: updatedUsers,
+            limit: db_limit,
+            page: db_page
+        });
         return res.status(200).json(encryptedData);
     }
     catch (error) {
@@ -265,13 +368,10 @@ async function UpdateUserByToken(req, res) {
 exports.UpdateUserByToken = UpdateUserByToken;
 async function GoogleLoginHandler(req, res) {
     let data = req.body;
-    let userData = (0, jwt_decode_1.jwtDecode)(data.token);
+    let userData = (0, jwt_decode_1.jwtDecode)(data);
     const USER = await User_1.default.findOne({ where: { email: userData.email } });
     if (USER) {
         const accessToken = (0, JWT_1.createToken)(USER);
-        res.cookie("userAuthenticate", accessToken, {
-            maxAge: 360000000,
-        });
         return res.status(200).json(accessToken);
     }
     if (!USER) {
@@ -280,23 +380,22 @@ async function GoogleLoginHandler(req, res) {
             firstname: userData.given_name,
             lastname: userData.family_name
         });
-        Mailer_1.default.sendMail({
-            from: `"Tim Kece Internshit" <${process.env.MAILER_EMAIL}>`,
-            to: userData.email,
-            subject: `Selamat Datang di Internshit!`,
-            html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Welcome Member Baru</title><style>.header{font-size:20px;font-weight:800;margin:2rem 0;color:#47A992}.body{padding:2rem;background-color:#e0e0e0}.email-container{padding:2rem;width:45%;margin:0 auto;background-color:#fff;border-radius:16px}@media only screen and (max-width:800px){.email-container{width:100%;border-radius:0;padding:1rem}.body{padding:0}}</style><link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"><script src="https://cdn.tailwindcss.com"></script></head><body class="body"><div class="email-container"><img src="cid:logo" alt="Logo Website" width="60px"><h3 class="header">Haiii! Selamat datang di Internshit!</h3><p>Wah,kamu baru aja join ya? Keren banget nih!</p><p style="margin-top: 1.5rem;">Kalo ada pertanyaan atau butuh bantuan,jangan sungkan buat hubungi kita ya! Bisa kirim email ke <a href="mailto:internshit.id@gmail.com" style="color: #47A992;">internshit.id@gmail.com</a> atau DM di X kita.</p><p style="font-weight: 700; margin-top: 1.5rem;">Jangan lupa follow X kita buat update seru lainnya! </p><a href="https://x.com/internshit_id"><button style="padding: .75rem 1.5rem; border-radius: 8px; background-color: #47A992; color: white; margin: 1rem 0; font-weight: 700; font-size: .8rem; cursor: pointer; display: flex; align-items: center; gap: .5rem;">Cek X Kita! <i class="uil uil-arrow-right"></i></button></a><p><span style="font-weight: 500; color: #343434;">Salam hangat,</span><br><span style="font-weight: 700; color: #343434;">Tim Kece Internshit</span></p></div></body></html>`,
-            attachments: [{
-                    filename: "Logo.png",
-                    path: './public/img/Logo.png',
-                    cid: 'logo',
-                    contentDisposition: "inline"
-                }]
-        });
+        // transporter.sendMail({
+        //     from: `"Tim Kece Internshit" <${process.env.MAILER_EMAIL}>`, // sender address
+        //     to: userData.email,
+        //     subject: `Selamat Datang di Internshit!`,
+        //     html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Welcome Member Baru</title><style>.header{font-size:20px;font-weight:800;margin:2rem 0;color:#47A992}.body{padding:2rem;background-color:#e0e0e0}.email-container{padding:2rem;width:45%;margin:0 auto;background-color:#fff;border-radius:16px}@media only screen and (max-width:800px){.email-container{width:100%;border-radius:0;padding:1rem}.body{padding:0}}</style><link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"><script src="https://cdn.tailwindcss.com"></script></head><body class="body"><div class="email-container"><img src="cid:logo" alt="Logo Website" width="60px"><h3 class="header">Haiii! Selamat datang di Internshit!</h3><p>Wah,kamu baru aja join ya? Keren banget nih!</p><p style="margin-top: 1.5rem;">Kalo ada pertanyaan atau butuh bantuan,jangan sungkan buat hubungi kita ya! Bisa kirim email ke <a href="mailto:internshit.id@gmail.com" style="color: #47A992;">internshit.id@gmail.com</a> atau DM di X kita.</p><p style="font-weight: 700; margin-top: 1.5rem;">Jangan lupa follow X kita buat update seru lainnya! </p><a href="https://x.com/internshit_id"><button style="padding: .75rem 1.5rem; border-radius: 8px; background-color: #47A992; color: white; margin: 1rem 0; font-weight: 700; font-size: .8rem; cursor: pointer; display: flex; align-items: center; gap: .5rem;">Cek X Kita! <i class="uil uil-arrow-right"></i></button></a><p><span style="font-weight: 500; color: #343434;">Salam hangat,</span><br><span style="font-weight: 700; color: #343434;">Tim Kece Internshit</span></p></div></body></html>`,
+        //     attachments:[{
+        //       filename:"Logo.png",
+        //       path: './public/img/Logo.png',
+        //       cid: 'logo',
+        //       contentDisposition:"inline"
+        //     }]
+        // });
         NEW_USER.createConfig();
+        NEW_USER.createAttachments();
+        NEW_USER.createSocials();
         const accessToken = (0, JWT_1.createToken)(NEW_USER);
-        res.cookie("userAuthenticate", accessToken, {
-            maxAge: 360000000,
-        });
         return res.status(200).json(accessToken);
     }
 }
@@ -415,7 +514,7 @@ async function DeleteExperienceById(req, res) {
         if (!EXPERIENCE)
             return res.status(400).json({ message: "Experience not found" });
         await UserExperience_1.default.destroy({ where: { id: ID } });
-        return res.sendStatus(200);
+        return res.status(200).json({ message: "success deleted experience" });
     }
     catch (error) {
         console.error(error.message);
@@ -494,7 +593,7 @@ async function DeleteEducationById(req, res) {
         if (!EDUCATION)
             return res.status(400).json({ message: "Education not found" });
         await UserEducation_1.default.destroy({ where: { id: ID } });
-        return res.sendStatus(200);
+        return res.status(200).json({ message: "success deleted education" });
     }
     catch (error) {
         console.error(error.message);
@@ -529,7 +628,7 @@ async function AddNewSkill(req, res) {
 }
 exports.AddNewSkill = AddNewSkill;
 async function AddSkillToUser(req, res) {
-    let skillBody = req.body.skills.split(",");
+    let skillBody = req.body.split(";");
     const userToken = req.headers.authorization;
     try {
         jsonwebtoken_1.default.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded) {

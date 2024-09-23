@@ -1,8 +1,12 @@
 import express from "express";
-import { AddNewEducation, AddNewExperience, AddNewLocation, AddNewSkill, AddSkillToUser, AddViewsUser, DeleteEducationById, DeleteExperienceById, GetAllLocations, GetAllProfilePicture, GetAllSkills, GetAllUserDomicile, GetAllUserEducations, GetAllUsers, GetAllUserWhereActiveSearch, GetEducationsByUserToken, GetExperienceById, GetExperiencesByUserToken, GetTotalUser, GetUserById, GetUserByToken, GoogleLoginHandler, UpdateActiveSearch, UpdateAttachment, UpdateEducationById, UpdateExperienceById, UpdateSocials, UpdateUserByToken, UserLogout, VerifyJWT } from "../controllers/user.controller";
+import { AddNewEducation, AddNewExperience, AddNewLocation, AddNewSkill, AddSkillToUser, AddViewsUser, adminLogin, DeleteEducationById, DeleteExperienceById, GetAllLocations, GetAllProfilePicture, GetAllSkills, GetAllUserDomicile, GetAllUserEducations, GetAllUsers, GetAllUserWhereActiveSearch, GetEducationsByUserToken, GetExperienceById, GetExperiencesByUserToken, GetTotalUser, GetUserById, GetUserByToken, GoogleLoginHandler, UpdateActiveSearch, UpdateAttachment, UpdateEducationById, UpdateExperienceById, UpdateSocials, UpdateUserByToken, UserLogout, VerifyJWT } from "../controllers/user.controller";
 import { decrypt } from "../config/crypto";    
 
 const userRouter = express.Router();
+
+userRouter.post("/admin/login",decodeMiddleware, adminLogin)
+
+
 
 userRouter.get("/", GetAllUsers)
 userRouter.get("/active", GetAllUserWhereActiveSearch)
@@ -10,7 +14,7 @@ userRouter.get("/info", GetUserByToken)
 userRouter.get("/info/domicile", GetAllUserDomicile)
 userRouter.get("/info/educations", GetAllUserEducations)
 
-userRouter.post("/info/skills", AddSkillToUser)
+userRouter.put("/info/skills",decodeMiddleware, AddSkillToUser)
 userRouter.put("/info/config", decodeMiddleware, UpdateActiveSearch)
 
 userRouter.get("/info/educations", GetEducationsByUserToken)
@@ -28,7 +32,7 @@ userRouter.delete("/info/experiences/:id", DeleteExperienceById)
 userRouter.get("/skills", GetAllSkills)
 userRouter.get("/locations", GetAllLocations)
 userRouter.post("/skills", decodeMiddleware, AddNewSkill)
-userRouter.post("/locations", AddNewLocation)
+userRouter.post("/locations", decodeMiddleware, AddNewLocation)
 
 userRouter.put("/info/attachments", decodeMiddleware, UpdateAttachment)
 userRouter.put("/info/socials", decodeMiddleware, UpdateSocials)

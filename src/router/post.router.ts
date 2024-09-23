@@ -11,7 +11,7 @@ postRouter.get("/count-all", getAllPostCount)
 postRouter.get("/:id", getPostById)
 postRouter.post("/", decodeMiddleware, addPost)
 postRouter.put("/:id", decodeMiddleware, updatePosts)
-postRouter.delete("/:id", decodeMiddleware, DeletePost)
+postRouter.delete("/", DeletePost)
     
 export default postRouter;
 

@@ -30,6 +30,37 @@ export function VerifyJWT(req:Request, res:Response){
     }
 }
 
+
+export function adminLogin(req:Request, res:Response){
+    const adminCredentials = req.body.credentials
+    try {
+        if(!adminCredentials) return res.status(400).send("not autorized")
+        if(adminCredentials == process.env.ADMIN_CREDENTIALS){
+            return res.status(200).json({message : "Success login admin"})
+        }else{
+            return res.status(400).json({message : "Who are you?"})
+        }
+    } catch (error) {
+        console.error(error.message)
+        return res.status(500).json({message: error.message})
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export function UserLogout(req:Request, res:Response){
     try {
         res.clearCookie("userAuthenticate");
@@ -116,13 +147,12 @@ export async function GetAllUsers(req:Request, res: Response){
 
 export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
     let search_person:any = req.query.search_person ? req.query.search_person : ""
-    let search_eduexp:any = req.query.search_eduexp ? req.query.search_eduexp : ""
 
-    let db_page = req.query.page || 1
-    let db_limit = req.query.limit || 20
-    let db_offset:any = req.query.offset
-    
-    
+    let db_page:any = req.query.page || 1
+    let db_limit:any = req.query.limit || 20
+    let db_offset:any = db_limit * (db_page - 1)
+
+
     let gender:any = req.query.gender || ""
     let work_pref:any = req.query.work_pref || ""
     let institute:any = req.query.institute || ""
@@ -134,12 +164,12 @@ export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
     institute = institute.length > 0 ? institute.split(";") : []
     edu_type = edu_type.length > 0 ? edu_type.split(";") : []
     gpa = gpa.length > 0 ? gpa.split(";") : []
-    
 
     try {
         const USERS = await User.findAll({
             // limit: +db_limit,
             // offset: +db_offset || (+db_page - 1) * +db_limit,
+            // subQuery: false,
             where: {
                 active_search: true,
                 ...(gender.length > 0 ? { sex: {[Op.in]:gender} } : {}),
@@ -149,11 +179,11 @@ export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
                     { lastname: { [Op.like]: `%${search_person}%` } },
                     { headline: { [Op.like]: `%${search_person}%` } },
                     { '$skills.skill$': {[Op.like]: `%${search_person}%` } }, // Kondisi skill disini
-                    { '$experiences.exp_position$': {[Op.like]: `%${search_eduexp}%`}},
-                    { '$experiences.exp_orgname$': {[Op.like]: `%${search_eduexp}%`}},
-                    { '$experiences.exp_description$': {[Op.like]: `%${search_eduexp}%`}},
-                    { '$educations.edu_program$': {[Op.like]: `%${search_eduexp}%`}},
-                    { '$educations.edu_institution$': {[Op.like]: `%${search_eduexp}%`}},
+                    { '$experiences.exp_position$': {[Op.like]: `%${search_person}%`}},
+                    { '$experiences.exp_orgname$': {[Op.like]: `%${search_person}%`}},
+                    { '$experiences.exp_description$': {[Op.like]: `%${search_person}%`}},
+                    { '$educations.edu_program$': {[Op.like]: `%${search_person}%`}},
+                    { '$educations.edu_institution$': {[Op.like]: `%${search_person}%`}},
                 ],
             },
             include: [
@@ -167,7 +197,7 @@ export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
                     where: {
                         ...(gpa.length > 0 ? { edu_gpa: {[Op.gte] : gpa} } : {}),
                         ...(edu_type.length > 0 ? { edu_type: { [Op.in]: edu_type } } : {}),
-                        ...(institute.length > 0 ? { edu_institution: { [Op.in]: institute } } : {})
+                        ...(institute.length > 0 ? { edu_institution: { [Op.in]: institute } } : {}),
                     }
                 },
                 {
@@ -188,16 +218,17 @@ export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
                 }
             ],
             order: [
-                [Sequelize.literal('CASE WHEN `experiences`.`exp_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
-                ['experiences', 'exp_enddate', 'DESC'],
-                [Sequelize.literal('CASE WHEN `educations`.`edu_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
-                ['educations', 'edu_enddate', 'DESC']
+                // [Sequelize.literal('CASE WHEN `experiences`.`exp_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
+                // ['experiences', 'exp_enddate', 'DESC'],
+                // [Sequelize.literal('CASE WHEN `educations`.`edu_enddate` IS NULL THEN 1 ELSE 0 END'), 'DESC'],
+                // ['educations', 'edu_enddate', 'DESC']
             ]
         });
 
-        const POST_COUNT = await User.count({where: {active_search: 1}})
+        const USERS_COUNT = await User.count({where: {active_search: 1}})
+        const USERS_FILTER = USERS.slice(db_offset, db_offset + db_limit);
 
-        const updatedUsers = await Promise.all(USERS.map(async user => {
+        const updatedUsers = await Promise.all(USERS_FILTER.map(async user => {
             const userExperience = user.toJSON().experiences;
             const YoE = calculateTotalExperienceMonth(userExperience);
             return {
@@ -208,8 +239,10 @@ export async function GetAllUserWhereActiveSearch(req:Request, res: Response){
 
         
         const encryptedData = encrypt({
-            total_entries: POST_COUNT,
-            datas: updatedUsers
+            total_entries: USERS_COUNT,
+            datas: updatedUsers,
+            limit: db_limit,
+            page: db_page
         })
         return res.status(200).json(encryptedData)
     } catch (error) {
@@ -381,6 +414,7 @@ export async function GoogleLoginHandler(req:Request, res: Response){
         //     }]
         // });
         NEW_USER.createConfig()
+        NEW_USER.createAttachments()
         NEW_USER.createSocials()
         const accessToken = createToken(NEW_USER)
         return res.status(200).json(accessToken)
@@ -499,7 +533,7 @@ export async function DeleteExperienceById(req:Request, res:Response) {
         const EXPERIENCE = await Experience.findByPk(ID)
         if(!EXPERIENCE) return res.status(400).json({message: "Experience not found"})
         await Experience.destroy({ where: { id: ID }})
-        return res.sendStatus(200)
+        return res.status(200).json({message: "success deleted experience"})
     } catch (error) {
         console.error(error.message)
         return res.status(500).json({message: error.message})
@@ -576,7 +610,7 @@ export async function DeleteEducationById(req:Request, res:Response) {
         const EDUCATION = await Education.findByPk(ID)
         if(!EDUCATION) return res.status(400).json({message: "Education not found"})
         await Education.destroy({ where: { id: ID }})
-        return res.sendStatus(200)
+        return res.status(200).json({message: "success deleted education"})
     } catch (error) {
         console.error(error.message)
         return res.status(500).json({message: error.message})
@@ -610,7 +644,7 @@ export async function AddNewSkill(req:Request, res: Response){
 }
 
 export async function AddSkillToUser(req:Request, res: Response){
-    let skillBody = req.body.skills.split(",")
+    let skillBody = req.body.split(";")
     const userToken = req.headers.authorization
     try {
         jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
@@ -765,8 +799,6 @@ export async function UpdateActiveSearch(req:Request, res: Response){
 
         const USER_CONFIG = await USER.getConfig()
         if(!USER_CONFIG) return res.status(400).json({message: "user config not found"})
-        console.log(USER_CONFIG);
-        
         await USER_CONFIG.update(configData)
         
         return res.status(200).json(await USER.getConfig())
