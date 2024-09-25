@@ -19,22 +19,17 @@ sitemapRouter.get("/", function(req,res){
             <priority>1.00</priority>
         </url>
         <url>
-            <loc>https://internshits.com/community</loc>
-            <lastmod>2024-08-28T08:59:57+00:00</lastmod>
-            <priority>0.80</priority>
-        </url>
-        <url>
             <loc>https://internshits.com/talent</loc>
             <lastmod>2024-08-28T08:59:57+00:00</lastmod>
             <priority>0.80</priority>
         </url>
         <url>
-            <loc>https://internshits.com/profile/bookmark</loc>
+            <loc>https://internshits.com/posts/explore</loc>
             <lastmod>2024-08-28T08:59:57+00:00</lastmod>
             <priority>0.80</priority>
         </url>
         <url>
-            <loc>https://internshits.com/posts/create</loc>
+            <loc>https://internshits.com/posts/foryou</loc>
             <lastmod>2024-08-28T08:59:57+00:00</lastmod>
             <priority>0.80</priority>
         </url>

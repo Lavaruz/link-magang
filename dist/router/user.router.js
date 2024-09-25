@@ -8,6 +8,8 @@ const user_controller_1 = require("../controllers/user.controller");
 const crypto_1 = require("../config/crypto");
 const userRouter = express_1.default.Router();
 userRouter.post("/admin/login", decodeMiddleware, user_controller_1.adminLogin);
+userRouter.post("/add-social-user", user_controller_1.CreateSocialUserDontHave);
+userRouter.post("/add-attachment-user", user_controller_1.CreateAttachmentUserDontHave);
 userRouter.get("/", user_controller_1.GetAllUsers);
 userRouter.get("/active", user_controller_1.GetAllUserWhereActiveSearch);
 userRouter.get("/info", user_controller_1.GetUserByToken);

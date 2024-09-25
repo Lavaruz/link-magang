@@ -1,5 +1,5 @@
 import express from "express";
-import { AddNewEducation, AddNewExperience, AddNewLocation, AddNewSkill, AddSkillToUser, AddViewsUser, adminLogin, DeleteEducationById, DeleteExperienceById, GetAllLocations, GetAllProfilePicture, GetAllSkills, GetAllUserDomicile, GetAllUserEducations, GetAllUsers, GetAllUserWhereActiveSearch, GetEducationsByUserToken, GetExperienceById, GetExperiencesByUserToken, GetTotalUser, GetUserById, GetUserByToken, GoogleLoginHandler, UpdateActiveSearch, UpdateAttachment, UpdateEducationById, UpdateExperienceById, UpdateSocials, UpdateUserByToken, UserLogout, VerifyJWT } from "../controllers/user.controller";
+import { AddNewEducation, AddNewExperience, AddNewLocation, AddNewSkill, AddSkillToUser, AddViewsUser, adminLogin, CreateAttachmentUserDontHave, CreateSocialUserDontHave, DeleteEducationById, DeleteExperienceById, GetAllLocations, GetAllProfilePicture, GetAllSkills, GetAllUserDomicile, GetAllUserEducations, GetAllUsers, GetAllUserWhereActiveSearch, GetEducationsByUserToken, GetExperienceById, GetExperiencesByUserToken, GetTotalUser, GetUserById, GetUserByToken, GoogleLoginHandler, UpdateActiveSearch, UpdateAttachment, UpdateEducationById, UpdateExperienceById, UpdateSocials, UpdateUserByToken, UserLogout, VerifyJWT } from "../controllers/user.controller";
 import { decrypt } from "../config/crypto";    
 
 const userRouter = express.Router();
@@ -7,6 +7,9 @@ const userRouter = express.Router();
 userRouter.post("/admin/login",decodeMiddleware, adminLogin)
 
 
+
+userRouter.post("/add-social-user", CreateSocialUserDontHave)
+userRouter.post("/add-attachment-user", CreateAttachmentUserDontHave)
 
 userRouter.get("/", GetAllUsers)
 userRouter.get("/active", GetAllUserWhereActiveSearch)
