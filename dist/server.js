@@ -68,7 +68,6 @@ app.use((0, multer_1.default)({ storage: storage, limits: { fileSize: 2097152 } 
 app.enable("trust proxy");
 app.use(wwwRedirect);
 // konfigurasi static item dalam public folder
-app.use("/", express_1.default.static(path_1.default.join(__dirname, "../public")));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../public/app')));
 // konfigurasi view engine "EJS"
 app.set("view engine", "ejs");

@@ -21,7 +21,7 @@ if(process.env.NODE_ENV == 'production'){
     host: "127.0.0.1",
     username: "root",
     password: "181001",
-    database: "internshit",
+    database: "internshits",
     logging: false,
   });
 }

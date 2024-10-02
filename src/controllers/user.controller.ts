@@ -780,9 +780,9 @@ export async function UpdateSocials(req:Request, res: Response){
 // -------------------- PROFILE PICTURE ---------------------
 
 export async function GetAllProfilePicture(req:Request, res:Response) {
-    const files = fs.readdirSync(path.join(__dirname, "..", "..", "public", "img", "ProfilePic"))
+    const files = fs.readdirSync(path.join(__dirname, "..", "..", "public", "app", "assets", "img", "ProfilePic"))
     const urlFiles = files.map(file => {
-        return `/img/ProfilePic/${file}`
+        return `/assets/img/ProfilePic/${file}`
     })
     
     return res.status(200).json(urlFiles)
@@ -859,6 +859,59 @@ export async function CreateAttachmentUserDontHave(req:Request, res: Response){
         return res.status(500).json({message: error.message})
     }
 }
+
+export async function ChangeImageRouter(req: Request, res: Response) {
+    try {
+        // Langkah 1: Ambil semua user dengan profile_picture yang berawalan /img/ atau sudah terlanjur /assets/img/
+        const USERS = await User.findAll({
+            attributes: ["id", "profile_picture"], // Ambil id untuk update dan profile_picture
+            where: {
+                profile_picture: {
+                    [Op.or]: [
+                        { [Op.like]: '%/img/%' },        // Path yang belum berubah
+                    ]
+                }
+            }
+        });
+
+        // Langkah 2: Ubah setiap profile_picture yang sesuai
+        const updatedUsers = await Promise.all(USERS.map(async (user) => {
+            let updatedProfilePicture = user.profile_picture;
+
+            // Hilangkan redundansi assets/assets/ jika ada
+            updatedProfilePicture = updatedProfilePicture.replace(/\/assets\/(assets\/)+/g, '/assets/');
+
+            // Ubah /img/ menjadi /assets/img/ jika masih ada
+            if (updatedProfilePicture.includes('/img/') && !updatedProfilePicture.includes('/assets/img/')) {
+                updatedProfilePicture = updatedProfilePicture.replace('/img/', '/assets/img/');
+            }
+
+            // Ubah .png menjadi .webp
+            if (updatedProfilePicture.endsWith('.png')) {
+                updatedProfilePicture = updatedProfilePicture.replace('.png', '.webp');
+            }
+
+            // Langkah 3: Simpan perubahan ke database jika ada perubahan
+            if (updatedProfilePicture !== user.profile_picture) {
+                await user.update({ profile_picture: updatedProfilePicture });
+            }
+
+            return {
+                id: user.id,
+                old_picture: user.profile_picture,
+                new_picture: updatedProfilePicture
+            };
+        }));
+
+        // Langkah 4: Kirim hasil yang telah diubah sebagai response
+        return res.status(200).json({ updatedUsers });
+    } catch (error) {
+        // Handle error
+        return res.status(500).json({ message: error.message });
+    }
+}
+
+
 
 
 

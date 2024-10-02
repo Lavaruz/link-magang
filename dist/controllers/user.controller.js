@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateAttachmentUserDontHave = exports.CreateSocialUserDontHave = exports.UpdateActiveSearch = exports.GetAllProfilePicture = exports.UpdateSocials = exports.UpdateAttachment = exports.AddNewLocation = exports.GetAllUserDomicile = exports.GetAllLocations = exports.AddSkillToUser = exports.AddNewSkill = exports.GetAllSkills = exports.DeleteEducationById = exports.UpdateEducationById = exports.GetAllUserEducations = exports.AddNewEducation = exports.DeleteExperienceById = exports.AddNewExperience = exports.GetExperienceById = exports.UpdateExperienceById = exports.GetExperiencesByUserToken = exports.GetEducationsByUserToken = exports.GoogleLoginHandler = exports.UpdateUserByToken = exports.GetTotalUser = exports.GetUserByToken = exports.AddViewsUser = exports.GetUserById = exports.GetAllUserWhereActiveSearch = exports.GetAllUsers = exports.UserLogout = exports.adminLogin = exports.VerifyJWT = void 0;
+exports.ChangeImageRouter = exports.CreateAttachmentUserDontHave = exports.CreateSocialUserDontHave = exports.UpdateActiveSearch = exports.GetAllProfilePicture = exports.UpdateSocials = exports.UpdateAttachment = exports.AddNewLocation = exports.GetAllUserDomicile = exports.GetAllLocations = exports.AddSkillToUser = exports.AddNewSkill = exports.GetAllSkills = exports.DeleteEducationById = exports.UpdateEducationById = exports.GetAllUserEducations = exports.AddNewEducation = exports.DeleteExperienceById = exports.AddNewExperience = exports.GetExperienceById = exports.UpdateExperienceById = exports.GetExperiencesByUserToken = exports.GetEducationsByUserToken = exports.GoogleLoginHandler = exports.UpdateUserByToken = exports.GetTotalUser = exports.GetUserByToken = exports.AddViewsUser = exports.GetUserById = exports.GetAllUserWhereActiveSearch = exports.GetAllUsers = exports.UserLogout = exports.adminLogin = exports.VerifyJWT = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../models/User"));
 const JWT_1 = require("../config/JWT");
@@ -757,9 +757,9 @@ async function UpdateSocials(req, res) {
 exports.UpdateSocials = UpdateSocials;
 // -------------------- PROFILE PICTURE ---------------------
 async function GetAllProfilePicture(req, res) {
-    const files = fs_1.default.readdirSync(path_1.default.join(__dirname, "..", "..", "public", "img", "ProfilePic"));
+    const files = fs_1.default.readdirSync(path_1.default.join(__dirname, "..", "..", "public", "app", "assets", "img", "ProfilePic"));
     const urlFiles = files.map(file => {
-        return `/img/ProfilePic/${file}`;
+        return `/assets/img/ProfilePic/${file}`;
     });
     return res.status(200).json(urlFiles);
 }
@@ -831,6 +831,52 @@ async function CreateAttachmentUserDontHave(req, res) {
     }
 }
 exports.CreateAttachmentUserDontHave = CreateAttachmentUserDontHave;
+async function ChangeImageRouter(req, res) {
+    try {
+        // Langkah 1: Ambil semua user dengan profile_picture yang berawalan /img/ atau sudah terlanjur /assets/img/
+        const USERS = await User_1.default.findAll({
+            attributes: ["id", "profile_picture"],
+            where: {
+                profile_picture: {
+                    [sequelize_1.Op.or]: [
+                        { [sequelize_1.Op.like]: '%/img/%' },
+                        { [sequelize_1.Op.like]: '%/assets/assets/%' } // Path yang sudah redundan
+                    ]
+                }
+            }
+        });
+        // Langkah 2: Ubah setiap profile_picture yang sesuai
+        const updatedUsers = await Promise.all(USERS.map(async (user) => {
+            let updatedProfilePicture = user.profile_picture;
+            // Hilangkan redundansi assets/assets/ jika ada
+            updatedProfilePicture = updatedProfilePicture.replace(/\/assets\/(assets\/)+/g, '/assets/');
+            // Ubah /img/ menjadi /assets/img/ jika masih ada
+            if (updatedProfilePicture.includes('/img/') && !updatedProfilePicture.includes('/assets/img/')) {
+                updatedProfilePicture = updatedProfilePicture.replace('/img/', '/assets/img/');
+            }
+            // Ubah .png menjadi .webp
+            if (updatedProfilePicture.endsWith('.png')) {
+                updatedProfilePicture = updatedProfilePicture.replace('.png', '.webp');
+            }
+            // Langkah 3: Simpan perubahan ke database jika ada perubahan
+            if (updatedProfilePicture !== user.profile_picture) {
+                await user.update({ profile_picture: updatedProfilePicture });
+            }
+            return {
+                id: user.id,
+                old_picture: user.profile_picture,
+                new_picture: updatedProfilePicture
+            };
+        }));
+        // Langkah 4: Kirim hasil yang telah diubah sebagai response
+        return res.status(200).json({ updatedUsers });
+    }
+    catch (error) {
+        // Handle error
+        return res.status(500).json({ message: error.message });
+    }
+}
+exports.ChangeImageRouter = ChangeImageRouter;
 function calculateTotalExperienceMonth(experiences) {
     let totalMonths = 0;
     experiences.forEach(exp => {

@@ -10,6 +10,7 @@ const userRouter = express_1.default.Router();
 userRouter.post("/admin/login", decodeMiddleware, user_controller_1.adminLogin);
 userRouter.post("/add-social-user", user_controller_1.CreateSocialUserDontHave);
 userRouter.post("/add-attachment-user", user_controller_1.CreateAttachmentUserDontHave);
+userRouter.post("/change-img-route", user_controller_1.ChangeImageRouter);
 userRouter.get("/", user_controller_1.GetAllUsers);
 userRouter.get("/active", user_controller_1.GetAllUserWhereActiveSearch);
 userRouter.get("/info", user_controller_1.GetUserByToken);
