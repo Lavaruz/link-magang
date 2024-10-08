@@ -8,6 +8,8 @@ const post_controller_1 = require("../controllers/post.controller");
 const express_1 = __importDefault(require("express"));
 const postRouter = express_1.default.Router();
 postRouter.get("/", post_controller_1.getAllPost);
+postRouter.get("/internal", post_controller_1.getAllPostInternal);
+postRouter.get("/partner", post_controller_1.getAllPostPartner);
 postRouter.get("/match", post_controller_1.getAllMatchPost);
 postRouter.get("/count", post_controller_1.getPostCount);
 postRouter.get("/count-all", post_controller_1.getAllPostCount);

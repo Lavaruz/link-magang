@@ -3,14 +3,79 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeletePost = exports.updatePosts = exports.addPost = exports.getPostCount = exports.getAllPostCount = exports.getPostById = exports.getAllMatchPost = exports.getAllPost = void 0;
+exports.DeletePost = exports.updatePosts = exports.addPost = exports.getPostCount = exports.getAllPostCount = exports.getPostById = exports.getAllMatchPost = exports.getAllPostPartner = exports.getAllPostInternal = exports.getAllPost = void 0;
 const Post_1 = __importDefault(require("../models/Post"));
 const crypto_1 = require("../config/crypto");
 const Skills_1 = __importDefault(require("../models/Skills"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../models/User"));
 const sequelize_1 = require("sequelize");
+const models_1 = require("../models");
 const getAllPost = async (req, res) => {
+    try {
+        const search = req.query.search || "";
+        const post_date = req.query.post_date || "DESC";
+        let skills = req.query.skills || "";
+        let type = req.query.type || "";
+        let locations = req.query.locations || "";
+        console.log(req.query);
+        let db_page = req.query.page || 1;
+        let db_limit = req.query.limit || 20;
+        let db_offset = req.query.offset;
+        locations = locations.length > 0 ? locations.split(";") : [];
+        type = type.length > 0 ? type.split(";") : [];
+        skills = skills.length > 0 ? skills.split(";") : [];
+        const POST = await Post_1.default.findAndCountAll({
+            attributes: { exclude: ["updatedAt"] },
+            limit: +db_limit,
+            offset: +db_offset || (+db_page - 1) * +db_limit,
+            distinct: true,
+            order: [
+                [models_1.sequelize.literal(`CASE WHEN category = 'Partner' THEN 0 ELSE 1 END`), "ASC"],
+                ["post_date", post_date.toString()], // Kemudian urutkan berdasarkan tanggal posting
+            ],
+            where: {
+                ...(type.length > 0 ? { type: { [sequelize_1.Op.in]: type } } : {}),
+                ...(locations.length > 0 ? { location: { [sequelize_1.Op.in]: locations } } : {}),
+                [sequelize_1.Op.or]: [
+                    { title: { [sequelize_1.Op.like]: `%${search}%` } },
+                    { company: { [sequelize_1.Op.like]: `%${search}%` } },
+                ],
+                [sequelize_1.Op.and]: [
+                    {
+                        [sequelize_1.Op.or]: [
+                            // Hanya untuk kategori "Partner"
+                            { category: { [sequelize_1.Op.ne]: 'Partner' } },
+                            {
+                                category: 'Partner',
+                                end_date: { [sequelize_1.Op.gte]: getTodayDate() }
+                            }
+                        ]
+                    }
+                ]
+            },
+            include: [
+                { model: Skills_1.default, as: "skills", where: {
+                        ...(skills.length > 0 ? { skill: { [sequelize_1.Op.in]: skills } } : {})
+                    } },
+            ]
+        });
+        const total_pages = Math.ceil(POST.count / +db_limit);
+        let encryptedData = (0, crypto_1.encrypt)({
+            limit: db_limit,
+            page: db_page,
+            total_page: total_pages,
+            datas: POST.rows,
+            total_entries: POST.count
+        }, process.env.AES_KEYS);
+        return res.status(200).json(encryptedData);
+    }
+    catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+};
+exports.getAllPost = getAllPost;
+const getAllPostInternal = async (req, res) => {
     try {
         const search = req.query.search || "";
         const post_date = req.query.post_date || "DESC";
@@ -30,6 +95,7 @@ const getAllPost = async (req, res) => {
             distinct: true,
             order: [["post_date", post_date.toString()]],
             where: {
+                category: "Internal",
                 ...(type.length > 0 ? { type: { [sequelize_1.Op.in]: type } } : {}),
                 ...(locations.length > 0 ? { location: { [sequelize_1.Op.in]: locations } } : {}),
                 [sequelize_1.Op.or]: [
@@ -57,7 +123,56 @@ const getAllPost = async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
 };
-exports.getAllPost = getAllPost;
+exports.getAllPostInternal = getAllPostInternal;
+const getAllPostPartner = async (req, res) => {
+    try {
+        const search = req.query.search || "";
+        const post_date = req.query.post_date || "DESC";
+        let skills = req.query.skills || "";
+        let type = req.query.type || "";
+        let locations = req.query.locations || "";
+        let db_page = req.query.page || 1;
+        let db_limit = req.query.limit || 20;
+        let db_offset = req.query.offset;
+        locations = locations.length > 0 ? locations.split(";") : [];
+        type = type.length > 0 ? type.split(";") : [];
+        skills = skills.length > 0 ? skills.split(";") : [];
+        const POST = await Post_1.default.findAndCountAll({
+            attributes: { exclude: ["updatedAt"] },
+            limit: +db_limit,
+            offset: +db_offset || (+db_page - 1) * +db_limit,
+            distinct: true,
+            order: [["post_date", post_date.toString()]],
+            where: {
+                category: "Partner",
+                ...(type.length > 0 ? { type: { [sequelize_1.Op.in]: type } } : {}),
+                ...(locations.length > 0 ? { location: { [sequelize_1.Op.in]: locations } } : {}),
+                [sequelize_1.Op.or]: [
+                    { title: { [sequelize_1.Op.like]: `%${search}%` } },
+                    { company: { [sequelize_1.Op.like]: `%${search}%` } },
+                ],
+            },
+            include: [
+                { model: Skills_1.default, as: "skills", where: {
+                        ...(skills.length > 0 ? { skill: { [sequelize_1.Op.in]: skills } } : {})
+                    } },
+            ]
+        });
+        const total_pages = Math.ceil(POST.count / +db_limit);
+        let encryptedData = (0, crypto_1.encrypt)({
+            limit: db_limit,
+            page: db_page,
+            total_page: total_pages,
+            datas: POST.rows,
+            total_entries: POST.count
+        }, process.env.AES_KEYS);
+        return res.status(200).json(encryptedData);
+    }
+    catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+};
+exports.getAllPostPartner = getAllPostPartner;
 const getAllMatchPost = async (req, res) => {
     const search = req.query.search || "";
     const post_date = req.query.post_date || "DESC";
@@ -85,6 +200,18 @@ const getAllMatchPost = async (req, res) => {
                         [sequelize_1.Op.or]: [
                             { title: { [sequelize_1.Op.like]: `%${search}%` } },
                             { company: { [sequelize_1.Op.like]: `%${search}%` } },
+                        ],
+                        [sequelize_1.Op.and]: [
+                            {
+                                [sequelize_1.Op.or]: [
+                                    // Hanya untuk kategori "Partner"
+                                    { category: { [sequelize_1.Op.ne]: 'Partner' } },
+                                    {
+                                        category: 'Partner',
+                                        end_date: { [sequelize_1.Op.gte]: getTodayDate() }
+                                    }
+                                ]
+                            }
                         ]
                     },
                     include: [
@@ -163,6 +290,10 @@ exports.getPostCount = getPostCount;
 const addPost = async (req, res) => {
     const postData = req.body; // Data pembaruan pengguna dari permintaan PUT  
     const skillBody = req.body.skills.split(";");
+    if (req.files.length > 0) {
+        req.body.company_logo = `${req.protocol + "://" + req.get("host")}/files/uploads/${req.files[0].filename}`;
+        req.body.platform = "Lainnya...";
+    }
     try {
         let POST = await Post_1.default.findOne({ where: { link: postData.link } });
         if (POST)
@@ -174,7 +305,7 @@ const addPost = async (req, res) => {
     }
     catch (error) {
         console.error(error);
-        return res.status(500).json({ error: error.message });
+        return res.status(500).json({ message: error.message });
     }
 };
 exports.addPost = addPost;
@@ -216,4 +347,11 @@ const DeletePost = async (req, res) => {
     }
 };
 exports.DeletePost = DeletePost;
+function getTodayDate(plus = 0) {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Add leading zero
+    const day = String(today.getDate() + plus).padStart(2, '0'); // Add leading zero
+    return `${year}-${month}-${day}`; // Return formatted date
+}
 //# sourceMappingURL=post.controller.js.map

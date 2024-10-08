@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken"
 import Locations from "../models/Locations";
 import User from "../models/User";
 import { Op } from "sequelize";
+import { sequelize } from "../models";
 
 
 export const getAllPost = async (req: Request, res: Response) => {
@@ -15,6 +16,9 @@ export const getAllPost = async (req: Request, res: Response) => {
       let skills:any = req.query.skills || ""
       let type:any = req.query.type || ""
       let locations:any = req.query.locations || ""
+
+      console.log(req.query);
+      
 
       let db_page = req.query.page || 1
       let db_limit = req.query.limit || 20
@@ -28,13 +32,28 @@ export const getAllPost = async (req: Request, res: Response) => {
         limit: +db_limit,
         offset: +db_offset || (+db_page - 1) * +db_limit,
         distinct: true,
-        order: [["post_date", post_date.toString()]],
+        order: [
+          [sequelize.literal(`CASE WHEN category = 'Partner' THEN 0 ELSE 1 END`), "ASC"], // Prioritaskan Partner
+          ["post_date", post_date.toString()], // Kemudian urutkan berdasarkan tanggal posting
+        ],
         where: {
           ...(type.length > 0 ? {type: {[Op.in] : type}} : {}),
           ...(locations.length > 0 ? {location: {[Op.in] : locations}} : {}),
           [Op.or]:[
             { title: { [Op.like]: `%${search}%` } },
             { company: { [Op.like]: `%${search}%` } },
+          ],
+          [Op.and]: [
+            {
+              [Op.or]: [
+                // Hanya untuk kategori "Partner"
+                { category: { [Op.ne]: 'Partner' } },
+                {
+                    category: 'Partner',
+                    end_date: { [Op.gte]: getTodayDate() }
+                }
+              ]
+            }
           ]
         },
         include: [
@@ -58,6 +77,112 @@ export const getAllPost = async (req: Request, res: Response) => {
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
+};
+
+export const getAllPostInternal = async (req: Request, res: Response) => {
+  try {
+    const search = req.query.search || ""
+    const post_date = req.query.post_date || "DESC"
+    let skills:any = req.query.skills || ""
+    let type:any = req.query.type || ""
+    let locations:any = req.query.locations || ""
+
+    let db_page = req.query.page || 1
+    let db_limit = req.query.limit || 20
+    let db_offset:any = req.query.offset
+    locations = locations.length > 0 ? locations.split(";") : []
+    type = type.length > 0 ? type.split(";") : []
+    skills = skills.length > 0 ? skills.split(";") : []
+
+    const POST = await Post.findAndCountAll({
+      attributes:{exclude:[ "updatedAt"]},
+      limit: +db_limit,
+      offset: +db_offset || (+db_page - 1) * +db_limit,
+      distinct: true,
+      order: [["post_date", post_date.toString()]],
+      where: {
+        category: "Internal",
+        ...(type.length > 0 ? {type: {[Op.in] : type}} : {}),
+        ...(locations.length > 0 ? {location: {[Op.in] : locations}} : {}),
+        [Op.or]:[
+          { title: { [Op.like]: `%${search}%` } },
+          { company: { [Op.like]: `%${search}%` } },
+        ]
+      },
+      include: [
+        {model: Skills, as:"skills", where: {
+          ...(skills.length > 0 ? {skill: {[Op.in]: skills}} : {})
+        }},
+      ]
+    })
+
+    const total_pages = Math.ceil(POST.count / +db_limit);
+
+    let encryptedData = encrypt({
+      limit: db_limit,
+      page: db_page,
+      total_page: total_pages,
+      datas: POST.rows,
+      total_entries: POST.count
+    }, process.env.AES_KEYS)
+
+    return res.status(200).json(encryptedData)
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const getAllPostPartner = async (req: Request, res: Response) => {
+  try {
+    const search = req.query.search || ""
+    const post_date = req.query.post_date || "DESC"
+    let skills:any = req.query.skills || ""
+    let type:any = req.query.type || ""
+    let locations:any = req.query.locations || ""
+
+    let db_page = req.query.page || 1
+    let db_limit = req.query.limit || 20
+    let db_offset:any = req.query.offset
+    locations = locations.length > 0 ? locations.split(";") : []
+    type = type.length > 0 ? type.split(";") : []
+    skills = skills.length > 0 ? skills.split(";") : []
+
+    const POST = await Post.findAndCountAll({
+      attributes:{exclude:[ "updatedAt"]},
+      limit: +db_limit,
+      offset: +db_offset || (+db_page - 1) * +db_limit,
+      distinct: true,
+      order: [["post_date", post_date.toString()]],
+      where: {
+        category: "Partner",
+        ...(type.length > 0 ? {type: {[Op.in] : type}} : {}),
+        ...(locations.length > 0 ? {location: {[Op.in] : locations}} : {}),
+        [Op.or]:[
+          { title: { [Op.like]: `%${search}%` } },
+          { company: { [Op.like]: `%${search}%` } },
+        ],
+      },
+      include: [
+        {model: Skills, as:"skills", where: {
+          ...(skills.length > 0 ? {skill: {[Op.in]: skills}} : {})
+        }},
+      ]
+    })
+
+    const total_pages = Math.ceil(POST.count / +db_limit);
+
+    let encryptedData = encrypt({
+      limit: db_limit,
+      page: db_page,
+      total_page: total_pages,
+      datas: POST.rows,
+      total_entries: POST.count
+    }, process.env.AES_KEYS)
+
+    return res.status(200).json(encryptedData)
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 };
 
 export const getAllMatchPost = async (req: Request, res: Response) => {
@@ -89,6 +214,18 @@ export const getAllMatchPost = async (req: Request, res: Response) => {
                 [Op.or]:[
                   { title: { [Op.like]: `%${search}%` } },
                   { company: { [Op.like]: `%${search}%` } },
+                ],
+                [Op.and]: [
+                  {
+                    [Op.or]: [
+                      // Hanya untuk kategori "Partner"
+                      { category: { [Op.ne]: 'Partner' } },
+                      {
+                          category: 'Partner',
+                          end_date: { [Op.gte]: getTodayDate() }
+                      }
+                    ]
+                  }
                 ]
               },
               include: [
@@ -165,6 +302,11 @@ export const getPostCount = async (req: Request, res: Response) => {
 export const addPost = async (req: Request, res: Response) => {
   const postData = req.body; // Data pembaruan pengguna dari permintaan PUT  
   const skillBody = req.body.skills.split(";")
+  
+  if(req.files.length as any > 0){
+    req.body.company_logo = `${req.protocol + "://" + req.get("host")}/files/uploads/${req.files[0].filename}`
+    req.body.platform = "Lainnya..."
+  }
 
   try {
     let POST = await Post.findOne({ where: { link: postData.link } })
@@ -177,7 +319,7 @@ export const addPost = async (req: Request, res: Response) => {
     return res.status(201).json({message: "success adding new post"})
   } catch (error) {
     console.error(error)
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -216,3 +358,14 @@ export const DeletePost = async (req: Request, res: Response) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+
+
+
+function getTodayDate(plus = 0) {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Add leading zero
+  const day = String(today.getDate() + plus).padStart(2, '0'); // Add leading zero
+  return `${year}-${month}-${day}`; // Return formatted date
+}

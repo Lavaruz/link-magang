@@ -62,16 +62,14 @@ const sitemap_router_1 = __importDefault(require("./router/sitemap.router"));
 app.use((0, cors_1.default)({
     origin: "*"
 }));
+app.use((0, multer_1.default)({ storage: storage, limits: { fileSize: 2097152 } }).any());
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
-app.use((0, multer_1.default)({ storage: storage, limits: { fileSize: 2097152 } }).any());
 app.enable("trust proxy");
 app.use(wwwRedirect);
 // konfigurasi static item dalam public folder
+app.use("/files", express_1.default.static(path_1.default.join(__dirname, '../public/files')));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../public/app')));
-// konfigurasi view engine "EJS"
-app.set("view engine", "ejs");
-app.set("views", path_1.default.join(__dirname, "../views"));
 // konfigurasi sequelize dengan option alter
 let PORT = process.env.PORT || 8090;
 (0, models_1.connectToDatabase)()

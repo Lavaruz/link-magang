@@ -839,8 +839,7 @@ async function ChangeImageRouter(req, res) {
             where: {
                 profile_picture: {
                     [sequelize_1.Op.or]: [
-                        { [sequelize_1.Op.like]: '%/img/%' },
-                        { [sequelize_1.Op.like]: '%/assets/assets/%' } // Path yang sudah redundan
+                        { [sequelize_1.Op.like]: '%/img/%' }, // Path yang belum berubah
                     ]
                 }
             }

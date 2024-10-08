@@ -36,7 +36,6 @@ const storage = multer.diskStorage({
 
 // Router import
 import { connectToDatabase } from "./models";
-import viewRouter from "./router/viewRouter";
 import postRouter from "./router/post.router";
 import userRouter from "./router/user.router";
 import sitemapRouter from "./router/sitemap.router";
@@ -44,19 +43,17 @@ import sitemapRouter from "./router/sitemap.router";
 app.use(cors({
   origin: "*"
 }))
+app.use(multer({ storage: storage, limits: { fileSize: 2097152 } }).any());
 app.use(express.json());
 app.use(cookieParser());
-app.use(multer({ storage: storage, limits: { fileSize: 2097152 } }).any());
 app.enable("trust proxy");
 app.use(wwwRedirect);
 
 
 // konfigurasi static item dalam public folder
+app.use("/files", express.static(path.join(__dirname, '../public/files')));
 app.use(express.static(path.join(__dirname, '../public/app')));
 
-// konfigurasi view engine "EJS"
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "../views"));
 
 // konfigurasi sequelize dengan option alter
 let PORT = process.env.PORT || 8090;

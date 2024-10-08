@@ -1,10 +1,12 @@
 import { decrypt } from "../config/crypto";
-import { getAllPost, updatePosts, DeletePost, addPost, getAllPostCount, getPostCount, getPostById, getAllMatchPost } from "../controllers/post.controller";
+import { getAllPost, updatePosts, DeletePost, addPost, getAllPostCount, getPostCount, getPostById, getAllMatchPost, getAllPostInternal, getAllPostPartner } from "../controllers/post.controller";
 import express from "express";
     
 const postRouter = express.Router();
 
 postRouter.get("/", getAllPost)
+postRouter.get("/internal", getAllPostInternal)
+postRouter.get("/partner", getAllPostPartner)
 postRouter.get("/match", getAllMatchPost)
 postRouter.get("/count", getPostCount)
 postRouter.get("/count-all", getAllPostCount)

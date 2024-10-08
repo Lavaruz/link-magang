@@ -4,12 +4,15 @@ import Skills from "./Skills";
 
 class Post extends Model {
   declare id: CreationOptional<number>;
+  declare category: string;
   declare title: string;
   declare link: string;
   declare company: string;
+  declare company_logo: string;
   declare type: string;
   declare location: string;
   declare post_date: string;
+  declare end_date: string;
   declare tags: string;
   declare platform: string;
   declare overview: string;
@@ -34,6 +37,11 @@ Post.init(
       primaryKey: true,
       unique: true,
     },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Internal"
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false
@@ -46,6 +54,11 @@ Post.init(
       type: DataTypes.STRING,
       allowNull: false
     },
+    company_logo: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      defaultValue: null
+    },
     type: {
       type: DataTypes.STRING,
       defaultValue: "internship"
@@ -57,9 +70,12 @@ Post.init(
     post_date: {
       type: DataTypes.STRING,
     },
+    end_date: {
+      type: DataTypes.STRING,
+    },
     platform: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       defaultValue: "Lainnya..."
     },
     overview: {

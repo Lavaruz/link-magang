@@ -16,6 +16,11 @@ Post.init({
         primaryKey: true,
         unique: true,
     },
+    category: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "Internal"
+    },
     title: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
@@ -28,6 +33,11 @@ Post.init({
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
     },
+    company_logo: {
+        type: sequelize_1.DataTypes.TEXT,
+        allowNull: true,
+        defaultValue: null
+    },
     type: {
         type: sequelize_1.DataTypes.STRING,
         defaultValue: "internship"
@@ -39,9 +49,12 @@ Post.init({
     post_date: {
         type: sequelize_1.DataTypes.STRING,
     },
+    end_date: {
+        type: sequelize_1.DataTypes.STRING,
+    },
     platform: {
         type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         defaultValue: "Lainnya..."
     },
     overview: {
