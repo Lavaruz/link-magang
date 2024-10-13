@@ -17,9 +17,6 @@ export const getAllPost = async (req: Request, res: Response) => {
       let type:any = req.query.type || ""
       let locations:any = req.query.locations || ""
 
-      console.log(req.query);
-      
-
       let db_page = req.query.page || 1
       let db_limit = req.query.limit || 20
       let db_offset:any = req.query.offset

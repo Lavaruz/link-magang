@@ -1,6 +1,7 @@
 import { DataTypes, Model,CreationOptional, BelongsToManyAddAssociationMixin, BelongsToManyGetAssociationsMixin, BelongsToManyRemoveAssociationMixin, BelongsToManySetAssociationsMixin } from "sequelize";
 import { sequelize } from "."; // Pastikan Anda mengganti path sesuai dengan struktur direktori Anda
 import Skills from "./Skills";
+import User from "./User";
 
 class Post extends Model {
   declare id: CreationOptional<number>;
@@ -26,6 +27,11 @@ class Post extends Model {
   declare getSkills: BelongsToManyGetAssociationsMixin<Skills>
   declare removeSkills: BelongsToManyRemoveAssociationMixin<Skills,number>
   declare setSkills: BelongsToManySetAssociationsMixin<Skills,number>
+
+  declare addSavedBy: BelongsToManyAddAssociationMixin<User, number>;
+  declare getSavedBy: BelongsToManyGetAssociationsMixin<User>;
+  declare removeSavedBy: BelongsToManyRemoveAssociationMixin<User, number>;
+  declare setSavedBy: BelongsToManySetAssociationsMixin<User, number>;
 }
 
 Post.init(

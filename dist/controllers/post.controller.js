@@ -18,7 +18,6 @@ const getAllPost = async (req, res) => {
         let skills = req.query.skills || "";
         let type = req.query.type || "";
         let locations = req.query.locations || "";
-        console.log(req.query);
         let db_page = req.query.page || 1;
         let db_limit = req.query.limit || 20;
         let db_offset = req.query.offset;

@@ -16,6 +16,8 @@ userRouter.get("/active", user_controller_1.GetAllUserWhereActiveSearch);
 userRouter.get("/info", user_controller_1.GetUserByToken);
 userRouter.get("/info/domicile", user_controller_1.GetAllUserDomicile);
 userRouter.get("/info/educations", user_controller_1.GetAllUserEducations);
+userRouter.get("/info/saved-post", user_controller_1.GetAllSavedPost);
+userRouter.post("/info/saved-post", decodeMiddleware, user_controller_1.HandleAllSavedPost);
 userRouter.put("/info/skills", decodeMiddleware, user_controller_1.AddSkillToUser);
 userRouter.put("/info/config", decodeMiddleware, user_controller_1.UpdateActiveSearch);
 userRouter.get("/info/educations", user_controller_1.GetEducationsByUserToken);

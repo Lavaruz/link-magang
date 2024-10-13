@@ -1,5 +1,5 @@
 import express from "express";
-import { AddNewEducation, AddNewExperience, AddNewLocation, AddNewSkill, AddSkillToUser, AddViewsUser, adminLogin, ChangeImageRouter, CreateAttachmentUserDontHave, CreateSocialUserDontHave, DeleteEducationById, DeleteExperienceById, GetAllLocations, GetAllProfilePicture, GetAllSkills, GetAllUserDomicile, GetAllUserEducations, GetAllUsers, GetAllUserWhereActiveSearch, GetEducationsByUserToken, GetExperienceById, GetExperiencesByUserToken, GetTotalUser, GetUserById, GetUserByToken, GoogleLoginHandler, UpdateActiveSearch, UpdateAttachment, UpdateEducationById, UpdateExperienceById, UpdateSocials, UpdateUserByToken, UserLogout, VerifyJWT } from "../controllers/user.controller";
+import { AddNewEducation, AddNewExperience, AddNewLocation, AddNewSkill, AddSkillToUser, AddViewsUser, adminLogin, ChangeImageRouter, CreateAttachmentUserDontHave, CreateSocialUserDontHave, DeleteEducationById, DeleteExperienceById, GetAllLocations, GetAllProfilePicture, GetAllSavedPost, GetAllSkills, GetAllUserDomicile, GetAllUserEducations, GetAllUsers, GetAllUserWhereActiveSearch, GetEducationsByUserToken, GetExperienceById, GetExperiencesByUserToken, GetTotalUser, GetUserById, GetUserByToken, GoogleLoginHandler, HandleAllSavedPost, UpdateActiveSearch, UpdateAttachment, UpdateEducationById, UpdateExperienceById, UpdateSocials, UpdateUserByToken, UserLogout, VerifyJWT } from "../controllers/user.controller";
 import { decrypt } from "../config/crypto";    
 
 const userRouter = express.Router();
@@ -17,6 +17,9 @@ userRouter.get("/active", GetAllUserWhereActiveSearch)
 userRouter.get("/info", GetUserByToken)
 userRouter.get("/info/domicile", GetAllUserDomicile)
 userRouter.get("/info/educations", GetAllUserEducations)
+
+userRouter.get("/info/saved-post", GetAllSavedPost)
+userRouter.post("/info/saved-post", decodeMiddleware, HandleAllSavedPost)
 
 userRouter.put("/info/skills",decodeMiddleware, AddSkillToUser)
 userRouter.put("/info/config", decodeMiddleware, UpdateActiveSearch)
@@ -40,6 +43,7 @@ userRouter.post("/locations", decodeMiddleware, AddNewLocation)
 
 userRouter.put("/info/attachments", decodeMiddleware, UpdateAttachment)
 userRouter.put("/info/socials", decodeMiddleware, UpdateSocials)
+
 
 userRouter.get("/verify-token", VerifyJWT)
 userRouter.get("/total-user", GetTotalUser)

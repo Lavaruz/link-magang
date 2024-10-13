@@ -6,6 +6,7 @@ import Attachment from "./UserAttachment";
 import Socials from "./UserSocial";
 import Skills from "./Skills";
 import Config from "./UserConfig";
+import Post from "./Post";
 
 class User extends Model {
   declare id: CreationOptional<number>;
@@ -50,6 +51,13 @@ class User extends Model {
   declare getSkills: BelongsToManyGetAssociationsMixin<Skills>
   declare removeSkills: BelongsToManyRemoveAssociationMixin<Skills,number>
   declare setSkills: BelongsToManySetAssociationsMixin<Skills,number>
+
+  declare addSaved_post: BelongsToManyAddAssociationMixin<Post, number>;
+  declare getSaved_posts: BelongsToManyGetAssociationsMixin<Post>;
+  declare removeSaved_post: BelongsToManyRemoveAssociationMixin<Post, number>;
+  declare setSaved_posts: BelongsToManySetAssociationsMixin<Post, number>;
+
+
 }
 
 const ADMIN_ROLE = 1
@@ -159,6 +167,20 @@ Skills.belongsToMany(User,{
   sourceKey: "id",
   constraints: false,
   through: "UserSkill"
+})
+
+// SAVED POSTS
+User.belongsToMany(Post,{
+  as: "saved_posts",
+  sourceKey: "id",
+  constraints: false,
+  through: "UserPostSaved"
+})
+Post.belongsToMany(User,{
+  as: "saved_by",
+  sourceKey: "id",
+  constraints: false,
+  through: "UserPostSaved"
 })
 
 export default User;

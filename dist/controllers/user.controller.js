@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ChangeImageRouter = exports.CreateAttachmentUserDontHave = exports.CreateSocialUserDontHave = exports.UpdateActiveSearch = exports.GetAllProfilePicture = exports.UpdateSocials = exports.UpdateAttachment = exports.AddNewLocation = exports.GetAllUserDomicile = exports.GetAllLocations = exports.AddSkillToUser = exports.AddNewSkill = exports.GetAllSkills = exports.DeleteEducationById = exports.UpdateEducationById = exports.GetAllUserEducations = exports.AddNewEducation = exports.DeleteExperienceById = exports.AddNewExperience = exports.GetExperienceById = exports.UpdateExperienceById = exports.GetExperiencesByUserToken = exports.GetEducationsByUserToken = exports.GoogleLoginHandler = exports.UpdateUserByToken = exports.GetTotalUser = exports.GetUserByToken = exports.AddViewsUser = exports.GetUserById = exports.GetAllUserWhereActiveSearch = exports.GetAllUsers = exports.UserLogout = exports.adminLogin = exports.VerifyJWT = void 0;
+exports.HandleAllSavedPost = exports.GetAllSavedPost = exports.ChangeImageRouter = exports.CreateAttachmentUserDontHave = exports.CreateSocialUserDontHave = exports.UpdateActiveSearch = exports.GetAllProfilePicture = exports.UpdateSocials = exports.UpdateAttachment = exports.AddNewLocation = exports.GetAllUserDomicile = exports.GetAllLocations = exports.AddSkillToUser = exports.AddNewSkill = exports.GetAllSkills = exports.DeleteEducationById = exports.UpdateEducationById = exports.GetAllUserEducations = exports.AddNewEducation = exports.DeleteExperienceById = exports.AddNewExperience = exports.GetExperienceById = exports.UpdateExperienceById = exports.GetExperiencesByUserToken = exports.GetEducationsByUserToken = exports.GoogleLoginHandler = exports.UpdateUserByToken = exports.GetTotalUser = exports.GetUserByToken = exports.AddViewsUser = exports.GetUserById = exports.GetAllUserWhereActiveSearch = exports.GetAllUsers = exports.UserLogout = exports.adminLogin = exports.VerifyJWT = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../models/User"));
 const JWT_1 = require("../config/JWT");
@@ -20,6 +20,7 @@ const UserConfig_1 = __importDefault(require("../models/UserConfig"));
 const Locations_1 = __importDefault(require("../models/Locations"));
 const sequelize_1 = require("sequelize");
 const Mailer_1 = __importDefault(require("../config/Mailer"));
+const Post_1 = __importDefault(require("../models/Post"));
 function VerifyJWT(req, res) {
     const accessToken = req.headers.authorization;
     try {
@@ -820,7 +821,6 @@ async function CreateAttachmentUserDontHave(req, res) {
                 '$attachments.id$': null // Filter users without socials
             }
         });
-        console.log(USERS.length);
         USERS.forEach(async (user) => {
             await user.createAttachments();
         });
@@ -876,6 +876,63 @@ async function ChangeImageRouter(req, res) {
     }
 }
 exports.ChangeImageRouter = ChangeImageRouter;
+// ----------------------- SAVED POST -----------------------
+async function GetAllSavedPost(req, res) {
+    const userToken = req.headers.authorization;
+    try {
+        if (!userToken)
+            return res.status(400).json({ message: "token is required" });
+        jsonwebtoken_1.default.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded) {
+            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+            if (err)
+                return res.status(400).send(err);
+            const USER = await User_1.default.findOne({ where: { id: decoded.id } });
+            if (!USER)
+                return res.status(404).json({ message: "user not found" });
+            const SAVED_POST = await USER.getSaved_posts({
+                include: [
+                    { model: Skills_1.default, as: "skills" },
+                ]
+            });
+            return res.status(200).json(SAVED_POST);
+        });
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: error.message });
+    }
+}
+exports.GetAllSavedPost = GetAllSavedPost;
+async function HandleAllSavedPost(req, res) {
+    const userToken = req.headers.authorization;
+    const savedPostData = req.body;
+    try {
+        if (!userToken)
+            return res.status(400).json({ message: "token is required" });
+        jsonwebtoken_1.default.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded) {
+            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+            if (err)
+                return res.status(400).send(err);
+            const USER = await User_1.default.findOne({ where: { id: decoded.id } });
+            if (!USER)
+                return res.status(404).json({ message: "user not found" });
+            const SAVED_POST = await USER.getSaved_posts();
+            const POST = await Post_1.default.findByPk(savedPostData.id);
+            if (savedPostData.isLike == "true" || savedPostData.isLike == true) {
+                await USER.addSaved_post(POST);
+            }
+            else {
+                await USER.removeSaved_post(POST);
+            }
+            return res.status(200).json(SAVED_POST);
+        });
+    }
+    catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: error.message });
+    }
+}
+exports.HandleAllSavedPost = HandleAllSavedPost;
 function calculateTotalExperienceMonth(experiences) {
     let totalMonths = 0;
     experiences.forEach(exp => {

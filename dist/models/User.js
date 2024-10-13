@@ -11,6 +11,7 @@ const UserAttachment_1 = __importDefault(require("./UserAttachment"));
 const UserSocial_1 = __importDefault(require("./UserSocial"));
 const Skills_1 = __importDefault(require("./Skills"));
 const UserConfig_1 = __importDefault(require("./UserConfig"));
+const Post_1 = __importDefault(require("./Post"));
 class User extends sequelize_1.Model {
 }
 const ADMIN_ROLE = 1;
@@ -113,6 +114,19 @@ Skills_1.default.belongsToMany(User, {
     sourceKey: "id",
     constraints: false,
     through: "UserSkill"
+});
+// SAVED POSTS
+User.belongsToMany(Post_1.default, {
+    as: "saved_posts",
+    sourceKey: "id",
+    constraints: false,
+    through: "UserPostSaved"
+});
+Post_1.default.belongsToMany(User, {
+    as: "saved_by",
+    sourceKey: "id",
+    constraints: false,
+    through: "UserPostSaved"
 });
 exports.default = User;
 //# sourceMappingURL=User.js.map

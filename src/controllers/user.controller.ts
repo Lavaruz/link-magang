@@ -15,6 +15,7 @@ import Config from "../models/UserConfig"
 import Locations from "../models/Locations"
 import { Op, Sequelize } from "sequelize";
 import transporter from "../config/Mailer"
+import Post from "../models/Post"
 
 export function VerifyJWT(req:Request, res:Response){
     const accessToken = req.headers.authorization
@@ -849,7 +850,6 @@ export async function CreateAttachmentUserDontHave(req:Request, res: Response){
                 '$attachments.id$': null // Filter users without socials
             }
         });
-        console.log(USERS.length);
         
         USERS.forEach(async user => {
             await user.createAttachments()
@@ -911,6 +911,63 @@ export async function ChangeImageRouter(req: Request, res: Response) {
     }
 }
 
+
+
+// ----------------------- SAVED POST -----------------------
+export async function GetAllSavedPost(req: Request, res: Response) {
+    const userToken = req.headers.authorization
+
+    try {
+        if(!userToken) return res.status(400).json({message: "token is required"})
+
+        jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
+            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+            if(err) return res.status(400).send(err)
+            const USER = await User.findOne({where:{id: decoded.id}})
+            if(!USER) return res.status(404).json({message: "user not found"})
+
+            const SAVED_POST = await USER.getSaved_posts({
+                include: [
+                    {model: Skills, as:"skills"},
+                ]
+            })
+            return res.status(200).json(SAVED_POST)
+
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({message: error.message})
+    }
+}
+export async function HandleAllSavedPost(req: Request, res: Response) {
+    const userToken = req.headers.authorization
+    const savedPostData = req.body
+    try {
+        if(!userToken) return res.status(400).json({message: "token is required"})
+
+        jwt.verify(userToken, process.env.ACCESS_TOKEN_SECRET, async function (err, decoded:any){
+            // if(err) return res.status(200).json({message: "Unauthorized, refresh token invalid"})
+            if(err) return res.status(400).send(err)
+            const USER = await User.findOne({where:{id: decoded.id}})
+            if(!USER) return res.status(404).json({message: "user not found"})
+
+            const SAVED_POST = await USER.getSaved_posts()
+            const POST = await Post.findByPk(savedPostData.id)
+
+            if(savedPostData.isLike == "true" || savedPostData.isLike == true){
+                await USER.addSaved_post(POST)
+            }else{
+                await USER.removeSaved_post(POST)
+            }
+
+            return res.status(200).json(SAVED_POST)
+
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({message: error.message})
+    }
+}
 
 
 
