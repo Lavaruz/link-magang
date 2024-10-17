@@ -624,7 +624,9 @@ export async function DeleteEducationById(req:Request, res:Response) {
 
 export async function GetAllSkills(req:Request, res: Response){
     try {
-        const SKILLS = await Skills.findAll()
+        const SKILLS = await Skills.findAll({
+            order: [["skill", "ASC"]]
+        })
         const encryptedData = encrypt(SKILLS)
         return res.status(200).json(encryptedData)
     } catch (error) {
@@ -646,6 +648,8 @@ export async function AddNewSkill(req:Request, res: Response){
 }
 
 export async function AddSkillToUser(req:Request, res: Response){
+    console.log(req.body);
+    
     let skillBody = req.body.split(";")
     const userToken = req.headers.authorization
     try {

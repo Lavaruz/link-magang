@@ -79,7 +79,7 @@ export const getAllPost = async (req: Request, res: Response) => {
 export const getAllPostMacthSkill = async (req: Request, res: Response) => {
     try {
       let skills:any = req.query.skills || ""
-
+      
       let db_page = req.query.page || 1
       let db_limit = req.query.limit || 4
       let db_offset:any = req.query.offset
@@ -91,7 +91,9 @@ export const getAllPostMacthSkill = async (req: Request, res: Response) => {
         offset: +db_offset || (+db_page - 1) * +db_limit,
         distinct: true,
         include: [
-          {model: Skills, as: "skills"}
+          {model: Skills, as: "skills", where: {
+            skill: skills
+          }}
         ]
       })
 
