@@ -76,6 +76,41 @@ export const getAllPost = async (req: Request, res: Response) => {
     }
 };
 
+export const getAllPostMacthSkill = async (req: Request, res: Response) => {
+    try {
+      let skills:any = req.query.skills || ""
+
+      let db_page = req.query.page || 1
+      let db_limit = req.query.limit || 4
+      let db_offset:any = req.query.offset
+      skills = skills.length > 0 ? skills.split(";") : []
+
+      const POST = await Post.findAndCountAll({
+        attributes:{exclude:[ "updatedAt"]},
+        limit: +db_limit,
+        offset: +db_offset || (+db_page - 1) * +db_limit,
+        distinct: true,
+        include: [
+          {model: Skills, as: "skills"}
+        ]
+      })
+
+      const total_pages = Math.ceil(POST.count / +db_limit);
+
+      let encryptedData = encrypt({
+        limit: db_limit,
+        page: db_page,
+        total_page: total_pages,
+        datas: POST.rows,
+        total_entries: POST.count
+      }, process.env.AES_KEYS)
+
+      return res.status(200).json(encryptedData)
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+};
+
 export const getAllPostInternal = async (req: Request, res: Response) => {
   try {
     const search = req.query.search || ""
